@@ -114,13 +114,33 @@ section img{
 
 #top .center .right img{
   height: auto;
-  width: 500px;
+  width: 60%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
+@media (max-width: 1122px) {
+  #top .center .right{
+    display:none;
+  }
+  #top .center .left{
+    width: auto;
+  }
+  #top .center .left h1{
+    padding-left:20%;
+  }
+  #top .center .left p{
+    padding-left:21%;
+  }
+  #top .center .left span{
+    padding-left:21%;
+  }
+  #top .center .left button{
+    margin-left:20%;
+  }
+}
 @media (max-width: 439px) {
   #top .navbar .nav ul{
     margin-right:10px;
