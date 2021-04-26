@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ActiviteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,22 @@ class Activite
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $observation;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="activite")
+     */
+    private $Groupe;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=membre::class, inversedBy="activites")
+     */
+    private $membres;
+
+    public function __construct()
+    {
+        $this->Groupe = new ArrayCollection();
+        $this->membres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +121,60 @@ class Activite
     public function setObservation(?string $observation): self
     {
         $this->observation = $observation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Groupe[]
+     */
+    public function getGroupe(): Collection
+    {
+        return $this->Groupe;
+    }
+
+    public function addGroupe(Groupe $groupe): self
+    {
+        if (!$this->Groupe->contains($groupe)) {
+            $this->Groupe[] = $groupe;
+            $groupe->setActivite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupe(Groupe $groupe): self
+    {
+        if ($this->Groupe->removeElement($groupe)) {
+            // set the owning side to null (unless already changed)
+            if ($groupe->getActivite() === $this) {
+                $groupe->setActivite(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|membre[]
+     */
+    public function getMembres(): Collection
+    {
+        return $this->membres;
+    }
+
+    public function addMembre(membre $membre): self
+    {
+        if (!$this->membres->contains($membre)) {
+            $this->membres[] = $membre;
+        }
+
+        return $this;
+    }
+
+    public function removeMembre(membre $membre): self
+    {
+        $this->membres->removeElement($membre);
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\InstructeurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,11 +52,6 @@ class Instructeur
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Groupe_Encadré;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $Adresse;
 
     /**
@@ -81,6 +78,22 @@ class Instructeur
      * @ORM\Column(type="string", length=255)
      */
     private $Observation;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="instructeur")
+     */
+    private $GroupeEncadre;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EmploiDuTemps::class, mappedBy="instructeur")
+     */
+    private $EmploiDuTemps;
+
+    public function __construct()
+    {
+        $this->GroupeEncadre = new ArrayCollection();
+        $this->EmploiDuTemps = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -159,17 +172,6 @@ class Instructeur
         return $this;
     }
 
-    public function getGroupeEncadré(): ?string
-    {
-        return $this->Groupe_Encadré;
-    }
-
-    public function setGroupeEncadré(string $Groupe_Encadré): self
-    {
-        $this->Groupe_Encadré = $Groupe_Encadré;
-
-        return $this;
-    }
 
     public function getAdresse(): ?string
     {
@@ -239,6 +241,66 @@ class Instructeur
     public function setObservation(string $Observation): self
     {
         $this->Observation = $Observation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Groupe[]
+     */
+    public function getGroupeEncadre(): Collection
+    {
+        return $this->GroupeEncadre;
+    }
+
+    public function addGroupeEncadre(Groupe $groupeEncadre): self
+    {
+        if (!$this->GroupeEncadre->contains($groupeEncadre)) {
+            $this->GroupeEncadre[] = $groupeEncadre;
+            $groupeEncadre->setInstructeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupeEncadre(Groupe $groupeEncadre): self
+    {
+        if ($this->GroupeEncadre->removeElement($groupeEncadre)) {
+            // set the owning side to null (unless already changed)
+            if ($groupeEncadre->getInstructeur() === $this) {
+                $groupeEncadre->setInstructeur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EmploiDuTemps[]
+     */
+    public function getEmploiDuTemps(): Collection
+    {
+        return $this->EmploiDuTemps;
+    }
+
+    public function addEmploiDuTemp(EmploiDuTemps $emploiDuTemp): self
+    {
+        if (!$this->EmploiDuTemps->contains($emploiDuTemp)) {
+            $this->EmploiDuTemps[] = $emploiDuTemp;
+            $emploiDuTemp->setInstructeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmploiDuTemp(EmploiDuTemps $emploiDuTemp): self
+    {
+        if ($this->EmploiDuTemps->removeElement($emploiDuTemp)) {
+            // set the owning side to null (unless already changed)
+            if ($emploiDuTemp->getInstructeur() === $this) {
+                $emploiDuTemp->setInstructeur(null);
+            }
+        }
 
         return $this;
     }

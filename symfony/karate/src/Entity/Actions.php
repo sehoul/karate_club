@@ -32,6 +32,11 @@ class Actions
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="actions")
+     */
+    private $User;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Actions
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
 
         return $this;
     }

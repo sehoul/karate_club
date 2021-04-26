@@ -17,10 +17,6 @@ class EmploiDuTemps
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $instructeur;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -37,22 +33,16 @@ class EmploiDuTemps
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Instructeur::class, inversedBy="EmploiDuTemps")
+     */
+    private $instructeur;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getInstructeur(): ?string
-    {
-        return $this->instructeur;
-    }
-
-    public function setInstructeur(string $instructeur): self
-    {
-        $this->instructeur = $instructeur;
-
-        return $this;
-    }
 
     public function getGroupe(): ?string
     {
@@ -86,6 +76,18 @@ class EmploiDuTemps
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getInstructeur(): ?Instructeur
+    {
+        return $this->instructeur;
+    }
+
+    public function setInstructeur(?Instructeur $instructeur): self
+    {
+        $this->instructeur = $instructeur;
 
         return $this;
     }

@@ -22,6 +22,16 @@ class Groupe
      */
     private $NomGroupe;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Instructeur::class, inversedBy="GroupeEncadre")
+     */
+    private $instructeur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Activite::class, inversedBy="Groupe")
+     */
+    private $activite;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +45,30 @@ class Groupe
     public function setNomGroupe(string $NomGroupe): self
     {
         $this->NomGroupe = $NomGroupe;
+
+        return $this;
+    }
+
+    public function getInstructeur(): ?Instructeur
+    {
+        return $this->instructeur;
+    }
+
+    public function setInstructeur(?Instructeur $instructeur): self
+    {
+        $this->instructeur = $instructeur;
+
+        return $this;
+    }
+
+    public function getActivite(): ?Activite
+    {
+        return $this->activite;
+    }
+
+    public function setActivite(?Activite $activite): self
+    {
+        $this->activite = $activite;
 
         return $this;
     }

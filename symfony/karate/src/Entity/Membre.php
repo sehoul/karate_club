@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MembreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -117,10 +119,27 @@ class Membre
      */
     private $malade;
 
+
+
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="membres")
+     */
+    private $categorie;
+
+    /**
+     * @ORM\OneToOne(targetEntity=InformationMedicale::class, mappedBy="membre", cascade={"persist", "remove"})
      */
     private $informationMedicale;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Activite::class, mappedBy="membres")
+     */
+    private $activites;
+
+    public function __construct()
+    {
+        $this->activites = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -367,14 +386,65 @@ class Membre
         return $this;
     }
 
-    public function getInformationMedicale(): ?string
+
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getInformationMedicale(): ?InformationMedicale
     {
         return $this->informationMedicale;
     }
 
-    public function setInformationMedicale(?string $informationMedicale): self
+    public function setInformationMedicale(?InformationMedicale $informationMedicale): self
     {
+        // unset the owning side of the relation if necessary
+        if ($informationMedicale === null && $this->informationMedicale !== null) {
+            $this->informationMedicale->setMembre(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($informationMedicale !== null && $informationMedicale->getMembre() !== $this) {
+            $informationMedicale->setMembre($this);
+        }
+
         $this->informationMedicale = $informationMedicale;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Activite[]
+     */
+    public function getActivites(): Collection
+    {
+        return $this->activites;
+    }
+
+    public function addActivite(Activite $activite): self
+    {
+        if (!$this->activites->contains($activite)) {
+            $this->activites[] = $activite;
+            $activite->addMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivite(Activite $activite): self
+    {
+        if ($this->activites->removeElement($activite)) {
+            $activite->removeMembre($this);
+        }
 
         return $this;
     }

@@ -52,6 +52,11 @@ class InformationMedicale
      */
     private $Observation;
 
+    /**
+     * @ORM\OneToOne(targetEntity=membre::class, inversedBy="informationMedicale", cascade={"persist", "remove"})
+     */
+    private $membre;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,18 @@ class InformationMedicale
     public function setObservation(string $Observation): self
     {
         $this->Observation = $Observation;
+
+        return $this;
+    }
+
+    public function getMembre(): ?membre
+    {
+        return $this->membre;
+    }
+
+    public function setMembre(?membre $membre): self
+    {
+        $this->membre = $membre;
 
         return $this;
     }
