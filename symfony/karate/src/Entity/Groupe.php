@@ -20,7 +20,7 @@ class Groupe
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Nom_Groupe;
+    private $NomGroupe;
 
     public function getId(): ?int
     {
@@ -29,12 +29,12 @@ class Groupe
 
     public function getNomGroupe(): ?string
     {
-        return $this->Nom_Groupe;
+        return $this->NomGroupe;
     }
 
-    public function setNomGroupe(string $Nom_Groupe): self
+    public function setNomGroupe(string $NomGroupe): self
     {
-        $this->Nom_Groupe = $Nom_Groupe;
+        $this->NomGroupe = $NomGroupe;
 
         return $this;
     }
