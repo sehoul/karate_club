@@ -8,7 +8,6 @@ import { NgForm , FormGroup , FormBuilder  ,FormControl , Validators } from '@an
   styleUrls: ['./add-form.component.css']
 })
 export class AddFormComponent implements OnInit {
-<<<<<<< Updated upstream
   form:  FormGroup
 
 
@@ -35,10 +34,6 @@ export class AddFormComponent implements OnInit {
 
     });
   }
-=======
-
-  constructor() { }
->>>>>>> Stashed changes
   ListMembres : any=[
 
      {id: 1 , categorie: 'A' , genre:'H' , grade: '2' }
