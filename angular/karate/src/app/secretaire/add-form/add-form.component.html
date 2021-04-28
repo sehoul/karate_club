@@ -1,5 +1,16 @@
+<div class="container">
+
 <form #f="ngForm" (ngSubmit)="submit(f)" >
   <div class="form-group">
+    <label for="ffk">NUM LICENCE FFK</label>
+    <input required ngModel name="ffk" #ffk="ngModel" (change)="log(ffk)" id="ffk" type="text" class="form-control">
+
+    <div class="alert alert-danger" *ngIf="ffk.touched&&!ffk.valid">
+      <div   *ngIf="ffk.errors?.required"> numero licence ffk obligatoire </div>
+    </div>
+
+
+
     <label for="firstname">PRENOM</label>
     <input
       required
@@ -170,3 +181,4 @@
   </p>
   <button class="btn btn-primary" [disabled]="!f.valid">ajouter</button>
 </form>
+</div>

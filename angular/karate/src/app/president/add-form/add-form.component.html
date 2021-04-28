@@ -96,7 +96,7 @@
 
         </div>
         <div class="form-group">
-          
+
           <label for="PrenomParent">Prenom parent</label>
           <input ngModel name="PrenomParent" #PrenomParent="ngModel" id="PrenomParent" type="text" class="form-control">
         </div>
@@ -148,6 +148,9 @@
           <textarea id="Observation" cols="15" rows="5" class="form-control"></textarea>
         </div>
         </div>
+
+      <button class="btn btn-primary" [disabled]="!f.valid">ajouter</button>
+
 
 
     </form>
