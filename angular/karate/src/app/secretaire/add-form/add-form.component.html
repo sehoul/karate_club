@@ -16,7 +16,7 @@
       <div   *ngIf="firstname.errors?.required">PRENOM obligatoire </div>
     </div>
 
-    <label for="lastname"> NOM</label>
+    <label for="lastname">NOM</label>
     <input
       required
       ngModel
@@ -40,7 +40,7 @@
       #datenaissance="ngModel"
       (change)="log(datenaissance)"
       id="datenaissance"
-      type="text"
+      type="date"
       class="form-control">
 
     <div class="alert alert-danger" *ngIf="datenaissance.touched&&!datenaissance.valid">
@@ -71,6 +71,97 @@
       <div   *ngIf="categorie.errors?.required"> categorie obligatoire </div>
     </div>
 
+    <label for="groupe">GROUPE</label>
+    <input required ngModel name="groupe" #groupe="ngModel" (change)="log(groupe)" id="groupe" type="text" class="form-control">
+
+    <div class="alert alert-danger" *ngIf="groupe.touched&&!groupe.valid">
+      <div   *ngIf="groupe.errors?.required"> groupe obligatoire </div>
+    </div>
+
+
+    <label for="adresse">ADRESSE</label>
+    <input required ngModel name="adresse" #adresse="ngModel" (change)="log(adresse)" id="adresse" type="text" class="form-control">
+
+    <div class="alert alert-danger" *ngIf="adresse.touched&&!adresse.valid">
+      <div   *ngIf="adresse.errors?.required"> adresse obligatoire </div>
+    </div>
+
+
+    <label for="tel1">TEL1</label>
+    <input required ngModel name="tel1" #tel1="ngModel" (change)="log(tel1)" id="tel1" type="text" class="form-control">
+
+    <div class="alert alert-danger" *ngIf="tel1.touched&&!tel1.valid">
+      <div   *ngIf="tel1.errors?.required"> tel1 obligatoire </div>
+    </div>
+
+
+    <label for="tel2">TEL2</label>
+    <input  ngModel name="tel2" #tel2="ngModel" (change)="log(tel2)" id="tel2" type="text" class="form-control">
+
+
+
+    <label for="email">EMAIL</label>
+    <input required ngModel name="email" #email="ngModel" (change)="log(email)" id="email" type="text" class="form-control">
+
+    <div class="alert alert-danger" *ngIf="email.touched&&!email.valid">
+      <div   *ngIf="email.errors?.required"> email obligatoire </div>
+    </div>
+
+
+    <label for="nompar">CATEGORIE</label>
+    <input required ngModel name="nompar" #nompar="ngModel" (change)="log(nompar)" id="nompar" type="text" class="form-control">
+
+    <div class="alert alert-danger" *ngIf="nompar.touched&&!nompar.valid">
+      <div   *ngIf="nompar.errors?.required"> nom des parents  obligatoire </div>
+    </div>
+
+
+    <label for="prenompar">PRENOM PARENTS</label>
+    <input required ngModel name="prenompar" #prenompar="ngModel" (change)="log(prenompar)" id="prenompar" type="text" class="form-control">
+
+    <div class="alert alert-danger" *ngIf="prenompar.touched&&!prenompar.valid">
+      <div   *ngIf="prenompar.errors?.required"> prenom des parents obligatoire </div>
+    </div>
+    <label for="tel1p">TEL1 PARENTS</label>
+    <input required ngModel name="tel1p" #tel1p="ngModel" (change)="log(tel1p)" id="tel1p" type="text" class="form-control">
+
+    <div class="alert alert-danger" *ngIf="tel1p.touched&&!tel1p.valid">
+      <div   *ngIf="tel1p.errors?.required"> tel1 parents obligatoire </div>
+    </div>
+
+
+    <label for="tel2p">TEL2 PARENTS</label>
+    <input  ngModel name="tel2p" #tel2p="ngModel" (change)="log(tel2p)" id="tel2p" type="text" class="form-control">
+
+    <label for="emailp">EMAIL PARENTS</label>
+    <input required ngModel name="emailp" #emailp="ngModel" (change)="log(emailp)" id="emailp" type="text" class="form-control">
+
+    <div class="alert alert-danger" *ngIf="categorie.touched&&!categorie.valid">
+      <div   *ngIf="categorie.errors?.required"> categorie obligatoire </div>
+    </div>
+    <label for="coti">COTISATION</label>
+    <input required ngModel name="coti" #coti="ngModel" (change)="log(coti)" id="coti" type="text" class="form-control">
+
+    <div class="alert alert-danger" *ngIf="coti.touched&&!coti.valid">
+      <div   *ngIf="coti.errors?.required"> cotisation obligatoire </div>
+    </div>
+    <label for="dateinscr">DATE 1ERE INSCRIPTION</label>
+    <input required ngModel name="dateinscr" #dateinscr="ngModel" (change)="log(dateinscr)" id="dateinscr" type="date" class="form-control">
+
+    <div class="alert alert-danger" *ngIf="dateinscr.touched&&!dateinscr.valid">
+      <div   *ngIf="dateinscr.errors?.required"> date 1ere inscription obligatoire </div>
+    </div>
+
+    <label for="grade">GRADE</label>
+    <input required ngModel name="grade" #grade="ngModel" (change)="log(grade)" id="grade" type="text" class="form-control">
+
+    <div class="alert alert-danger" *ngIf="grade.touched&&!grade.valid">
+      <div   *ngIf="grade.errors?.required"> grade obligatoire </div>
+    </div>
+
+
+    <label for="obser">OBSERVATION</label>
+    <textarea ngModel name="obser" id="obser" cols="30" rows="10" class="form-control" > </textarea>
 
   </div>
 
