@@ -7,7 +7,9 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { InstructeurComponent } from './instructeur/instructeur.component';
 import { InstructeurModule } from './instructeur/instructeur.module';
 import {PresidentComponent} from './president/president.component';
+import { PresidentModule } from './president/president.module';
 import {SecretaireComponent} from './secretaire/secretaire.component';
+import { SecretaireModule } from './secretaire/secretaire.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import {SecretaireComponent} from './secretaire/secretaire.component';
   imports: [
     BrowserModule,
     InstructeurModule,
+    PresidentModule,
+    SecretaireModule,
     AppRoutingModule
   ],
   providers: [],
