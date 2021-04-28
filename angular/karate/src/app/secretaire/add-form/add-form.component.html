@@ -13,7 +13,7 @@
 
     <div class="alert alert-danger" *ngIf="firstname.touched&&!firstname.valid">
 
-      <div   *ngIf="firstname.errors.required">PRENOM obligatoire </div>
+      <div   *ngIf="firstname.errors?.required">PRENOM obligatoire </div>
     </div>
 
     <label for="lastname"> NOM</label>
@@ -29,7 +29,7 @@
 
     <div class="alert alert-danger" *ngIf="lastname.touched&&!lastname.valid">
 
-      <div   *ngIf="lastname.errors.required"> nom obligatoire </div>
+      <div   *ngIf="lastname.errors?.required"> nom obligatoire </div>
     </div>
 
     <label for="datenaissance">DATE DE NAISSANCE</label>
@@ -45,7 +45,7 @@
 
     <div class="alert alert-danger" *ngIf="datenaissance.touched&&!datenaissance.valid">
 
-      <div   *ngIf="datenaissance.errors.required">DATE DE NAISSANCE OBLIGATOIRE  </div>
+      <div   *ngIf="datenaissance.errors?.required">DATE DE NAISSANCE OBLIGATOIRE  </div>
     </div>
 
     <label for="genre">GENRE</label>
@@ -61,31 +61,18 @@
 
     <div class="alert alert-danger" *ngIf="genre.touched&&!genre.valid">
 
-      <div   *ngIf="genre.errors.required">genre obligatoire </div>
+      <div   *ngIf="genre.errors?.required">genre obligatoire </div>
     </div>
 
     <label for="categorie">CATEGORIE</label>
     <input required ngModel name="categorie" #categorie="ngModel" (change)="log(categorie)" id="categorie" type="text" class="form-control">
 
     <div class="alert alert-danger" *ngIf="categorie.touched&&!categorie.valid">
-      <div   *ngIf="categorie.errors.required"> categorie obligatoire </div>
+      <div   *ngIf="categorie.errors?.required"> categorie obligatoire </div>
     </div>
 
 
-
-
-
-
-
-
-
-
   </div>
-
-
-
-
-
 
   <p>
     {{f.value | json}}
