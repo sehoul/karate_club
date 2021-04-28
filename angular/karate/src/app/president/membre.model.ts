@@ -4,7 +4,7 @@ export class Membre{
   private id:number
   private LicenceFFK:string  
   private Nom:string
-  private Prenom:number
+  private Prenom:string
   private DateNaissance:Date
   private Genre:string
   private categorie:string
@@ -13,12 +13,12 @@ export class Membre{
   private Tel1:string
   private Tel2:string
   private Email:string
-  private NomParent:string
-  private PrenomParent:string
-  private TelParent1:string
-  private TelParent2:string
-  private EmailParent:string
-  private Cotisation:number
+  private NomParent:string |null
+  private PrenomParent:string |null
+  private TelParent1:string |null
+  private TelParent2:string |null
+  private EmailParent:string |null
+  private Cotisation:number 
   private DateInscription:Date
   private Grade:string
   private Observation:string
@@ -27,7 +27,7 @@ export class Membre{
   public constructor(id:number
                     , LicenceFFK:string
                     , Nom:string
-                    , Prenom:number
+                    , Prenom:string
                     , DateNaissance:Date
                     , Genre:string 
                     , categorie:string
@@ -36,11 +36,11 @@ export class Membre{
                     , Tel1:string
                     , Tel2:string
                     , Email:string
-                    , NomParent:string
-                    , PrenomParent:string
-                    , TelParent1:string
-                    , TelParent2:string
-                    , EmailParent:string
+                    , NomParent:string | null
+                    , PrenomParent:string | null
+                    , TelParent1:string | null
+                    , TelParent2:string | null
+                    , EmailParent:string | null
                     , Cotisation:number
                     , DateInscription:Date
                     , Grade:string
