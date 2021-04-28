@@ -38,24 +38,24 @@
       #DateNaissance="ngModel"
        id="DateNaissance" type="date"
        class="form-control">
-      <div class="alert alert-danger" *ngIf="DateNaissance.touched && !DateNaissance.valid">
+      <div *ngIf="DateNaissance.touched && !DateNaissance.valid" class="alert alert-danger">
         <div
         *ngIf="DateNaissance.errors?.required">
         Ce champs est obligatoire.
         </div>
       </div>
     <label for="Genre">Genre</label>
-    <select ngModel  name=".." name="" id="..." class="form-control">
+    <!--<select ngModel  name=".." name="" id="..." class="form-control">
       <option value=""></option>
       <option  *ngFor ="" [ngValue]="membre">{{ }}</option>
 
-    </select>
+    </select>-->
     <label for="Categorie">Categorie</label>
-    <select ngModel  name=".." name="" id="..." class="form-control">
+   <!-- <select ngModel  name=".." name="" id="..." class="form-control">
       <option value=""></option>
       <option  *ngFor ="" [ngValue]="membre">{{ }}</option>
 
-    </select>
+    </select>-->
 
 
       <label for="Telephone1">Telephone 1</label>
@@ -159,36 +159,16 @@
                </div>
 
                <label for="Grade">Grade</label>
-               <select ngModel  name=".." name="" id="..." class="form-control">
+              <!-- 
+                <select ngModel  name=".." name="" id="..." class="form-control">
                  <option value=""></option>
                  <option  *ngFor ="" [ngValue]="membre">{{ }}</option>
 
                </select>
+              -->
 
                <label for="Observation">Observation</label>
                <textarea id="Observation" cols="15" rows="5" class="form-control"></textarea>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
    </div>
   </div>
