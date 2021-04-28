@@ -11,8 +11,8 @@
         <div class="form-group">
 
           <label for="LicenceFFK">Numero de Licence FFK</label>
-          <input required ngModel name="LicenceFFK" #LicenceFFK="ngModel" id="LicenceFFK" type="text" class="form-control">
-          <div class="alert alert-danger" *ngIf="LicenceFFK.touched && !LicenceFFK.valid">
+          <input required ngModel name="LicenceFFK" #LicenceFFK="ngModel" id="LicenceFFK" type="text" class="form-control" [ngClass]="LicenceFFK.invalid ? 'is-invalid' : 'is-valid'">
+          <div class="invalid-feedback" *ngIf="LicenceFFK.touched && !LicenceFFK.valid">
             <div *ngIf="LicenceFFK.errors?.required">
               Ce champs est obligatoire.
             </div>
