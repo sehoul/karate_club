@@ -7,6 +7,9 @@ import { Component} from '@angular/core';
 })
 export class AddFormComponent {
 
+  ListMembres=[
+    {id: 1 , categorie: 'A' , genre:'H' , grade: '2' },
+ ];
 
   log(x:any) {console.log(x);}
 

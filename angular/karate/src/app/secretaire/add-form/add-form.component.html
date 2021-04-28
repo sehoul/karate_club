@@ -1,186 +1,153 @@
 <div class="container">
-  <h1>AJOUTER MEMBRE</h1>
+  <h1>
+    Ajouter Membre
+  </h1>
+    <form #f="ngForm" (ngSubmit)="submit(f)">
+      <div ngModelGroup="membre" #membre="ngModelGroup">
+        <div class="form-group">
+
+          <label for="LicenceFFK">Numero de Licence FFK</label>
+          <input required ngModel name="LicenceFFK" #LicenceFFK="ngModel" id="LicenceFFK" type="text" class="form-control" [ngClass]="LicenceFFK.invalid ? 'is-invalid' : 'is-valid'">
+          <div class="invalid-feedback" *ngIf="LicenceFFK.touched && !LicenceFFK.valid">
+            <div *ngIf="LicenceFFK.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Nom">Nom</label>
+          <input required ngModel name="Nom" #Nom="ngModel" id="Nom" type="text" class="form-control" [ngClass]="Nom.invalid ? 'is-invalid' : 'is-valid'">
+          <div class="invalid-feedback" *ngIf="Nom.touched && !Nom.valid">
+            <div *ngIf="Nom.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group">
+
+          <label for="Nom">Prénom</label>
+          <input required ngModel name="Prenom" #Prenom="ngModel" id="Prenom" type="text" class="form-control" [ngClass]="Prenom.invalid ? 'is-invalid' : 'is-valid'">
+          <div class="invalid-feedback" *ngIf="Prenom.touched && !Prenom.valid">
+            <div *ngIf="Prenom.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label for="DateNaissance">Date de naissance</label>
+          <input required ngModel name="DateNaissance" #DateNaissance="ngModel" id="DateNaissance" type="date" class="form-control" [ngClass]="DateNaissance.invalid ? 'is-invalid' : 'is-valid'">
+          <div class="invalid-feedback" *ngIf="DateNaissance.touched && !DateNaissance.valid">
+            <div *ngIf="DateNaissance.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Genre">Genre</label>
+          <select ngModel name="Genre" name="" id="Genre" class="form-control">
+            <option value=""></option>
+            <option *ngFor="let membre of ListMembres" [ngValue]="membre">{{membre.genre}}</option>
+
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="Categorie">Categorie</label>
+          <select ngModel name="Categorie" name="" id="Categorie" class="form-control">
+            <option value=""></option>
+            <option *ngFor="let membre of ListMembres" [ngValue]="membre">{{membre.categorie }}</option>
+
+          </select>
+
+        </div>
+        <div class="form-group">
+          <label for="Telephone1">Telephone 1</label>
+          <input required ngModel name="Telephone1" #Telephone1="ngModel" id="Telephone1" type="tel" class="form-control" [ngClass]="Telephone1.invalid ? 'is-invalid' : 'is-valid'">
+          <div class="invalid-feedback" *ngIf="Telephone1.touched && !Telephone1.valid">
+            <div *ngIf="Telephone1.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Telephone2">Telephone 2</label>
+          <input ngModel name="Telephone2" #Telephone2="ngModel" id="Telephone2" type="tel" class="form-control">
+
+        </div>
+        <div class="form-group">
+          <label for="Email">E-mail</label>
+          <input required ngModel name="Email" #Email="ngModel" id="Email" type="text" class="form-control" [ngClass]="Email.invalid ? 'is-invalid' : 'is-valid'">
+          <div class="invalid-feedback" *ngIf="Email.touched && !Email.valid">
+            <div *ngIf="Email.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group">
+
+          <label for="NomParent">Nom parent</label>
+          <input ngModel name="NomParent" #NomParent="ngModel" id="NomParent" type="text" class="form-control">
+
+        </div>
+        <div class="form-group">
+
+          <label for="PrenomParent">Prenom parent</label>
+          <input ngModel name="PrenomParent" #PrenomParent="ngModel" id="PrenomParent" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="TelephoneParent1">Telephone parent 1</label>
+          <input ngModel name="TelephoneParent1" #TelephoneParent1="ngModel" id="TelephoneParent1" type="tel" class="form-control">
+        </div>
+        <div class="form-group">
+
+          <label for="TelephoneParent2">Telephone parent 2</label>
+          <input ngModel name="TelephoneParent2" #TelephoneParent2="ngModel" id="TelephoneParent2" type="tel" class="form-control">
+
+        </div>
+        <div class="form-group">
+
+          <label for="EmailParent">Email Parent</label>
+          <input ngModel name="EmailParent" #EmailParent="ngModel" id="EmailParent" type="text" class="form-control">
+
+        </div>
+        <div class="form-group">
+
+          <label for="Cotisation">Cotisation</label>
+          <input ngModel name="Cotisation" #Cotisation="ngModel" id="Cotisation" type="text" class="form-control">
+
+        </div>
+        <div class="form-group">
+
+          <label for="DatePremiereInscription">Date premiere inscription</label>
+          <input required ngModel name="DatePremiereInscription" #DatePremiereInscription="ngModel" id="DatePremiereInscription" type="date" class="form-control" [ngClass]="DatePremiereInscription.invalid ? 'is-invalid' : 'is-valid'">
+          <div class="invalid-feedback" *ngIf="DatePremiereInscription.touched && !DatePremiereInscription.valid">
+            <div *ngIf="DatePremiereInscription.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group">
+
+          <label for="Grade">Grade</label>
+          <select ngModel name="Grades" name="" id="Grades" class="form-control">
+            <option value=""></option>
+            <option *ngFor="let membre of ListMembres" [ngValue]="membre">{{membre.grade }}</option>
+
+          </select>
+        </div>
+        <div class="form-group">
+
+          <label for="Observation">Observation</label>
+          <textarea id="Observation" cols="15" rows="5" class="form-control"></textarea>
+        </div>
+        </div>
+
+      <button class="btn btn-primary" [disabled]="!f.valid">ajouter</button>
 
 
-  <form #f="ngForm" (ngSubmit)="submit(f)" >
-  <div class="form-group">
-    <label for="ffk">NUM LICENCE FFK</label>
-    <input required ngModel name="ffk" #ffk="ngModel" (change)="log(ffk)" id="ffk" type="text" class="form-control">
 
-    <div class="alert alert-danger" *ngIf="ffk.touched&&!ffk.valid">
-      <div   *ngIf="ffk.errors?.required"> numero licence ffk obligatoire </div>
-    </div>
-
-
-
-    <label for="firstname">PRENOM</label>
-    <input
-      required
-      ngModel
-      name="firstname"
-      #firstname="ngModel"
-      (change)="log(firstname)"
-      id="firstname"
-      type="text"
-      class="form-control">
-
-    <div class="alert alert-danger" *ngIf="firstname.touched&&!firstname.valid">
-
-      <div   *ngIf="firstname.errors?.required">PRENOM obligatoire </div>
-    </div>
-
-    <label for="lastname">NOM</label>
-    <input
-      required
-      ngModel
-      name="lastname"
-      #lastname="ngModel"
-      (change)="log(lastname)"
-      id="lastname"
-      type="text"
-      class="form-control">
-
-    <div class="alert alert-danger" *ngIf="lastname.touched&&!lastname.valid">
-
-      <div   *ngIf="lastname.errors?.required"> nom obligatoire </div>
-    </div>
-
-    <label for="datenaissance">DATE DE NAISSANCE</label>
-    <input
-      required
-      ngModel
-      name="datenaissance"
-      #datenaissance="ngModel"
-      (change)="log(datenaissance)"
-      id="datenaissance"
-      type="date"
-      class="form-control">
-
-    <div class="alert alert-danger" *ngIf="datenaissance.touched&&!datenaissance.valid">
-
-      <div   *ngIf="datenaissance.errors?.required">DATE DE NAISSANCE OBLIGATOIRE  </div>
-    </div>
-
-    <label for="genre">GENRE</label>
-    <input
-      required
-      ngModel
-      name="genre"
-      #genre="ngModel"
-      (change)="log(genre)"
-      id="genre"
-      type="text"
-      class="form-control">
-
-    <div class="alert alert-danger" *ngIf="genre.touched&&!genre.valid">
-
-      <div   *ngIf="genre.errors?.required">genre obligatoire </div>
-    </div>
-
-    <label for="categorie">CATEGORIE</label>
-    <input required ngModel name="categorie" #categorie="ngModel" (change)="log(categorie)" id="categorie" type="text" class="form-control">
-
-    <div class="alert alert-danger" *ngIf="categorie.touched&&!categorie.valid">
-      <div   *ngIf="categorie.errors?.required"> categorie obligatoire </div>
-    </div>
-
-    <label for="groupe">GROUPE</label>
-    <input required ngModel name="groupe" #groupe="ngModel" (change)="log(groupe)" id="groupe" type="text" class="form-control">
-
-    <div class="alert alert-danger" *ngIf="groupe.touched&&!groupe.valid">
-      <div   *ngIf="groupe.errors?.required"> groupe obligatoire </div>
-    </div>
-
-
-    <label for="adresse">ADRESSE</label>
-    <input required ngModel name="adresse" #adresse="ngModel" (change)="log(adresse)" id="adresse" type="text" class="form-control">
-
-    <div class="alert alert-danger" *ngIf="adresse.touched&&!adresse.valid">
-      <div   *ngIf="adresse.errors?.required"> adresse obligatoire </div>
-    </div>
-
-
-    <label for="tel1">TEL1</label>
-    <input required ngModel name="tel1" #tel1="ngModel" (change)="log(tel1)" id="tel1" type="text" class="form-control">
-
-    <div class="alert alert-danger" *ngIf="tel1.touched&&!tel1.valid">
-      <div   *ngIf="tel1.errors?.required"> tel1 obligatoire </div>
-    </div>
-
-
-    <label for="tel2">TEL2</label>
-    <input  ngModel name="tel2" #tel2="ngModel" (change)="log(tel2)" id="tel2" type="text" class="form-control">
-
-
-
-    <label for="email">EMAIL</label>
-    <input required ngModel name="email" #email="ngModel" (change)="log(email)" id="email" type="text" class="form-control">
-
-    <div class="alert alert-danger" *ngIf="email.touched&&!email.valid">
-      <div   *ngIf="email.errors?.required"> email obligatoire </div>
-    </div>
-
-
-    <label for="nompar">CATEGORIE</label>
-    <input required ngModel name="nompar" #nompar="ngModel" (change)="log(nompar)" id="nompar" type="text" class="form-control">
-
-    <div class="alert alert-danger" *ngIf="nompar.touched&&!nompar.valid">
-      <div   *ngIf="nompar.errors?.required"> nom des parents  obligatoire </div>
-    </div>
-
-
-    <label for="prenompar">PRENOM PARENTS</label>
-    <input required ngModel name="prenompar" #prenompar="ngModel" (change)="log(prenompar)" id="prenompar" type="text" class="form-control">
-
-    <div class="alert alert-danger" *ngIf="prenompar.touched&&!prenompar.valid">
-      <div   *ngIf="prenompar.errors?.required"> prenom des parents obligatoire </div>
-    </div>
-    <label for="tel1p">TEL1 PARENTS</label>
-    <input required ngModel name="tel1p" #tel1p="ngModel" (change)="log(tel1p)" id="tel1p" type="text" class="form-control">
-
-    <div class="alert alert-danger" *ngIf="tel1p.touched&&!tel1p.valid">
-      <div   *ngIf="tel1p.errors?.required"> tel1 parents obligatoire </div>
-    </div>
-
-
-    <label for="tel2p">TEL2 PARENTS</label>
-    <input  ngModel name="tel2p" #tel2p="ngModel" (change)="log(tel2p)" id="tel2p" type="text" class="form-control">
-
-    <label for="emailp">EMAIL PARENTS</label>
-    <input required ngModel name="emailp" #emailp="ngModel" (change)="log(emailp)" id="emailp" type="text" class="form-control">
-
-    <div class="alert alert-danger" *ngIf="categorie.touched&&!categorie.valid">
-      <div   *ngIf="categorie.errors?.required"> categorie obligatoire </div>
-    </div>
-    <label for="coti">COTISATION</label>
-    <input required ngModel name="coti" #coti="ngModel" (change)="log(coti)" id="coti" type="text" class="form-control">
-
-    <div class="alert alert-danger" *ngIf="coti.touched&&!coti.valid">
-      <div   *ngIf="coti.errors?.required"> cotisation obligatoire </div>
-    </div>
-    <label for="dateinscr">DATE 1ERE INSCRIPTION</label>
-    <input required ngModel name="dateinscr" #dateinscr="ngModel" (change)="log(dateinscr)" id="dateinscr" type="date" class="form-control">
-
-    <div class="alert alert-danger" *ngIf="dateinscr.touched&&!dateinscr.valid">
-      <div   *ngIf="dateinscr.errors?.required"> date 1ere inscription obligatoire </div>
-    </div>
-
-    <label for="grade">GRADE</label>
-    <input required ngModel name="grade" #grade="ngModel" (change)="log(grade)" id="grade" type="text" class="form-control">
-
-    <div class="alert alert-danger" *ngIf="grade.touched&&!grade.valid">
-      <div   *ngIf="grade.errors?.required"> grade obligatoire </div>
-    </div>
-
-
-    <label for="obser">OBSERVATION</label>
-    <textarea ngModel name="obser" id="obser" cols="30" rows="10" class="form-control" > </textarea>
-
-  </div>
-
-  <p>
-    {{f.value | json}}
-  </p>
-  <button class="btn btn-primary" [disabled]="!f.valid">ajouter</button>
-</form>
+    </form>
 </div>
