@@ -1,27 +1,27 @@
 export class Membre{
 
      // Variables
-  private id:number
-  private LicenceFFK:string  
-  private Nom:string
-  private Prenom:string
-  private DateNaissance:Date
-  private Genre:string
-  private categorie:string
-  private Groupe:string
-  private Adresse:string
-  private Tel1:string
-  private Tel2:string
-  private Email:string
-  private NomParent:string |null
-  private PrenomParent:string |null
-  private TelParent1:string |null
-  private TelParent2:string |null
-  private EmailParent:string |null
-  private Cotisation:number 
-  private DateInscription:Date
-  private Grade:string
-  private Observation:string
+  public id:number
+  public LicenceFFK:string  
+  public Nom:string
+  public Prenom:string
+  public DateNaissance:Date
+  public Genre:string
+  public categorie:string
+  public Groupe:string
+  public Adresse:string
+  public Tel1:string
+  public Tel2:string
+  public Email:string
+  public NomParent:string |null
+  public PrenomParent:string |null
+  public TelParent1:string |null
+  public TelParent2:string |null
+  public EmailParent:string |null
+  public Cotisation:number 
+  public DateInscription:Date
+  public Grade:string
+  public Observation:string
 
   //Constructeur
   public constructor(id:number
