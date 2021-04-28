@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddFormComponent } from './add-form/add-form.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -9,6 +10,7 @@ import { AddFormComponent } from './add-form/add-form.component';
     AddFormComponent
   ],
   imports: [
+    RouterModule,
     CommonModule
   ]
 })
