@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Membre } from '../membre.model';
+import { Membre } from '../../membre.model';
 
 @Component({
   selector: 'app-add-form',
