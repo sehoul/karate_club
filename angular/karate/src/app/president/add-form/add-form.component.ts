@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Membre } from '../../membre.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-form',
@@ -7,10 +8,13 @@ import { Membre } from '../../membre.model';
   styleUrls: ['./add-form.component.css']
 })
 export class AddFormComponent implements OnInit {
+  form= new FormGroup{
+    Membre: new FormGroup();
+  }
 
   constructor() { }
-  ListMembres=[
-     {id: 1 , categorie: 'A' , genre:'H' , grade: '2' },
+  ListMembres : any=[
+     {id: 1 , categorie: 'A' , genre:'H' , grade: '2' }
   ];
 
 
@@ -20,12 +24,19 @@ export class AddFormComponent implements OnInit {
   ]
 
 
-  submit(f:any) {
-    console.log(f);
-    f.value;
+  submit(f : NgForm) {
+    console.log(f.membre);
+    console.log(JSON.stringify(f.value));
 
 
-     }
+   }
+
+
+
+
+
+
+
   ngOnInit(): void {
 
     }

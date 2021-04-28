@@ -10,6 +10,7 @@ import {PresidentComponent} from './president/president.component';
 import { PresidentModule } from './president/president.module';
 import {SecretaireComponent} from './secretaire/secretaire.component';
 import { SecretaireModule } from './secretaire/secretaire.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SecretaireModule } from './secretaire/secretaire.module';
     InstructeurModule,
     PresidentModule,
     SecretaireModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
