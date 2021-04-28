@@ -14,7 +14,7 @@
 
       <div class="form-group">
         <label for="nom">Nom</label>
-        <input type="text" id="nom" class="form-control" formControlName="Nom" [ngClass]="form.controls['nom'].invalid && nom.touched ? 'is-invalid' : form.controls['nom'].valid? 'is-valid': '' ">
+        <input type="text" id="nom" class="form-control" formControlName="nom" [ngClass]="form.controls['nom'].invalid && nom.touched ? 'is-invalid' : form.controls['nom'].valid? 'is-valid': '' ">
         <div class="invalid-feedback" *ngIf="nom.touched">
           Ce champs est obligatoire.
         </div>
@@ -48,10 +48,11 @@
       <div class="form-group">
         <label for="categorie">Categorie</label>
         <select id="categorie" class="form-control" formControlName="categorie" [ngClass]="form.controls['categorie'].invalid && categorie.touched ? 'is-invalid' : form.controls['categorie'].valid? 'is-valid': '' ">
+          <option *ngFor="let cat of Categories" [value]="cat.id">{{cat.val}}</option>
+        </select>
         <div class="invalid-feedback" *ngIf="categorie.touched">
           Ce champs est obligatoire.
         </div>
-        </select>
       </div>
 
       <div class="form-group">
@@ -131,7 +132,7 @@
         <textarea id="Observation" cols="15" rows="5" class="form-control"></textarea>
       </div>
 
-      <button class="btn btn-primary" [disabled]="!form.valid">ajouter</button>
+      <button class="btn btn-primary" >ajouter</button>
 
 
     </form>

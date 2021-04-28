@@ -19,7 +19,7 @@ export class AddFormComponent implements OnInit {
       dateN:  new FormControl('', [Validators.required]),
       dateI:  new FormControl('', [Validators.required]),
       genre:  new FormControl('', [Validators.required]),
-      categorie:  new FormControl('', [Validators.required]),
+      categorie:  new FormControl([Validators.required]),
       tlphn1:  new FormControl('', [Validators.required]),
       tlphn2:  new FormControl('', [Validators.required]),
       email:  new FormControl('', [Validators.required]),
@@ -53,10 +53,8 @@ export class AddFormComponent implements OnInit {
 
 
 
-  ListMembres : any=[
-
-     {id: 1 , categorie: 'A' , genre:'H' , grade: '2' }
-  ];
+  ListMembres : any=[ {id: 1 , categorie: 'A' , genre:'H' , grade: '2' } ];
+  Categories : Array<any>=[ {id: 1 , val: 'Homme' } ];
 
 
 
@@ -72,12 +70,9 @@ export class AddFormComponent implements OnInit {
    }
 
 
-
-
-
-
-
   ngOnInit(): void {
+    console.log(this.Categories);
+    
 
     }
   }
