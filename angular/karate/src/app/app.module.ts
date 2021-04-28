@@ -6,14 +6,12 @@ import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { InstructeurComponent } from './instructeur/instructeur.component';
 import { InstructeurModule } from './instructeur/instructeur.module';
-import { SecretaireComponent } from './secretaire/secretaire.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
-    InstructeurComponent,
-    SecretaireComponent
+    InstructeurComponent
   ],
   imports: [
     BrowserModule,
