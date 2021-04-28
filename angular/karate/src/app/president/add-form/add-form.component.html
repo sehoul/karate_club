@@ -2,17 +2,17 @@
   <h1>
     Ajouter Membre
   </h1>
-    <form  #f="ngForm" (ngSubmit)="submit(f)">
+    <form  [formGroup]="form" (Submit)="submit()">
       <div formGroupName = "membre">
       <div ngModelGroup="membre" #membre="ngModelGroup">
         <div class="form-group">
 
           <label for="LicenceFFK">Numero de Licence FFK</label>
-          <input required ngModel name="LicenceFFK" #LicenceFFK="ngModel" id="LicenceFFK" type="text" class="form-control" [ngClass]="LicenceFFK.invalid ? 'is-invalid' : 'is-valid'">
-          <div class="invalid-feedback" *ngIf="LicenceFFK.touched && !LicenceFFK.valid">
-            <div *ngIf="LicenceFFK.errors?.required">
+          <input required FormControlName="licenceFFK" name="LicenceFFK"  id="LicenceFFK" type="text" class="form-control" [ngClass]="form.controls['licenceFFK'].invalid ? 'is-invalid' : 'is-valid'">
+          <div class="invalid-feedback" *ngIf="form.controls.licenceFFK.touched && form.controls['licenceFFK'].hasError('required')">
+
               Ce champs est obligatoire.
-            </div>
+
           </div>
         </div>
         <div class="form-group">
@@ -146,7 +146,7 @@
         </div>
         </div>
 
-      <button class="btn btn-primary" [disabled]="!f.valid">ajouter</button>
+      <button class="btn btn-primary" >ajouter</button>
 
 
 

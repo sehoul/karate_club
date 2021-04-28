@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Membre } from '../../membre.model';
-import { NgForm } from '@angular/forms';
+import { NgForm , FormGroup , FormBuilder  ,FormControl , Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-form',
@@ -8,12 +8,34 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./add-form.component.css']
 })
 export class AddFormComponent implements OnInit {
-  form= new FormGroup{
-    Membre: new FormGroup();
-  }
+  form:  FormGroup
 
-  constructor() { }
+
+  constructor(private fb: FormBuilder) {
+
+    this.form=this.fb.group({
+      nom:  new FormControl('', [Validators.required]),
+      licenceFFK:  new FormControl('', [Validators.required]),
+      prenom:  new FormControl('', [Validators.required]),
+      dateN:  new FormControl('', [Validators.required]),
+      dateI:  new FormControl('', [Validators.required]),
+      genre:  new FormControl('', [Validators.required]),
+      categorie:  new FormControl('', [Validators.required]),
+      tlphn1:  new FormControl('', [Validators.required]),
+      tlphn2:  new FormControl('', [Validators.required]),
+      email:  new FormControl('', [Validators.required]),
+      nomP: new FormControl('', [Validators.required]),
+      prenomP:  new FormControl('', [Validators.required]),
+      emailP:  new FormControl('', [Validators.required]),
+      cotisation:  new FormControl('', [Validators.required]),
+      grade:  new FormControl('', [Validators.required]),
+      observation:  new FormControl('', [Validators.required]),
+
+
+    });
+  }
   ListMembres : any=[
+
      {id: 1 , categorie: 'A' , genre:'H' , grade: '2' }
   ];
 
@@ -24,9 +46,8 @@ export class AddFormComponent implements OnInit {
   ]
 
 
-  submit(f : NgForm) {
-    console.log(f.membre);
-    console.log(JSON.stringify(f.value));
+  submit() {
+    console.log(this.form.getRawValue());
 
 
    }
