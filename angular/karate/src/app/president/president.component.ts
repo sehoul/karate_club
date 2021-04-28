@@ -9,6 +9,8 @@ export class PresidentComponent implements OnInit {
 
   constructor() { }
 
+  
+
   ngOnInit(): void {
   }
 
