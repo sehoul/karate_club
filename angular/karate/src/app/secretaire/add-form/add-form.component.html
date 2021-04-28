@@ -1,6 +1,8 @@
 <div class="container">
+  <h1>AJOUTER MEMBRE</h1>
 
-<form #f="ngForm" (ngSubmit)="submit(f)" >
+
+  <form #f="ngForm" (ngSubmit)="submit(f)" >
   <div class="form-group">
     <label for="ffk">NUM LICENCE FFK</label>
     <input required ngModel name="ffk" #ffk="ngModel" (change)="log(ffk)" id="ffk" type="text" class="form-control">
