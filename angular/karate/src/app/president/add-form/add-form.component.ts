@@ -34,54 +34,24 @@ export class AddFormComponent implements OnInit {
     });
   }
 
- get licenceFFK() : any {
-    return this.form.get('licenceFFK');
- }
- get nom() : any {
-   return this.form.get('nom');
-}
-get prenom() : any {
-  return this.form.get('prenom');
-}
-get dateN() : any {
-  return this.form.get('dateN');
-}
-get dateI() : any {
-  return this.form.get('dateI');
-}
-get genre() : any {
-  return this.form.get('genre');
-}
-get categorie() : any {
-  return this.form.get('categorie');
-}
-get tlphn1() : any {
-  return this.form.get('tlphn1');
-}
-get tlphn2() : any {
-  return this.form.get('tlphn2');
-}
-get email() : any {
-  return this.form.get('email');
-}
-get nomP() : any {
-  return this.form.get('nomP');
-}
-get prenomP() : any {
-  return this.form.get('prenomP');
-}
-get emailP() : any {
-  return this.form.get('emailP');
-}
-get cotisation() : any {
-  return this.form.get('cotisation');
-}
-get grade() : any {
-  return this.form.get('grade');
-}
-get observation() : any {
-  return this.form.get('observation');
-}
+    get licenceFFK() : any {   return this.form.get('licenceFFK');}
+    get nom() : any { return this.form.get('nom');}
+    get prenom() : any { return this.form.get('prenom');}
+    get dateN() : any { return this.form.get('dateN');}
+    get dateI() : any { return this.form.get('dateI');}
+    get genre() : any { return this.form.get('genre');}
+    get categorie() : any { return this.form.get('categorie');}
+    get tlphn1() : any { return this.form.get('tlphn1');}
+    get tlphn2() : any { return this.form.get('tlphn2');}
+    get email() : any { return this.form.get('email');}
+    get nomP() : any { return this.form.get('nomP');}
+    get prenomP() : any { return this.form.get('prenomP');}
+    get emailP() : any { return this.form.get('emailP');}
+    get cotisation() : any { return this.form.get('cotisation');}
+    get grade() : any { return this.form.get('grade');}
+    get observation() : any { return this.form.get('observation');}
+
+
 
   ListMembres : any=[
 
