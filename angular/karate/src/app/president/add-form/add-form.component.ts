@@ -51,14 +51,8 @@ export class AddFormComponent implements OnInit {
   ]
 
 
-<<<<<<< Updated upstream
   submit() {
     console.log(this.form.getRawValue());
-=======
-  submit(f : NgForm) {
-    console.log(f);
-    console.log(JSON.stringify(f.value));
->>>>>>> Stashed changes
 
 
    }
