@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="05ae693d-2452-4885-bf52-0dc806424eac" name="Default Changelist" comment="omar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/karate/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/angular/karate/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/karate/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/angular/karate/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +32,20 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/angular/karate/package.json" />
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -42,7 +56,9 @@
       <option name="presentableId" value="Default" />
       <updated>1619473589254</updated>
       <workItem from="1619473590731" duration="4180000" />
-      <workItem from="1619477801970" duration="1333000" />
+      <workItem from="1619477801970" duration="3504000" />
+      <workItem from="1619516633790" duration="823000" />
+      <workItem from="1619607436722" duration="791000" />
     </task>
     <task id="LOCAL-00001" summary="omar">
       <created>1619474743094</created>
