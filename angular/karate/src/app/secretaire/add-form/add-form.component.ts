@@ -8,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class AddFormComponent {
 
 
-  log(x) {console.log(x);}
+  log(x:any) {console.log(x);}
 
 
-  submit(f) {
+  submit(f:any) {
     console.log(f);}
 
 }
