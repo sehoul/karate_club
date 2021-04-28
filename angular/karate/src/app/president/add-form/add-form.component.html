@@ -1,132 +1,154 @@
-<h1>
-  Ajouter Membre
-</h1><form #f="ngForm" (ngSubmit)="submit(f)">
-  <div ngModelGroup="membre" #membre="ngModelGroup">
-    <div class="form-group">
 
-      <label for="LicenceFFK">Numero de Licence FFK</label>
-      <input required ngModel name="LicenceFFK" #LicenceFFK="ngModel" id="LicenceFFK" type="text" class="form-control">
-      <div class="alert alert-danger" *ngIf="LicenceFFK.touched && !LicenceFFK.valid">
-        <div *ngIf="LicenceFFK.errors?.required">
-          Ce champs est obligatoire.
+
+
+
+<div class="container">
+  <h1>
+    Ajouter Membre
+  </h1>
+    <form #f="ngForm" (ngSubmit)="submit(f)">
+      <div ngModelGroup="membre" #membre="ngModelGroup">
+        <div class="form-group">
+
+          <label for="LicenceFFK">Numero de Licence FFK</label>
+          <input required ngModel name="LicenceFFK" #LicenceFFK="ngModel" id="LicenceFFK" type="text" class="form-control">
+          <div class="alert alert-danger" *ngIf="LicenceFFK.touched && !LicenceFFK.valid">
+            <div *ngIf="LicenceFFK.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
         </div>
-      </div>
+        <div class="form-group">
+          <label for="Nom">Nom</label>
+          <input required ngModel name="Nom" #Nom="ngModel" id="Nom" type="text" class="form-control">
+          <div class="alert alert-danger" *ngIf="Nom.touched && !Nom.valid">
+            <div *ngIf="Nom.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
 
-      <label for="Nom">Nom</label>
-      <input required ngModel name="Nom" #Nom="ngModel" id="Nom" type="text" class="form-control">
-      <div class="alert alert-danger" *ngIf="Nom.touched && !Nom.valid">
-        <div *ngIf="Nom.errors?.required">
-          Ce champs est obligatoire.
         </div>
-      </div>
+        <div class="form-group">
 
+          <label for="Nom">Prénom</label>
+          <input required ngModel name="Prenom" #Prenom="ngModel" id="Prenom" type="text" class="form-control">
+          <div class="alert alert-danger" *ngIf="Prenom.touched && !Prenom.valid">
+            <div *ngIf="Prenom.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
 
-      <label for="Nom">Prénom</label>
-      <input required ngModel name="Prenom" #Prenom="ngModel" id="Prenom" type="text" class="form-control">
-      <div class="alert alert-danger" *ngIf="Prenom.touched && !Prenom.valid">
-        <div *ngIf="Prenom.errors?.required">
-          Ce champs est obligatoire.
         </div>
-      </div>
-
-
-      <label for="DateNaissance">Date de naissance</label>
-      <input required ngModel name="DateNaissance" #DateNaissance="ngModel" id="DateNaissance" type="date" class="form-control">
-      <div class="alert alert-danger" *ngIf="DateNaissance.touched && !DateNaissance.valid">
-        <div *ngIf="DateNaissance.errors?.required">
-          Ce champs est obligatoire.
+        <div class="form-group">
+          <label for="DateNaissance">Date de naissance</label>
+          <input required ngModel name="DateNaissance" #DateNaissance="ngModel" id="DateNaissance" type="date" class="form-control">
+          <div class="alert alert-danger" *ngIf="DateNaissance.touched && !DateNaissance.valid">
+            <div *ngIf="DateNaissance.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
         </div>
-      </div>
-      <label for="Genre">Genre</label>
-      <select ngModel name="Genre" name="" id="Genre" class="form-control">
-        <option value=""></option>
-        <option *ngFor="let membre of ListMembres" [ngValue]="membre">{{membre.genre}}</option>
+        <div class="form-group">
+          <label for="Genre">Genre</label>
+          <select ngModel name="Genre" name="" id="Genre" class="form-control">
+            <option value=""></option>
+            <option *ngFor="let membre of ListMembres" [ngValue]="membre">{{membre.genre}}</option>
 
-      </select>
-      <label for="Categorie">Categorie</label>
-      <select ngModel name="Categorie" name="" id="Categorie" class="form-control">
-        <option value=""></option>
-        <option *ngFor="let membre of ListMembres" [ngValue]="membre">{{membre.categorie }}</option>
-
-      </select>
-
-
-      <label for="Telephone1">Telephone 1</label>
-      <input required ngModel name="Telephone1" #Telephone1="ngModel" id="Telephone1" type="tel" class="form-control">
-      <div class="alert alert-danger" *ngIf="Telephone1.touched && !Telephone1.valid">
-        <div *ngIf="Telephone1.errors?.required">
-          Ce champs est obligatoire.
+          </select>
         </div>
-      </div>
+        <div class="form-group">
+          <label for="Categorie">Categorie</label>
+          <select ngModel name="Categorie" name="" id="Categorie" class="form-control">
+            <option value=""></option>
+            <option *ngFor="let membre of ListMembres" [ngValue]="membre">{{membre.categorie }}</option>
 
-      <label for="Telephone2">Telephone 2</label>
-      <input ngModel name="Telephone2" #Telephone2="ngModel" id="Telephone2" type="tel" class="form-control">
+          </select>
 
-
-      <label for="Email">E-mail</label>
-      <input required ngModel name="Email" #Email="ngModel" id="Email" type="text" class="form-control">
-      <div class="alert alert-danger" *ngIf="Email.touched && !Email.valid">
-        <div *ngIf="Email.errors?.required">
-          Ce champs est obligatoire.
         </div>
-      </div>
-
-      <label for="NomParent">Nom parent</label>
-      <input ngModel name="NomParent" #NomParent="ngModel" id="NomParent" type="text" class="form-control">
-
-      <label for="PrenomParent">Prenom parent</label>
-      <input ngModel name="PrenomParent" #PrenomParent="ngModel" id="PrenomParent" type="text" class="form-control">
-
-      <label for="TelephoneParent1">Telephone parent 1</label>
-      <input ngModel name="TelephoneParent1" #TelephoneParent1="ngModel" id="TelephoneParent1" type="tel" class="form-control">
-
-
-      <label for="TelephoneParent2">Telephone parent 2</label>
-      <input ngModel name="TelephoneParent2" #TelephoneParent2="ngModel" id="TelephoneParent2" type="tel" class="form-control">
-
-      <label for="EmailParent">Email Parent</label>
-      <input ngModel name="EmailParent" #EmailParent="ngModel" id="EmailParent" type="text" class="form-control">
-
-      <label for="Cotisation">Cotisation</label>
-      <input ngModel name="Cotisation" #Cotisation="ngModel" id="Cotisation" type="text" class="form-control">
-
-      <label for="DatePremiereInscription">Date premiere inscription</label>
-      <input required ngModel name="DatePremiereInscription" #DatePremiereInscription="ngModel" id="DatePremiereInscription" type="date" class="form-control">
-      <div class="alert alert-danger" *ngIf="DatePremiereInscription.touched && !DatePremiereInscription.valid">
-        <div *ngIf="DatePremiereInscription.errors?.required">
-          Ce champs est obligatoire.
+        <div class="form-group">
+          <label for="Telephone1">Telephone 1</label>
+          <input required ngModel name="Telephone1" #Telephone1="ngModel" id="Telephone1" type="tel" class="form-control">
+          <div class="alert alert-danger" *ngIf="Telephone1.touched && !Telephone1.valid">
+            <div *ngIf="Telephone1.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
         </div>
-      </div>
+        <div class="form-group">
+          <label for="Telephone2">Telephone 2</label>
+          <input ngModel name="Telephone2" #Telephone2="ngModel" id="Telephone2" type="tel" class="form-control">
 
-      <label for="Grade">Grade</label>
-      <select ngModel name="Grades" name="" id="Grades" class="form-control">
-        <option value=""></option>
-        <option *ngFor="let membre of ListMembres" [ngValue]="membre">{{membre.grade }}</option>
+        </div>
+        <div class="form-group">
+          <label for="Email">E-mail</label>
+          <input required ngModel name="Email" #Email="ngModel" id="Email" type="text" class="form-control">
+          <div class="alert alert-danger" *ngIf="Email.touched && !Email.valid">
+            <div *ngIf="Email.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
 
-      </select>
+        </div>
+        <div class="form-group">
 
-      <label for="Observation">Observation</label>
-      <textarea id="Observation" cols="15" rows="5" class="form-control"></textarea>
+          <label for="NomParent">Nom parent</label>
+          <input ngModel name="NomParent" #NomParent="ngModel" id="NomParent" type="text" class="form-control">
+
+        </div>
+        <div class="form-group">
+          
+          <label for="PrenomParent">Prenom parent</label>
+          <input ngModel name="PrenomParent" #PrenomParent="ngModel" id="PrenomParent" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="TelephoneParent1">Telephone parent 1</label>
+          <input ngModel name="TelephoneParent1" #TelephoneParent1="ngModel" id="TelephoneParent1" type="tel" class="form-control">
+        </div>
+        <div class="form-group">
+
+          <label for="TelephoneParent2">Telephone parent 2</label>
+          <input ngModel name="TelephoneParent2" #TelephoneParent2="ngModel" id="TelephoneParent2" type="tel" class="form-control">
+
+        </div>
+        <div class="form-group">
+
+          <label for="EmailParent">Email Parent</label>
+          <input ngModel name="EmailParent" #EmailParent="ngModel" id="EmailParent" type="text" class="form-control">
+
+        </div>
+        <div class="form-group">
+
+          <label for="Cotisation">Cotisation</label>
+          <input ngModel name="Cotisation" #Cotisation="ngModel" id="Cotisation" type="text" class="form-control">
+
+        </div>
+        <div class="form-group">
+
+          <label for="DatePremiereInscription">Date premiere inscription</label>
+          <input required ngModel name="DatePremiereInscription" #DatePremiereInscription="ngModel" id="DatePremiereInscription" type="date" class="form-control">
+          <div class="alert alert-danger" *ngIf="DatePremiereInscription.touched && !DatePremiereInscription.valid">
+            <div *ngIf="DatePremiereInscription.errors?.required">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group">
+
+          <label for="Grade">Grade</label>
+          <select ngModel name="Grades" name="" id="Grades" class="form-control">
+            <option value=""></option>
+            <option *ngFor="let membre of ListMembres" [ngValue]="membre">{{membre.grade }}</option>
+
+          </select>
+        </div>
+        <div class="form-group">
+
+          <label for="Observation">Observation</label>
+          <textarea id="Observation" cols="15" rows="5" class="form-control"></textarea>
+        </div>
+        </div>
 
 
-
-
-
-
-
-
-
-
-    </div>
-  </div>
-
-
-
-
-
-
-
-
-
-
-</form>
+    </form>
+</div>
