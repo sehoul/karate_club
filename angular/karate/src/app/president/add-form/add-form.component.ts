@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Membre } from '../../membre.model';
-import { NgForm , FormGroup , FormBuilder  ,FormControl , Validators } from '@angular/forms';
+import { FormGroup , FormBuilder  ,FormControl , Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-form',
@@ -8,14 +8,13 @@ import { NgForm , FormGroup , FormBuilder  ,FormControl , Validators } from '@an
   styleUrls: ['./add-form.component.css']
 })
 export class AddFormComponent implements OnInit {
-  form:  FormGroup
-
+  form: FormGroup;
 
   constructor(private fb: FormBuilder) {
 
     this.form=this.fb.group({
       nom:  new FormControl('', [Validators.required]),
-      licenceFFK:  new FormControl('', [Validators.required]),
+      licenceFFK:new FormControl('', [Validators.required]),
       prenom:  new FormControl('', [Validators.required]),
       dateN:  new FormControl('', [Validators.required]),
       dateI:  new FormControl('', [Validators.required]),
@@ -34,6 +33,11 @@ export class AddFormComponent implements OnInit {
 
     });
   }
+
+  get licenceFFK() : any {
+    return this.form.get('licenceFFK');
+ }
+
   ListMembres : any=[
 
      {id: 1 , categorie: 'A' , genre:'H' , grade: '2' }
