@@ -7,12 +7,132 @@
         <div class="form-group">
           <label for="LicenceFFK">Numero de Licence FFK</label>
           <input type="text" id="LicenceFFK" class="form-control" formControlName="licenceFFK" [ngClass]="form.controls['licenceFFK'].invalid && licenceFFK.touched ? 'is-invalid' : form.controls['licenceFFK'].valid? 'is-valid': '' ">
-         <div class="invalid-feedback" *ngIf="licenceFFK.touched">  
+         <div class="invalid-feedback" *ngIf="licenceFFK.touched">
               Ce champs est obligatoire.
          </div>
         </div>
 
-        
+      <div class="form-group">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" class="form-control" formControlName="Nom" [ngClass]="form.controls['nom'].invalid && nom.touched ? 'is-invalid' : form.controls['nom'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="nom.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" class="form-control" formControlName="prenom" [ngClass]="form.controls['prenom'].invalid && prenom.touched ? 'is-invalid' : form.controls['Prenom'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="prenom.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dateN">Date de Naissance</label>
+        <input type="date" id="dateN" class="form-control" formControlName="dateN" [ngClass]="form.controls['dateN'].invalid && dateN.touched ? 'is-invalid' : form.controls['dateN'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="dateN.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="genre">Genre</label>
+        <select type="text" id="genre" class="form-control" formControlName="genre" [ngClass]="form.controls['genre'].invalid && genre.touched ? 'is-invalid' : form.controls['Genre'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="genre.touched">
+          Ce champs est obligatoire.
+        </div>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="categorie">Categorie</label>
+        <select id="categorie" class="form-control" formControlName="categorie" [ngClass]="form.controls['categorie'].invalid && categorie.touched ? 'is-invalid' : form.controls['categorie'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="categorie.touched">
+          Ce champs est obligatoire.
+        </div>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="tlphn1"> Telephone1</label>
+        <input id="tlphn1" class="form-control" formControlName="tlphn1" [ngClass]="form.controls['tlphn1'].invalid && tlphn1.touched ? 'is-invalid' : form.controls['tlphn1'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="tlphn1.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="tlphn2">Telephpne2</label>
+        <input type="text" id="tlphn2" class="form-control" formControlName="tlphn2" [ngClass]="form.controls['tlphn2'].invalid && tlphn2.touched ? 'is-invalid' : form.controls['tlphn2'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="tlphn2.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" id="email" class="form-control" formControlName="email" [ngClass]="form.controls['email'].invalid && email.touched ? 'is-invalid' : form.controls['email'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="email.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="nomP">Nom parents</label>
+        <input type="text" id="nomP" class="form-control" formControlName="nomP" [ngClass]="form.controls['nomP'].invalid && licenceFFK.touched ? 'is-invalid' : form.controls['nomP'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="nomP.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="prenomP">prenom parents</label>
+        <input type="text" id="prenomP" class="form-control" formControlName="prenomP" [ngClass]="form.controls['prenomP'].invalid && prenomP.touched ? 'is-invalid' : form.controls['prenomP'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="prenomP.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="emailP">Email parents</label>
+        <input type="text" id="emailP" class="form-control" formControlName="emailP" [ngClass]="form.controls['emailP'].invalid && emailP.touched ? 'is-invalid' : form.controls['emailP'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="emailP.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cotisation">cotisation</label>
+        <input type="text" id="cotisation" class="form-control" formControlName="cotisation" [ngClass]="form.controls['cotisation'].invalid && cotisation.touched ? 'is-invalid' : form.controls['cotisation'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="cotisation.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dateI">Date 1ere inscription</label>
+        <input type="text" id="dateI" class="form-control" formControlName="dateI" [ngClass]="form.controls['dateI'].invalid && dateI.touched ? 'is-invalid' : form.controls['dateI'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="dateI.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="grade">grade</label>
+        <input type="text" id="grade" class="form-control" formControlName="grade" [ngClass]="form.controls['grade'].invalid && grade.touched ? 'is-invalid' : form.controls['grade'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="grade.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="Observation">Observation</label>
+        <textarea id="Observation" cols="15" rows="5" class="form-control"></textarea>
+      </div>
+
+      <button class="btn btn-primary" [disabled]="!form.valid">ajouter</button>
+
 
     </form>
   </div>

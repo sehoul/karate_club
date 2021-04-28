@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
 import { Membre } from 'src/app/membre.model';
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-add-form',
@@ -20,7 +21,12 @@ export class AddFormComponent {
   log(x:any) {console.log(x);}
 
 
-  submit(f:any) {
-    console.log(f);}
+  //submit(f:any) {
+    //console.log(f);}
 
+  onsubmit(form: NgForm) {
+
+    console.log(form.value.membre);
+
+  }
 }
