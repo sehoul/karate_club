@@ -99,7 +99,7 @@
 
     <div class="form-group">
       <label for="nomP">Nom parents</label>
-      <input type="text" id="nomP" class="form-control" formControlName="nomP" [ngClass]="form.controls['nomP'].invalid && licenceFFK.touched ? 'is-invalid' : form.controls['nomP'].valid? 'is-valid': '' ">
+      <input type="text" id="nomP" class="form-control" formControlName="nomP" [ngClass]="form.controls['nomP'].invalid && nomP.touched ? 'is-invalid' : form.controls['nomP'].valid? 'is-valid': '' ">
       <div class="invalid-feedback" *ngIf="nomP.touched">
         Ce champs est obligatoire.
       </div>
