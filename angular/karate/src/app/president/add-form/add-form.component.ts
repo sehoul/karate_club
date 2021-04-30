@@ -19,7 +19,7 @@ export class AddFormComponent implements OnInit {
       dateN:  new FormControl('', [Validators.required]),
       dateI:  new FormControl('', [Validators.required]),
       genre:  new FormControl('', [Validators.required]),
-      categorie:  new FormControl([Validators.required]),
+      categorie:  new FormControl('',[Validators.required]),
       tlphn1:  new FormControl('', [Validators.required]),
       tlphn2:  new FormControl('', [Validators.required]),
       email:  new FormControl('', [Validators.required]),
@@ -54,7 +54,8 @@ export class AddFormComponent implements OnInit {
 
 
   ListMembres : any=[ {id: 1 , categorie: 'A' , genre:'H' , grade: '2' } ];
-  Categories : Array<any>=[ {id: 1 , val: 'Homme' } ];
+  Categories : Array<any>=[ {id: 1 , val: 'Mini Poussins (4-5 ans)' },{id: 2 , val: 'Poussins (6-7 ans)' },{id: 3 , val: 'Pupilles (8-9 ans)' },{id: 4 , val: 'Benjamins (10-11 ans)' },{id: 5 , val: 'Minimes (12-13 ans)' },{id: 6 , val: 'Cadets (14-15 ans)' },{id: 7 , val: 'Juniors (16-17 ans)' },{id: 8 , val: 'Espoirs (18-19-20 ans)' },{id: 9 , val: 'Séniors (18 ans et+)' } ];
+  Genres : Array<any>=[ {id: 1 , val: 'Homme' }, {id: 2 , val: 'Femme' }, {id: 3 , val: 'Gay' } ];
 
 
 
@@ -65,8 +66,10 @@ export class AddFormComponent implements OnInit {
 
   submit() {
     console.log(this.form.getRawValue());
-
-
+    const data=this.form.getRawValue();
+    this.membre.push(    new Membre(2,data.licenceFFK,"nom1","prenom1",new Date("2019-01-02"),"Homme","C1","G1","Adresse 12 Rue 1","+33 6 12 12 12 12","+336 33 33 33 33","mail@mail.com",null,null,null,null,null,12.2,new Date("2019-01-02"),"bleu","shi haja")    );
+    console.log(this.membre);
+    
    }
 
 

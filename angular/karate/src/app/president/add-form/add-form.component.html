@@ -2,7 +2,7 @@
   <h1>
     Ajouter Membre
   </h1>
-    <form  [formGroup]="form" (Submit)="submit()">
+    <form  [formGroup]="form" (submit)="submit()">
 
         <div class="form-group">
           <label for="LicenceFFK">Numero de Licence FFK</label>
@@ -22,7 +22,7 @@
 
       <div class="form-group">
         <label for="prenom">Prénom</label>
-        <input type="text" id="prenom" class="form-control" formControlName="prenom" [ngClass]="form.controls['prenom'].invalid && prenom.touched ? 'is-invalid' : form.controls['Prenom'].valid? 'is-valid': '' ">
+        <input type="text" id="prenom" class="form-control" formControlName="prenom" [ngClass]="form.controls['prenom'].invalid && prenom.touched ? 'is-invalid' : form.controls['prenom'].valid? 'is-valid': '' ">
         <div class="invalid-feedback" *ngIf="prenom.touched">
           Ce champs est obligatoire.
         </div>
@@ -38,16 +38,19 @@
 
       <div class="form-group">
         <label for="genre">Genre</label>
-        <select type="text" id="genre" class="form-control" formControlName="genre" [ngClass]="form.controls['genre'].invalid && genre.touched ? 'is-invalid' : form.controls['Genre'].valid? 'is-valid': '' ">
+        <select type="text" id="genre" class="form-control" formControlName="genre" [ngClass]="form.controls['genre'].invalid && genre.touched ? 'is-invalid' : form.controls['genre'].valid? 'is-valid': '' ">
+          <option value="" selected>Genre</option>
+          <option *ngFor="let gen of Genres" [value]="gen.id">{{gen.val}}</option>
+        </select>
         <div class="invalid-feedback" *ngIf="genre.touched">
           Ce champs est obligatoire.
         </div>
-        </select>
       </div>
 
       <div class="form-group">
         <label for="categorie">Categorie</label>
         <select id="categorie" class="form-control" formControlName="categorie" [ngClass]="form.controls['categorie'].invalid && categorie.touched ? 'is-invalid' : form.controls['categorie'].valid? 'is-valid': '' ">
+          <option value="" selected>categorie</option>
           <option *ngFor="let cat of Categories" [value]="cat.id">{{cat.val}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="categorie.touched">
@@ -105,7 +108,7 @@
 
       <div class="form-group">
         <label for="cotisation">cotisation</label>
-        <input type="text" id="cotisation" class="form-control" formControlName="cotisation" [ngClass]="form.controls['cotisation'].invalid && cotisation.touched ? 'is-invalid' : form.controls['cotisation'].valid? 'is-valid': '' ">
+        <input type="number" id="cotisation" class="form-control" formControlName="cotisation" [ngClass]="form.controls['cotisation'].invalid && cotisation.touched ? 'is-invalid' : form.controls['cotisation'].valid? 'is-valid': '' ">
         <div class="invalid-feedback" *ngIf="cotisation.touched">
           Ce champs est obligatoire.
         </div>
@@ -113,7 +116,7 @@
 
       <div class="form-group">
         <label for="dateI">Date 1ere inscription</label>
-        <input type="text" id="dateI" class="form-control" formControlName="dateI" [ngClass]="form.controls['dateI'].invalid && dateI.touched ? 'is-invalid' : form.controls['dateI'].valid? 'is-valid': '' ">
+        <input type="date" id="dateI" class="form-control" formControlName="dateI" [ngClass]="form.controls['dateI'].invalid && dateI.touched ? 'is-invalid' : form.controls['dateI'].valid? 'is-valid': '' ">
         <div class="invalid-feedback" *ngIf="dateI.touched">
           Ce champs est obligatoire.
         </div>
@@ -132,7 +135,7 @@
         <textarea id="Observation" cols="15" rows="5" class="form-control"></textarea>
       </div>
 
-      <button class="btn btn-primary" >ajouter</button>
+      <button type="submit" class="btn btn-primary" >ajouter</button>
 
 
     </form>
