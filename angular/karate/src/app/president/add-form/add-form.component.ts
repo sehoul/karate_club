@@ -67,15 +67,16 @@ export class AddFormComponent implements OnInit {
   submit() {
     console.log(this.form.getRawValue());
     const data=this.form.getRawValue();
-    this.membre.push(    new Membre(2,data.licenceFFK,"nom1","prenom1",new Date("2019-01-02"),"Homme","C1","G1","Adresse 12 Rue 1","+33 6 12 12 12 12","+336 33 33 33 33","mail@mail.com",null,null,null,null,null,12.2,new Date("2019-01-02"),"bleu","shi haja")    );
+
+    this.membre.push(new Membre(2,data.licenceFFK,data.nom,data.prenom,data.dateN,data.genre,data.categorie,"group1","avenu atat",data.tlphn1,data.tlphn2,data.email,data.nomP,data.prenomP,"0999999","077777",data.emailP,data.cotisation,data.dateI,data.grade,data.observation));
     console.log(this.membre);
-    
+
    }
 
 
   ngOnInit(): void {
     console.log(this.Categories);
-    
+
 
     }
   }
