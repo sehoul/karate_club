@@ -75,7 +75,7 @@ export class AddFormComponent implements OnInit {
   submit() {
     console.log(this.form.getRawValue());
     const data=this.form.getRawValue();
-    this.membre.push(    new Membre(2,data.licenceFFK,data.nom,data.prenom,data.dateN,data.genre,data.categorie,data.groupe,data.adresse,data.tlphn1,data.tlphn2,data.email,data.nomP,data.prenomP,data.tlphn1P,data.tlphn2P,data.emailP,data.cotisation,data.dateI,data.grade,data.observation)    );
+    this.membre.push(new Membre(2,data.licenceFFK,data.nom,data.prenom,data.dateN,data.genre,data.categorie,data.groupe,data.adresse,data.tlphn1,data.tlphn2,data.email,data.nomP,data.prenomP,data.tlphn1P,data.tlphn2P,data.emailP,data.cotisation,data.dateI,data.grade,data.observation));
     console.log(this.membre);
 
   }

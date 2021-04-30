@@ -114,6 +114,22 @@
     </div>
 
     <div class="form-group">
+      <label for="tlphn1P"> Telephone1 du parent</label>
+      <input type="tel" id="tlphn1P" class="form-control" formControlName="tlphn1P" [ngClass]="form.controls['tlphn1P'].invalid && tlphn1P.touched ? 'is-invalid' : form.controls['tlphn1P'].valid? 'is-valid': '' ">
+      <div class="invalid-feedback" *ngIf="tlphn1P.touched">
+        Ce champs est obligatoire.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="tlphn2P">Telephpne2 due parent</label>
+      <input type="tel" id="tlphn2P" class="form-control" formControlName="tlphn2P" [ngClass]="form.controls['tlphn2P'].invalid && tlphn2P.touched ? 'is-invalid' : form.controls['tlphn2P'].valid? 'is-valid': '' ">
+      <div class="invalid-feedback" *ngIf="tlphn2P.touched">
+        Ce champs est obligatoire.
+      </div>
+    </div>
+
+    <div class="form-group">
       <label for="emailP">Email parents</label>
       <input type="email" id="emailP" class="form-control" formControlName="emailP" [ngClass]="form.controls['emailP'].invalid && emailP.touched ? 'is-invalid' : form.controls['emailP'].valid? 'is-valid': '' ">
       <div class="invalid-feedback" *ngIf="emailP.touched">
@@ -147,7 +163,7 @@
 
     <div class="form-group">
       <label for="Observation">Observation</label>
-      <textarea id="Observation" cols="15" rows="5" class="form-control"></textarea>
+      <textarea id="Observation" cols="15" rows="5" class="form-control"  formControlName="observation"></textarea>
     </div>
 
     <button type="submit" class="btn btn-primary" >ajouter</button>

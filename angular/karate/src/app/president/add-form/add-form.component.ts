@@ -20,11 +20,15 @@ export class AddFormComponent implements OnInit {
       dateI:  new FormControl('', [Validators.required]),
       genre:  new FormControl('', [Validators.required]),
       categorie:  new FormControl('',[Validators.required]),
+      groupe:  new FormControl('',[Validators.required]),
+      adresse:  new FormControl('',[Validators.required]),
       tlphn1:  new FormControl('', [Validators.required]),
       tlphn2:  new FormControl('', [Validators.required]),
       email:  new FormControl('', [Validators.required]),
       nomP: new FormControl('', [Validators.required]),
       prenomP:  new FormControl('', [Validators.required]),
+      tlphn1P:  new FormControl('', [Validators.required]),
+      tlphn2P:  new FormControl('', [Validators.required]),
       emailP:  new FormControl('', [Validators.required]),
       cotisation:  new FormControl('', [Validators.required]),
       grade:  new FormControl('', [Validators.required]),
@@ -34,22 +38,26 @@ export class AddFormComponent implements OnInit {
     });
   }
 
-    get licenceFFK() : any {   return this.form.get('licenceFFK');}
-    get nom() : any { return this.form.get('nom');}
-    get prenom() : any { return this.form.get('prenom');}
-    get dateN() : any { return this.form.get('dateN');}
-    get dateI() : any { return this.form.get('dateI');}
-    get genre() : any { return this.form.get('genre');}
-    get categorie() : any { return this.form.get('categorie');}
-    get tlphn1() : any { return this.form.get('tlphn1');}
-    get tlphn2() : any { return this.form.get('tlphn2');}
-    get email() : any { return this.form.get('email');}
-    get nomP() : any { return this.form.get('nomP');}
-    get prenomP() : any { return this.form.get('prenomP');}
-    get emailP() : any { return this.form.get('emailP');}
-    get cotisation() : any { return this.form.get('cotisation');}
-    get grade() : any { return this.form.get('grade');}
-    get observation() : any { return this.form.get('observation');}
+  get licenceFFK() : any {   return this.form.get('licenceFFK');}
+  get nom() : any { return this.form.get('nom');}
+  get prenom() : any { return this.form.get('prenom');}
+  get dateN() : any { return this.form.get('dateN');}
+  get dateI() : any { return this.form.get('dateI');}
+  get genre() : any { return this.form.get('genre');}
+  get categorie() : any { return this.form.get('categorie');}
+  get groupe() : any { return this.form.get('groupe');}
+  get adresse() : any { return this.form.get('adresse');}
+  get tlphn1() : any { return this.form.get('tlphn1');}
+  get tlphn2() : any { return this.form.get('tlphn2');}
+  get email() : any { return this.form.get('email');}
+  get nomP() : any { return this.form.get('nomP');}
+  get prenomP() : any { return this.form.get('prenomP');}
+  get tlphn1P() : any { return this.form.get('tlphn1P');}
+  get tlphn2P() : any { return this.form.get('tlphn2P');}
+  get emailP() : any { return this.form.get('emailP');}
+  get cotisation() : any { return this.form.get('cotisation');}
+  get grade() : any { return this.form.get('grade');}
+  get observation() : any { return this.form.get('observation');}
 
 
 
@@ -67,16 +75,15 @@ export class AddFormComponent implements OnInit {
   submit() {
     console.log(this.form.getRawValue());
     const data=this.form.getRawValue();
-
-    this.membre.push(new Membre(2,data.licenceFFK,data.nom,data.prenom,data.dateN,data.genre,data.categorie,"group1","avenu atat",data.tlphn1,data.tlphn2,data.email,data.nomP,data.prenomP,"0999999","077777",data.emailP,data.cotisation,data.dateI,data.grade,data.observation));
+    this.membre.push(new Membre(2,data.licenceFFK,data.nom,data.prenom,data.dateN,data.genre,data.categorie,data.groupe,data.adresse,data.tlphn1,data.tlphn2,data.email,data.nomP,data.prenomP,data.tlphn1P,data.tlphn2P,data.emailP,data.cotisation,data.dateI,data.grade,data.observation));
     console.log(this.membre);
 
-   }
+  }
 
 
   ngOnInit(): void {
     console.log(this.Categories);
 
 
-    }
   }
+}
