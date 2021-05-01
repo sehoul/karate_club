@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '839211092666dc9eb6e2031d0ae442efdf20e601',
+    'reference' => 'a737e6a8e9f2942474db38d460d905c430dc5bf4',
     'name' => '__root__',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '839211092666dc9eb6e2031d0ae442efdf20e601',
+      'reference' => 'a737e6a8e9f2942474db38d460d905c430dc5bf4',
     ),
     'composer/package-versions-deprecated' => 
     array (
@@ -89,6 +89,15 @@ private static $installed = array (
       ),
       'reference' => 'a036d90c303f3163b5be8b8fde9b6755b2be4a3a',
     ),
+    'doctrine/data-fixtures' => 
+    array (
+      'pretty_version' => '1.5.0',
+      'version' => '1.5.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '51d3d4880d28951fff42a635a2389f8c63baddc5',
+    ),
     'doctrine/dbal' => 
     array (
       'pretty_version' => '2.13.1',
@@ -115,6 +124,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'a08bc3b4d8567cdff05e89b272ba1e06e9d71c21',
+    ),
+    'doctrine/doctrine-fixtures-bundle' => 
+    array (
+      'pretty_version' => '3.4.0',
+      'version' => '3.4.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '870189619a7770f468ffb0b80925302e065a3b34',
     ),
     'doctrine/doctrine-migrations-bundle' => 
     array (
@@ -214,15 +232,6 @@ private static $installed = array (
       array (
       ),
       'reference' => '8779ceebf715d1c60bd10286fce9d32ed03c484a',
-    ),
-    'fzaninotto/faker' => 
-    array (
-      'pretty_version' => 'v1.9.2',
-      'version' => '1.9.2.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '848d8125239d7dbf8ab25cb7f054f1a630e68c2e',
     ),
     'laminas/laminas-code' => 
     array (
