@@ -19,30 +19,39 @@ class AppFixtures extends Fixture
       $faker= \Faker\Factory::create('fr_FR');
       $activite= new Activite();
       $categorie = new Categorie();
-      $infoMedicale = new InformationMedicale();
+     
 
       $categorie-> setNomCategorie('Mini poussins');
+      $manager-> persist($categorie);
+      $categorie=new Categorie();
       $categorie-> setNomCategorie('Poussins');
+      $manager-> persist($categorie);
+      $categorie=new Categorie();
       $categorie-> setNomCategorie('pupilles');
+      $manager-> persist($categorie);
+      $categorie=new Categorie();
       $categorie-> setNomCategorie('Benjamins');
+      $manager-> persist($categorie);
+      $categorie=new Categorie();
       $categorie-> setNomCategorie('Minimes');
+      $manager-> persist($categorie);
+      $categorie=new Categorie();
       $categorie-> setNomCategorie('Cadets');
+      $manager-> persist($categorie);
+      $categorie=new Categorie();
       $categorie-> setNomCategorie('Juniors');
+      $manager-> persist($categorie);
+      $categorie=new Categorie();
       $categorie-> setNomCategorie('Espoirs');
+      $manager-> persist($categorie);
+      $categorie=new Categorie();
       $categorie-> setNomCategorie('Séniors');
-      
-      
-        
-        
-        
-        
-        
-        
-        
-
+      $manager-> persist($categorie);
           
 
       for ($i=0;$i<10; $i++){
+          $infoMedicale = new InformationMedicale();
+          
           $membre=new Membre();
           $membre->setNumLicenceFFK($faker->word)
                  ->setNom($faker->lastName)
