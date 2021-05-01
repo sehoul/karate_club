@@ -25,7 +25,7 @@ class Categorie
     private $nomCategorie;
 
     /**
-     * @ORM\OneToMany(targetEntity=membre::class, mappedBy="categorie")
+     * @ORM\OneToMany(targetEntity=Membre::class, mappedBy="categorie")
      */
     private $membres;
 
