@@ -19,7 +19,7 @@ class AppFixtures extends Fixture
       $faker= \Faker\Factory::create('fr_FR');
       $activite= new Activite();
       $categorie = new Categorie();
-     
+      $manager-> persist($activite);
 
       $categorie-> setNomCategorie('Mini poussins');
       $manager-> persist($categorie);
@@ -56,7 +56,7 @@ class AppFixtures extends Fixture
           $membre->setNumLicenceFFK($faker->word)
                  ->setNom($faker->lastName)
                  ->setPrenom($faker->firstName)
-                 ->setDateNaissance($faker->date)
+                 ->setDateNaissance($faker->dateTime)
                  ->setGenre($faker->randomElement($array = array ('Homme', 'Femme','Non precis')))
                  ->setGroupe($faker->word(3))
                  ->setAdresse($faker->address)
@@ -66,8 +66,8 @@ class AppFixtures extends Fixture
                  ->setPrenomParents($faker->firstName)
                  ->setTelephoneParents1($faker->phoneNumber)
                  ->setEmailParents($faker->email)
-                 ->setCotisation($faker->number)
-                 ->setDateInscription($faker->date)
+                 ->setCotisation($faker->numberBetween(180,200))
+                 ->setDateInscription(new \DateTime())
                  ->setGrade($faker->word(5))
                  ->setObservation($faker->sentence(7))
                  ->setMalade($faker->randomElement($array= array (true,false)))
