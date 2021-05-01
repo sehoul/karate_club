@@ -27,7 +27,7 @@ class AppFixtures extends Fixture
            ->setGenre($faker->randomElement($array = array ('Homme', 'Femme','Non precis')))
            ->setCategorieFFK($faker->word(3))
            ->setAdresse($faker->address)
-           ->setTelephone1($faker->phoneNumber)
+           ->setTel1($faker->phoneNumber)
            ->setEmail($faker->email)
            ->setGrade($faker->word(5))
            ->setObservation($faker->sentence(7));
