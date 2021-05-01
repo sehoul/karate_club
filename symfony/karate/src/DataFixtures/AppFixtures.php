@@ -50,6 +50,7 @@ class AppFixtures extends Fixture
       $groupe->setNomGroupe($faker->word)
       ->setInstructeur($instructeur)
       ->setActivite($activite);
+      $manager-> persist($groupe);
       
       $categorie = new Categorie();
       $categorie-> setNomCategorie('Mini poussins');
