@@ -25,24 +25,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => 'dev-Sehoul-main',
-    'version' => 'dev-Sehoul-main',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => '73d9f81fdd1c2e70e01f8cba54c9d73b612c8a1f',
+    'reference' => '839211092666dc9eb6e2031d0ae442efdf20e601',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => 'dev-Sehoul-main',
-      'version' => 'dev-Sehoul-main',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => '73d9f81fdd1c2e70e01f8cba54c9d73b612c8a1f',
+      'reference' => '839211092666dc9eb6e2031d0ae442efdf20e601',
     ),
     'composer/package-versions-deprecated' => 
     array (
@@ -214,6 +214,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '8779ceebf715d1c60bd10286fce9d32ed03c484a',
+    ),
+    'fzaninotto/faker' => 
+    array (
+      'pretty_version' => 'v1.9.2',
+      'version' => '1.9.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '848d8125239d7dbf8ab25cb7f054f1a630e68c2e',
     ),
     'laminas/laminas-code' => 
     array (
