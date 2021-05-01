@@ -50,7 +50,7 @@ class Activite
     private $Groupe;
 
     /**
-     * @ORM\ManyToMany(targetEntity=membre::class, inversedBy="activites")
+     * @ORM\ManyToMany(targetEntity=Membre::class, inversedBy="activites")
      */
     private $membres;
 

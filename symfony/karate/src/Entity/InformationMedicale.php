@@ -53,7 +53,7 @@ class InformationMedicale
     private $Observation;
 
     /**
-     * @ORM\OneToOne(targetEntity=membre::class, inversedBy="informationMedicale", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Membre::class, inversedBy="informationMedicale", cascade={"persist", "remove"})
      */
     private $membre;
 
