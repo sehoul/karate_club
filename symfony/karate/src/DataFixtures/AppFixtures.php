@@ -18,9 +18,9 @@ class AppFixtures extends Fixture
     {
       $faker= \Faker\Factory::create('fr_FR');
       $activite= new Activite();
-      $categorie = new Categorie();
       $manager-> persist($activite);
-
+      
+      $categorie = new Categorie();
       $categorie-> setNomCategorie('Mini poussins');
       $manager-> persist($categorie);
       $categorie=new Categorie();
