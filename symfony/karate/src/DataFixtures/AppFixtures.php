@@ -10,8 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Groupe;
 use App\Entity\InformationMedicale;
 use App\Entity\Membre;
-
-
+use App\Entity\MembreActivite;
 
 class AppFixtures extends Fixture
 {
@@ -34,22 +33,26 @@ class AppFixtures extends Fixture
 
       $manager-> persist($instructeur);
 
+    $groupe= new Groupe();
+    $groupe->setNomGroupe($faker->word)
+    ->setInstructeur($instructeur);
 
-
-        $activite= new Activite();
-      $activite-> setNomActivite('Karaté');
+      $activite= new Activite();
+      $activite-> setNomActivite('Karaté')
+      ->addGroupe($groupe);
       $manager-> persist($activite);
       $activite= new Activite();
-      $activite-> setNomActivite('Body Karaté');
+      $activite-> setNomActivite('Body Karaté')
+      ->addGroupe($groupe);
       $manager-> persist($activite);
       $activite= new Activite();
-      $activite-> setNomActivite('Self-Défense');
+      $activite-> setNomActivite('Self-Défense')
+      ->addGroupe($groupe);
       $manager-> persist($activite);
       $activite= new Activite();
-      $activite-> setNomActivite('Karaté-Souffle');
+      $activite-> setNomActivite('Karaté-Souffle')
+      ->addGroupe($groupe);
       $manager-> persist($activite);
-
-
 
       
       $categorie = new Categorie();
@@ -83,35 +86,14 @@ class AppFixtures extends Fixture
 
       for ($i=0;$i<10; $i++){
           $infoMedicale = new InformationMedicale();
-          $infoMedicale->setCorrespondantMedical($faker->name);
+          $infoMedicale->setCorrespondantMedical($faker->name)
+          ->setAdresse($faker->address)
+          ->setDatePremiereVisite($faker->dateTime)
+          ->setEmail($faker->email)
+          ->setTel1($faker->phoneNumber)
+          ->setTel2($faker->phoneNumber)
+          ->setObservation($faker->sentence(7));
           $manager-> persist($infoMedicale);
-
-          $infoMedicale = new InformationMedicale();
-          $infoMedicale->setAdresse($faker->address);
-          $manager-> persist($infoMedicale);
-
-          $infoMedicale = new InformationMedicale();
-          $infoMedicale->setDatePremiereVisite($faker->dateTime);
-          $manager-> persist($infoMedicale);
-
-          $infoMedicale = new InformationMedicale();
-          $infoMedicale->setEmail($faker->email);
-          $manager-> persist($infoMedicale);
-
-          $infoMedicale = new InformationMedicale();
-          $infoMedicale->setTel1($faker->phoneNumber);
-          $manager-> persist($infoMedicale);
-
-          $infoMedicale = new InformationMedicale();
-          $infoMedicale->setTel2($faker->phoneNumber);
-          $manager-> persist($infoMedicale);
-
-          $infoMedicale = new InformationMedicale();
-          $infoMedicale->setObservation($faker->sentence(7));
-          $manager-> persist($infoMedicale);
-
-
-
 
           $membre=new Membre();
           $membre->setNumLicenceFFK($faker->word)
@@ -137,7 +119,15 @@ class AppFixtures extends Fixture
 
           $manager-> persist($membre);
         
-      }
+          
+          $membreActivite= new MembreActivite();
+          $membreActivite->setAvtivite($activite)
+          ->setMembre($membre)
+          ->setDatePremiereInscription(new \DateTime())
+          ->setCotisation($faker->numberBetween(80,220))
+          ->setObservation($faker->sentence(7));
+          $manager-> persist($membreActivite);
+        }
         $manager->flush();
     }
 }
