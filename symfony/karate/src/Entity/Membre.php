@@ -132,14 +132,15 @@ class Membre
     private $informationMedicale;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Activite::class, mappedBy="membres")
+     * @ORM\OneToMany(targetEntity=MembreActivite::class, mappedBy="membre")
      */
-    private $activites;
+    private $membreActivites;
 
     public function __construct()
     {
-        $this->activites = new ArrayCollection();
+        $this->membreActivites = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -423,29 +424,33 @@ class Membre
     }
 
     /**
-     * @return Collection|Activite[]
+     * @return Collection|MembreActivite[]
      */
-    public function getActivites(): Collection
+    public function getMembreActivites(): Collection
     {
-        return $this->activites;
+        return $this->membreActivites;
     }
 
-    public function addActivite(Activite $activite): self
+    public function addMembreActivite(MembreActivite $membreActivite): self
     {
-        if (!$this->activites->contains($activite)) {
-            $this->activites[] = $activite;
-            $activite->addMembre($this);
+        if (!$this->membreActivites->contains($membreActivite)) {
+            $this->membreActivites[] = $membreActivite;
+            $membreActivite->setMembre($this);
         }
 
         return $this;
     }
 
-    public function removeActivite(Activite $activite): self
+    public function removeMembreActivite(MembreActivite $membreActivite): self
     {
-        if ($this->activites->removeElement($activite)) {
-            $activite->removeMembre($this);
+        if ($this->membreActivites->removeElement($membreActivite)) {
+            // set the owning side to null (unless already changed)
+            if ($membreActivite->getMembre() === $this) {
+                $membreActivite->setMembre(null);
+            }
         }
 
         return $this;
     }
+
 }

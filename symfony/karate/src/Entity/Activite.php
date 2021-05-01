@@ -25,33 +25,24 @@ class Activite
     private $nomActivite;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $numLicenceFFk;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $cotisation;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $datePremiereInscription;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $observation;
 
     /**
      * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="activite")
      */
     private $Groupe;
 
+    /**
+     * @ORM\OneToMany(targetEntity=MembreActivite::class, mappedBy="Avtivite")
+     */
+    private $membreActivites;
+
     public function __construct()
     {
         $this->Groupe = new ArrayCollection();
+        $this->membreActivites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,18 +62,6 @@ class Activite
         return $this;
     }
 
-    public function getNumLicenceFFk(): ?string
-    {
-        return $this->numLicenceFFk;
-    }
-
-    public function setNumLicenceFFk(string $numLicenceFFk): self
-    {
-        $this->numLicenceFFk = $numLicenceFFk;
-
-        return $this;
-    }
-
     public function getCotisation(): ?float
     {
         return $this->cotisation;
@@ -91,30 +70,6 @@ class Activite
     public function setCotisation(float $cotisation): self
     {
         $this->cotisation = $cotisation;
-
-        return $this;
-    }
-
-    public function getDatePremiereInscription(): ?\DateTimeInterface
-    {
-        return $this->datePremiereInscription;
-    }
-
-    public function setDatePremiereInscription(\DateTimeInterface $datePremiereInscription): self
-    {
-        $this->datePremiereInscription = $datePremiereInscription;
-
-        return $this;
-    }
-
-    public function getObservation(): ?string
-    {
-        return $this->observation;
-    }
-
-    public function setObservation(?string $observation): self
-    {
-        $this->observation = $observation;
 
         return $this;
     }
@@ -143,6 +98,36 @@ class Activite
             // set the owning side to null (unless already changed)
             if ($groupe->getActivite() === $this) {
                 $groupe->setActivite(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MembreActivite[]
+     */
+    public function getMembreActivites(): Collection
+    {
+        return $this->membreActivites;
+    }
+
+    public function addMembreActivite(MembreActivite $membreActivite): self
+    {
+        if (!$this->membreActivites->contains($membreActivite)) {
+            $this->membreActivites[] = $membreActivite;
+            $membreActivite->setAvtivite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMembreActivite(MembreActivite $membreActivite): self
+    {
+        if ($this->membreActivites->removeElement($membreActivite)) {
+            // set the owning side to null (unless already changed)
+            if ($membreActivite->getAvtivite() === $this) {
+                $membreActivite->setAvtivite(null);
             }
         }
 
