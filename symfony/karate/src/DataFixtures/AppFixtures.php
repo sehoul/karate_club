@@ -33,27 +33,23 @@ class AppFixtures extends Fixture
 
       $manager-> persist($instructeur);
 
-    $groupe= new Groupe();
-    $groupe->setNomGroupe($faker->word)
-    ->setInstructeur($instructeur);
-
       $activite= new Activite();
-      $activite-> setNomActivite('Karaté')
-      ->addGroupe($groupe);
+      $activite-> setNomActivite('Karaté');
       $manager-> persist($activite);
       $activite= new Activite();
-      $activite-> setNomActivite('Body Karaté')
-      ->addGroupe($groupe);
+      $activite-> setNomActivite('Body Karaté');
       $manager-> persist($activite);
       $activite= new Activite();
-      $activite-> setNomActivite('Self-Défense')
-      ->addGroupe($groupe);
+      $activite-> setNomActivite('Self-Défense');
       $manager-> persist($activite);
       $activite= new Activite();
-      $activite-> setNomActivite('Karaté-Souffle')
-      ->addGroupe($groupe);
+      $activite-> setNomActivite('Karaté-Souffle');
       $manager-> persist($activite);
 
+      $groupe= new Groupe();
+      $groupe->setNomGroupe($faker->word)
+      ->setInstructeur($instructeur)
+      ->setActivite($activite);
       
       $categorie = new Categorie();
       $categorie-> setNomCategorie('Mini poussins');
