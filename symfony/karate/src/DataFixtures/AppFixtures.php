@@ -101,8 +101,7 @@ class AppFixtures extends Fixture
                  ->setObservation($faker->sentence(7))
                  ->setMalade($faker->randomElement($array= array (true,false)))
                  ->setCategorie($categorie)
-                 ->setInformationMedicale($infoMedicale)
-                 ->addActivite($activite);
+                 ->setInformationMedicale($infoMedicale);
 
           $manager-> persist($membre);
         
