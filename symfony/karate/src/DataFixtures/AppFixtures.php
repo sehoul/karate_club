@@ -51,7 +51,37 @@ class AppFixtures extends Fixture
 
       for ($i=0;$i<10; $i++){
           $infoMedicale = new InformationMedicale();
-          
+          $infoMedicale->setCorrespondantMedical($faker->name);
+          $manager-> persist($infoMedicale);
+
+          $infoMedicale = new InformationMedicale();
+          $infoMedicale->setAdresse($faker->address);
+          $manager-> persist($infoMedicale);
+
+          $infoMedicale = new InformationMedicale();
+          $infoMedicale->setDatePremiereVisite($faker->dateTime);
+          $manager-> persist($infoMedicale);
+
+          $infoMedicale = new InformationMedicale();
+          $infoMedicale->setEmail($faker->email);
+          $manager-> persist($infoMedicale);
+
+          $infoMedicale = new InformationMedicale();
+          $infoMedicale->setTel1($faker->phoneNumber);
+          $manager-> persist($infoMedicale);
+
+          $infoMedicale = new InformationMedicale();
+          $infoMedicale->setTel2($faker->phoneNumber);
+          $manager-> persist($infoMedicale);
+
+          $infoMedicale = new InformationMedicale();
+          $infoMedicale->setObservation($faker->sentence(7));
+          $manager-> persist($infoMedicale);
+
+
+
+
+
           $membre=new Membre();
           $membre->setNumLicenceFFK($faker->word)
                  ->setNom($faker->lastName)
