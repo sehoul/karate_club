@@ -18,7 +18,20 @@ class AppFixtures extends Fixture
     {
       $faker= \Faker\Factory::create('fr_FR');
       $activite= new Activite();
+      $activite-> setNomActivite('Karaté');
       $manager-> persist($activite);
+      $activite= new Activite();
+      $activite-> setNomActivite('Body Karaté');
+      $manager-> persist($activite);
+      $activite= new Activite();
+      $activite-> setNomActivite('Self-Défense');
+      $manager-> persist($activite);
+      $activite= new Activite();
+      $activite-> setNomActivite('Karaté-Souffle');
+      $manager-> persist($activite);
+
+
+
       
       $categorie = new Categorie();
       $categorie-> setNomCategorie('Mini poussins');
