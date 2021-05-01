@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Activite;
 use App\Entity\Categorie;
+use App\Entity\Instructeur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Groupe;
@@ -17,7 +18,25 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
       $faker= \Faker\Factory::create('fr_FR');
-      $activite= new Activite();
+      $instructeur=new Instructeur();
+       $instructeur
+           ->setNumLicenceFFK($faker->word)
+           ->setNom($faker->lastName)
+           ->setPrenom($faker->firstName)
+           ->setDateNaissance($faker->dateTime)
+           ->setGenre($faker->randomElement($array = array ('Homme', 'Femme','Non precis')))
+           ->setCategorieFFK($faker->word(3))
+           ->setAdresse($faker->address)
+           ->setTelephone1($faker->phoneNumber)
+           ->setEmail($faker->email)
+           ->setGrade($faker->word(5))
+           ->setObservation($faker->sentence(7));
+
+      $manager-> persist($instructeur);
+
+
+
+        $activite= new Activite();
       $activite-> setNomActivite('Karaté');
       $manager-> persist($activite);
       $activite= new Activite();
