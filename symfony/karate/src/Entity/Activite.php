@@ -49,15 +49,9 @@ class Activite
      */
     private $Groupe;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Membre::class, inversedBy="activites")
-     */
-    private $membres;
-
     public function __construct()
     {
         $this->Groupe = new ArrayCollection();
-        $this->membres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -155,27 +149,4 @@ class Activite
         return $this;
     }
 
-    /**
-     * @return Collection|membre[]
-     */
-    public function getMembres(): Collection
-    {
-        return $this->membres;
-    }
-
-    public function addMembre(membre $membre): self
-    {
-        if (!$this->membres->contains($membre)) {
-            $this->membres[] = $membre;
-        }
-
-        return $this;
-    }
-
-    public function removeMembre(membre $membre): self
-    {
-        $this->membres->removeElement($membre);
-
-        return $this;
-    }
 }

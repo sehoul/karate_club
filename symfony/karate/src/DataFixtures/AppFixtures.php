@@ -81,7 +81,6 @@ class AppFixtures extends Fixture
 
 
 
-
           $membre=new Membre();
           $membre->setNumLicenceFFK($faker->word)
                  ->setNom($faker->lastName)
