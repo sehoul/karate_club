@@ -15,7 +15,7 @@
     <div class="form-group">
       <label for="Instructeur">Instructeur</label>
       <select id="Instructeur" class="form-control" formControlName="Instructeur" [ngClass]="formAA.controls['Instructeur'].invalid && Instructeur.touched ? 'is-invalid' : formAA.controls['Instructeur'].valid? 'is-valid': '' ">
-        <option value="" selected>Choisissez un instructeur ...</option>
+        <option value="" selected disabled>Choisissez un instructeur ...</option>
         <option *ngFor="let ins of Instructeurs" [value]="ins.id">{{ins.nom}}</option>
       </select>
       <div class="invalid-feedback" *ngIf="Instructeur.touched">
