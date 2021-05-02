@@ -5,13 +5,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PresidentService {
 
-  private url= 'http://localhost:8000/categories';
+  private url= "";
 
-
-
-  constructor(private http: HttpClient) { }
+  constructor(private http:HttpClient) { }
 
   getCategories(){ 
-    return this.http.get(this.url);
+    return this.http.get('http://localhost:8000/categories');
   }
 }

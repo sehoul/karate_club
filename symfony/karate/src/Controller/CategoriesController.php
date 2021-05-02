@@ -7,6 +7,7 @@ use App\Repository\CategorieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class CategoriesController extends AbstractController
 {
@@ -18,7 +19,12 @@ class CategoriesController extends AbstractController
      */
     public function getCategories(): Response
     {
+        $table=[];
         $categories=$this->categorieRepository->findAll();
-        return $this->json($categories, 200, [],array('groups' => array('categories')));
+        foreach($categories as $categorie){
+            $table[]=$categorie->getNomCategorie();
+        }
+        
+        return $this->json($categories, 200, [],[ObjectNormalizer::ATTRIBUTES => ['nomCategorie','Description']]);
     }
 }

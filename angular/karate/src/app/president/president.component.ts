@@ -7,32 +7,12 @@ import { PresidentService } from './president.service';
   styleUrls: ['./president.component.css']
 })
 export class PresidentComponent implements OnInit {
-  categories!: any[];
+//categories: Array<any>=[];
 
-  constructor(private service: PresidentService) { }
+  constructor(private data:PresidentService) { }
 
-  
-
-  ngOnInit(): void {
-
-
-
-    this.service.getCategories().subscribe((respone: any) => {
-     console.log(respone);
-     this.categories=respone, (error: any) => {
-         alert('An unexpected error occured.');
-     };
-
-    });
+  ngOnInit(): void { 
   }
-
-
-
-
-
-
-
-
   _active:boolean=false;
   side_bar_menu(){
       this._active=!this._active;
