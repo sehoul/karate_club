@@ -29,6 +29,11 @@ class Categorie
      */
     private $membres;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Description;
+
     public function __construct()
     {
         $this->membres = new ArrayCollection();
@@ -77,6 +82,18 @@ class Categorie
                 $membre->setCategorie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+
+    public function setDescription(?string $Description): self
+    {
+        $this->Description = $Description;
 
         return $this;
     }
