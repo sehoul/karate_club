@@ -13,5 +13,8 @@ export class PresidentComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  _active:boolean=false;
+  side_bar_menu(){
+      this._active=!this._active;
+  }
 }
