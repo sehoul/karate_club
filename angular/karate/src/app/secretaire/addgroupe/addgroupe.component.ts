@@ -21,6 +21,8 @@ export class AddgroupeComponent implements OnInit {
    get NomGroupe() : any {   return this.formAA.get('NomGroupe');}
    get Instructeur() : any { return this.formAA.get('Instructeur');}
    private groupe:Array<Groupe>=[new Groupe(1,"Groupe1","Mostafa")]
+   Instructeurs: Array<any>=[ {id: 1 , nom: 'Ali' }, {id: 2 , nom: 'Amine' }, {id: 3 , nom: 'Walid' } ];
+
 
    submit() {
     console.log(this.formAA.getRawValue());
