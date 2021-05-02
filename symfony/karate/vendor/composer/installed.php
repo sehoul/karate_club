@@ -402,6 +402,15 @@
         0 => '1.0',
       ),
     ),
+    'sensio/framework-extra-bundle' => 
+    array (
+      'pretty_version' => 'v6.1.2',
+      'version' => '6.1.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '676262b7a65a1033befbcf59e180d072df7504b6',
+    ),
     'symfony/cache' => 
     array (
       'pretty_version' => 'v5.2.7',
