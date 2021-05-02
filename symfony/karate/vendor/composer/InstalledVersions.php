@@ -25,24 +25,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => 'dev-Sehoul-main',
-    'version' => 'dev-Sehoul-main',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => '1034b24312c5edb9b51c895da4dab119e97cd7c2',
+    'reference' => '834fa4c66171d2c4a7c495febe0bbb7de1e8f8f8',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => 'dev-Sehoul-main',
-      'version' => 'dev-Sehoul-main',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => '1034b24312c5edb9b51c895da4dab119e97cd7c2',
+      'reference' => '834fa4c66171d2c4a7c495febe0bbb7de1e8f8f8',
     ),
     'composer/package-versions-deprecated' => 
     array (
