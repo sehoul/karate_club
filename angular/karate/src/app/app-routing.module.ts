@@ -2,9 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 import { InstructeurComponent } from './instructeur/instructeur.component';
+
+import { AddActiviteComponent as FormAcP} from './president/add-activite/add-activite.component';
 import { AddFormComponent as FormP } from './president/add-form/add-form.component';
+import { AddgroupeComponent as FormGP} from './president/addgroupe/addgroupe.component';
 import { PresidentComponent } from './president/president.component';
+
+import { AddActiviteComponent as FormAcS } from './secretaire/add-activite/add-activite.component';
 import { AddFormComponent as FormS} from './secretaire/add-form/add-form.component';
+import { AddgroupeComponent as FormGS} from './secretaire/addgroupe/addgroupe.component';
 import { SecretaireComponent } from './secretaire/secretaire.component';
 
 const routes: Routes = [
@@ -13,11 +19,15 @@ const routes: Routes = [
   {path:'p', component:PresidentComponent,
     children:[
       {path:'a',component:FormP},
+      {path:'ac',component:FormAcP},
+      {path:'ag',component:FormGP}
     ]
   },
   {path:'s', component:SecretaireComponent,
   children:[
     {path:'a',component:FormS},
+    {path:'ac',component:FormAcS},
+    {path:'ag',component:FormGS}
   ]
   }
 
