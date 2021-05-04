@@ -1,18 +1,35 @@
-<div style=" margin: auto; width: 60%;">
+<div class="container-fluid"  >
 
     <table id="excel-table">
       <tr>
         <th>Id</th>
-        <th>Name</th>
-        <th>Username</th>
+        <th>LicenceFFK</th>
+        <th>Nom prenom</th>
+        <th>Date de naissance</th>
+        <th>Genre</th>
+        <th>Categorie</th>
+        <th>Adresse</th>
+        <th>Tlphn1</th>
+        <th>Tlphn2</th>
         <th>Email</th>
+        <th>Activités</th>
+        <th>Nombre d'inscrits dans la famille</th>
+        
       </tr>
-      <tr *ngFor="let item of userList">
-        <td>{{item.id}}</td>
-        <td>{{item.name}}</td>
-        <td>{{item.username}}</td>
-        <td>{{item.email}}</td>
+      <tr *ngFor="let membre of membres">
+        <td>{{membre.id}}</td>
+        <td>{{membre.LicenceFFK}}</td>
+        <td>{{membre.NomPrenom}}</td>
+        <td>{{membre.DateNaissance}}</td>
+        <td>{{membre.Genre}}</td>
+        <td>{{membre.Categorie}}</td>
+        <td>{{membre.Adresse}}</td>
+        <td>{{membre.Tlphn1}}</td>
+        <td>{{membre.Tlphn2}}</td>
+        <td>{{membre.Email}}</td>
+        <td>{{membre.Activites}}</td>
+        <td>{{membre.NbInscritsFamille}}</td>
       </tr>
     </table>
-    <button class="btn btn-primary" (click)="exportexcel()">Export to Excel</button>
+    <button class="btn btn-primary" (click)="exportexcel()">Exporter en Excel</button>
   </div>
