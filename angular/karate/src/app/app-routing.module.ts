@@ -8,6 +8,7 @@ import { InstructeurComponent } from './instructeur/instructeur.component';
 import { AddActiviteComponent as FormAcP} from './president/add-activite/add-activite.component';
 import { AddFormComponent as FormP } from './president/add-form/add-form.component';
 import { AddgroupeComponent as FormGP} from './president/addgroupe/addgroupe.component';
+import { MembresComponent } from './president/membres/membres.component';
 import { PresidentComponent } from './president/president.component';
 
 import { AddActiviteComponent as FormAcS } from './secretaire/add-activite/add-activite.component';
@@ -21,9 +22,10 @@ const routes: Routes = [
   {path:'i', component:InstructeurComponent},
   {path:'p', component:PresidentComponent,
     children:[
-      {path:'a',component:FormP},
-      {path:'ac',component:FormAcP},
-      {path:'ag',component:FormGP}
+      {path:'membres',component:MembresComponent},
+      {path:'ajout-membre',component:FormP},
+      {path:'ajout-activitee',component:FormAcP},
+      {path:'ajout-groupe',component:FormGP}
     ]
   },
   {path:'s', component:SecretaireComponent,
