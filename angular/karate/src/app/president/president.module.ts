@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddActiviteComponent } from './add-activite/add-activite.component';
 import { AddgroupeComponent } from './addgroupe/addgroupe.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -18,7 +19,8 @@ import { AddgroupeComponent } from './addgroupe/addgroupe.component';
     RouterModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ]
 })
 export class PresidentModule { }
