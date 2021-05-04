@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { HomepageComponent } from './homepage/homepage.component';
+
 import { InstructeurComponent } from './instructeur/instructeur.component';
 
 import { AddActiviteComponent as FormAcP} from './president/add-activite/add-activite.component';
@@ -16,6 +18,7 @@ import { SecretaireComponent } from './secretaire/secretaire.component';
 const routes: Routes = [
 
   {path:'', component:HomepageComponent},
+  {path:'i', component:InstructeurComponent},
   {path:'p', component:PresidentComponent,
     children:[
       {path:'a',component:FormP},
