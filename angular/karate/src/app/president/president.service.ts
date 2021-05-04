@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PresidentService {
 
-  private url= 'http://localhost:8000/categories';
+  private url= "http://localhost:8000/categories";
 
 
 
