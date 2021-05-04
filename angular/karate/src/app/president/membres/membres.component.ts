@@ -10,80 +10,99 @@ export class MembresComponent implements OnInit {
 
   fileName= 'ExcelSheet.xlsx';
 
-  userList = [
+  membres = [
 
     {
-    
-    "id": 1,
-    
-    "name": "Leanne Graham",
-    
-    "username": "Bret",
-    
-    "email": "Sincere@april.biz"
-    
-    },
-    
-    {
-    
-    "id": 2,
-    
-    "name": "Ervin Howell",
-    
-    "username": "Antonette",
-    
-    "email": "Shanna@melissa.tv"
+    "id":1,
+    "LicenceFFK": 122,
+    "NomPrenom": "Leanne Graham", 
+    "DateNaissance": "21/02/1999",
+    "Genre": "Homme",
+    "Categorie": "Cadets",
+    "Adresse": "1 avenue ",
+    "Tlphn1": "0601020304",
+    "Tlphn2": "0601020304",
+    "Email": "Sincere@april.biz",
+    "Activites": "Karaté",
+    "NbInscritsFamille": "0"
     
     },
     
     {
-    
-    "id": 3,
-    
-    "name": "Clementine Bauch",
-    
-    "username": "Samantha",
-    
-    "email": "Nathan@yesenia.net"
-    
-    },
-    
-    {
-    
-    "id": 4,
-    
-    "name": "Patricia Lebsack",
-    
-    "username": "Karianne",
-    
-    "email": "Julianne.OConner@kory.org"
+      "id":2,
+      "LicenceFFK": 123,
+      "NomPrenom": "Alain gourmet", 
+      "DateNaissance": "21/02/1999",
+      "Genre": "Homme",
+      "Categorie": "Cadets",
+      "Adresse": "1 avenue ",
+      "Tlphn1": "0601020304",
+      "Tlphn2": "0601020304",
+      "Email": "Alain@april.biz",
+      "Activites": "Karaté self-defense",
+      "NbInscritsFamille": "3"
     
     },
     
     {
+      "id":3,
+      "LicenceFFK": 143,
+      "NomPrenom": "Elodie", 
+      "DateNaissance": "21/02/1999",
+      "Genre": "Femme",
+      "Categorie": "Cadets",
+      "Adresse": "1 avenue ",
+      "Tlphn1": "0601020304",
+      "Tlphn2": "0601020304",
+      "Email": "Sincere@april.biz",
+      "Activites": "Karaté",
+      "NbInscritsFamille": "20"
     
-    "id": 5,
+    },
     
-    "name": "Chelsey Dietrich",
+    {  "id":4,
+      "LicenceFFK": 111,
+      "NomPrenom": "mathieu az", 
+      "DateNaissance": "01/02/1998",
+      "Genre": "Homme",
+      "Categorie": "Cadets",
+      "Adresse": "1 avenue ",
+      "Tlphn1": "0601020304",
+      "Tlphn2": "0601020304",
+      "Email": "Sincere@april.biz",
+      "Activites": "Body-karaté",
+      "NbInscritsFamille": "3"
     
-    "username": "Kamren",
+    },
     
-    "email": "Lucio_Hettinger@annie.ca"
+    {
+      "id":5,
+      "LicenceFFK": 134,
+      "NomPrenom": "Leanne Graham", 
+      "DateNaissance": "21/06/1993",
+      "Genre": "Homme",
+      "Categorie": "Cadets",
+      "Adresse": "1 avenue ",
+      "Tlphn1": "0601020304",
+      "Tlphn2": "0601020304",
+      "Email": "Sincere@april.biz",
+      "Activites": "Karaté",
+      "NbInscritsFamille": "0"
     
     }
     
     ]
 
     exportexcel(): void {
-    /* pass here the table id */
+  
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
  
-    /* generate workbook and add the worksheet */
+    
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
  
-    /* save to file */  
+
     XLSX.writeFile(wb, this.fileName);
  
   }
