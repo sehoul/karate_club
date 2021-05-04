@@ -1,6 +1,5 @@
 <div style=" margin: auto; width: 60%;">
-    <button (click)="exportexcel()">Export to Excel</button>
-   
+
     <table id="excel-table">
       <tr>
         <th>Id</th>
@@ -15,4 +14,5 @@
         <td>{{item.email}}</td>
       </tr>
     </table>
+    <button class="btn btn-primary" (click)="exportexcel()">Export to Excel</button>
   </div>
