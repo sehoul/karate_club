@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddActiviteComponent } from './add-activite/add-activite.component';
 import { AddgroupeComponent } from './addgroupe/addgroupe.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MembresComponent } from './membres/membres.component';
 
 
 
@@ -13,7 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AddFormComponent,
     AddActiviteComponent,
-    AddgroupeComponent
+    AddgroupeComponent,
+    MembresComponent
   ],
   imports: [
     RouterModule,
