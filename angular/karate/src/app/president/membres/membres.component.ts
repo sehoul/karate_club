@@ -8,7 +8,7 @@ import * as XLSX from 'xlsx';
 })
 export class MembresComponent implements OnInit {
 
-  fileName= 'ExcelSheet.xlsx';
+  fileName= 'Classeur-karate.xlsx';
 
   membres = [
 
@@ -97,11 +97,12 @@ export class MembresComponent implements OnInit {
   
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
- 
-    
+
+   // const ws2: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+   
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Liste-complète');
- 
+    //XLSX.utils.book_append_sheet(wb, ws2, 'liste karate');
 
     XLSX.writeFile(wb, this.fileName);
  
