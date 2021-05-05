@@ -10,7 +10,7 @@ import { InstructeurComponent } from './instructeur.component';
     CalendrierComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ]
 })
 export class InstructeurModule { }
