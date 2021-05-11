@@ -6,32 +6,39 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
 export interface MyTableItem {
-  name: string;
   id: number;
+  licenceFFK: number;
+  nom: string;
+  prenom: string;
+  dateNaissance: string;
+  genre: string;
+  categorie: string;
+  adresse:string;
+  tlphn1:string;
+  tlphn2:string;
+  email:string;
+  activites:string;
+  nbInscritsFamille: number;
+  
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: MyTableItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+  {id: 1, licenceFFK:2332, nom: 'Hydrogen',prenom:'Z',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
+  {id: 2, licenceFFK:5332, nom: 'Aydrogen',prenom:'G',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:1},
+  {id: 3, licenceFFK:332, nom: 'Bydrogen',prenom:'H',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:33},
+  {id: 4, licenceFFK:88332, nom: 'Cydrogen',prenom:'Y',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:55},
+  {id: 5, licenceFFK:232, nom: 'Drogen',prenom:'T',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
+  {id: 6, licenceFFK:1332, nom: 'Eydrogen',prenom:'A',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:0},
+  {id: 7, licenceFFK:32, nom: 'Hydrogen',prenom:'J',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
+  {id: 8, licenceFFK:22332, nom: 'Hydrogen',prenom:'I',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
+  {id: 9, licenceFFK:238832, nom: 'Hydrogen',prenom:'Q',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
+  {id: 10, licenceFFK:32332, nom: 'Hydrogen',prenom:'P',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
+  {id: 11, licenceFFK:21132, nom: 'Hydrogen',prenom:'VV',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
+  {id: 12, licenceFFK:23332, nom: 'Rydrogen',prenom:'N',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
+  {id: 13, licenceFFK:24332, nom: 'Wydrogen',prenom:'Z',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
+  {id: 14, licenceFFK:323332, nom: 'Oydrogen',prenom:'U',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
+  
 ];
 
 /**
@@ -97,8 +104,12 @@ export class MyTableDataSource extends DataSource<MyTableItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
+        case 'nom': return compare(a.nom, b.nom, isAsc);
         case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'prenom': return compare(a.prenom, b.prenom, isAsc);
+        case 'licenceFFK': return compare(+a.licenceFFK, +b.licenceFFK, isAsc);
+        case 'nbInscritsFamille': return compare(+a.nbInscritsFamille, +b.nbInscritsFamille, isAsc);
+
         default: return 0;
       }
     });
