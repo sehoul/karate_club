@@ -16,7 +16,8 @@ import { AddActiviteComponent as FormAcS } from './secretaire/add-activite/add-a
 import { AddFormComponent as FormS} from './secretaire/add-form/add-form.component';
 import { AddgroupeComponent as FormGS} from './secretaire/addgroupe/addgroupe.component';
 import { SecretaireComponent } from './secretaire/secretaire.component';
-
+import { ActivitesComponent } from './president/activites/activites.component';
+import { GroupesComponent } from './president/groupes/groupes.component';
 const routes: Routes = [
 
   {path:'', component:HomepageComponent},
@@ -27,7 +28,10 @@ const routes: Routes = [
       {path:'membres',component:MembresComponent},
       {path:'ajout-membre',component:FormP},
       {path:'ajout-activitee',component:FormAcP},
-      {path:'ajout-groupe',component:FormGP}
+      {path:'ajout-groupe',component:FormGP},
+      {path:'activites',component:ActivitesComponent},
+      {path:'groupes',component:GroupesComponent}
+
     ]
   },
   {path:'s', component:SecretaireComponent,
