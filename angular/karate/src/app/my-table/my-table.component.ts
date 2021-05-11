@@ -15,6 +15,10 @@ export class MyTableComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<MyTableItem>;
   dataSource: MyTableDataSource;
 
+  items : MyTableItem[] = [];
+
+  nom: any;
+
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id','licenceFFK','nom','prenom','dateNaissance','genre','categorie','adresse','tlphn1','tlphn2','email','activites','nbInscritsFamille'];
 
@@ -27,4 +31,21 @@ export class MyTableComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
+
+  ngOnInit(){
+  }
+
+  Search(){
+    if (this.nom == ""){
+      this.items
+  
+    }else{
+  
+      this.items = this.items.filter(res=>{
+        return res.nom.toLocaleLowerCase().match(this.nom.toLocaleLowerCase());
+      });
+    
 }
+}
+}
+

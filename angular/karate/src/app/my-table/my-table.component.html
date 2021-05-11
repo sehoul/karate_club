@@ -1,3 +1,8 @@
+<nav class="navbar">
+  <input class="form-control" type="text" name="nom" [(ngModel)] = "nom" (ngModelChange) = "Search()" placeholder="Entrez le nom et/ou prenom">
+</nav>
+
+
 <div class="mat-elevation-z8" id='t'>
   <table mat-table class="full-width-table" matSort aria-label="Elements">
     <ng-container matColumnDef="id">
