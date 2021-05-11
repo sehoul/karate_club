@@ -11,7 +11,7 @@ export class MembresComponent implements OnInit {
 
   membres : Membre[] = [];
 
-  Nom!: string;
+  Nom: any;
 
   fileName= 'Classeur-karate.xlsx';
 
