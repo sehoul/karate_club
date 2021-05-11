@@ -1,4 +1,4 @@
-<div class="container-fluid"  >
+<div class="table table-bordered"  >
 
 
  <nav class="navbar">
@@ -10,7 +10,8 @@
       <tr>
         <th>Id</th>
         <th>LicenceFFK</th>
-        <th>Nom prenom</th>
+        <th>Nom </th>
+        <th>Prenom</th>
         <th>Date de naissance</th>
         <th>Genre</th>
         <th>Categorie</th>
@@ -34,5 +35,5 @@
         <td>{{membre.Email}}</td>
       </tr>
     </table>
-    <button class="btn btn-primary" (click)="exportexcel()">Exporter en Excel</button>
   </div>
+  <button class="btn btn-primary" (click)="exportexcel()">Exporter en Excel</button>
