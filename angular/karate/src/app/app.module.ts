@@ -11,6 +11,11 @@ import {SecretaireComponent} from './secretaire/secretaire.component';
 import { SecretaireModule } from './secretaire/secretaire.module';
 import { FormsModule } from '@angular/forms';
 import { InstructeurComponent } from './instructeur/instructeur.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MyTableComponent } from './my-table/my-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,8 @@ import { InstructeurComponent } from './instructeur/instructeur.component';
     HomepageComponent,
     PresidentComponent,
     SecretaireComponent,
-    InstructeurComponent
+    InstructeurComponent,
+    MyTableComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +32,11 @@ import { InstructeurComponent } from './instructeur/instructeur.component';
     PresidentModule,
     SecretaireModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
