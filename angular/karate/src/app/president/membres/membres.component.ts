@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Membre} from '../../membre.model';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -8,90 +9,13 @@ import * as XLSX from 'xlsx';
 })
 export class MembresComponent implements OnInit {
 
+  membres : Membre[] = [];
+
+  Nom!: string;
+
   fileName= 'Classeur-karate.xlsx';
 
-  membres = [
 
-    {
-    "id":1,
-    "LicenceFFK": 122,
-    "NomPrenom": "Leanne Graham", 
-    "DateNaissance": "21/02/1999",
-    "Genre": "Homme",
-    "Categorie": "Cadets",
-    "Adresse": "1 avenue ",
-    "Tlphn1": "0601020304",
-    "Tlphn2": "0601020304",
-    "Email": "Sincere@april.biz",
-    "Activites": "Karaté",
-    "NbInscritsFamille": "0"
-    
-    },
-    
-    {
-      "id":2,
-      "LicenceFFK": 123,
-      "NomPrenom": "Alain gourmet", 
-      "DateNaissance": "21/02/1999",
-      "Genre": "Homme",
-      "Categorie": "Cadets",
-      "Adresse": "1 avenue ",
-      "Tlphn1": "0601020304",
-      "Tlphn2": "0601020304",
-      "Email": "Alain@april.biz",
-      "Activites": "Karaté self-defense",
-      "NbInscritsFamille": "3"
-    
-    },
-    
-    {
-      "id":3,
-      "LicenceFFK": 143,
-      "NomPrenom": "Elodie", 
-      "DateNaissance": "21/02/1999",
-      "Genre": "Femme",
-      "Categorie": "Cadets",
-      "Adresse": "1 avenue ",
-      "Tlphn1": "0601020304",
-      "Tlphn2": "0601020304",
-      "Email": "Sincere@april.biz",
-      "Activites": "Karaté",
-      "NbInscritsFamille": "20"
-    
-    },
-    
-    {  "id":4,
-      "LicenceFFK": 111,
-      "NomPrenom": "mathieu az", 
-      "DateNaissance": "01/02/1998",
-      "Genre": "Homme",
-      "Categorie": "Cadets",
-      "Adresse": "1 avenue ",
-      "Tlphn1": "0601020304",
-      "Tlphn2": "0601020304",
-      "Email": "Sincere@april.biz",
-      "Activites": "Body-karaté",
-      "NbInscritsFamille": "3"
-    
-    },
-    
-    {
-      "id":5,
-      "LicenceFFK": 134,
-      "NomPrenom": "Leanne Graham", 
-      "DateNaissance": "21/06/1993",
-      "Genre": "Homme",
-      "Categorie": "Cadets",
-      "Adresse": "1 avenue ",
-      "Tlphn1": "0601020304",
-      "Tlphn2": "0601020304",
-      "Email": "Sincere@april.biz",
-      "Activites": "Karaté",
-      "NbInscritsFamille": "0"
-    
-    }
-    
-    ]
 
     exportexcel(): void {
   
@@ -110,7 +34,31 @@ export class MembresComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.membres = [
+      new Membre(1,"123456789","David","prenom1",new Date("2019-01-02"),"Homme","C1","G1","Adresse 12 Rue 1","+33 6 12 12 12 12","+336 33 33 33 33","mail@mail.com",null,null,null,null,null,12.2,new Date("2019-01-02"),"bleu","shi haja"),
+    new Membre(1,"123456789","Jean","prenom1",new Date("2019-01-02"),"Homme","C1","G1","Adresse 12 Rue 1","+33 6 12 12 12 12","+336 33 33 33 33","mail@mail.com",null,null,null,null,null,12.2,new Date("2019-01-02"),"bleu","shi haja")
+    ];
   }
+
+
+
+  Search(){
+  if (this.Nom == ""){
+    this.ngOnInit
+
+  }else{
+
+    this.membres = this.membres.filter(res=>{
+      return res.Nom.toLocaleLowerCase().match(this.Nom.toLocaleLowerCase());
+    });
+  
+
+
+
+  }
+}
+
+ 
 
 }

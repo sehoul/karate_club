@@ -1,5 +1,11 @@
 <div class="container-fluid"  >
 
+
+ <nav class="navbar">
+   <input class="form-control" type="search" name="Nom" [(ngModel)] = "Nom" (ngModelChange) = "Search()" placeholder="Entrez le nom et/ou prenom">
+ </nav>
+
+
     <table id="excel-table">
       <tr>
         <th>Id</th>
@@ -12,23 +18,20 @@
         <th>Tlphn1</th>
         <th>Tlphn2</th>
         <th>Email</th>
-        <th>Activités</th>
-        <th>Nombre d'inscrits dans la famille</th>
         
       </tr>
       <tr *ngFor="let membre of membres">
         <td>{{membre.id}}</td>
         <td>{{membre.LicenceFFK}}</td>
-        <td>{{membre.NomPrenom}}</td>
+        <td>{{membre.Nom}}</td>
+        <td>{{membre.Prenom}}</td>
         <td>{{membre.DateNaissance}}</td>
         <td>{{membre.Genre}}</td>
-        <td>{{membre.Categorie}}</td>
+        <td>{{membre.categorie}}</td>
         <td>{{membre.Adresse}}</td>
-        <td>{{membre.Tlphn1}}</td>
-        <td>{{membre.Tlphn2}}</td>
+        <td>{{membre.Tel1}}</td>
+        <td>{{membre.Tel2}}</td>
         <td>{{membre.Email}}</td>
-        <td>{{membre.Activites}}</td>
-        <td>{{membre.NbInscritsFamille}}</td>
       </tr>
     </table>
     <button class="btn btn-primary" (click)="exportexcel()">Exporter en Excel</button>
