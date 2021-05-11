@@ -7,6 +7,8 @@ import { AddActiviteComponent } from './add-activite/add-activite.component';
 import { AddgroupeComponent } from './addgroupe/addgroupe.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MembresComponent } from './membres/membres.component';
+import { ActivitesComponent } from './activites/activites.component';
+import { GroupesComponent } from './groupes/groupes.component';
 
 
 
@@ -15,7 +17,9 @@ import { MembresComponent } from './membres/membres.component';
     AddFormComponent,
     AddActiviteComponent,
     AddgroupeComponent,
-    MembresComponent
+    MembresComponent,
+    ActivitesComponent,
+    GroupesComponent
   ],
   imports: [
     RouterModule,
