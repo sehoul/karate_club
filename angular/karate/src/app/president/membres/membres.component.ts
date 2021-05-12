@@ -16,7 +16,6 @@ export class MembresComponent implements OnInit {
   fileName= 'Classeur-karate.xlsx';
 
 
-
     exportexcel(): void {
   
     let element = document.getElementById('excel-table');
