@@ -95,8 +95,6 @@ export class MyTableComponent implements AfterViewInit {
     XLSX.writeFile(wb, 'SheetJS.xlsx');
 
   }
-
-  
   dataSource = new MatTableDataSource<elem>(USER_INFO);;
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
