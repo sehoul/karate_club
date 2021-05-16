@@ -43,7 +43,6 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatNativeDateModule,
    MatTableExporterModule,
    MatPaginatorModule
-   
   ],
   providers: [],
   bootstrap: [AppComponent]
