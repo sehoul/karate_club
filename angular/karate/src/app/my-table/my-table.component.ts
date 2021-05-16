@@ -48,7 +48,6 @@ const USER_SCHEMA = {
 })
 export class MyTableComponent implements AfterViewInit {
 
-<<<<<<< Updated upstream
   displayedColumns: string[] = ["id",
     "licenceFFK",
     "nom",
@@ -62,7 +61,6 @@ export class MyTableComponent implements AfterViewInit {
     "email",
     "activites",
     "nbInscritsFamille", '$$edit'];
-=======
 
 
   title = 'angular-app';
@@ -74,7 +72,7 @@ export class MyTableComponent implements AfterViewInit {
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(this.table.nativeElement);
     ws['!cols'] = [];
-    ws['!cols'][4] = { hidden: true };
+    ws['!cols'][13] = { hidden: true };
  
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
@@ -98,8 +96,7 @@ export class MyTableComponent implements AfterViewInit {
 
   }
 
-  displayedColumns: string[] = ['name', 'occupation', 'dateOfBirth', 'age', '$$edit'];
->>>>>>> Stashed changes
+  
   dataSource = new MatTableDataSource<elem>(USER_INFO);;
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
@@ -116,11 +113,8 @@ export class MyTableComponent implements AfterViewInit {
   }
 
 
-<<<<<<< Updated upstream
-=======
 
   
->>>>>>> Stashed changes
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
