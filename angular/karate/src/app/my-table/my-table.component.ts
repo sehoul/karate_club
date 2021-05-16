@@ -1,8 +1,28 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
-import { MyTableDataSource, MyTableItem } from './my-table-datasource';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+
+const USER_INFO: elem[] = [
+  {"name": "John Smith", "occupation": "Advisor", "dateOfBirth": "1984-05-05", "age": 36},
+  {"name": "Muhi Masri", "occupation": "Developer", "dateOfBirth": "1992-02-02", "age": 28},
+  {"name": "Peter Adams", "occupation": "HR", "dateOfBirth": "2000-01-01", "age": 20},
+  {"name": "Peter Adams", "occupation": "HR", "dateOfBirth": "2000-01-01", "age": 20},
+  {"name": "Peter Adams", "occupation": "HR", "dateOfBirth": "2000-01-01", "age": 20},
+  {"name": "Peter Adams", "occupation": "HR", "dateOfBirth": "2000-01-01", "age": 20},
+  {"name": "Peter Adams", "occupation": "HR", "dateOfBirth": "2000-01-01", "age": 20},
+  {"name": "Peter Adams", "occupation": "HR", "dateOfBirth": "2000-01-01", "age": 20},
+  {"name": "Peter Adams", "occupation": "HR", "dateOfBirth": "2000-01-01", "age": 20},
+  {"name": "Peter Adams", "occupation": "HR", "dateOfBirth": "2000-01-01", "age": 20},
+  {"name": "Peter Adams", "occupation": "HR", "dateOfBirth": "2000-01-01", "age": 20},
+  {"name": "Lora Bay", "occupation": "Marketing", "dateOfBirth": "1977-03-03", "age": 43},
+];
+
+const USER_SCHEMA = {
+  "name": "text",
+  "occupation": "text",
+  "dateOfBirth": "date",
+  "age": "number",
+}
 
 @Component({
   selector: 'app-my-table',
@@ -10,42 +30,37 @@ import { MyTableDataSource, MyTableItem } from './my-table-datasource';
   styleUrls: ['./my-table.component.css']
 })
 export class MyTableComponent implements AfterViewInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<MyTableItem>;
-  dataSource: MyTableDataSource;
 
-  items : MyTableItem[] = [];
+  displayedColumns: string[] = ['name', 'occupation', 'dateOfBirth', 'age', '$$edit'];
+  dataSource = new MatTableDataSource<elem>(USER_INFO);;
+  dataSchema:any = USER_SCHEMA;
+  edit(element:any){
+    console.log(element);
 
-  nom: any;
-
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id','licenceFFK','nom','prenom','dateNaissance','genre','categorie','adresse','tlphn1','tlphn2','email','activites','nbInscritsFamille'];
-
-  constructor() {
-    this.dataSource = new MyTableDataSource();
   }
+  //@ts-ignore
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
+  ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
   }
 
+  
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  constructor() {
+  }
   ngOnInit(){
   }
 
-  Search(){
-    if (this.nom == ""){
-      this.items
-  
-    }else{
-  
-      this.items = this.items.filter(res=>{
-        return res.nom.toLocaleLowerCase().match(this.nom.toLocaleLowerCase());
-      });
-    
 }
-}
+
+export interface elem {
+  name: string;
+  occupation: string;
+  dateOfBirth: string;
+  age: number;
 }
 

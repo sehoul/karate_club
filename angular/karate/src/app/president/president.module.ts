@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MembresComponent } from './membres/membres.component';
 import { ActivitesComponent } from './activites/activites.component';
 import { GroupesComponent } from './groupes/groupes.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
@@ -26,7 +27,8 @@ import { GroupesComponent } from './groupes/groupes.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatPaginatorModule
   ]
 })
 export class PresidentModule { }
