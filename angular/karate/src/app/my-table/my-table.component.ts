@@ -1,6 +1,10 @@
+import { ElementRef } from '@angular/core';
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import * as XLSX from 'xlsx';
+
+
 
 const USER_INFO: elem[] = [
   {id: 1, licenceFFK:2332, nom: 'TETOUAN',prenom:'Z',dateNaissance:'23/10/1992',genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
@@ -44,6 +48,7 @@ const USER_SCHEMA = {
 })
 export class MyTableComponent implements AfterViewInit {
 
+<<<<<<< Updated upstream
   displayedColumns: string[] = ["id",
     "licenceFFK",
     "nom",
@@ -57,6 +62,44 @@ export class MyTableComponent implements AfterViewInit {
     "email",
     "activites",
     "nbInscritsFamille", '$$edit'];
+=======
+
+
+  title = 'angular-app';
+  fileName= 'karte-club.xlsx';
+  membres=USER_INFO;
+  exportexcel(): void
+  {
+    /* pass here the table id */
+    let element = document.getElementById('excel-table');
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(this.table.nativeElement);
+    ws['!cols'] = [];
+    ws['!cols'][4] = { hidden: true };
+ 
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+ 
+    /* save to file */  
+    XLSX.writeFile(wb, this.fileName);
+ 
+  }
+  //@ts-ignore
+  @ViewChild('TABLE') table: ElementRef;
+  exportAsExcel()
+  {
+    const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);//converts a DOM TABLE element to a worksheet
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, 'SheetJS.xlsx');
+
+  }
+
+  displayedColumns: string[] = ['name', 'occupation', 'dateOfBirth', 'age', '$$edit'];
+>>>>>>> Stashed changes
   dataSource = new MatTableDataSource<elem>(USER_INFO);;
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
@@ -73,6 +116,11 @@ export class MyTableComponent implements AfterViewInit {
   }
 
 
+<<<<<<< Updated upstream
+=======
+
+  
+>>>>>>> Stashed changes
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

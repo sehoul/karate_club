@@ -1,9 +1,13 @@
-<article>
+<article #TABLE>
   <h2>Editable Dynamic Table</h2>
 
     <input (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    <div style=" margin: auto; width: 100%;">
+      <button (click)="exportexcel()">Exporter en Excel</button>
+    </div>
+    <button mat-raised-button color="primary" (click)="exportAsExcel()">Export as Excel</button>
 
-  <table mat-table [dataSource]="dataSource" >
+  <table #table id="excel-table" mat-table [dataSource]="dataSource" >
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
       <th mat-header-cell *matHeaderCellDef>
         <span *ngIf="col !== '$$edit'">
@@ -51,4 +55,10 @@
   </table>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+<<<<<<< Updated upstream
 </article>
+=======
+  
+</article>
+
+>>>>>>> Stashed changes
