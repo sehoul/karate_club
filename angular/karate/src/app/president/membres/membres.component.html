@@ -22,10 +22,10 @@
           <div class="btn-edit" *ngIf="col === '$$edit'; spanHeader" >
             <button class="btn btn-link text-dark" title="Modifier" (click)="element.isEdit = !element.isEdit"><i class="bi bi-pencil-square"></i></button>
           </div>
-          <span  *ngIf="col === 'dateOfBirth';" #spanHeader>
+          <span  *ngIf="col === 'dateNaissance'" #spanHeader>
             {{element[col] | date: 'dd/MM/yyyy'}}
           </span>
-          <span *ngIf="col !== 'dateOfBirth';" #spanHeader>
+          <span *ngIf="col !== 'dateNaissance'" #spanHeader>
             {{element[col]}}
           </span>
         </div>
