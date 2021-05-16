@@ -10,6 +10,11 @@ import { MembresComponent } from './membres/membres.component';
 import { ActivitesComponent } from './activites/activites.component';
 import { GroupesComponent } from './groupes/groupes.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatTableExporterModule } from 'mat-table-exporter';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
 
 
 
@@ -28,7 +33,14 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTableModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+   MatTableExporterModule,
+   MatPaginatorModule
+   
   ]
 })
 export class PresidentModule { }

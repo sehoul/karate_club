@@ -20,6 +20,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatDatepickerModule,
     MatNativeDateModule,
    MatTableExporterModule,
-   MatPaginatorModule
+   MatPaginatorModule,
+   
   ],
   providers: [],
   bootstrap: [AppComponent]
