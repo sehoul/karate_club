@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PresidentService } from './president.service';
+import { PresidentService } from '../Services/Categorie.service';
 
 @Component({
   selector: 'app-president',

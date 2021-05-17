@@ -6,6 +6,7 @@ use App\Repository\MembreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=MembreRepository::class)
@@ -21,96 +22,115 @@ class Membre
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("membre:info")
      */
     private $NumLicenceFFK;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("membre:info")
      */
     private $Nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("membre:info")
      */
     private $Prenom;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("membre:info")
      */
     private $DateNaissance;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("membre:info")
      */
     private $Genre;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("membre:info")
      */
     private $Groupe;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("membre:info")
      */
     private $Adresse;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("membre:info")
      */
     private $Telephone1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("membre:info")
      */
     private $Telephone2;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("membre:info")
      */
     private $Email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("membre:info")
      */
     private $NomParents;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("membre:info")
      */
     private $PrenomParents;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("membre:info")
      */
     private $TelephoneParents1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("membre:info")
      */
     private $TelephoneParents2;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("membre:info")
      */
     private $EmailParents;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups("membre:info")
      */
     private $Cotisation;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups("membre:info")
      */
     private $DateInscription;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("membre:info")
      */
     private $Grade;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("membre:info")
      */
     private $Observation;
 
@@ -123,6 +143,7 @@ class Membre
 
     /**
      * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="membres")
+     * @Groups("membre:info")
      */
     private $categorie;
 
