@@ -15,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { TdbComponent } from './tdb/tdb.component';
 
 
 
@@ -25,7 +26,8 @@ import { MatTableModule } from '@angular/material/table';
     AddgroupeComponent,
     MembresComponent,
     ActivitesComponent,
-    GroupesComponent
+    GroupesComponent,
+    TdbComponent
   ],
   imports: [
     RouterModule,

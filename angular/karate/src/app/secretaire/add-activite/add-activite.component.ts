@@ -25,9 +25,9 @@ export class AddActiviteComponent implements OnInit {
 
 
 
-  private activite:Array<Activite>=[
-    new Activite(1,'karaté',100)
-  ]
+private activite:Array<Activite>=[
+  new Activite(1,'karaté',100)
+]
 
 
   submit() {
