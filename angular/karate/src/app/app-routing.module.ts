@@ -32,6 +32,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { AuthSecretaireGuard } from './guards/auth-secretaire.guard';
 import { AuthPresidentGuard } from './guards/auth-president.guard';
 import { AuthInstructeurGuard } from './guards/auth-instructeur.guard';
+import { CalendrierComponent } from './instructeur/calendrier/calendrier.component';
 
 
 const routes: Routes = [
@@ -42,7 +43,10 @@ const routes: Routes = [
   {path:'t', component:MyTableComponent},
   
   {path:'i', component:InstructeurComponent,
-    canActivate: [AuthInstructeurGuard],
+    //canActivate: [AuthInstructeurGuard],
+    children:[
+      {path:'calendrier',component:CalendrierComponent}
+    ]
   },
 
   {path:'p', component:PresidentComponent,
