@@ -22,9 +22,11 @@ import { TdbComponent } from './president/tdb/tdb.component';
 import { ActivitesComponent as ScrA }  from './secretaire/activites/activites.component';
 import { MembresComponent as ScrM }  from './secretaire/membres/membres.component';
 import { GroupesComponent as ScrG }  from './secretaire/groupes/groupes.component';
+import { AuthComponent } from './auth/auth.component';
 const routes: Routes = [
 
   {path:'', component:HomepageComponent},
+  {path:'connexion', component:AuthComponent},
   {path:'i', component:InstructeurComponent},
   {path:'t', component:MyTableComponent},
   {path:'p', component:PresidentComponent,

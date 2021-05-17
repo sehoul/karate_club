@@ -10,7 +10,7 @@ import { PresidentModule } from './president/president.module';
 
 import {SecretaireComponent} from './secretaire/secretaire.component';
 import { SecretaireModule } from './secretaire/secretaire.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InstructeurComponent } from './instructeur/instructeur.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyTableComponent } from './my-table/my-table.component';
@@ -20,6 +20,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { AuthComponent } from './auth/auth.component';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     PresidentComponent,
     SecretaireComponent,
     InstructeurComponent,
-    MyTableComponent
+    MyTableComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     SecretaireModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatTableModule,
     MatInputModule,
@@ -47,7 +51,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
    MatPaginatorModule,
    
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
