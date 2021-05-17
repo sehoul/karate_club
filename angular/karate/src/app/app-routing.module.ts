@@ -69,7 +69,8 @@ const routes: Routes = [
       {path:'activites',component:ScrA},
       {path:'groupes',component:ScrG}
     ]
-  }
+  },
+  {path:'**', redirectTo:'/',pathMatch: 'full'}
 
 
 ];
