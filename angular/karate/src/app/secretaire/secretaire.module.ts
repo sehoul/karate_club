@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatTableExporterModule } from 'mat-table-exporter';
+import { TdbComponent } from './tdb/tdb.component';
 
 
 
@@ -24,7 +25,8 @@ import { MatTableExporterModule } from 'mat-table-exporter';
     AddgroupeComponent,
     MembresComponent,
     GroupesComponent,
-    ActivitesComponent
+    ActivitesComponent,
+    TdbComponent
   ],
   imports: [
     CommonModule,

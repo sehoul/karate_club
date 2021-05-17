@@ -22,6 +22,9 @@ import { MatTableExporterModule } from 'mat-table-exporter';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { AuthComponent } from './auth/auth.component';
 import { CookieService } from 'ngx-cookie-service';
+import { LogoutComponent } from './logout/logout.component';
+import { AuthSecretaireGuard } from './guards/auth-secretaire.guard';
+import { AuthPresidentGuard } from './guards/auth-president.guard';
 
 
 @NgModule({
@@ -32,7 +35,8 @@ import { CookieService } from 'ngx-cookie-service';
     SecretaireComponent,
     InstructeurComponent,
     MyTableComponent,
-    AuthComponent
+    AuthComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +55,7 @@ import { CookieService } from 'ngx-cookie-service';
    MatPaginatorModule,
    
   ],
-  providers: [CookieService],
+  providers: [CookieService,AuthSecretaireGuard,AuthPresidentGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
