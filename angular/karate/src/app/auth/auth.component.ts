@@ -44,7 +44,7 @@ export class AuthComponent implements OnInit {
                     this.Auth.setSecretaireLogedIn(true,result.result.id.toString()); this.router.navigate(['s'])  
                     break;
                   case 'president':
-                    this.Auth.IsPresidentLogedIn(true,result.result.id.toString()); this.router.navigate(['p'])  
+                    this.Auth.setPresidentLogedIn(true,result.result.id.toString()); this.router.navigate(['p'])  
                     break;
                   case 'admin':
                     this.Auth.setSecretaireLogedIn(true,result.result.id.toString()); this.router.navigate(['s'])  
