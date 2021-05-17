@@ -40,4 +40,15 @@ export class AuthService {
     this.cookie.set('idPres', id);
   }
 
+  // pour l'instructeur
+  private _isInstructeur:boolean=JSON.parse(this.cookie.get('isInstructeurLogged') || 'false');
+  get IsInstructeurLogedIn(){
+    return JSON.parse(this.cookie.get('isInstructeurLogged') || this._isInstructeur.toString());
+  }
+  setInstructeurLogedIn(value:boolean,id:string){
+    this._isInstructeur=value;
+    this.cookie.set('isInstructeurLogged', 'true');
+    this.cookie.set('idInst', id);
+  }
+
 }

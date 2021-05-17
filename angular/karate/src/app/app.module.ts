@@ -25,6 +25,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthSecretaireGuard } from './guards/auth-secretaire.guard';
 import { AuthPresidentGuard } from './guards/auth-president.guard';
+import { AuthInstructeurGuard } from './guards/auth-instructeur.guard';
 
 
 @NgModule({
@@ -55,7 +56,7 @@ import { AuthPresidentGuard } from './guards/auth-president.guard';
    MatPaginatorModule,
    
   ],
-  providers: [CookieService,AuthSecretaireGuard,AuthPresidentGuard],
+  providers: [CookieService,AuthSecretaireGuard,AuthPresidentGuard,AuthInstructeurGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

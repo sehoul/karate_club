@@ -49,9 +49,12 @@ export class AuthComponent implements OnInit {
                   case 'admin':
                     this.Auth.setSecretaireLogedIn(true,result.result.id.toString()); this.router.navigate(['s'])  
                     break;
+                  case 'instructeur':
+                    this.Auth.IsInstructeurLogedIn(true,result.result.id.toString()); this.router.navigate(['i'])  
+                    break;
                 
                   default:
-                    this.cookie.delete('isSecretaireLogged');
+                    this.cookie.deleteAll();
                     break;
               }           
             }

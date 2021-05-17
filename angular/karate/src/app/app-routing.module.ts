@@ -3,8 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomepageComponent } from './homepage/homepage.component';
 
-import { InstructeurComponent } from './instructeur/instructeur.component';
 import { MyTableComponent } from './my-table/my-table.component';
+
+import { InstructeurComponent } from './instructeur/instructeur.component';
 
 import { AddActiviteComponent as FormAcP} from './president/add-activite/add-activite.component';
 import { AddFormComponent as FormP } from './president/add-form/add-form.component';
@@ -26,9 +27,11 @@ import { TdbComponent as TdbS} from './secretaire/tdb/tdb.component';
 
 import { AuthComponent } from './auth/auth.component';
 
-import { AuthSecretaireGuard } from './guards/auth-secretaire.guard';
 import { LogoutComponent } from './logout/logout.component';
+
+import { AuthSecretaireGuard } from './guards/auth-secretaire.guard';
 import { AuthPresidentGuard } from './guards/auth-president.guard';
+import { AuthInstructeurGuard } from './guards/auth-instructeur.guard';
 
 
 const routes: Routes = [
@@ -36,9 +39,11 @@ const routes: Routes = [
   {path:'', component:HomepageComponent},
   {path:'connexion', component:AuthComponent},
   {path:'logout', component:LogoutComponent},
-  {path:'i', component:InstructeurComponent},
   {path:'t', component:MyTableComponent},
-
+  
+  {path:'i', component:InstructeurComponent,
+    canActivate: [AuthInstructeurGuard],
+  },
 
   {path:'p', component:PresidentComponent,
     canActivate: [AuthPresidentGuard],
