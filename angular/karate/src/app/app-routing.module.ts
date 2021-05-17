@@ -10,11 +10,11 @@ import { InstructeurComponent } from './instructeur/instructeur.component';
 import { AddActiviteComponent as FormAcP} from './president/add-activite/add-activite.component';
 import { AddFormComponent as FormP } from './president/add-form/add-form.component';
 import { AddgroupeComponent as FormGP} from './president/addgroupe/addgroupe.component';
-import { MembresComponent as PdtM} from './president/membres/membres.component';
+import { MembresComponent, MembresComponent as PdtM} from './president/membres/membres.component';
 import { PresidentComponent } from './president/president.component';
 import { ActivitesComponent } from './president/activites/activites.component';
 import { GroupesComponent } from './president/groupes/groupes.component';
-import { TdbComponent as TdbP } from './president/tdb/tdb.component';
+import { TdbComponent, TdbComponent as TdbP } from './president/tdb/tdb.component';
 
 import { AddActiviteComponent as FormAcS } from './secretaire/add-activite/add-activite.component';
 import { AddFormComponent as FormS} from './secretaire/add-form/add-form.component';
@@ -22,8 +22,11 @@ import { AddgroupeComponent as FormGS} from './secretaire/addgroupe/addgroupe.co
 import { SecretaireComponent } from './secretaire/secretaire.component';
 import { ActivitesComponent as ScrA }  from './secretaire/activites/activites.component';
 import { MembresComponent as ScrM }  from './secretaire/membres/membres.component';
+import { MembresComponent as InstM }  from './instructeur/membres/membres.component';
 import { GroupesComponent as ScrG }  from './secretaire/groupes/groupes.component';
+import { GroupesComponent as InstG }  from './instructeur/groupes/groupes.component';
 import { TdbComponent as TdbS} from './secretaire/tdb/tdb.component';
+import { TdbComponent as TdbI} from './instructeur/tdb/tdb.component';
 
 import { AuthComponent } from './auth/auth.component';
 
@@ -45,7 +48,10 @@ const routes: Routes = [
   {path:'i', component:InstructeurComponent,
     //canActivate: [AuthInstructeurGuard],
     children:[
-      {path:'calendrier',component:CalendrierComponent}
+      {path:'calendrier',component:CalendrierComponent},
+      {path:'tdb',component:TdbI},
+      {path:'groupes',component:InstG},
+      {path:'membres',component:InstM}
     ]
   },
 
