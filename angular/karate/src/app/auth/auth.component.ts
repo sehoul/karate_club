@@ -50,7 +50,7 @@ export class AuthComponent implements OnInit {
                     this.Auth.setSecretaireLogedIn(true,result.result.id.toString()); this.router.navigate(['s'])  
                     break;
                   case 'instructeur':
-                    this.Auth.IsInstructeurLogedIn(true,result.result.id.toString()); this.router.navigate(['i'])  
+                    this.Auth.setInstructeurLogedIn(true,result.result.id.toString()); this.router.navigate(['i'])  
                     break;
                 
                   default:
