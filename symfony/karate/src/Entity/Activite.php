@@ -17,6 +17,7 @@ class Activite
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"Activite"})
      */
     private $id;
 

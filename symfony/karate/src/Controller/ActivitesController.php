@@ -20,6 +20,7 @@ class ActivitesController extends AbstractController
      */
     public function getActivites(): Response
     {
+        
         return $this->json($this->activiteRepository->findAll(), 200, [],array('groups' => array('Groupe','Activite:Groupe','Activite')));
     }
 }

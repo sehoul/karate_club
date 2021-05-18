@@ -24,20 +24,28 @@ const USER_SCHEMA = {
 export class ActivitesComponent implements OnInit, AfterViewInit {
   
  USER_INFO: elem[] = [];
-  
+ dataSource = new MatTableDataSource<elem>(this.USER_INFO); 
+//@ts-ignore
+@ViewChild(MatPaginator) paginator: MatPaginator;
 
+ngAfterViewInit() {
+  this.dataSource.paginator = this.paginator;
+}
   activites!: any[];
   constructor(private service: ActivitesService){}
   ngOnInit(){
         this.service.getMembres().subscribe((response: any) =>{
           console.log(response);
           
-          this.USER_INFO=response });
+          this.USER_INFO=response;
+          this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+          this.dataSource.paginator = this.paginator;
+         });
           };
   
 
   displayedColumns: string[] = ["id",
-    "nom","cotisation" , '$$edit'];
+    "nomActivite","cotisation" , '$$edit'];
 
 
   title = 'angular-app';
@@ -55,43 +63,34 @@ export class ActivitesComponent implements OnInit, AfterViewInit {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
   
- 
     /* save to file */  
     XLSX.writeFile(wb, this.fileName);
  
   }
   
-  dataSource = new MatTableDataSource<elem>(this.USER_INFO);;
   dataSchema:any = USER_SCHEMA;
+
+
   edit(element:any){
     console.log(element);
-
   }
-
-
-  //@ts-ignore
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
 
 
   
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  
-
 
 }
 
+
+
 export interface elem {
   id: number;
-  
-  nom: string;
+  nomActivite: string;
   cotisation: number;
+  Groupe:any;
 }
 
