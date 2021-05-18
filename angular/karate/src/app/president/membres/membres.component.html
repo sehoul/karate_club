@@ -9,23 +9,27 @@
 
   <table id="excel-table" mat-table [dataSource]="dataSource" >
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
-      <th mat-header-cell *matHeaderCellDef>
-        <span *ngIf="col !== '$$edit'">
+      <th mat-header-cell *matHeaderCellDef class="p-2">
+        <span class="text-center" *ngIf="col !== '$$edit'">
           {{col}}
         </span>
       </th>
-      <td mat-cell *matCellDef="let element">
+      <td mat-cell *matCellDef="let element" class="p-2">
+       <!--
+         <div class="col-2 p-2" >{{ (fiche.Etudiant.EmailEtudiant.length>6)? (fiche.Etudiant.EmailEtudiant | slice:0:23)+'...':(fiche.Etudiant.EmailEtudiant)}}</div>         
+      --> 
 
-
-
-        <div *ngIf="!element.isEdit">
+        <div *ngIf="!element.isEdit" [style.width]="col==='Adresse' || col ==='Observation'?'200px':'auto'">
           <div class="btn-edit" *ngIf="col === '$$edit'; spanHeader" >
             <button class="btn btn-link text-dark" title="Modifier" (click)="element.isEdit = !element.isEdit"><i class="bi bi-pencil-square"></i></button>
           </div>
-          <span  *ngIf="col === 'dateNaissance'" #spanHeader>
+          <span  *ngIf="col === 'DateNaissance' || col === 'DateInscription'" #spanHeader>
             {{element[col] | date: 'dd/MM/yyyy'}}
           </span>
-          <span *ngIf="col !== 'dateNaissance'" #spanHeader>
+          <span *ngIf="col === 'categorie'">
+            {{element[col].nomCategorie}}
+          </span>
+          <span *ngIf="col !== 'DateNaissance' && col !== 'categorie' && col !== 'DateInscription'" #spanHeader>
             {{element[col]}}
           </span>
         </div>
@@ -44,7 +48,8 @@
           <ng-template #defaultField>
             <mat-form-field>
               <mat-label>{{col}}</mat-label>
-              <input type="{{dataSchema[col]}}" matInput [(ngModel)]="element[col]">
+              <input *ngIf="col === 'categorie'" type="{{dataSchema[col]}}" matInput [(ngModel)]="element[col].nomCategorie">
+              <input *ngIf="col !== 'categorie'" type="{{dataSchema[col]}}" matInput [(ngModel)]="element[col]">
             </mat-form-field>
           </ng-template>
         </div>
