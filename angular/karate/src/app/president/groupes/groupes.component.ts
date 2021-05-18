@@ -1,18 +1,13 @@
-import { ElementRef } from '@angular/core';
+import { ElementRef, OnInit } from '@angular/core';
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { GroupesService } from 'src/app/Services/groupes.service';
 import * as XLSX from 'xlsx';
 
 
 
-const USER_INFO: elem[] = [
-  {id: 1,  nom: 'groupe1', instructeur: "instructeur1"},
-  {id: 2,  nom: 'groupe2', instructeur: "instructeur1"},
-  {id: 3,  nom: 'groupe3', instructeur: "instructeur4"},
-
-  
-];
+const USER_INFO: elem[] = [];
 
 const USER_SCHEMA = {
   "id": "number",
@@ -27,10 +22,24 @@ const USER_SCHEMA = {
   templateUrl: './groupes.component.html',
   styleUrls: ['./groupes.component.css']
 })
-export class GroupesComponent implements AfterViewInit {
+export class GroupesComponent implements AfterViewInit,OnInit {
+
+  USER_INFO: elem[] = [];
+ dataSource = new MatTableDataSource<elem>(this.USER_INFO);
+ groupes!: any[];
+  constructor(private service: GroupesService){}
+  ngOnInit(){
+        this.service.getGroupes().subscribe((response: any) =>{
+          console.log(response);
+          
+          this.USER_INFO=response;
+          this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+          this.dataSource.paginator = this.paginator;
+         });
+          };
 
   displayedColumns: string[] = ["id",
-    "nom","instructeur" , '$$edit'];
+    "NomGroupe","activite" , '$$edit'];
 
 
   title = 'angular-app';
@@ -76,10 +85,7 @@ export class GroupesComponent implements AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  constructor() {
-  }
-  ngOnInit(){
-  }
+  
 
 
 
@@ -87,8 +93,7 @@ export class GroupesComponent implements AfterViewInit {
 
 export interface elem {
   id: number;
-  
-  nom: string;
-  instructeur: string;
+  NomGroupe: string;
+  activite: any;
 }
 

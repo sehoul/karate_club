@@ -8,22 +8,7 @@ import * as XLSX from 'xlsx';
 
 
 
-const USER_INFO: elem[] = [
-  {id: 1, licenceFFK:2332, nom: 'TETOUAN',prenom:'Z',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
-  {id: 2, licenceFFK:5332, nom: 'Aydrogen',prenom:'G',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:1},
-  {id: 3, licenceFFK:332, nom: 'Bydrogen',prenom:'H',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:33},
-  {id: 4, licenceFFK:88332, nom: 'Cydrogen',prenom:'Y',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:55},
-  {id: 5, licenceFFK:232, nom: 'Drogen',prenom:'T',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
-  {id: 6, licenceFFK:1332, nom: 'Eydrogen',prenom:'A',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:0},
-  {id: 7, licenceFFK:32, nom: 'Hydrogen',prenom:'J',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
-  {id: 8, licenceFFK:22332, nom: 'Hydrogen',prenom:'I',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
-  {id: 9, licenceFFK:238832, nom: 'Hydrogen',prenom:'Q',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
-  {id: 10, licenceFFK:32332, nom: 'Hydrogen',prenom:'P',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
-  {id: 11, licenceFFK:21132, nom: 'Hydrogen',prenom:'VV',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
-  {id: 12, licenceFFK:23332, nom: 'Rydrogen',prenom:'N',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
-  {id: 13, licenceFFK:24332, nom: 'Wydrogen',prenom:'Z',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
-  {id: 14, licenceFFK:323332, nom: 'Oydrogen',prenom:'U',dateNaissance:new Date("2019-01-02"),genre:'Homme',categorie:'C1',adresse:'2 rue blabla',tlphn1:'0623234345',tlphn2:'0623234345',email:'mail@gmail.com',activites:'karate',nbInscritsFamille:2},
-];
+
 
 const USER_SCHEMA = {
   "id": "number",
@@ -49,35 +34,48 @@ const USER_SCHEMA = {
   styleUrls: ['./membres.component.css']
 })
 export class MembresComponent implements OnInit,AfterViewInit {
-  membress!: any[];
-  constructor(private service: MembresService){}
-  ngOnInit(){
-        this.service.getMembres().subscribe((respone: any) => {
-           console.log(respone);
-            });
-          };
-  
+  USER_INFO: elem[] = [];
+  dataSource = new MatTableDataSource<elem>(this.USER_INFO);
+  groupes!: any[];
+   constructor(private service: MembresService){}
+   ngOnInit(){
+         this.service.getMembres().subscribe((response: any) =>{
+           console.log(response);
+           
+           this.USER_INFO=response;
+           this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+           this.dataSource.paginator = this.paginator;
+          });
+           };
 
   
 
   displayedColumns: string[] = ["id",
-    "licenceFFK",
-    "nom",
-    "prenom",
-    "dateNaissance",
-    "genre",
-    "categorie",
-    "adresse",
-    "tlphn1",
-    "tlphn2",
-    "email",
-    "activites",
-    "nbInscritsFamille", '$$edit'];
+    "NumLicenceFFK",
+    "Nom",
+    "Prenom",
+    "DateNaissance",
+    "Genre",
+    "Categorie",
+    "Adresse",
+    "Telephone1",
+    "Telephone2",
+    "Email",
+    "NomParents",
+    "PrenomParents",
+    "TelephoneParents1",
+    "TelephoneParents2",
+    "EamilParents",
+    "Cotisation",
+    "DateInscription",
+    "Grade",
+    "Observation",
+    "categorie", '$$edit'];
 
 
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
-  membres=USER_INFO;
+  
   exportexcel(): void
   {
     /* pass here the table id */
@@ -96,7 +94,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
  
   }
   
-   dataSource = new MatTableDataSource<elem>(USER_INFO);;
+   dataSource = new MatTableDataSource<elem>(this.USER_INFO);;
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
     console.log(element);
@@ -124,16 +122,26 @@ export class MembresComponent implements OnInit,AfterViewInit {
 
  export interface elem {
   id: number;
-  licenceFFK: number;
-  nom: string;
-  prenom: string;
-  dateNaissance: Date;
-  genre: string;
-  categorie: string;
-  adresse: string;
-  tlphn1: string;
-  tlphn2: string;
-  email: string;
-  activites: string;
-  nbInscritsFamille: number;
+  NumLicenceFFK: string;
+  Nom: string;
+  Prenom: string;
+  DateNaissance: Date;
+  Genre: string;
+  Groupe: string;
+  Categorie: string;
+  Adresse: string;
+  Telephone1: string;
+  Telephone2: string;
+  Email: string;
+  NomParents: string;
+  PrenomParents: string;
+  TelephoneParents1: string;
+  TelephoneParents2: string;
+  EamilParents: string;
+  Cotisation: number;
+  DateInscription: Date;
+  Grade: string;
+  Observation: string;
+  categorie: any;
+  
 }
