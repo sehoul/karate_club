@@ -6,6 +6,7 @@ use App\Repository\ActiviteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ActiviteRepository::class)
@@ -21,21 +22,25 @@ class Activite
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"Activite"})
      */
     private $nomActivite;
 
     /**
      * @ORM\Column(type="float" , nullable=true)
+     * @Groups({"Activite"})
      */
     private $cotisation;
 
     /**
      * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="activite")
+     * @Groups({"Activite:Groupe"})
      */
     private $Groupe;
 
     /**
      * @ORM\OneToMany(targetEntity=MembreActivite::class, mappedBy="Avtivite")
+     * @Groups({"Activite:Membre"})
      */
     private $membreActivites;
 

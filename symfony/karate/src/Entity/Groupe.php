@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\GroupeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=GroupeRepository::class)
@@ -19,6 +20,7 @@ class Groupe
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"Groupe"})
      */
     private $NomGroupe;
 
@@ -29,6 +31,7 @@ class Groupe
 
     /**
      * @ORM\ManyToOne(targetEntity=Activite::class, inversedBy="Groupe")
+     * @Groups({"Groupe:Activite"})
      */
     private $activite;
 

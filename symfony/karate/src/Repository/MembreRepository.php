@@ -18,23 +18,29 @@ class MembreRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Membre::class);
     }
+    public function findAllArray()
+ {
+     $qb = $this
+         ->createQueryBuilder('u')
+         ->select('u');
+     return $qb->getQuery()->getArrayResult();
+ }
+     /**
+      * @return Membre[] Returns an array of Membre objects
+      */
 
-    // /**
-    //  * @return Membre[] Returns an array of Membre objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByid($value)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
+            ->andWhere('m.id = :val')
             ->setParameter('val', $value)
             ->orderBy('m.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
+            ->getArrayResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Membre

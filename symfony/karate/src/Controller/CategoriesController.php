@@ -19,12 +19,6 @@ class CategoriesController extends AbstractController
      */
     public function getCategories(): Response
     {
-        $table=[];
-        $categories=$this->categorieRepository->findAll();
-        foreach($categories as $categorie){
-            $table[]=$categorie->getNomCategorie();
-        }
-        
-        return $this->json($categories, 200, [],[ObjectNormalizer::ATTRIBUTES => ['nomCategorie','Description']]);
+        return $this->json($this->categorieRepository->findAll(), 200, [],array('groups' => array('categories')));
     }
 }

@@ -34,7 +34,7 @@ class Categorie
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("categories")
+     * @Groups({"categories"})
      */
     private $Description;
 
