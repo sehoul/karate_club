@@ -17,7 +17,6 @@ class Activite
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"Activite"})
      */
     private $id;
 
@@ -45,6 +44,7 @@ class Activite
      */
     private $membreActivites;
 
+    
     public function __construct()
     {
         $this->Groupe = new ArrayCollection();
@@ -54,6 +54,11 @@ class Activite
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function setId(int $id): self
+    {
+         $this->id=$id;
+         return $this;
     }
 
     public function getNomActivite(): ?string
