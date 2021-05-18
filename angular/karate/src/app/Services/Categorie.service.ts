@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class PresidentService {
+export class CategoriesService {
 
   private url= "http://localhost:8000/categories";
 

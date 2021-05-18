@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PresidentService } from '../Services/Categorie.service';
+import { CategoriesService } from '../Services/Categorie.service';
 
 @Component({
   selector: 'app-president',
@@ -9,7 +9,7 @@ import { PresidentService } from '../Services/Categorie.service';
 export class PresidentComponent implements OnInit {
 categories: Array<any>=[];
 
-  constructor(private data:PresidentService) { }
+  constructor(private data:CategoriesService) { }
 
   ngOnInit(): void { 
     this.data.getCategories().subscribe((category:any)=>{

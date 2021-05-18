@@ -43,7 +43,7 @@
       <div class="form-group">
         <label for="genre">Genre</label>
         <select type="text" id="genre" class="form-control" formControlName="genre" [ngClass]="form.controls['genre'].invalid && genre.touched ? 'is-invalid' : form.controls['genre'].valid? 'is-valid': '' ">
-          <option value="" selected>Genre</option>
+          <option value="" selected disabled>Genre</option>
           <option *ngFor="let gen of Genres" [value]="gen.id">{{gen.val}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="genre.touched">
@@ -61,8 +61,8 @@
       <div class="form-group">
         <label for="categorie">Categorie</label>
         <select id="categorie" class="form-control" formControlName="categorie" [ngClass]="form.controls['categorie'].invalid && categorie.touched ? 'is-invalid' : form.controls['categorie'].valid? 'is-valid': '' ">
-          <option value="" selected>categorie</option>
-          <option *ngFor="let cat of Categories" [value]="cat.id">{{cat.val}}</option>
+          <option value="" selected disabled>Sélectionnez une categorie ...</option>
+          <option *ngFor="let cat of Categories" [value]="cat.id">{{cat.nomCategorie}} {{cat.Description}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="categorie.touched">
           Ce champs est obligatoire.
