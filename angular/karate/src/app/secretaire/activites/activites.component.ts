@@ -1,18 +1,12 @@
-import { ElementRef } from '@angular/core';
+import { ElementRef, OnInit } from '@angular/core';
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivitesService } from 'src/app/Services/activites.service';
 import * as XLSX from 'xlsx';
 
 
 
-const USER_INFO: elem[] = [
-  {id: 1,  nom: 'Karaté', cotisation: 120},
-  {id: 2,  nom: 'Self-defense', cotisation: 190},
-  {id: 3,  nom: 'Body-karaté', cotisation: 220},
-
-  
-];
 
 const USER_SCHEMA = {
   "id": "number",
@@ -27,15 +21,28 @@ const USER_SCHEMA = {
   templateUrl: './activites.component.html',
   styleUrls: ['./activites.component.css']
 })
-export class ActivitesComponent implements AfterViewInit {
+export class ActivitesComponent implements OnInit, AfterViewInit {
+  USER_INFO: elem[] = [];
+  activites!: any[];
+  constructor(private service: ActivitesService){}
+  ngOnInit(){
+        this.service.getMembres().subscribe((response: any) =>{
+          console.log(response);
+          
+          this.USER_INFO=response;
+          this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+          this.dataSource.paginator = this.paginator;
+         });
+          };
 
   displayedColumns: string[] = ["id",
-    "nom","cotisation" , '$$edit'];
+  "nomActivite","cotisation" , '$$edit'];
+
 
 
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
-  membres=USER_INFO;
+
   exportexcel(): void
   {
     /* pass here the table id */
@@ -54,7 +61,7 @@ export class ActivitesComponent implements AfterViewInit {
  
   }
   
-  dataSource = new MatTableDataSource<elem>(USER_INFO);;
+  dataSource = new MatTableDataSource<elem>(this.USER_INFO);;
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
     console.log(element);
@@ -76,10 +83,7 @@ export class ActivitesComponent implements AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  constructor() {
-  }
-  ngOnInit(){
-  }
+
 
 
 
@@ -87,8 +91,8 @@ export class ActivitesComponent implements AfterViewInit {
 
 export interface elem {
   id: number;
-  
-  nom: string;
+  nomActivite: string;
   cotisation: number;
+  Groupe:any;
 }
 
