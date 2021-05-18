@@ -1,7 +1,9 @@
-import { ElementRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ElementRef, OnInit } from '@angular/core';
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MembresService } from 'src/app/Services/membres.service';
 import * as XLSX from 'xlsx';
 
 
@@ -46,7 +48,17 @@ const USER_SCHEMA = {
   templateUrl: './membres.component.html',
   styleUrls: ['./membres.component.css']
 })
-export class MembresComponent implements AfterViewInit {
+export class MembresComponent implements OnInit,AfterViewInit {
+  membress!: any[];
+  constructor(private service: MembresService){}
+  ngOnInit(){
+        this.service.getMembres().subscribe((respone: any) => {
+           console.log(respone);
+            });
+          };
+  
+
+  
 
   displayedColumns: string[] = ["id",
     "licenceFFK",
@@ -84,13 +96,12 @@ export class MembresComponent implements AfterViewInit {
  
   }
   
-  dataSource = new MatTableDataSource<elem>(USER_INFO);;
+   dataSource = new MatTableDataSource<elem>(USER_INFO);;
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
     console.log(element);
 
   }
-
 
   //@ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -106,16 +117,12 @@ export class MembresComponent implements AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  constructor() {
-  }
-  ngOnInit(){
-  }
-
-
-
+  
+  
 }
+         
 
-export interface elem {
+ export interface elem {
   id: number;
   licenceFFK: number;
   nom: string;
@@ -130,4 +137,3 @@ export interface elem {
   activites: string;
   nbInscritsFamille: number;
 }
-

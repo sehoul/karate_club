@@ -26,6 +26,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { AuthSecretaireGuard } from './guards/auth-secretaire.guard';
 import { AuthPresidentGuard } from './guards/auth-president.guard';
 import { AuthInstructeurGuard } from './guards/auth-instructeur.guard';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { AuthInstructeurGuard } from './guards/auth-instructeur.guard';
     InstructeurComponent,
     MyTableComponent,
     AuthComponent,
-    LogoutComponent
+    LogoutComponent,
+    
   ],
   imports: [
     BrowserModule,

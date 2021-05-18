@@ -1,24 +1,24 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'dev-Sehoul-main',
-    'version' => 'dev-Sehoul-main',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => 'b3605717177402003fa63a8a7adc95764f714b70',
+    'reference' => 'e9ac8a6003cc359339a8832db16d73f8024718fd',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => 'dev-Sehoul-main',
-      'version' => 'dev-Sehoul-main',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => 'b3605717177402003fa63a8a7adc95764f714b70',
+      'reference' => 'e9ac8a6003cc359339a8832db16d73f8024718fd',
     ),
     'composer/package-versions-deprecated' => 
     array (
@@ -402,8 +402,8 @@
     array (
       'provided' => 
       array (
-        0 => '1.0.0',
-        1 => '1.0',
+        0 => '1.0',
+        1 => '1.0.0',
       ),
     ),
     'psr/simple-cache-implementation' => 
