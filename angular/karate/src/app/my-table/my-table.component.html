@@ -7,7 +7,44 @@
     </div>
     <button mat-raised-button color="primary" (click)="exportAsExcel()">Export as Excel</button>
 
+
+
+  <div style="overflow:scroll;height:50px;background-color:#A8FCAD;width:200px;">
+    <input type="checkbox" [(ngModel)]="filter.Homme" (ngModelChange)="filterChange()" name="chk" id="h"/>
+    <label for="h">Homme </label><br />
+    <input type="checkbox" [(ngModel)]="filter.Femme" (ngModelChange)="filterChange()" name="chk" id="f"/>
+    <label for="f"> Femme</label><br />
+  </div>
+
+  <div style="overflow:scroll;height:50px;background-color:#A8FCAD;width:200px;">
+    <input type="checkbox" [(ngModel)]="filter2.Minipoussins" (ngModelChange)="filterChange2()" name="ch" id="mp"/>
+    <label for="mp">Mini poussins </label><br />
+    <input type="checkbox" [(ngModel)]="filter2.Poussins" (ngModelChange)="filterChange2()" name="c" id="p"/>
+    <label for="p"> Poussins</label><br />
+    <input type="checkbox" [(ngModel)]="filter2.pupilles" (ngModelChange)="filterChange2()" name="pu" id="pu"/>
+    <label for="pu"> pupilles</label><br />
+    <input type="checkbox" [(ngModel)]="filter2.Benjamins" (ngModelChange)="filterChange2()" name="b" id="b"/>
+    <label for="b"> Benjamins</label><br />
+    <input type="checkbox" [(ngModel)]="filter2.Minimes" (ngModelChange)="filterChange2()" name="m" id="m"/>
+    <label for="m"> Minimes</label><br />
+    <input type="checkbox" [(ngModel)]="filter2.Cadets" (ngModelChange)="filterChange2()" name="ca" id="ca"/>
+    <label for="ca"> Cadets</label><br />
+    <input type="checkbox" [(ngModel)]="filter2.Juniors" (ngModelChange)="filterChange2()" name="j" id="j"/>
+    <label for="j"> Juniors</label><br />
+    <input type="checkbox" [(ngModel)]="filter2.Espoirs" (ngModelChange)="filterChange2()" name="e" id="e"/>
+    <label for="e"> Espoirs</label><br />
+    <input type="checkbox" [(ngModel)]="filter2.Seniors" (ngModelChange)="filterChange2()" name="s" id="s"/>
+    <label for="s"> Séniors</label><br />
+
+  </div>
+
+
+
+
   <table #table id="excel-table" mat-table [dataSource]="dataSource" >
+
+
+
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
       <th mat-header-cell *matHeaderCellDef>
         <span *ngIf="col !== '$$edit'">
@@ -55,6 +92,6 @@
   </table>
 
   <mat-paginator [pageSizeOptions]="[20, 100, 1000]" showFirstLastButtons></mat-paginator>
-  
+
 </article>
 

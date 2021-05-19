@@ -39,7 +39,7 @@ import { HttpClientModule } from '@angular/common/http';
     MyTableComponent,
     AuthComponent,
     LogoutComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -56,7 +56,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatNativeDateModule,
    MatTableExporterModule,
    MatPaginatorModule,
-   
+
   ],
   providers: [CookieService,AuthSecretaireGuard,AuthPresidentGuard,AuthInstructeurGuard],
   bootstrap: [AppComponent]
