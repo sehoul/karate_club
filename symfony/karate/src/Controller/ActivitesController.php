@@ -32,6 +32,7 @@ class ActivitesController extends AbstractController
         if($activite){
            foreach( $activite->getGroupe() as $Groupe){
                $activite->removeGroupe($Groupe);
+               $this->getDoctrine()->getManager()->remove($Groupe);
            }
             $this->getDoctrine()->getManager()->flush();
             $entityManager = $this->getDoctrine()->getManager();
