@@ -30,6 +30,10 @@ class ActivitesController extends AbstractController
     {
         $activite= $this->activiteRepository->findOneBy(['id' => $id]);
         if($activite){
+           foreach( $activite->getGroupe() as $Groupe){
+               $activite->removeGroupe($Groupe);
+           }
+            $this->getDoctrine()->getManager()->flush();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($activite);
             $entityManager->flush();

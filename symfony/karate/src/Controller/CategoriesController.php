@@ -22,4 +22,20 @@ class CategoriesController extends AbstractController
     {
         return $this->json($this->categorieRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','nomCategorie','Description']]);
     }
+     /**
+     * @Route("/categories/delete/{id}", name="delete_categories", methods={"GET"})
+     */
+    public function deleteCategories($id): Response
+    {
+       /* $activite= $this->activiteRepository->findOneBy(['id' => $id]);
+        if($activite){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($activite);
+            $entityManager->flush();
+            return $this->json(['success'=>true,'message'=>'activite supprimée avec succee'], 200, []);
+        }else{
+            return $this->json(['message' => "Oups!...cette activitee n'est plus disponible!"],404,);
+        }*/
+        return $this->json(['message' => "Oups!...cette activitee n'est plus disponible!"],404,);
+    }
 }
