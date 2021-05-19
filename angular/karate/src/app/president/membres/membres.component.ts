@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { PipeTransform } from '@angular/core';
 import { ElementRef, OnInit } from '@angular/core';
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
@@ -15,17 +16,17 @@ const USER_SCHEMA = {
   "licenceFFK": "number",
   "nom": "string",
   "prenom": "string",
-  "dateNaissance": "date",
-  "genre": "string",
-  "categorie": "string",
+  "DateNaissance": "date",
+  "Genre": "string",
+  "Categorie": "string",
   "adresse": "string",
   "tlphn1": "string",
   "tlphn2": "string",
-  "email": "string",
+  "Email": "email",
   "activites": "string",
-  "nbInscritsFamille": "number"
-
-
+  "nbInscritsFamille": "number",
+  "DateInscription":"date",
+  "Grade":"select"
 };
 
 @Component({
@@ -94,7 +95,6 @@ export class MembresComponent implements OnInit,AfterViewInit {
  
   }
   
-   dataSource = new MatTableDataSource<elem>(this.USER_INFO);;
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
     console.log(element);
@@ -142,6 +142,18 @@ export class MembresComponent implements OnInit,AfterViewInit {
   DateInscription: Date;
   Grade: string;
   Observation: string;
-  categorie: any;
+  categorie: {
+    nomCategorie: "Séniors",
+  };
   
+}
+
+class MyPipe implements PipeTransform {
+  transform(value:any, param:any) {
+    if(param === 'h') {
+      return "...";
+    } else {
+      return "...";  
+    }
+  }
 }

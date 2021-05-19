@@ -16,7 +16,7 @@ export class LogoutComponent implements OnInit {
       this.Auth.setSecretaireLogedIn(false,'');
       this.Auth.setPresidentLogedIn(false,'');
       this.cookie.deleteAll();
-      this.router.navigate([''])
+      this.router.navigate(['connexion'])
    
   }
 

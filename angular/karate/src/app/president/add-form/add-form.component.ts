@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Membre } from '../../membre.model';
 import { FormGroup , FormBuilder  ,FormControl , Validators } from '@angular/forms';
-
+import { CategoriesService } from '../../Services/Categorie.service';
+interface Categorie{
+  id:number,
+  nomCategorie:string,
+  Description:string
+  };
 @Component({
   selector: 'app-add-form',
   templateUrl: './add-form.component.html',
@@ -10,7 +15,7 @@ import { FormGroup , FormBuilder  ,FormControl , Validators } from '@angular/for
 export class AddFormComponent implements OnInit {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private service:CategoriesService) {
 
     this.form=this.fb.group({
       nom:  new FormControl('', [Validators.required]),
@@ -62,7 +67,7 @@ export class AddFormComponent implements OnInit {
 
 
   ListMembres : any=[ {id: 1 , categorie: 'A' , genre:'H' , grade: '2' } ];
-  Categories : Array<any>=[ {id: 1 , val: 'Mini Poussins (4-5 ans)' },{id: 2 , val: 'Poussins (6-7 ans)' },{id: 3 , val: 'Pupilles (8-9 ans)' },{id: 4 , val: 'Benjamins (10-11 ans)' },{id: 5 , val: 'Minimes (12-13 ans)' },{id: 6 , val: 'Cadets (14-15 ans)' },{id: 7 , val: 'Juniors (16-17 ans)' },{id: 8 , val: 'Espoirs (18-19-20 ans)' },{id: 9 , val: 'Séniors (18 ans et+)' } ];
+  Categories : Array<Categorie>=[];
   Genres : Array<any>=[ {id: 1 , val: 'Homme' }, {id: 2 , val: 'Femme' }, {id: 3 , val: 'Non precis' } ];
 
 
@@ -82,8 +87,15 @@ export class AddFormComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.Categories);
+    this.service.getCategories().subscribe((response: any) =>{
+      console.log(response);
+      this.Categories=response;
 
 
-  }
+     });
+      };
+    
+
+
+  
 }

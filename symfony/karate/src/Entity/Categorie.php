@@ -24,7 +24,7 @@ class Categorie
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"categories"})
+     * @Groups({"membre:categorie"})
      */
     private $nomCategorie;
 

@@ -143,7 +143,7 @@ class Membre
 
     /**
      * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="membres")
-     * @Groups({"membre:info"})
+     * @Groups({"membre:categorie"})
      */
     private $categorie;
 

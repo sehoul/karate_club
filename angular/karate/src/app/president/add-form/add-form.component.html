@@ -1,9 +1,7 @@
-<div class="container-fluid">
- <div class="row w-100 pt-5">
-   <h1>
-     Ajouter Membre
-   </h1>
- </div>
+<div class="conainer-fluid">
+  <div class="w-100 pl-5 text-white top-title">
+    <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Ajouter un membre</h2>
+  </div>
   <div class="container">
     <form  [formGroup]="form" (submit)="submit()">
 
@@ -43,7 +41,7 @@
       <div class="form-group">
         <label for="genre">Genre</label>
         <select type="text" id="genre" class="form-control" formControlName="genre" [ngClass]="form.controls['genre'].invalid && genre.touched ? 'is-invalid' : form.controls['genre'].valid? 'is-valid': '' ">
-          <option value="" selected>Genre</option>
+          <option value="" selected disabled>Genre</option>
           <option *ngFor="let gen of Genres" [value]="gen.id">{{gen.val}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="genre.touched">
@@ -61,8 +59,8 @@
       <div class="form-group">
         <label for="categorie">Categorie</label>
         <select id="categorie" class="form-control" formControlName="categorie" [ngClass]="form.controls['categorie'].invalid && categorie.touched ? 'is-invalid' : form.controls['categorie'].valid? 'is-valid': '' ">
-          <option value="" selected>categorie</option>
-          <option *ngFor="let cat of Categories" [value]="cat.id">{{cat.val}}</option>
+          <option value="" selected disabled>Sélectionnez une categorie ...</option>
+          <option *ngFor="let cat of Categories" [value]="cat.id">{{cat.nomCategorie}} {{cat.Description}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="categorie.touched">
           Ce champs est obligatoire.
