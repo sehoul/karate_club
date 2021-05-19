@@ -30,9 +30,10 @@ export class GroupesComponent implements AfterViewInit,OnInit {
   constructor(private service: GroupesService){}
   ngOnInit(){
     this.service.getGroupes().subscribe((response: any) =>{
-      console.log(response);
-      
       this.USER_INFO=response;
+      this.USER_INFO.forEach((element:any) => {
+        element.activite=element.activite.nomActivite;
+      });
       this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
       this.dataSource.paginator = this.paginator;
      });
@@ -63,7 +64,6 @@ export class GroupesComponent implements AfterViewInit,OnInit {
  
   }
   
-  dataSource = new MatTableDataSource<elem>(USER_INFO);;
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
     console.log(element);
