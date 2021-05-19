@@ -13,4 +13,7 @@ export class GroupesService {
   getGroupes(){ 
     return this.http.get(this.url);
   }
+  deleteGroupe(id:number){
+    return this.http.get(this.url+"/delete/"+id); 
+  }
 }
