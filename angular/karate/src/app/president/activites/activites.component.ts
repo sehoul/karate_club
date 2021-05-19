@@ -33,6 +33,15 @@ ngAfterViewInit() {
           console.log(response);
           
           this.USER_INFO=response;
+          let groupe:string="";
+          this.USER_INFO.forEach((element:any) => {
+            element.Groupe.forEach((groupe_element:any) => {
+                groupe += groupe_element.NomGroupe+",  ";
+            });
+            element.Groupe=groupe;
+            groupe="";
+          });
+          console.log(this.USER_INFO);
           this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
           this.dataSource.paginator = this.paginator;
          });
