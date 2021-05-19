@@ -1,10 +1,13 @@
+html{
+  width: 4567px;
+}
 .top-title {
-  
+  width: 4326px;
   background:linear-gradient(to right top, #c31432, #240b36);
   box-shadow: 1px 2px 10px #f44336;
   }
   table{
-    max-width: 100%;
+    width: 4326px;
     min-width: 100%;
   }
   .btn-edit {
@@ -21,7 +24,7 @@
     background: #fff;
     box-shadow: 2px 2px 10px #c7c7c7;
     border-radius: 5px;
-    position: absolute;
+    position: fixed;
     right: 2%;
     top: 25px;
     overflow: hidden;
