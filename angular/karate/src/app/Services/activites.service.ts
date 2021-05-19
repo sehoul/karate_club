@@ -13,7 +13,10 @@ export class ActivitesService {
 
   constructor(private http: HttpClient) { }
   getMembres(){
-    return this.http.get(this.url);
-    
+    return this.http.get(this.url);    
+  }
+
+  deleteActivite(id:number){
+    return this.http.get(this.url+"/delete/"+id); 
   }
 }

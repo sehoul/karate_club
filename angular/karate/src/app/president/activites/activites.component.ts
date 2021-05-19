@@ -5,15 +5,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivitesService } from 'src/app/Services/activites.service';
 import * as XLSX from 'xlsx';
 
-
-
-
 const USER_SCHEMA = {
   "id": "number",
   "nom": "string",
   "cotisation":"number"
-
-
 };
 
 @Component({
@@ -45,7 +40,7 @@ ngAfterViewInit() {
   
 
   displayedColumns: string[] = ["id",
-    "nomActivite","cotisation" , '$$edit'];
+    "nomActivite","cotisation" ,"Groupe", '$$edit'];
 
 
   title = 'angular-app';
@@ -70,11 +65,25 @@ ngAfterViewInit() {
   
   dataSchema:any = USER_SCHEMA;
 
-
   edit(element:any){
     console.log(element);
   }
 
+  delete(element:any,index:any,id:any){
+    if(confirm("Est ce que vous voulez vraiment suprimer l'activitée \" "+element+" \"")) {
+      this.service.deleteActivite(Number(id)).subscribe((res:any)=>{
+        if(res.success){
+          this.USER_INFO.splice(Number(index), 1);
+          this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+          this.dataSource.paginator = this.paginator;
+        }
+      },
+      error=>{
+         
+      });
+      
+    }
+  }
 
   
 
@@ -84,7 +93,6 @@ ngAfterViewInit() {
   }
 
 }
-
 
 
 export interface elem {
