@@ -1,24 +1,15 @@
-
-
-
-    
-
-  <ul class="list-group">
-    <li
-      *ngFor="let activite of activites"
-    class="list-group-item">
-      {{activite.nomActivite}}
-      {{activite.cotisation}}
-      {{activite.Groupe}}
-      
-  </li>
-  </ul>
-  <article>
-    <h2>Liste des activités</h2>
-  
+<div class="conainer-fluid">
+    <div class="w-100 pl-5 text-white top-title">
+      <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Liste des activités</h2>
+    </div>
+    <div class="recherche">
+      <h5 class="w-100">barre de recherche :</h5>
       <input (keyup)="applyFilter($event)" placeholder="Recherchez...." #input>
-      <div style=" margin: auto; width: 100%;">
-        <button (click)="exportexcel()">Exporter en Excel</button>
+    </div>
+       
+      <div class="shadow-sm p-3 mb-5 bg-white rounded operation">
+        <h6>Operations :</h6>
+        <button class="btn btn-info ml-3" (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
       </div>
       
   
@@ -71,7 +62,7 @@
   
     <mat-paginator [pageSizeOptions]="[10, 50, 200]" showFirstLastButtons></mat-paginator>
     
-  </article>
+  </div>
   
   
 
