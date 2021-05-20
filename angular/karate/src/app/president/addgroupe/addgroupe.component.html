@@ -14,22 +14,27 @@
 
     <div class="form-group">
       <label for="Instructeur">Instructeur</label>
-      <select id="Instructeur" class="form-control" formControlName="Instructeur" [ngClass]="formAA.controls['Instructeur'].invalid && Instructeur.touched ? 'is-invalid' : formAA.controls['Instructeur'].valid? 'is-valid': '' ">
+      <select id="Instructeur" class="form-control" formControlName="Instructeur" [ngClass]="formAA.controls['Instructeur'].invalid  ? 'is-invalid' : formAA.controls['Instructeur'].valid? 'is-valid': '' ">
         <option value="" selected disabled>Choisissez un instructeur ...</option>
         <option *ngFor="let ins of Instructeurs" [value]="ins.id">{{ins.nom}}</option>
       </select>
-      <div class="invalid-feedback" *ngIf="Instructeur.touched">
-        Ce champs est obligatoire.
-    </div>
+
     </div>
 
-    <!--
-      ins.nom==>activ.nomActivite
-      ins.id==>activ.id
-     -->
-    
-    <button type="submit" class="btn btn-primary" >Ajouter</button>
+
+      <div class="form-group">
+        <label for="Activite">Activité</label>
+        <select id="Activite" class="form-control" formControlName="Activite" [ngClass]="formAA.controls['Activite'].invalid  ? 'is-invalid' : formAA.controls['Activite'].valid? 'is-valid': '' ">
+          <option value="" selected disabled>Choisissez une activité ...</option>
+          <option *ngFor="let activ of Activites" [value]="activ.id">{{activ.nomActivite}}</option>
+        </select>
+
+      </div>
 
 
-</form> 
+
+      <button type="submit" class="btn btn-primary" >Ajouter</button>
+
+
+</form>
 </div>
