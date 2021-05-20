@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoriesService } from '../Services/Categorie.service';
+import { LoadingService } from '../Services/loading.service';
 
 @Component({
   selector: 'app-secretaire',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SecretaireComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(public loader: LoadingService) { }
+  loading$ = this.loader.loading$;
+
 
   ngOnInit(): void {
   }

@@ -16,4 +16,9 @@ export class GroupesService {
   deleteGroupe(id:number){
     return this.http.get(this.url+"/delete/"+id); 
   }
+  updateGroupe(id:number,data:any){
+    return this.http.post(this.url+"/update/"+id,data);
+  }
+
+
 }

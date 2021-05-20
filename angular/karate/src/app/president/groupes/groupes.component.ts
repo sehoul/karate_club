@@ -27,6 +27,7 @@ export class GroupesComponent implements AfterViewInit,OnInit {
   USER_INFO: elem[] = [];
  dataSource = new MatTableDataSource<elem>(this.USER_INFO);
  groupes!: any[];
+ 
   constructor(private service: GroupesService){}
   ngOnInit(){
     this.service.getGroupes().subscribe((response: any) =>{
@@ -66,9 +67,17 @@ export class GroupesComponent implements AfterViewInit,OnInit {
   
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
-    console.log(element);
+    this.service.updateGroupe(Number(element.id),{NomGroupe:element.NomGroupe,activite:element.nomActivite}).subscribe(
+      (res:any)=>{
+          console.log(res.message);
+      },
+      error=>{
+        console.log("error");
+      }
+    );
+
   }
-  delete(element:any,index:any,id:any){
+delete(element:any,index:any,id:any){
     if(confirm("Est ce que vous voulez vraiment supprimer le groupe \" "+element+" \"")) {
       this.service.deleteGroupe(Number(id)).subscribe((res:any)=>{
         if(res.success){
@@ -100,6 +109,7 @@ export class GroupesComponent implements AfterViewInit,OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  
   
 
 
