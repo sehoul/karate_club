@@ -67,7 +67,6 @@ export class GroupesComponent implements AfterViewInit,OnInit {
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
     console.log(element);
-
   }
   delete(element:any,index:any,id:any){
     if(confirm("Est ce que vous voulez vraiment supprimer le groupe \" "+element+" \"")) {

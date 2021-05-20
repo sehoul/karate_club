@@ -12,8 +12,12 @@ export class ActivitesService {
 
 
   constructor(private http: HttpClient) { }
-  getMembres(){
+  getActivites(){
     return this.http.get(this.url);    
+  }
+
+  updateActivites(id:number,data:any){
+    return this.http.post(this.url+"/update/"+id,data);
   }
 
   deleteActivite(id:number){

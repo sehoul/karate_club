@@ -29,7 +29,7 @@ ngAfterViewInit() {
   activites!: any[];
   constructor(private service: ActivitesService){}
   ngOnInit(){
-        this.service.getMembres().subscribe((response: any) =>{
+        this.service.getActivites().subscribe((response: any) =>{
           console.log(response);
           
           this.USER_INFO=response;
@@ -75,7 +75,15 @@ ngAfterViewInit() {
   dataSchema:any = USER_SCHEMA;
 
   edit(element:any){
-    console.log(element);
+    this.service.updateActivites(Number(element.id),{nomActivite:element.nomActivite,cotisation:Number(element.cotisation)}).subscribe(
+      (res:any)=>{
+          console.log(res.message);
+      },
+      error=>{
+        console.log("error");
+      }
+    );
+
   }
 
   delete(element:any,index:any,id:any){
