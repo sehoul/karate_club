@@ -11,7 +11,8 @@ import { GroupesService } from 'src/app/Services/groupes.service';
 })
 export class AddgroupeComponent implements OnInit {
   formAA: FormGroup;
-
+  Instructeurs: Array<any>=[ {id: 1 , nom: 'Ali' }, {id: 2 , nom: 'Amine' }, {id: 3 , nom: 'Walid' } ];
+  Activites:Array<any>=[];
   
 
   constructor(private fb: FormBuilder, private groupeService:GroupesService,private activiteService:ActivitesService) {
@@ -24,17 +25,16 @@ export class AddgroupeComponent implements OnInit {
 
    get NomGroupe() : any {   return this.formAA.get('NomGroupe');}
    get Instructeur() : any { return this.formAA.get('Instructeur');}
-   private groupe:Array<Groupe>=[new Groupe(1,"Groupe1","Mostafa")]
-   Instructeurs: Array<any>=[ {id: 1 , nom: 'Ali' }, {id: 2 , nom: 'Amine' }, {id: 3 , nom: 'Walid' } ];
 
    submit() {
     console.log(this.formAA.getRawValue());
     const data=this.formAA.getRawValue();
-    this.groupe.push(new Groupe(data.id,data.NomGroupe,data.Instructeur));
-    console.log(this.groupe);
   }
 
   ngOnInit(): void {
+    this.activiteService.getActivites().subscribe((res:any)=>{
+      this.Activites=res;
+    });
   }
 
 }
