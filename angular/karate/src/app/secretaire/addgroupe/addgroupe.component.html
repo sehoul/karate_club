@@ -16,7 +16,7 @@
       <label for="Instructeur">Instructeur</label>
       <select id="Instructeur" class="form-control" formControlName="Instructeur" [ngClass]="formAA.controls['Instructeur'].invalid  ? 'is-invalid' : formAA.controls['Instructeur'].valid? 'is-valid': '' ">
         <option value="" selected disabled>Choisissez un instructeur ...</option>
-        <option *ngFor="let ins of Instructeurs" [value]="ins.id">{{ins.nom}}</option>
+        <option *ngFor="let ins of Instructeurs" [value]="ins.id"> {{ins.NumLicenceFFK}} --- {{ins.Nom}} {{ins.Prenom}}</option>
       </select>
 
     </div>
