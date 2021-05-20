@@ -50,11 +50,7 @@ class Membre
      */
     private $Genre;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"membre:info"})
-     */
-    private $Groupe;
+
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -157,9 +153,15 @@ class Membre
      */
     private $membreActivites;
 
+    /**
+     * @ORM\OneToMany(targetEntity=GroupeMembre::class, mappedBy="Membre")
+     */
+    private $GroupesMembre;
+
     public function __construct()
     {
         $this->membreActivites = new ArrayCollection();
+        $this->GroupesMembre = new ArrayCollection();
     }
 
 
@@ -468,6 +470,36 @@ class Membre
             // set the owning side to null (unless already changed)
             if ($membreActivite->getMembre() === $this) {
                 $membreActivite->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GroupeMembre[]
+     */
+    public function getGroupesMembre(): Collection
+    {
+        return $this->GroupesMembre;
+    }
+
+    public function addGroupesMembre(GroupeMembre $groupesMembre): self
+    {
+        if (!$this->GroupesMembre->contains($groupesMembre)) {
+            $this->GroupesMembre[] = $groupesMembre;
+            $groupesMembre->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupesMembre(GroupeMembre $groupesMembre): self
+    {
+        if ($this->GroupesMembre->removeElement($groupesMembre)) {
+            // set the owning side to null (unless already changed)
+            if ($groupesMembre->getMembre() === $this) {
+                $groupesMembre->setMembre(null);
             }
         }
 
