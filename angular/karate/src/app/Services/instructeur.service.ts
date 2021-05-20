@@ -9,8 +9,8 @@ export class InstructeurService {
 
   constructor(private http:HttpClient) { }
 
-  getInstructeurs(){ 
-    return this.http.get(this.url);
+  getInstructeursMiniInfo(){ 
+    return this.http.get(this.url+"/mini-info");
   }
 
 }
