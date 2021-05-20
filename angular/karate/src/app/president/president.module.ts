@@ -16,6 +16,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { TdbComponent } from './tdb/tdb.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -39,9 +40,10 @@ import { TdbComponent } from './tdb/tdb.component';
     MatTableModule,
     MatInputModule,
     MatDatepickerModule,
+    MatDialogModule,
     MatNativeDateModule,
-   MatTableExporterModule,
-   MatPaginatorModule
+    MatTableExporterModule,
+    MatPaginatorModule
    
   ]
 })

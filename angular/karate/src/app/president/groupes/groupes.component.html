@@ -12,6 +12,8 @@
       <button class="btn btn-info ml-3" (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
     </div>
 
+    
+
   <table id="excel-table" mat-table [dataSource]="dataSource" >
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
       <th mat-header-cell *matHeaderCellDef>

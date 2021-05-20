@@ -27,6 +27,27 @@
 * ==========================================
 *
 */
+mat-progress-spinner { 
+  z-index: 2;
+  margin: auto;
+  transform: translate(-300%,160%);
+  height: 10px;
+  width: 10px;
+}
+.loader{
+  display:grid;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left:15rem;
+  background:#ffffffc5;
+  width: calc(100% - 17rem);
+  height: 100%;
+}
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
+  stroke: #dc3545;
+}
 
 .vertical-nav {
     min-width: 15rem;

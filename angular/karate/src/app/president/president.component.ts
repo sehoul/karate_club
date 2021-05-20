@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from '../Services/Categorie.service';
+import { LoadingService } from '../Services/loading.service';
 
 @Component({
   selector: 'app-president',
@@ -9,7 +10,8 @@ import { CategoriesService } from '../Services/Categorie.service';
 export class PresidentComponent implements OnInit {
 categories: Array<any>=[];
 
-  constructor(private data:CategoriesService) { }
+loading$ = this.loader.loading$;
+  constructor(public loader: LoadingService,private data:CategoriesService) { }
 
   ngOnInit(): void { 
    

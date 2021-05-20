@@ -28,7 +28,10 @@ import { AuthPresidentGuard } from './guards/auth-president.guard';
 import { AuthInstructeurGuard } from './guards/auth-instructeur.guard';
 import { HttpClientModule } from '@angular/common/http';
 
-
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NetworkInterceptor } from './Services/network.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,11 +57,14 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-   MatTableExporterModule,
-   MatPaginatorModule,
+    MatTableExporterModule,
+    MatPaginatorModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule,
+    HttpClientModule,
 
   ],
-  providers: [CookieService,AuthSecretaireGuard,AuthPresidentGuard,AuthInstructeurGuard],
+  providers: [CookieService,AuthSecretaireGuard,AuthPresidentGuard,AuthInstructeurGuard, { provide: HTTP_INTERCEPTORS, useClass: NetworkInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
