@@ -12,7 +12,6 @@ import { GroupesService } from 'src/app/Services/groupes.service';
 export class AddgroupeComponent implements OnInit {
   formAA: FormGroup;
   Instructeurs: Array<any>=[ {id: 1 , nom: 'Ali' }, {id: 2 , nom: 'Amine' }, {id: 3 , nom: 'Walid' } ];
-  Activites:Array<any>=[];
   
 
   constructor(private fb: FormBuilder, private groupeService:GroupesService,private activiteService:ActivitesService) {
@@ -32,9 +31,7 @@ export class AddgroupeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activiteService.getActivites().subscribe((res:any)=>{
-      this.Activites=res;
-    });
+  
   }
 
 }
