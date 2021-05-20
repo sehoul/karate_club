@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Groupe } from 'src/app/groupe.model';
+import { ActivitesService } from 'src/app/Services/activites.service';
+import { GroupesService } from 'src/app/Services/groupes.service';
 
 @Component({
   selector: 'app-addgroupe',
@@ -12,7 +14,7 @@ export class AddgroupeComponent implements OnInit {
 
   
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private groupeService:GroupesService,private activiteService:ActivitesService) {
     this.formAA=this.fb.group({
       NomGroupe:  new FormControl('', [Validators.required]),
       Instructeur:new FormControl('', [Validators.required]),
@@ -29,7 +31,8 @@ export class AddgroupeComponent implements OnInit {
     console.log(this.formAA.getRawValue());
     const data=this.formAA.getRawValue();
     this.groupe.push(new Groupe(data.id,data.NomGroupe,data.Instructeur));
-    console.log(this.groupe);}
+    console.log(this.groupe);
+  }
 
   ngOnInit(): void {
   }

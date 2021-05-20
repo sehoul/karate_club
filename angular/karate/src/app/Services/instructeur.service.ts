@@ -1,0 +1,16 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class InstructeurService {
+  private url= "http://localhost:8000/instructeur";
+
+  constructor(private http:HttpClient) { }
+
+  getInstructeurs(){ 
+    return this.http.get(this.url);
+  }
+
+}
