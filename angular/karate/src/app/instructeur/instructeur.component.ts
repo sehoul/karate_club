@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CategoriesService} from "../Services/Categorie.service";
+import { LoadingService } from '../Services/loading.service';
 
 @Component({
   selector: 'app-instructeur',
@@ -7,15 +8,14 @@ import {CategoriesService} from "../Services/Categorie.service";
   styleUrls: ['./instructeur.component.css']
 })
 export class InstructeurComponent implements OnInit {
-  categories: Array<any>=[];
 
-  constructor(private data:CategoriesService) { }
+
+  constructor(public loader: LoadingService) { }
+  loading$ = this.loader.loading$;
+
 
   ngOnInit(): void {
-    this.data.getCategories().subscribe((category:any)=>{
-      this.categories=category;
-      console.log(this.categories);
-    })
+    
   }
   _active:boolean=false;
   side_bar_menu(){

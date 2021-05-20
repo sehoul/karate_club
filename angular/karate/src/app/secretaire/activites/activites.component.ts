@@ -24,49 +24,63 @@ const USER_SCHEMA = {
 export class ActivitesComponent implements OnInit, AfterViewInit {
 
   USER_INFO: elem[] = [];
-  dataSource = new MatTableDataSource<elem>(this.USER_INFO);;
-  dataSchema:any = USER_SCHEMA;
+ dataSource = new MatTableDataSource<elem>(this.USER_INFO); 
+//@ts-ignore
+@ViewChild(MatPaginator) paginator: MatPaginator;
+
+ngAfterViewInit() {
+  this.dataSource.paginator = this.paginator;
+}
   activites!: any[];
-  displayedColumns: string[] = ["id","nomActivite","cotisation" , '$$edit'];
-  title = 'angular-app';
-  fileName= 'karte-club.xlsx';
-
-  //@ts-ignore
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
   constructor(private service: ActivitesService){}
-
-  
   ngOnInit(){
-      this.service.getActivites().subscribe((response: any) =>{
+        this.service.getActivites().subscribe((response: any) =>{
+          console.log(response);
+          
           this.USER_INFO=response;
+          let groupe:string="";
+          this.USER_INFO.forEach((element:any) => {
+            element.Groupe.forEach((groupe_element:any) => {
+                groupe += groupe_element.NomGroupe+",  ";
+            });
+            element.Groupe=groupe;
+            groupe="";
+          });
+          console.log(this.USER_INFO);
           this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
           this.dataSource.paginator = this.paginator;
-      });
-  };
-          
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
-
-  exportexcel(): void
-  {
-    let element = document.getElementById('excel-table');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-
-    ws['!cols'] = [];
-    ws['!cols'][3] = { hidden: true };
-
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    XLSX.writeFile(wb, this.fileName);
-  }
+         });
+          };
   
 
+  displayedColumns: string[] = ["id",
+    "nomActivite","cotisation" ,"Groupe", '$$edit'];
+
+
+  title = 'angular-app';
+  fileName= 'karte-club.xlsx';
+  membres=this.USER_INFO;
+  exportexcel(): void
+  {
+    /* pass here the table id */
+    let element = document.getElementById('excel-table');
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+    ws['!cols'] = [];
+    ws['!cols'][3] = { hidden: true };
+ 
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+    /* save to file */  
+    XLSX.writeFile(wb, this.fileName);
+ 
+  }
+  
+  dataSchema:any = USER_SCHEMA;
+
   edit(element:any){
-    
-    this.service.updateActivites(Number(element.id),{nomActivite:element.nomActivite,cotisation:element.cotisation}).subscribe(
+    this.service.updateActivites(Number(element.id),{nomActivite:element.nomActivite,cotisation:Number(element.cotisation)}).subscribe(
       (res:any)=>{
           console.log(res.message);
       },
@@ -77,6 +91,21 @@ export class ActivitesComponent implements OnInit, AfterViewInit {
 
   }
 
+  delete(element:any,index:any,id:any){
+    if(confirm("Est ce que vous voulez vraiment supprimer l'activitée \" "+element+" \"")) {
+      this.service.deleteActivite(Number(id)).subscribe((res:any)=>{
+        if(res.success){
+          this.USER_INFO.splice(Number(index), 1);
+          this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+          this.dataSource.paginator = this.paginator;
+        }
+      },
+      error=>{
+         
+      });
+      
+    }
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

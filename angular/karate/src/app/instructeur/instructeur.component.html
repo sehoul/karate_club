@@ -83,6 +83,9 @@
   </div>
   <router-outlet></router-outlet>
 </div>
+<div class="loader"  *ngIf="loading$ | async">
+  <mat-progress-spinner class="custom-spinner" diameter="50" strokeWidth="3" [mode]="'indeterminate'"></mat-progress-spinner>
+  </div>
 <!-- content -->
 
 
