@@ -1,1 +1,37 @@
-<p>Asouf si swiya lhih</p>
+<div class="conainer-fluid">
+    <div class="pl-5 pt-5 text-white top-title">
+      <h2 class="pl-5 ml-3 pt-5 pb-4 text-left">Liste des membres</h2>
+    </div>
+    <div class="container-xxl p-5 my-5 main">
+        <div class="left">
+            <div class="membre"  [routerLink]="[ 'ajout-membre' ]">
+                <h4>Ajouter des membres</h4>
+                <p>
+                    Informations personelles, informations parentales
+                     effectuer une activitée,
+                </p>
+                <span>
+                    <i class="bi bi-arrow-right"></i>
+                </span>
+            </div>
+            <div class="groupe" [routerLink]="[ 'groupes' ]">
+                <h5>Consulter les groupes de chaque activitée... <i class="bi bi-arrow-right"></i></h5>
+            </div>
+        </div>
+        <div class="right">
+            <div class="horloge"><div class="color"></div> <h5>{{now}} {{todayDate | date : 'yyyy-MMMM-dd'}}</h5></div>
+            <div class="activities">
+                <h6>Historique des operations</h6>
+
+                <ul>
+                    <li><div class="Ajout"></div><span>Ajout</span></li>
+                    <li><div class="Modification"></div><span>Modification</span></li>
+                    <li><div class="Ajout"></div><span>Ajout</span></li>
+                    <li><div class="Suppression"></div><span>Suppression</span></li>
+                    <li><div class="Ajout"></div><span>Ajout</span></li>
+                    <li><div class="Modification"></div><span>Modification</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

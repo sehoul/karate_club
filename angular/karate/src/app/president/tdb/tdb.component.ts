@@ -6,8 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tdb.component.css']
 })
 export class TdbComponent implements OnInit {
-
-  constructor() { }
+  now:string="";
+  todayDate:Date;
+  constructor() { 
+    this.todayDate = new Date();
+    setInterval(() => {
+      this.now = new Date().toString().split(' ')[4];
+    }, 1);
+  }
 
   ngOnInit(): void {
   }
