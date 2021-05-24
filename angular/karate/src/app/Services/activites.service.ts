@@ -20,7 +20,7 @@ export class ActivitesService {
     return this.http.post(this.url+"/update/"+id,data);
   }
 
-  deleteActivite(id:number){
-    return this.http.get(this.url+"/delete/"+id); 
+  deleteActivite(id:number,idUser:any){
+    return this.http.post(this.url+"/delete/"+id,idUser); 
   }
 }

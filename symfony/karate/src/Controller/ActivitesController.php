@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Actions;
 use App\Entity\Activite;
 use App\Entity\Groupe;
+use App\Entity\User;
 use App\Repository\ActiviteRepository;
 use App\Repository\GroupeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,20 +30,28 @@ class ActivitesController extends AbstractController
         return $this->json($this->activiteRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','nomActivite','cotisation','Groupe'=>['NomGroupe']]]);
     }
     /**
-     * @Route("/activites/delete/{id}", name="delete_activitee", methods={"GET"})
+     * @Route("/activites/delete/{id}", name="delete_activitee", methods={"POST"})
      */
-    public function deleteActivites($id): Response
+    public function deleteActivites($id,Request $request): Response
     {
+        $data=$request->getContent();
+        $user=$this->serializer->deserialize($data,User::class,'json');
         $activite= $this->activiteRepository->findOneBy(['id' => $id]);
         if($activite){
-           foreach( $activite->getGroupe() as $Groupe){
-               $activite->removeGroupe($Groupe);
-               $this->getDoctrine()->getManager()->remove($Groupe);
-           }
-           foreach($activite->getMembreActivites() as $membreActiv){
-            $activite->removeMembreActivite($membreActiv);
-            $this->getDoctrine()->getManager()->remove($membreActiv);
-           }
+            foreach( $activite->getGroupe() as $Groupe){
+                $activite->removeGroupe($Groupe);
+                $this->getDoctrine()->getManager()->remove($Groupe);
+            }
+            foreach($activite->getMembreActivites() as $membreActiv){
+                $activite->removeMembreActivite($membreActiv);
+                $this->getDoctrine()->getManager()->remove($membreActiv);
+            }
+            $action=new Actions();
+            $action->setUser($user)
+            ->setType("Suppression")
+            ->setDescription("Suppression de l'activité "+$activite->getNomActivite());
+             $this->getDoctrine()->getManager()->persist($action);
+            $user->addAction($action);
             $this->getDoctrine()->getManager()->flush();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($activite);

@@ -3,6 +3,8 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivitesService } from 'src/app/Services/activites.service';
+import { CookieService } from 'ngx-cookie-service';
+
 import * as XLSX from 'xlsx';
 
 const USER_SCHEMA = {
@@ -27,7 +29,7 @@ ngAfterViewInit() {
   this.dataSource.paginator = this.paginator;
 }
   activites!: any[];
-  constructor(private service: ActivitesService){}
+  constructor(private service: ActivitesService,private cookie:CookieService){}
   ngOnInit(){
         this.service.getActivites().subscribe((response: any) =>{
           console.log(response);
@@ -88,7 +90,7 @@ ngAfterViewInit() {
 
   delete(element:any,index:any,id:any){
     if(confirm("Est ce que vous voulez vraiment supprimer l'activitée \" "+element+" \"")) {
-      this.service.deleteActivite(Number(id)).subscribe((res:any)=>{
+      this.service.deleteActivite(Number(id),{id:Number(this.cookie.get('idPres'))}).subscribe((res:any)=>{
         if(res.success){
           this.USER_INFO.splice(Number(index), 1);
           this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
