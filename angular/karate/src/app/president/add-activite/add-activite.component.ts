@@ -46,8 +46,6 @@ export class AddActiviteComponent implements OnInit {
       this._success="";
       this._error="merci de remplire tous les champs";
     }
-
-
   }
 
 
