@@ -1,8 +1,9 @@
-import { ElementRef } from '@angular/core';
+import {ElementRef, OnInit} from '@angular/core';
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import * as XLSX from 'xlsx';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 
@@ -46,7 +47,7 @@ const USER_SCHEMA = {
   templateUrl: './my-table.component.html',
   styleUrls: ['./my-table.component.css']
 })
-export class MyTableComponent implements AfterViewInit {
+export class MyTableComponent implements AfterViewInit,OnInit {
 
   displayedColumns: string[] = ["id",
     "licenceFFK",
@@ -61,6 +62,12 @@ export class MyTableComponent implements AfterViewInit {
     "email",
     "activites",
     "nbInscritsFamille", '$$edit'];
+
+
+  public searchForm: FormGroup ;
+  public Nom:any = '' ;
+  public prenom:any = '';
+
 
 
   filter = { Homme: true, Femme: true };
@@ -149,6 +156,33 @@ export class MyTableComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  getFilterPredicate() {
+    return (row: elem, filters: string) => {
+      // split string per '$' to array
+      const filterArray = filters.split('$');
+      const Nom = filterArray[0];
+      const prenom = filterArray[1];
+
+      const matchFilter = [];
+
+      // Fetch data from row
+      const colonneN = row.nom;
+      const colonneP = row.prenom;
+
+      // verify fetching data by our searching values
+      const customFilterN = colonneN.toLowerCase().includes(Nom);
+      const customFilterP = colonneP.toLowerCase().includes(prenom);
+
+      // push boolean values into array
+      matchFilter.push(customFilterN);
+      matchFilter.push(customFilterP);
+
+      // return true if all values in array is true
+      // else return false
+      return matchFilter.every(Boolean);
+    };
+  }
+
 
 
 
@@ -156,11 +190,30 @@ export class MyTableComponent implements AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  applyFilterbis() {
+
+    const n = this.searchForm.getRawValue().Nom;
+
+    const p = this.searchForm.getRawValue().Prenom;
+
+    this.Nom = n === null ? '' : n;
+    this.prenom = p === null ? '' : p;
+
+    // create string of our searching values and split if by '$'
+    const filterValue = this.Nom + '$' + this.prenom;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   constructor() {
+    this.searchForm = new FormGroup({
+      Nom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
+      Prenom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
+    });
   }
   ngOnInit(){
+    /* Filter predicate used for filtering table per different columns
+    *  */
+    this.dataSource.filterPredicate = this.getFilterPredicate();
   }
-
 
 
 }
