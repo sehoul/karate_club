@@ -29,7 +29,10 @@ ngAfterViewInit() {
   this.dataSource.paginator = this.paginator;
 }
   activites!: any[];
-  constructor(private service: ActivitesService,private cookie:CookieService){}
+ 
+  constructor(private service: ActivitesService,private cookie:CookieService){
+ 
+  }
   ngOnInit(){
         this.service.getActivites().subscribe((response: any) =>{
           console.log(response);
@@ -59,17 +62,12 @@ ngAfterViewInit() {
   membres=this.USER_INFO;
   exportexcel(): void
   {
-    /* pass here the table id */
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
     ws['!cols'] = [];
     ws['!cols'][3] = { hidden: true };
- 
-    /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-  
-    /* save to file */  
     XLSX.writeFile(wb, this.fileName);
  
   }
@@ -104,6 +102,7 @@ ngAfterViewInit() {
     }
   }
 
+ 
   
 
   applyFilter(event: Event) {
