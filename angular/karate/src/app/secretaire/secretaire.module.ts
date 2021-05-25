@@ -15,6 +15,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { TdbComponent } from './tdb/tdb.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -39,7 +40,8 @@ import { TdbComponent } from './tdb/tdb.component';
     MatDatepickerModule,
     MatNativeDateModule,
    MatTableExporterModule,
-   MatPaginatorModule
+   MatPaginatorModule,
+   RouterModule
   ]
 })
 export class SecretaireModule { }
