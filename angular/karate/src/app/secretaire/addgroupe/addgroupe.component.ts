@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 import { Groupe } from 'src/app/groupe.model';
 import { ActivitesService } from 'src/app/Services/activites.service';
 import { GroupesService } from 'src/app/Services/groupes.service';
@@ -14,27 +15,53 @@ export class AddgroupeComponent implements OnInit {
   formAA: FormGroup;
   Instructeurs: Array<any>=[];
   Activites: Array<any>=[];
+  _success:string="";
+  _error:string="";
 
 
-  constructor(private fb: FormBuilder, private groupeService:GroupesService,private activiteService:ActivitesService,private instructeurService:InstructeurService) {
+  constructor(private fb: FormBuilder, private groupeService:GroupesService,private activiteService:ActivitesService,private instructeurService:InstructeurService,private cookie:CookieService) {
     this.formAA=this.fb.group({
       NomGroupe:  new FormControl('', [Validators.required]),
       Instructeur:new FormControl('', [Validators.required]),
       Activite:new FormControl('', [Validators.required]),
 
     });
-  }
+   }
 
 
-  get NomGroupe() : any {   return this.formAA.get('NomGroupe');}
-  get Instructeur() : any { return this.formAA.get('Instructeur');}
-  get Activite() : any { return this.formAA.get('NomActivite');}
+   get NomGroupe() : any {   return this.formAA.get('NomGroupe');}
+   get Instructeur() : any { return this.formAA.get('Instructeur');}
+   get Activite() : any { return this.formAA.get('Activite');}
 
 
 
   submit() {
-    console.log(this.formAA.getRawValue());
-    const data=this.formAA.getRawValue();
+    const data={
+      NomGroupe:this.formAA.getRawValue().NomGroupe,
+      Instructeur:{ 
+        id:Number(this.formAA.getRawValue().Instructeur)
+      },
+      Activite:{ 
+        id:Number(this.formAA.getRawValue().Activite)
+      },
+    }
+    if(data.NomGroupe!="" && data.Instructeur.id && data.Activite){
+
+      this.groupeService.addGroupe(Number(this.cookie.get('idSec')),data).subscribe(
+        (res:any)=>{
+          this._success="groupe ajoutée avec succes !";
+          this._error="";
+        },
+        error=>{
+          this._success="";
+          this._error=error.error.message;
+        }
+      )
+    }else{
+      this._success="";
+      this._error="merci de remplire tous les champs";
+    }
+
   }
 
   ngOnInit(): void {
