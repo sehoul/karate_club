@@ -77,7 +77,7 @@ ngAfterViewInit() {
   dataSchema:any = USER_SCHEMA;
 
   edit(element:any){
-    this.service.updateActivites(Number(element.id),{nomActivite:element.nomActivite,cotisation:Number(element.cotisation)}).subscribe(
+    this.service.updateActivites(Number(this.cookie.get('idPres')),{id:Number(element.id),nomActivite:element.nomActivite,cotisation:Number(element.cotisation)}).subscribe(
       (res:any)=>{
           console.log(res.message);
       },

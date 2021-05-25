@@ -19,23 +19,19 @@ export class AddActiviteComponent implements OnInit {
 
   }
 
-
   get nomactivite() : any {   return this.form.get('nomactivite');}
   get Cotisation() : any { return this.form.get('Cotisation');}
 
 
-
-private activite:Array<Activite>=[
-  new Activite(1,'karaté',100)
-]
-
-
   submit() {
 
-    console.log(this.form.getRawValue());
-    const data=this.form.getRawValue();
-    this.activite.push(new Activite(2,data.nomactivite,data.Cotisation));
-    console.log(this.activite);
+    const data={
+      nomactivite:this.form.getRawValue().nomactivite,
+      Cotisation:this.form.getRawValue().Cotisation,
+    }
+
+
+    console.log(data.nomactivite);
 
   }
 

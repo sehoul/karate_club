@@ -12,15 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HistoriqueController extends AbstractController
 {
-    public function __construct(UserRepository $userRepository){
+    public function __construct(UserRepository $userRepository,ActionsRepository $actionsRepository){
         $this->userRepository=$userRepository;
+        $this->actionsRepository=$actionsRepository;
     }
     /**
      * @Route("/historique/{id}", name="historique", methods={"GET"})
      */
     public function getHistorique($id): Response
     {
-        $user=$this->userRepository->findBy(["id"=>$id]);
-        return $this->json($user->getActions(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','type','description']]);
+        $user=$this->userRepository->findOneBy(["id"=>$id]);
+        $actions=$this->actionsRepository->findby(["User"=>$user->getId()],["id"=>"DESC"],7);
+        return $this->json($actions, 200, [],[AbstractNormalizer::ATTRIBUTES => ['type','description']]);
     }
 }

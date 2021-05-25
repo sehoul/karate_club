@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Constraints\IsNull;
 
@@ -33,7 +33,7 @@ class ConnexionController extends AbstractController
                         case 'secretaire': 
                             break;
                     }*/
-                    return $this->json(['result'=>$user,'success'=>true], 200, [],);
+                    return $this->json(['result'=>$user,'success'=>true], 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','roles']]);
                 }else{
                     return $this->json([
                         'status' => 400,

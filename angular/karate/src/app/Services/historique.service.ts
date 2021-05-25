@@ -9,7 +9,7 @@ export class HistoriqueService {
 
 
   constructor(private http: HttpClient) { }
-  getActivites(){
-    return this.http.get(this.url);    
+  getActions(id:number){
+    return this.http.get(this.url+"/"+id);    
   }
 }

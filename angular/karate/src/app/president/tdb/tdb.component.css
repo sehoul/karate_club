@@ -92,6 +92,7 @@
 .activities ul {
     margin: 25px;
     list-style: none;
+    padding: 0;
 }
 .activities ul li {
     padding: 3px;

@@ -16,6 +16,10 @@ export class ActivitesService {
     return this.http.get(this.url);    
   }
 
+  addActivite(id:number,data:any){
+    return this.http.post(this.url+"/add/"+id,data);
+  }
+
   updateActivites(id:number,data:any){
     return this.http.post(this.url+"/update/"+id,data);
   }

@@ -23,13 +23,13 @@
             <div class="activities">
                 <h6>Historique des operations</h6>
 
-                <ul>
-                    <li><div class="Ajout"></div><span>Ajout</span></li>
-                    <li><div class="Modification"></div><span>Modification</span></li>
-                    <li><div class="Ajout"></div><span>Ajout</span></li>
-                    <li><div class="Suppression"></div><span>Suppression</span></li>
-                    <li><div class="Ajout"></div><span>Ajout</span></li>
-                    <li><div class="Modification"></div><span>Modification</span></li>
+                <ul *ngIf="historique.length">
+                    <li *ngFor="let action of historique">
+                        <div [class]="action.type"></div><span>{{action.description}}</span>
+                    </li>
+                </ul>
+                <ul *ngIf="!historique.length">
+                   <h4 class="text-secondary">Vous avez effectuer aucune operation</h4>
                 </ul>
             </div>
         </div>
