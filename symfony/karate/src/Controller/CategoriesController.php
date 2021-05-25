@@ -27,15 +27,6 @@ class CategoriesController extends AbstractController
      */
     public function deleteCategories($id): Response
     {
-       /* $activite= $this->activiteRepository->findOneBy(['id' => $id]);
-        if($activite){
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($activite);
-            $entityManager->flush();
-            return $this->json(['success'=>true,'message'=>'activite supprimée avec succee'], 200, []);
-        }else{
-            return $this->json(['message' => "Oups!...cette activitee n'est plus disponible!"],404,);
-        }*/
-        return $this->json(['message' => "Oups!...cette activitee n'est plus disponible!"],404,);
+        return $this->json(['message' => "Oups!...cette categorie n'est plus disponible!"],404,);
     }
 }

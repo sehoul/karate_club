@@ -13,12 +13,15 @@ export class GroupesService {
   getGroupes(){ 
     return this.http.get(this.url);
   }
-  deleteGroupe(id:number){
-    return this.http.get(this.url+"/delete/"+id); 
+  deleteGroupe(id:number,data:any){
+    return this.http.post(this.url+"/delete/"+id,data); 
   }
   updateGroupe(id:number,data:any){
     return this.http.post(this.url+"/update/"+id,data);
   }
 
+  addGroupe(id:number,data:any){
+    return this.http.post(this.url+"/add/"+id,data);
+  }
 
 }

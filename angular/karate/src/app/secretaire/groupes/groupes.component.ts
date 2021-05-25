@@ -64,7 +64,6 @@ export class GroupesComponent implements  OnInit,AfterViewInit {
  
   }
   
-  dataSource = new MatTableDataSource<elem>(this.USER_INFO);;
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
     console.log(element);

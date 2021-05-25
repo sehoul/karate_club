@@ -2,6 +2,7 @@ import { ElementRef, OnInit } from '@angular/core';
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { CookieService } from 'ngx-cookie-service';
 import { GroupesService } from 'src/app/Services/groupes.service';
 import * as XLSX from 'xlsx';
 
@@ -28,7 +29,7 @@ export class GroupesComponent implements AfterViewInit,OnInit {
  dataSource = new MatTableDataSource<elem>(this.USER_INFO);
  groupes!: any[];
  
-  constructor(private service: GroupesService){}
+  constructor(private service: GroupesService, private cookie:CookieService){}
   ngOnInit(){
     this.service.getGroupes().subscribe((response: any) =>{
       this.USER_INFO=response;
@@ -67,7 +68,7 @@ export class GroupesComponent implements AfterViewInit,OnInit {
   
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
-    this.service.updateGroupe(Number(element.id),{NomGroupe:element.NomGroupe,activite:element.nomActivite}).subscribe(
+    this.service.updateGroupe(Number(this.cookie.get('idPres')),{id:element.id,NomGroupe:element.NomGroupe,activite:element.nomActivite}).subscribe(
       (res:any)=>{
           console.log(res.message);
       },
@@ -79,7 +80,7 @@ export class GroupesComponent implements AfterViewInit,OnInit {
   }
 delete(element:any,index:any,id:any){
     if(confirm("Est ce que vous voulez vraiment supprimer le groupe \" "+element+" \"")) {
-      this.service.deleteGroupe(Number(id)).subscribe((res:any)=>{
+      this.service.deleteGroupe(Number(id),{id:Number(this.cookie.get('idPres'))}).subscribe((res:any)=>{
         if(res.success){
           this.USER_INFO.splice(Number(index), 1);
           this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
