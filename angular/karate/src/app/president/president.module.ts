@@ -17,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { TdbComponent } from './tdb/tdb.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AdminsComponent } from './admins/admins.component';
+import { AddadminComponent } from './addadmin/addadmin.component';
 
 
 
@@ -28,7 +30,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MembresComponent,
     ActivitesComponent,
     GroupesComponent,
-    TdbComponent
+    TdbComponent,
+    AdminsComponent,
+    AddadminComponent
   ],
   imports: [
     RouterModule,

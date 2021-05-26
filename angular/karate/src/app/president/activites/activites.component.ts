@@ -20,7 +20,7 @@ const USER_SCHEMA = {
 })
 export class ActivitesComponent implements OnInit, AfterViewInit {
   
- USER_INFO: elem[] = [];
+  USER_INFO: elem[] = [];
  dataSource = new MatTableDataSource<elem>(this.USER_INFO); 
 //@ts-ignore
 @ViewChild(MatPaginator) paginator: MatPaginator;
