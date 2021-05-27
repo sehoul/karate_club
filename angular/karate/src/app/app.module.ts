@@ -32,6 +32,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NetworkInterceptor } from './Services/network.interceptor';
+import { ExcelComponent } from './excel/excel.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { NetworkInterceptor } from './Services/network.interceptor';
     MyTableComponent,
     AuthComponent,
     LogoutComponent,
+    ExcelComponent,
 
   ],
   imports: [
