@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivitesService } from 'src/app/Services/activites.service';
+import { AdministrationService } from 'src/app/Services/administration.service';
 import { GroupesService } from 'src/app/Services/groupes.service';
 import { InstructeurService } from 'src/app/Services/instructeur.service';
 
@@ -16,7 +17,7 @@ export class AddadminComponent implements OnInit {
   _success:string="";
   _error:string="";
 
-  constructor(private fb: FormBuilder,private cookie:CookieService) {
+  constructor(private fb: FormBuilder,private cookie:CookieService, private AdminService:AdministrationService) {
     this.formAA=this.fb.group({
       NomAdm:  new FormControl('', [Validators.required]),
       PrenomAdm:  new FormControl('', [Validators.required]),
@@ -30,7 +31,7 @@ export class AddadminComponent implements OnInit {
     });
    }
 
-   ConfirmedValidator(controlName: string, matchingControlName: string){
+   ConfirmedValidator(controlName: string, matchingControlName: string ){
     return (formGroup: FormGroup) => {
         const control = formGroup.controls[controlName];
         const matchingControl = formGroup.controls[matchingControlName];
@@ -57,23 +58,29 @@ export class AddadminComponent implements OnInit {
 
 
 
-   Roles : Array<any>=[ {val: 'President'}, {val: 'Secretaire'}, {val: 'Instructeur'} ];
-
-
+   Roles : Array<any>=[ {val: 'president'}, {val: 'secretaire'}, {val: 'instructeur'} ];
 
 
   submit() {
     const data={
-      NomAdm:this.formAA.getRawValue().NomAdm,
-      PrenomAdm:this.formAA.getRawValue().PrenomAdm,
-      MailAdm:this.formAA.getRawValue().MailAdm,
-      TlphnAdm:this.formAA.getRawValue().TlphnAdm,
-      MotDePasse:this.formAA.getRawValue().MotDePasse,
-      ConfirmationMotDePasse:this.formAA.getRawValue().ConfirmationMotDePasse,
+      Nom:this.formAA.getRawValue().NomAdm,
+      Prenom:this.formAA.getRawValue().PrenomAdm,
+      Email:this.formAA.getRawValue().MailAdm,
+      Tel:this.formAA.getRawValue().TlphnAdm,
+      Password:this.formAA.getRawValue().MotDePasse,
       Role:this.formAA.getRawValue().Role,
     }
-    if(data.NomAdm!="" && data.MailAdm!="" && data.TlphnAdm!="" && data.MailAdm!="" && data.MotDePasse!="" && data.ConfirmationMotDePasse!="" && data.Role!=""){
-
+    if(data.Nom!="" && data.Prenom!="" && data.Tel!="" && data.Email!="" && data.Password!="" && this.formAA.getRawValue().ConfirmationMotDePasse!="" && data.Role!=""){
+      this.AdminService.register(Number(this.cookie.get('idPres')),data).subscribe(
+        (res:any)=>{
+            this._success=res.message;
+            this._error="";
+        },
+        error=>{
+          this._success="";
+          this._error=error.error.message;
+        }
+        );
     }else{
       this._success="";
       this._error="merci de remplire tous les champs";

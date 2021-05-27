@@ -32,6 +32,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NetworkInterceptor } from './Services/network.interceptor';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +61,7 @@ import { NetworkInterceptor } from './Services/network.interceptor';
     MatTableExporterModule,
     MatPaginatorModule,
     MatToolbarModule,
+    MatSelectModule,
     MatProgressSpinnerModule,
     HttpClientModule,
 

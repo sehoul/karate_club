@@ -41,10 +41,21 @@
             <button class="btn btn-success text-white" title="Valider" (click)="element.isEdit = !element.isEdit;edit(element)"><i class="bi bi-check-square-fill"></i> valider</button>
           </div>
           <ng-template #passwordField>
-            <mat-form-field *ngIf="col==='Password'; else defaultField">
+            <mat-form-field *ngIf="col==='Nouveau Mot de passe'; else SelectField">
               <mat-label>{{col}}</mat-label>
-              <input type="{{dataSchema[col]}}" [type]="hide ? 'password' : 'text'" matInput [(ngModel)]="element[col]"> 
+              <input type="password" [type]="hide ? 'password' : 'text'" matInput [(ngModel)]="element[col]"> 
               <mat-icon matSuffix (click)="hide = !hide"> <i [ngClass]="{'bi bi-eye-slash-fill': !hide , 'bi bi-eye-fill':hide}"></i></mat-icon>
+            </mat-form-field>
+          </ng-template>
+          
+          <ng-template #SelectField>
+            <mat-form-field *ngIf="col==='roles'; else defaultField" >
+              <mat-label>Role</mat-label>
+              <mat-select [(value)]="element[col]">
+                <mat-option value="president" >president</mat-option>
+                <mat-option value="secretaire">secretaire</mat-option>
+                <mat-option value="instructeur">instructeur</mat-option>
+              </mat-select>
             </mat-form-field>
           </ng-template>
           <ng-template #defaultField>

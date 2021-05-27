@@ -1,8 +1,8 @@
-<div class="conainer-fluid">
+<div class="conainer-fluid mb-5">
     <div class="w-100 pl-5 text-white top-title">
       <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Ajouter un administrateur</h2>
     </div>
-      <form  [formGroup]="formAA" (submit)="submit()" class="container mt-5 p-5">
+      <form  [formGroup]="formAA" (submit)="submit()" class="container mt-5 p-5 mb-5">
         <div *ngIf="_error" class="input-group  mb-2 alert-danger rounded py-4 px-3">
           {{_error}}
         </div>

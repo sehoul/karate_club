@@ -8,16 +8,16 @@ import {AfterViewInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import * as XLSX from 'xlsx';
+import { AdministrationService } from 'src/app/Services/administration.service';
 
 
 const USER_SCHEMA = {
   "id": "number",
   "Nom": "string",
   "Prenom": "string",
-  "Email": "string",
-  "Telephone": "string",
-  "Role": "string",
-  "Password": "password",
+  "email": "string",
+  "Tel": "string",
+  "roles": "string"
 };
 
 @Component({
@@ -30,28 +30,23 @@ const USER_SCHEMA = {
 
 export class AdminsComponent implements OnInit {
  
-USER_INFO: elem[] = [
-  {
-    id: 1,
-  Nom: "string",
-  Prenom:"prenom",
-  Email: "string",
-  Telephone: "string",
-  Role: "string",
-  Password: "string",
-  }
-];
+USER_INFO: elem[] = [];
 hide = true;
  dataSource = new MatTableDataSource<elem>(this.USER_INFO);
   
-  constructor(private service: GroupesService, private cookie:CookieService){}
+  constructor(private cookie:CookieService, private AdminService:AdministrationService){}
   ngOnInit(){
+
+    this.AdminService.getAdmins().subscribe((res:any)=>{
+      this.USER_INFO=res;
       this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
       this.dataSource.paginator = this.paginator;
+    });
+      
       }
 
   displayedColumns: string[] = ["id",
-    "Nom",'Prenom','Email','Role','Password' , '$$edit'];
+    "Nom",'Prenom','email','Tel','roles' ,'Nouveau Mot de passe', '$$edit'];
 
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
@@ -75,7 +70,7 @@ hide = true;
   
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
-    
+    console.log(element);
   }
 delete(element:any,index:any,id:any){
 
@@ -103,8 +98,7 @@ export interface elem {
   id: number;
   Nom: string;
   Prenom: string;
-  Email: string;
-  Telephone: string;
-  Role: string;
-  Password: string;
+  email: string;
+  Tel: string;
+  roles: string;
 }
