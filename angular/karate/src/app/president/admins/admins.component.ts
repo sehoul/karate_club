@@ -73,7 +73,19 @@ hide = true;
     console.log(element);
   }
 delete(element:any,index:any,id:any){
-
+      if(confirm("Est ce que vous voulez vraiment supprimer l'utilisateur \" "+element+" \"")) {
+        this.AdminService.deleteAdmin(Number(this.cookie.get('idPres')),Number(id)).subscribe((res:any)=>{
+          if(res.success){
+            this.USER_INFO.splice(Number(index), 1);
+            this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+            this.dataSource.paginator = this.paginator;
+          }
+        },
+        error=>{
+          
+        });
+        
+      }
   }
   hashPassword(password: string){
     return "*".repeat(password.length)

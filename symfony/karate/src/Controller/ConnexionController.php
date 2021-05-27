@@ -117,4 +117,36 @@ class ConnexionController extends AbstractController
     {
         return $this->json($this->userRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','Nom','Prenom','email','roles','Tel']]);
     }
+
+     /**
+     * @Route("/admin/delete/{idUser}/{id}", name="delete_Admins", methods={"GET"})
+     */
+    public function deleteAdmins($idUser,$id)
+    {
+        $user=$this->userRepository->findOneBy(['id' => $idUser]);
+        $usertoRemove=$this->userRepository->findOneBy(['id' => $id]); 
+        if ($user){
+            if ($usertoRemove){
+                foreach($usertoRemove->getActions() as $action){
+                    $usertoRemove->removeAction($action);
+                    $this->getDoctrine()->getManager()->remove($action);
+                }
+                $action=new Actions();
+                $action->setUser($user)
+                ->setType("Suppression")
+                ->setDescription("Suppression de l'utilisateur \" ". ($usertoRemove->getNom()) ." \"");
+                 $this->getDoctrine()->getManager()->persist($action);
+                $user->addAction($action);
+                $this->getDoctrine()->getManager()->flush();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($usertoRemove);
+                $entityManager->flush();
+                return $this->json(['success'=>true,'message'=>'utilisateur supprimé avec succee'], 200, []);
+            }else{
+                return $this->json(['message' => "Oups!...cet utilisateur n'est plus disponible!"],404,);
+            } 
+        }else{
+            return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
+        }  
+    }
 }

@@ -17,4 +17,7 @@ export class AdministrationService {
   getAdmins(){
     return this.http.get(this.url+"Admins");
   }
+  deleteAdmin(idUser:number,id:number){
+    return this.http.get(this.url+"admin/delete/"+idUser+"/"+id);
+  }
 }
