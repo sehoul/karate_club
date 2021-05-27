@@ -33,6 +33,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NetworkInterceptor } from './Services/network.interceptor';
 import { MatSelectModule } from '@angular/material/select';
+
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData} from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr);
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +72,7 @@ import { MatSelectModule } from '@angular/material/select';
     HttpClientModule,
 
   ],
-  providers: [CookieService,AuthSecretaireGuard,AuthPresidentGuard,AuthInstructeurGuard, { provide: HTTP_INTERCEPTORS, useClass: NetworkInterceptor, multi: true },],
+  providers: [CookieService,AuthSecretaireGuard,AuthPresidentGuard,AuthInstructeurGuard, { provide: HTTP_INTERCEPTORS, useClass: NetworkInterceptor, multi: true },{provide: LOCALE_ID, useValue: "fr-CA" } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
