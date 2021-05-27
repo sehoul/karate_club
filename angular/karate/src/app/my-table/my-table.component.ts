@@ -70,43 +70,10 @@ export class MyTableComponent implements AfterViewInit,OnInit {
 
 
 
-  filter = { Homme: true, Femme: true };
-  filter2 = { Minipoussins: true,
-    Poussins: true,
-    pupilles: true,
-    Benjamins: true,
-    Minimes: true,
-    Cadets: true,
-    Juniors: true,
-    Espoirs: true,
-    Seniors: true};
+
   filteredProducts = USER_INFO;
 
-  filterChange() {
-    this.filteredProducts = USER_INFO.filter(x =>
-     (x.genre === 'Homme' && this.filter.Homme)
-      || (x.genre === 'Femme' && this.filter.Femme)
-    );
-    this.dataSource = new MatTableDataSource<elem>(this.filteredProducts);
-  }
 
-  filterChange2() {
-    this.filterChange();
-
-    this.filteredProducts = this.filteredProducts.filter(x =>
-      (x.categorie === 'Minipoussins' && this.filter2.Minipoussins)
-      || (x.categorie === 'Poussins' && this.filter2.Poussins)
-      || (x.categorie === 'pupilles' && this.filter2.pupilles)
-      || (x.categorie === 'Benjamins' && this.filter2.Benjamins)
-      || (x.categorie === 'Minimes' && this.filter2.Minimes)
-      || (x.categorie === 'Cadets' && this.filter2.Cadets)
-      || (x.categorie === 'Juniors' && this.filter2.Juniors)
-      || (x.categorie === 'Espoirs' && this.filter2.Espoirs)
-      || (x.categorie === 'Seniors' && this.filter2.Seniors)
-
-    );
-    this.dataSource = new MatTableDataSource<elem>(this.filteredProducts);
-  }
 
 
   title = 'angular-app';
@@ -191,15 +158,12 @@ export class MyTableComponent implements AfterViewInit,OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   applyFilterbis() {
-
     const n = this.searchForm.getRawValue().Nom;
-
     const p = this.searchForm.getRawValue().Prenom;
 
     this.Nom = n === null ? '' : n;
     this.prenom = p === null ? '' : p;
 
-    // create string of our searching values and split if by '$'
     const filterValue = this.Nom + '$' + this.prenom;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -210,8 +174,6 @@ export class MyTableComponent implements AfterViewInit,OnInit {
     });
   }
   ngOnInit(){
-    /* Filter predicate used for filtering table per different columns
-    *  */
     this.dataSource.filterPredicate = this.getFilterPredicate();
   }
 
