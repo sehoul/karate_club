@@ -32,15 +32,14 @@ export class ActivitesComponent implements OnInit, AfterViewInit {
  ngAfterViewInit() {
    this.dataSource.paginator = this.paginator;
  }
-   activites!: any[];
+
   
    constructor(private service: ActivitesService,private cookie:CookieService){
   
    }
    ngOnInit(){
          this.service.getActivites().subscribe((response: any) =>{
-           console.log(response);
-           
+           console.log(response);      
            this.USER_INFO=response;
            let groupe:string="";
            this.USER_INFO.forEach((element:any) => {
@@ -54,7 +53,8 @@ export class ActivitesComponent implements OnInit, AfterViewInit {
            this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
            this.dataSource.paginator = this.paginator;
           });
-           };
+      
+   }
    
  
    displayedColumns: string[] = ["id",
@@ -87,7 +87,6 @@ export class ActivitesComponent implements OnInit, AfterViewInit {
          console.log("error");
        }
      );
- 
    }
  
    delete(element:any,index:any,id:any){
@@ -104,10 +103,7 @@ export class ActivitesComponent implements OnInit, AfterViewInit {
        });
        
      }
-   }
- 
-  
-   
+   } 
  
    applyFilter(event: Event) {
      const filterValue = (event.target as HTMLInputElement).value;

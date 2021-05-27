@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { TdbComponent } from './tdb/tdb.component';
 import { RouterModule } from '@angular/router';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -40,6 +41,7 @@ import { RouterModule } from '@angular/router';
     MatDatepickerModule,
     MatNativeDateModule,
    MatTableExporterModule,
+   MatSelectModule,
    MatPaginatorModule,
    RouterModule
   ]
