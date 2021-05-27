@@ -9,13 +9,15 @@ import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import * as XLSX from 'xlsx';
 
+
 const USER_SCHEMA = {
   "id": "number",
-  "nom": "text",
-  "prenom":"text",
-  "mail":"mail",
-  "telephone":"text",
-  "role":"text",
+  "Nom": "string",
+  "Prenom": "string",
+  "Email": "string",
+  "Telephone": "string",
+  "Role": "string",
+  "Password": "password",
 };
 
 @Component({
@@ -27,74 +29,82 @@ const USER_SCHEMA = {
 
 
 export class AdminsComponent implements OnInit {
-  USER_INFO:elem[]  = [];
- dataSource = new MatTableDataSource<elem>(this.USER_INFO); 
-//@ts-ignore
-@ViewChild(MatPaginator) paginator: MatPaginator;
-
-ngAfterViewInit() {
-  this.dataSource.paginator = this.paginator;
-}
-  admins!: any[];
  
-  constructor(private service: ActivitesService,private cookie:CookieService){
- 
+USER_INFO: elem[] = [
+  {
+    id: 1,
+  Nom: "string",
+  Prenom:"prenom",
+  Email: "string",
+  Telephone: "string",
+  Role: "string",
+  Password: "string",
   }
-  ngOnInit(){
-     
-          this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
-          this.dataSource.paginator = this.paginator;
-  }
-          
+];
+hide = true;
+ dataSource = new MatTableDataSource<elem>(this.USER_INFO);
   
+  constructor(private service: GroupesService, private cookie:CookieService){}
+  ngOnInit(){
+      this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+      this.dataSource.paginator = this.paginator;
+      }
 
-  displayedColumns: any[] = ["id",
-    "nom","prenom" ,"mail", ,"telephone", "role", '$$edit'];
-
+  displayedColumns: string[] = ["id",
+    "Nom",'Prenom','Email','Role','Password' , '$$edit'];
 
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
-  membres=this.USER_INFO;
   exportexcel(): void
   {
+    /* pass here the table id */
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
     ws['!cols'] = [];
-    ws['!cols'][6] = { hidden: true };
+    ws['!cols'][3] = { hidden: true };
+ 
+    /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+ 
+    /* save to file */  
     XLSX.writeFile(wb, this.fileName);
  
   }
   
   dataSchema:any = USER_SCHEMA;
-
   edit(element:any){
-   
+    
+  }
+delete(element:any,index:any,id:any){
 
   }
-
-  delete(element:any,index:any,id:any){
-   
+  hashPassword(password: string){
+    return "*".repeat(password.length)
   }
 
- 
+  //@ts-ignore
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
   
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-}
 
+}
 
 export interface elem {
   id: number;
-  nom: string;
-  prenom: string;
-  mail: string;
-  telephone:string;
-  role:string;
+  Nom: string;
+  Prenom: string;
+  Email: string;
+  Telephone: string;
+  Role: string;
+  Password: string;
 }
-

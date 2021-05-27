@@ -32,7 +32,7 @@
       </div>
       <div class="form-group">
         <label for="TlphnAdm"> Telephone</label>
-        <input id="TlphnAdm" class="form-control" formControlName="TlphnAdm" [ngClass]="formAA.controls['TlphnAdm'].invalid && TlphnAdm.touched ? 'is-invalid' : formAA.controls['TlphnAdm'].valid? 'is-valid': '' ">
+        <input id="TlphnAdm" class="form-control py-4" formControlName="TlphnAdm" [ngClass]="formAA.controls['TlphnAdm'].invalid && TlphnAdm.touched ? 'is-invalid' : formAA.controls['TlphnAdm'].valid? 'is-valid': '' ">
         <div class="invalid-feedback" *ngIf="TlphnAdm.touched">
           Ce champs est obligatoire.
         </div>
@@ -40,9 +40,9 @@
 
       <div class="form-group">
         <label for="Role">Rôle</label>
-        <select type="text" id="Role" class="form-control" formControlName="Role" [ngClass]="formAA.controls['Role'].invalid && Role.touched ? 'is-invalid' : formAA.controls['Role'].valid? 'is-valid': '' ">
+        <select type="text" id="Role" class="form-control" formControlName="Role" [ngClass]="formAA.controls['Role'].invalid && Role.touched ? 'is-invalid' : formAA.controls['Role'].valid? 'is-valid': '' " style=" height: 55px;">
           <option value="" selected disabled>Choisissez votre rôle</option>
-          <option *ngFor="let r of Roles" [value]="r.id">{{r.val}}</option>
+          <option *ngFor="let role of Roles" [value]="role.val">{{role.val}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="Role.touched">
           Ce champs est obligatoire.
@@ -50,18 +50,21 @@
 
         
       <div class="form-group">
-        <label for="MdpAdm"> Mot de passe</label>
-        <input type="password" id="MdpAdm" class="form-control" formControlName="MdpAdm" [ngClass]="formAA.controls['MdpAdm'].invalid && MdpAdm.touched ? 'is-invalid' : formAA.controls['MdpAdm'].valid? 'is-valid': '' ">
-        <div class="invalid-feedback" *ngIf="MdpAdm.touched">
+        <label for="MotDePasse"> Mot de passe</label>
+        <input type="password" id="MotDePasse" class="form-control py-4" formControlName="MotDePasse" [ngClass]="formAA.controls['MotDePasse'].invalid && MotDePasse.touched ? 'is-invalid' : formAA.controls['MotDePasse'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="MotDePasse.touched">
           Ce champs est obligatoire.
         </div>
       </div>
 
       <div class="form-group">
-        <label for="MdpAdmC"> Confirmation mot de passe </label>
-        <input type="password" id="MdpAdmC" class="form-control" formControlName="MdpAdmC" [ngClass]="formAA.controls['MdpAdmC'].invalid && MdpAdmC.touched ? 'is-invalid' : formAA.controls['MdpAdmC'].valid? 'is-valid': '' ">
-        <div class="invalid-feedback" *ngIf="MdpAdmC.touched">
+        <label for="ConfirmationMotDePasse"> Confirmation mot de passe </label>
+        <input type="password" id="ConfirmationMotDePasse" class="form-control py-4" formControlName="ConfirmationMotDePasse" [ngClass]="formAA.controls['ConfirmationMotDePasse'].invalid && ConfirmationMotDePasse.touched ? 'is-invalid' : formAA.controls['ConfirmationMotDePasse'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="ConfirmationMotDePasse.touched">
           Ce champs est obligatoire.
+        </div>
+        <div class="invalid-feedback" *ngIf="ConfirmationMotDePasse.touched && formAA.controls['ConfirmationMotDePasse'].invalid">
+          La confirmation et le mot de passe doivent etre identiques.
         </div>
       </div>
 

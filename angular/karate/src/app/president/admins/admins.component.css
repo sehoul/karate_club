@@ -1,18 +1,47 @@
 .top-title {
   
-    background:linear-gradient(to right top, #c31432, #240b36);
-    box-shadow: 1px 2px 10px #f44336;
-    }
-    table{
-      max-width: 100%;
-      min-width: 100%;
-    }
-    .btn-edit {
-      text-align: right;
-    }
-    h2 {
-      text-align: center;
-      padding-top: 20px;
-    }
-
-  
+  background:linear-gradient(to right top, #c31432, #240b36);
+  box-shadow: 1px 2px 10px #f44336;
+  }
+  table{
+    max-width: 100%;
+    min-width: 100%;
+  }
+  .btn-edit {
+    text-align: right;
+  }
+  h2 {
+    text-align: center;
+    padding-top: 20px;
+  }
+  .recherche {
+    width: 20%;
+    height: 90px;
+    padding: 15px 25px;
+    background: #fff;
+    box-shadow: 2px 2px 10px #c7c7c7;
+    border-radius: 5px;
+    position: absolute;
+    right: 2%;
+    top: 25px;
+    overflow: hidden;
+    box-sizing: content-box;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.recherche input {
+  padding: 2px 0px 4px 10px;
+  height: 45px;
+  border: 2px solid #28a745;
+  border-radius: 4px;
+  color: #212529;
+  caret-color:rgb(28, 98, 155);
+}
+.recherche input:focus{
+    border-color:rgb(40, 144, 230);
+}
+.operation{
+  display: flex;
+    align-items: baseline;
+}

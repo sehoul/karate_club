@@ -13,38 +13,51 @@ import { InstructeurService } from 'src/app/Services/instructeur.service';
 export class AddadminComponent implements OnInit {
 
   formAA: FormGroup;
-  Instructeurs: Array<any>=[];
-  Activites: Array<any>=[];
   _success:string="";
   _error:string="";
 
-  constructor(private fb: FormBuilder, private groupeService:GroupesService,private activiteService:ActivitesService,private instructeurService:InstructeurService,private cookie:CookieService) {
+  constructor(private fb: FormBuilder,private cookie:CookieService) {
     this.formAA=this.fb.group({
       NomAdm:  new FormControl('', [Validators.required]),
       PrenomAdm:  new FormControl('', [Validators.required]),
       MailAdm:  new FormControl('', [Validators.required]),
       TlphnAdm:  new FormControl('', [Validators.required]),
-      MdpAdm:  new FormControl('', [Validators.required]),
-      MdpAdmC:  new FormControl('', [Validators.required]),
+      MotDePasse:  new FormControl('', [Validators.required]),
+      ConfirmationMotDePasse:  new FormControl('', [Validators.required]),
       Role:  new FormControl('', [Validators.required]),
-     
-
+     },{ 
+      validator: this.ConfirmedValidator('MotDePasse', 'ConfirmationMotDePasse')
     });
    }
+
+   ConfirmedValidator(controlName: string, matchingControlName: string){
+    return (formGroup: FormGroup) => {
+        const control = formGroup.controls[controlName];
+        const matchingControl = formGroup.controls[matchingControlName];
+        if (matchingControl.errors && !matchingControl.errors.confirmedValidator) {
+            return;
+        }
+        if (control.value !== matchingControl.value) {
+            matchingControl.setErrors({ confirmedValidator: true });
+        } else {
+            matchingControl.setErrors(null);
+        }
+    }
+  }
 
 
    get NomAdm() : any {   return this.formAA.get('NomAdm');}
    get PrenomAdm() : any {   return this.formAA.get('PrenomAdm');}
    get MailAdm() : any {   return this.formAA.get('MailAdm');}
    get TlphnAdm() : any {   return this.formAA.get('TlphnAdm');}
-   get MdpAdm() : any {   return this.formAA.get('MdpAdm');}
-   get MdpAdmC() : any {   return this.formAA.get('MdpAdmC');}
+   get MotDePasse() : any {   return this.formAA.get('MotDePasse');}
+   get ConfirmationMotDePasse() : any {   return this.formAA.get('ConfirmationMotDePasse');}
    get Role() : any {   return this.formAA.get('Role');}
 
 
 
 
-   Roles : Array<any>=[ {id: 1 , val: 'President' }, {id: 2 , val: 'Secretaire' }, {id: 3 , val: 'Instructeur' } ];
+   Roles : Array<any>=[ {val: 'President'}, {val: 'Secretaire'}, {val: 'Instructeur'} ];
 
 
 
@@ -52,37 +65,15 @@ export class AddadminComponent implements OnInit {
   submit() {
     const data={
       NomAdm:this.formAA.getRawValue().NomAdm,
-      PrenomAdm:{ 
-        id:Number(this.formAA.getRawValue().PrenomAdm)
-      },
-      MailAdm:{ 
-        id:Number(this.formAA.getRawValue().MailAdm)
-      },
-      TlphnAdm:{ 
-        id:Number(this.formAA.getRawValue().TlphnAdm)
-      },
-      MdpAdm:{ 
-        id:Number(this.formAA.getRawValue().MdpAdm)
-      },
-      MdpAdmC:{ 
-        id:Number(this.formAA.getRawValue().MdpAdmC)
-      },
-      Role:{ 
-        id:Number(this.formAA.getRawValue().Role)
-      },
+      PrenomAdm:this.formAA.getRawValue().PrenomAdm,
+      MailAdm:this.formAA.getRawValue().MailAdm,
+      TlphnAdm:this.formAA.getRawValue().TlphnAdm,
+      MotDePasse:this.formAA.getRawValue().MotDePasse,
+      ConfirmationMotDePasse:this.formAA.getRawValue().ConfirmationMotDePasse,
+      Role:this.formAA.getRawValue().Role,
     }
-    if(data.NomAdm!="" && data.PrenomAdm.id && data.MailAdm && data.TlphnAdm && data.MailAdm && data.MdpAdm && data.MdpAdmC && data.Role){
+    if(data.NomAdm!="" && data.MailAdm!="" && data.TlphnAdm!="" && data.MailAdm!="" && data.MotDePasse!="" && data.ConfirmationMotDePasse!="" && data.Role!=""){
 
-      this.groupeService.addGroupe(Number(this.cookie.get('idPres')),data).subscribe(
-        (res:any)=>{
-          this._success="Ajouté avec succes !";
-          this._error="";
-        },
-        error=>{
-          this._success="";
-          this._error=error.error.message;
-        }
-      )
     }else{
       this._success="";
       this._error="merci de remplire tous les champs";
@@ -91,12 +82,6 @@ export class AddadminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activiteService.getActivites().subscribe((resp:any)=>{
-      this.Activites=resp;
-    });
-    this.instructeurService.getInstructeursMiniInfo().subscribe((resp:any)=>{
-      this.Instructeurs=resp;
-    });
 
   }
 }
