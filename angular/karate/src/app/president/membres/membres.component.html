@@ -2,9 +2,43 @@
   <div class="pl-5 text-white top-title">
     <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Liste des membres</h2>
   </div>
+ 
   <div class="recherche">
     <h5 class="w-100">Barre de recherche :</h5> 
-    <input (keyup)="applyFilter($event)" placeholder="Recherchez...." #input>
+    <form [formGroup]="searchForm" class="search__form">
+    
+      <mat-form-field class="search__form_field" appearance="outline" style=" margin: 0 15px;">
+        <mat-label>FFK </mat-label>
+        <input type="text"
+               aria-label="FFK"
+               matInput
+               formControlName="FFK"
+               (keyup)="applyFilterbis()"
+        >
+      </mat-form-field>
+
+  <mat-form-field class="search__form_field" appearance="outline" style=" margin: 0 15px;" >
+    <mat-label>Nom</mat-label>
+    <input type="text"
+           aria-label="Recherche par Nom"
+           matInput
+           formControlName="Nom"
+           (keyup)="applyFilterbis()"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="search__form_field" appearance="outline" style=" margin: 0 15px;" >
+    <mat-label>Prenom </mat-label>
+    <input type="text"
+           aria-label="Prenom"
+           matInput
+           formControlName="Prenom"
+           (keyup)="applyFilterbis()"
+    >
+  </mat-form-field>
+
+
+</form>
   </div>
      
     <div class="shadow-sm p-3 mb-5 bg-white rounded operation">

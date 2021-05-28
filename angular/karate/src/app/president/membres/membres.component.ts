@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { PipeTransform } from '@angular/core';
 import { ElementRef, OnInit } from '@angular/core';
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MembresService } from 'src/app/Services/membres.service';
@@ -14,8 +15,8 @@ import * as XLSX from 'xlsx';
 const USER_SCHEMA = {
   "id": "number",
   "licenceFFK": "number",
-  "nom": "string",
-  "prenom": "string",
+  "Nom": "string",
+  "Prenom": "string",
   "DateNaissance": "date",
   "Genre": "string",
   "Categorie": "string",
@@ -37,41 +38,29 @@ const USER_SCHEMA = {
 export class MembresComponent implements OnInit,AfterViewInit {
   USER_INFO: elem[] = [];
   dataSource = new MatTableDataSource<elem>(this.USER_INFO);
-  groupes!: any[];
-   constructor(private service: MembresService){}
+  searchForm: FormGroup ;
+  Nom:string = '' ;
+  Prenom:string = '';
+  FFK:string = '';
+   constructor(private service: MembresService){
+    this.searchForm = new FormGroup({
+      Nom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
+      Prenom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
+      FFK: new FormControl('', Validators.pattern('^[a-zA-Z0-9 ]+$')),
+    });
+   }
    ngOnInit(){
          this.service.getMembres().subscribe((response: any) =>{
-           console.log(response);
-           
            this.USER_INFO=response;
            this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
            this.dataSource.paginator = this.paginator;
+           this.dataSource.filterPredicate = this.getFilterPredicate();
           });
            };
 
   
 
-  displayedColumns: string[] = ["id",
-    "NumLicenceFFK",
-    "Nom",
-    "Prenom",
-    "DateNaissance",
-    "Genre",
-    "Categorie",
-    "Adresse",
-    "Telephone1",
-    "Telephone2",
-    "Email",
-    "NomParents",
-    "PrenomParents",
-    "TelephoneParents1",
-    "TelephoneParents2",
-    "EamilParents",
-    "Cotisation",
-    "DateInscription",
-    "Grade",
-    "Observation",
-    "categorie", '$$edit'];
+  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","Categorie","Adresse","Telephone1","Telephone2","Email","NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EamilParents","Cotisation","DateInscription","Grade","Observation","categorie", '$$edit'];
 
 
   title = 'angular-app';
@@ -79,18 +68,12 @@ export class MembresComponent implements OnInit,AfterViewInit {
   
   exportexcel(): void
   {
-    /* pass here the table id */
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
     ws['!cols'] = [];
     ws['!cols'][13] = { hidden: true };
- 
-    /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-  
- 
-    /* save to file */  
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1'); 
     XLSX.writeFile(wb, this.fileName);
  
   }
@@ -108,12 +91,43 @@ export class MembresComponent implements OnInit,AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-
-
-  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    const filterValue2 = filterValue + '$' +'';
+    this.dataSource.filter = filterValue2.trim().toLowerCase();
+  }
+  
+  applyFilterbis() {
+    const n = this.searchForm.getRawValue().Nom;
+    const p = this.searchForm.getRawValue().Prenom;
+    const f = this.searchForm.getRawValue().FFK;
+    this.Nom = n === null ? '' : n;
+    this.Prenom = p === null ? '' : p;
+    this.FFK = f === null ? '' : f;
+
+    const filterValue = this.Nom + '$' + this.Prenom + '$' + this.FFK;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  
+
+  getFilterPredicate() {
+    return (row: elem, filters: string) => {
+      const filterArray = filters.split('$');
+      const Nom = filterArray[0];
+      const prenom = filterArray[1];
+      const ffk = filterArray[2];
+      const matchFilter = [];
+      const colonneN = row.Nom;
+      const colonneP = row.Prenom;
+      const colonneFFk=row.NumLicenceFFK
+      const customFilterN = colonneN.toLowerCase().includes(Nom);
+      const customFilterP = colonneP.toLowerCase().includes(prenom);
+      const customFilterT = colonneFFk.toLowerCase().includes(ffk);
+      matchFilter.push(customFilterN);
+      matchFilter.push(customFilterP);
+      matchFilter.push(customFilterT);
+      return matchFilter.every(Boolean);
+    };
   }
   
   
