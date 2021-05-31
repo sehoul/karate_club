@@ -13,4 +13,8 @@ export class MembresService {
   getMembres(){
     return this.http.get(this.url);
   }
+
+  deleteMembre(id:number,idUser:number){
+    return this.http.get(this.url+"/delete/"+id+"/"+idUser);
+  }
 }

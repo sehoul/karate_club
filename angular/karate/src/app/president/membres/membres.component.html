@@ -2,11 +2,11 @@
   <div class="pl-5 text-white top-title">
     <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Liste des membres</h2>
   </div>
- 
+
   <div class="recherche">
-    <h5 class="w-100">Barre de recherche :</h5> 
+    <h5 class="w-100">Barre de recherche :</h5>
     <form [formGroup]="searchForm" class="search__form">
-    
+
       <mat-form-field class="search__form_field" appearance="outline" style=" margin: 0 15px;">
         <mat-label>FFK </mat-label>
         <input type="text"
@@ -40,12 +40,12 @@
 
 </form>
   </div>
-     
+
     <div class="shadow-sm p-3 mb-5 bg-white rounded operation">
       <h6>Operations :</h6>
       <button class="btn btn-info ml-3" (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
     </div>
-    
+
   <table id="excel-table" mat-table [dataSource]="dataSource" >
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
       <th mat-header-cell *matHeaderCellDef class="p-2">
@@ -53,11 +53,15 @@
           {{col}}
         </span>
       </th>
-      <td mat-cell *matCellDef="let element" class="p-2">
+      <td mat-cell *matCellDef="let element;let i=index" class="p-2">
+
+
         <div *ngIf="!element.isEdit" [style.width]="col==='Adresse' || col ==='Observation'?'200px':'auto'">
           <div class="btn-edit" *ngIf="col === '$$edit'; spanHeader" >
             <button class="btn btn-link text-dark" title="Modifier" (click)="element.isEdit = !element.isEdit"><i class="bi bi-pencil-square"></i></button>
+            <button class="btn btn-link text-danger ml-2" title="Supprimer" (click)="delete(element['Nom'],element['Prenom'],i,element['id'])"><i class="bi bi-trash-fill"></i></button>
           </div>
+
           <span  *ngIf="col === 'DateNaissance' || col === 'DateInscription'" #spanHeader>
             {{element[col] | date: 'dd/MM/yyyy'}}
           </span>
@@ -81,11 +85,36 @@
             </mat-form-field>
           </ng-template>
           <ng-template #defaultField>
-            <mat-form-field>
+            <mat-form-field *ngIf="col!=='id' && col !== 'Genre' && col !== 'categorie' else SelectField">
               <mat-label>{{col}}</mat-label>
-              <input *ngIf="col === 'categorie'" type="{{dataSchema[col]}}" matInput [(ngModel)]="element[col].nomCategorie">
-              <input *ngIf="col !== 'categorie'" type="{{dataSchema[col]}}" matInput [(ngModel)]="element[col]">
+              <input  type="{{dataSchema[col]}}" matInput [(ngModel)]="element[col]">
             </mat-form-field>
+          </ng-template>
+          <ng-template #SelectField>
+            <mat-form-field *ngIf="col === 'Genre' else SelectCategories">
+              <mat-label>Genre</mat-label>
+              <mat-select [(value)]="element[col]" [(ngModel)]="element[col]">
+                <mat-option  value="Homme" >Homme</mat-option>
+                <mat-option  value="Femme" >Femme</mat-option>
+                <mat-option  value="Non precis" >Non precis</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-template>
+
+
+          <ng-template #SelectCategories>
+            <mat-form-field *ngIf="col === 'categorie'; else nonEditedTemplate">
+              <mat-label>categorie</mat-label>
+              <mat-select [(value)]="element[col]" [(ngModel)]="element[col]">
+                <mat-option *ngFor="let cat of Categories" [value]="cat.nomCategorie" >{{cat.nomCategorie}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-template>
+
+          <ng-template #nonEditedTemplate>
+            <span #spanHeader>
+              {{element[col]}}
+            </span>
           </ng-template>
         </div>
       </td>
@@ -97,8 +126,8 @@
   <mat-paginator [pageSizeOptions]="[20, 100, 1000]" showFirstLastButtons></mat-paginator>
 
 
-  
-  
-  
+
+
+
 
 
