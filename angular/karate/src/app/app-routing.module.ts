@@ -71,8 +71,8 @@ const routes: Routes = [
       {path:'groupes',component:GroupesComponent},
       {path:'admins',component:AdminsComponent},
       {path:'ajouter-admin',component:AddadminComponent},
-      {path:'emploi',component:EmploidutempsComponent},
-      {path:'ajouter-emploi',component:AddemploidutempsComponent},
+      {path:'emploidutemps',component:EmploidutempsComponent},
+      {path:'ajouter-crenau',component:AddemploidutempsComponent},
 
     ]
   },
