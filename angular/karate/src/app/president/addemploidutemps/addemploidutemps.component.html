@@ -1,1 +1,83 @@
-<p>addemploidutemps works!</p>
+<div class="conainer-fluid">
+    <div class="w-100 pl-5 text-white top-title">
+      <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Ajouter un crénau</h2>
+    </div>
+    <form  [formGroup]="form" (submit)="submit()" class="container mt-5 p-5">
+        <div *ngIf="_error" class="input-group  mb-2 alert-danger rounded py-4 px-3">
+          {{_error}}
+        </div>
+        <div *ngIf="_success" class="input-group mb-2 alert-info rounded py-4 px-3">
+          {{_success}}
+        </div>
+
+    <div class="row w-100">
+        <div class="form-group col-12">
+            <label for="nomevenement">Nom d'événement</label>
+            <input type="text" id="nomevenement" class="form-control py-4" formControlName="nomevenement" [ngClass]="form.controls['nomevenement'].invalid && nomevenement.touched ? 'is-invalid' : form.controls['nomevenement'].valid? 'is-valid': '' ">
+            <div class="invalid-feedback" *ngIf="nomevenement.touched">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+    </div>
+     
+
+
+      <div class="row w-100">
+        <div class="form-group col-6">
+                <label for="dateE">Date debut</label>
+                <input type="datetime-local" min="0" id="dateE" class="form-control py-4" formControlName="dateE" [ngClass]="form.controls['dateE'].invalid && dateE.touched ? 'is-invalid' : form.controls['dateE'].valid? 'is-valid': '' ">
+                <div class="invalid-feedback" *ngIf="dateE.touched">
+                  Ce champs est obligatoire.
+                </div>
+              </div>
+        <div class="form-group col-6">
+                <label for="dateE">Date fin</label>
+                <input type="datetime-local" min="0" id="dateE" class="form-control py-4" formControlName="dateE" [ngClass]="form.controls['dateE'].invalid && dateE.touched ? 'is-invalid' : form.controls['dateE'].valid? 'is-valid': '' ">
+                <div class="invalid-feedback" *ngIf="dateE.touched">
+                  Ce champs est obligatoire.
+                </div>
+              </div>
+              </div>
+
+
+         <div class="row w-100">
+             <div class="form-group col-6">
+             <label for="Activite">Activité</label>
+             <select type="text" id="Activite" class="form-control" formControlName="Activite" [ngClass]="form.controls['Activite'].invalid && Activite.touched ? 'is-invalid' : form.controls['Activite'].valid? 'is-valid': '' " style=" height: 55px;" >
+                 <option value="" selected disabled>Choisissez une activité ...</option>
+                 <option *ngFor="let activ of Activites" [value]="activ.id">{{activ.activite.nomActivite}}---{{activ.NomGroupe}}</option>
+             </select>
+             <div class="invalid-feedback" *ngIf="Activite.touched">
+                 Ce champs est obligatoire.
+             </div>
+             </div>
+           
+     
+           <div class="form-group col-6">
+             <label for="Instructeur">Instructeur</label>
+             <select type="text" id="Instructeur" class="form-control" formControlName="Instructeur" [ngClass]="form.controls['Instructeur'].invalid && Instructeur.touched ? 'is-invalid' : form.controls['Instructeur'].valid? 'is-valid': '' " style=" height: 55px;" >
+               <option value="" selected disabled>Choisissez un instructeur...</option>
+               <option *ngFor="let ins of Instructeurs" [value]="ins.id"> {{ins.NumLicenceFFK}} --- {{ins.Nom}} {{ins.Prenom}}</option>
+             </select>
+             <div class="invalid-feedback" *ngIf="Instructeur.touched">
+               Ce champs est obligatoire.
+             </div>
+           </div>
+        </div>
+      
+  
+      
+        
+  
+  
+  
+  
+  
+      <button type="submit" class="btn btn-primary px-3 py-2 mr-3 mt-2" style="float: right;" >Ajouter </button>
+  
+  
+  
+  
+    </form>
+  </div>
+  
