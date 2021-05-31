@@ -110,8 +110,11 @@
           </div>
         </div>
         <div class="form-group col-6">
-          <label for="groupe">Groupe</label>
-          <input type="text" id="groupe" class="form-control py-4" formControlName="groupe" [ngClass]="form.controls['groupe'].invalid && groupe.touched ? 'is-invalid' : form.controls['groupe'].valid? 'is-valid': '' ">
+          <label for="groupe">Activite</label>
+          <select id="groupe" class="form-control" formControlName="groupe" [ngClass]="form.controls['groupe'].invalid && groupe.touched ? 'is-invalid' : form.controls['groupe'].valid? 'is-valid': '' " style=" height: 50px;">
+            <option value="" selected disabled>Sélectionnez une activite ...</option>
+            <option *ngFor="let activ of Activities" [value]="activ.id">{{activ.activite.nomActivite}} &#09;----&#09;{{activ.NomGroupe}}</option>
+          </select>
           <div class="invalid-feedback" *ngIf="groupe.touched">
             Ce champs est obligatoire.
           </div>
@@ -217,7 +220,7 @@
           <div class="row w-50 col-6 ml-0">    
           <div class="form-group col-12">
             <label for="Observation">Observation</label>
-            <textarea id="Observation" cols="15" rows="9" class="form-control"  formControlName="observation"></textarea>
+            <textarea id="Observation" cols="15" rows="9" class="form-control py-4"  formControlName="observation"></textarea>
           </div>
           </div>
       </div>
