@@ -54,10 +54,6 @@
         </span>
       </th>
       <td mat-cell *matCellDef="let element" class="p-2">
-       <!--
-         <div class="col-2 p-2" >{{ (fiche.Etudiant.EmailEtudiant.length>6)? (fiche.Etudiant.EmailEtudiant | slice:0:23)+'...':(fiche.Etudiant.EmailEtudiant)}}</div>         
-      --> 
-
         <div *ngIf="!element.isEdit" [style.width]="col==='Adresse' || col ==='Observation'?'200px':'auto'">
           <div class="btn-edit" *ngIf="col === '$$edit'; spanHeader" >
             <button class="btn btn-link text-dark" title="Modifier" (click)="element.isEdit = !element.isEdit"><i class="bi bi-pencil-square"></i></button>

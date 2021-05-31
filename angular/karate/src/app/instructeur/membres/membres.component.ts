@@ -91,14 +91,11 @@ export class MembresComponent implements OnInit,AfterViewInit {
     XLSX.writeFile(wb, this.fileName);
  
   }
-  
-  dataSource = new MatTableDataSource<elem>(this.USER_INFO);;
+
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
     console.log(element);
-
   }
-
 
   //@ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -107,9 +104,6 @@ export class MembresComponent implements OnInit,AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-
-
-  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
