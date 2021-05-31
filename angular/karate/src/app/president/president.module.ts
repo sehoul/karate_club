@@ -22,6 +22,8 @@ import { AddadminComponent } from './addadmin/addadmin.component';
 import { MatSelectModule } from '@angular/material/select';
 import { EmploidutempsComponent } from './emploidutemps/emploidutemps.component';
 import { AddemploidutempsComponent } from './addemploidutemps/addemploidutemps.component';
+import { CalendrierComponent } from '../instructeur/calendrier/calendrier.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 
@@ -38,6 +40,7 @@ import { AddemploidutempsComponent } from './addemploidutemps/addemploidutemps.c
     AddadminComponent,
     EmploidutempsComponent,
     AddemploidutempsComponent
+
   ],
   imports: [
     RouterModule,
@@ -53,7 +56,9 @@ import { AddemploidutempsComponent } from './addemploidutemps/addemploidutemps.c
     MatNativeDateModule,
     MatTableExporterModule,
     MatPaginatorModule,
-    MatSelectModule
+    MatSelectModule,
+    FullCalendarModule,
+
    
   ]
 })
