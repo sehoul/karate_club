@@ -14,5 +14,7 @@
       text-align: center;
       padding-top: 20px;
     }
-
+    select {
+      font-family: 'FontAwesome', 'Second Font name'
+    }
   

@@ -38,6 +38,8 @@ import { AuthInstructeurGuard } from './guards/auth-instructeur.guard';
 import { CalendrierComponent } from './instructeur/calendrier/calendrier.component';
 import { AdminsComponent } from './president/admins/admins.component';
 import { AddadminComponent } from './president/addadmin/addadmin.component';
+import { EmploidutempsComponent } from './president/emploidutemps/emploidutemps.component';
+import { AddemploidutempsComponent } from './president/addemploidutemps/addemploidutemps.component';
 
 
 const routes: Routes = [
@@ -69,6 +71,8 @@ const routes: Routes = [
       {path:'groupes',component:GroupesComponent},
       {path:'admins',component:AdminsComponent},
       {path:'ajouter-admin',component:AddadminComponent},
+      {path:'emploi',component:EmploidutempsComponent},
+      {path:'ajouter-emploi',component:AddemploidutempsComponent},
 
     ]
   },
