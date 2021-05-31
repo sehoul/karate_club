@@ -66,20 +66,37 @@
             </a>
         </li>
     </ul>
-    <p class="text-gray font-weight-bold text-uppercase px-3 small pt-2 pb-1 mb-0">Administration</p>
+    <p class="text-gray font-weight-bold text-uppercase px-3 small pt-2 pb-1 mb-0">Gestion des comptes</p>
     <ul class="nav flex-column bg-white mb-0">
         <li class="nav-item" >
             <a [routerLink]="['admins']" class="nav-link my-1 ml-2 text-dark ">
                 <i class="bi bi-display-fill mr-2"></i>
                 
-                Administrateurs
+                Comptes
             </a>
         </li>
         <li class="nav-item text-dark" >
             <a  [routerLink]="['ajouter-admin']" class="nav-link  my-1 ml-2 text-dark" >
                 
                 <i class="bi bi-plus-square mr-2"></i>
-                    Ajouter administrateur
+                    Ajouter un compte
+            </a>
+        </li>
+    </ul>
+
+    <p class="text-gray font-weight-bold text-uppercase px-3 small pt-2 pb-1 mb-0">Emplois du temps</p>
+    <ul class="nav flex-column bg-white mb-0">
+        <li class="nav-item" >
+            <a [routerLink]="['emploi']" class="nav-link my-1 ml-2 text-dark ">
+                <i class="bi bi-calendar-date mr-2"></i>                
+                Emplois du temps
+            </a>
+        </li>
+        <li class="nav-item text-dark" >
+            <a  [routerLink]="['ajouter-emploi']" class="nav-link  my-1 ml-2 text-dark" >
+                
+                <i class="bi bi-calendar-plus-fill mr-2"></i>
+                    Ajouter un créneau
             </a>
         </li>
     </ul>

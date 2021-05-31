@@ -20,6 +20,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AdminsComponent } from './admins/admins.component';
 import { AddadminComponent } from './addadmin/addadmin.component';
 import { MatSelectModule } from '@angular/material/select';
+import { EmploidutempsComponent } from './emploidutemps/emploidutemps.component';
+import { AddemploidutempsComponent } from './addemploidutemps/addemploidutemps.component';
 
 
 
@@ -33,7 +35,9 @@ import { MatSelectModule } from '@angular/material/select';
     GroupesComponent,
     TdbComponent,
     AdminsComponent,
-    AddadminComponent
+    AddadminComponent,
+    EmploidutempsComponent,
+    AddemploidutempsComponent
   ],
   imports: [
     RouterModule,
