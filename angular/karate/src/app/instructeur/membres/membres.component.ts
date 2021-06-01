@@ -6,40 +6,33 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CookieService } from 'ngx-cookie-service';
 import { CategoriesService } from 'src/app/Services/Categorie.service';
 import { MembresService } from 'src/app/Services/membres.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import * as XLSX from 'xlsx';
 
 
-
- 
-
-const USER_SCHEMA = {
-  "id": "number",
-  "licenceFFK": "number",
-  "nom": "string",
-  "prenom": "string",
-  "dateNaissance": "date",
-  "genre": "string",
-  "categorie": "string",
-  "adresse": "string",
-  "tlphn1": "string",
-  "tlphn2": "string",
-  "email": "string",
-  "activites": "string",
-  "nbInscritsFamille": "number"
-
-
+interface Categorie{
+  id:number,
+  nomCategorie:string,
+  Description:string
 };
 
 @Component({
   selector: 'app-membres',
   templateUrl: './membres.component.html',
-  styleUrls: ['./membres.component.css']
+  styleUrls: ['./membres.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class MembresComponent implements OnInit,AfterViewInit {
   expandedElement!: elem | null;
   USER_INFO: elem[] = [];
   dataSource = new MatTableDataSource<elem>(this.USER_INFO);
-  Categories: Array<any> = [];
+  Categories: Array<Categorie> = [];
   searchForm: FormGroup ;
   Nom:string = '' ;
   Prenom:string = '';
@@ -74,9 +67,8 @@ export class MembresComponent implements OnInit,AfterViewInit {
   };
 
 
-  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation", '$$edit'];
+  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation"];
   notdisplayedColumns: string[] = ["NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents","membreActivites"];
-  dataSchema:any = USER_SCHEMA;
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
   
@@ -93,7 +85,10 @@ export class MembresComponent implements OnInit,AfterViewInit {
 
   }
 
-  
+  edit(element:any){
+    console.log(element);
+
+  }
 
   //@ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -142,7 +137,6 @@ export class MembresComponent implements OnInit,AfterViewInit {
       return matchFilter.every(Boolean);
     };
   }
-
 
 }
 
