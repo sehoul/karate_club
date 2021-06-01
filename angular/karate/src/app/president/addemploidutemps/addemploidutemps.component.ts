@@ -55,9 +55,9 @@ export class AddemploidutempsComponent implements OnInit {
     }
   
     
-    if(data.nomevenement!="" && data.Instructeur.id && data.Activite){
+    if(data.nomevenement!="" && data.Instructeur.id && data.Activite && data.dateE && data.dateF && data.Activite){
 
-     /*this.groupeService.getGroupes(Number(this.cookie.get('idPres')),data).subscribe(
+     /*this.EmploidutempsService.getGroupes(Number(this.cookie.get('idPres')),data).subscribe(
         (res:any)=>{
           this._success="Crenau ajoutée avec succes !";
           this._error="";
@@ -66,13 +66,15 @@ export class AddemploidutempsComponent implements OnInit {
           this._success="";
           this._error=error.error.message;
         }
-      )
+      )*/
+
+
     }else{
       this._success="";
       this._error="merci de remplire tous les champs";
-    }*/
+    }
 
-  }
+  
 }
 
   ngOnInit(): void {

@@ -9,6 +9,7 @@ import { MembresService } from 'src/app/Services/membres.service';
 import * as XLSX from 'xlsx';
 import {CategoriesService} from "../../Services/Categorie.service";
 import {CookieService} from "ngx-cookie-service";
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 
 interface Categorie{
@@ -37,9 +38,17 @@ const USER_SCHEMA = {
 @Component({
   selector: 'app-membres',
   templateUrl: './membres.component.html',
-  styleUrls: ['./membres.component.css']
+  styleUrls: ['./membres.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class MembresComponent implements OnInit,AfterViewInit {
+  expandedElement!: elem | null;
   USER_INFO: elem[] = [];
   dataSource = new MatTableDataSource<elem>(this.USER_INFO);
   Categories: Array<Categorie> = [];
@@ -69,12 +78,15 @@ export class MembresComponent implements OnInit,AfterViewInit {
   };
 
 
-
-  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","Adresse","Telephone1","Telephone2","Email","Activites","Cotisation","categorie", '$$edit'];
+  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","Categorie","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation","categorie", '$$edit'];
+  notdisplayedColumns: string[] = ["NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EamilParents"];
+  dataSchema:any = USER_SCHEMA;
+ 
 
 
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
+  
 
   exportexcel(): void
   {
@@ -100,6 +112,8 @@ export class MembresComponent implements OnInit,AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
+
+  
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
