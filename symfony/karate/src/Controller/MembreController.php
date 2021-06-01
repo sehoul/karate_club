@@ -48,7 +48,7 @@ class MembreController extends AbstractController
         $data=$this->serializer->deserialize($data,Membre::class,'json');
         $groupe=$this->groupeRepository->findOneBy(["id"=>$data->getGroupesMembre()[0]->getGroupe()->getId()]);
         $activite=$this->activiteRepository->findOneBy(["id"=>$groupe->getActivite()->getId()]);
-        $categorie=$this->categorieRepository->findOneBy(["id"=>$data->getGroupesMembre()[0]->getGroupe()->getId()]);
+        $categorie=$this->categorieRepository->findOneBy(["id"=>$data->getCategorie()->getId()]);
         $membre_existe=$this->membreRepository->findOneBy(["NumLicenceFFK"=>$data->getNumLicenceFFK()]);
         $membre=new Membre();
         $membreActivite= new MembreActivite();
