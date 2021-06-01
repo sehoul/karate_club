@@ -106,13 +106,7 @@ export class AddFormComponent implements OnInit {
         this.form.getRawValue().prenom != "" &&
         this.form.getRawValue().nom != "" &&
         this.form.getRawValue().tlphn1 != "" &&
-        this.form.getRawValue().tlphn2 != "" &&
         this.form.getRawValue().dateI != "" &&
-        this.form.getRawValue().emailP != "" &&
-        this.form.getRawValue().nomP != "" &&
-        this.form.getRawValue().prenomP != "" &&
-        this.form.getRawValue().tlphn1P != "" &&
-        this.form.getRawValue().tlphn2P != "" &&
         this.form.getRawValue().observation != "" &&
         this.form.getRawValue().grade != "" &&
         this.form.getRawValue().groupe != "" &&
@@ -121,7 +115,7 @@ export class AddFormComponent implements OnInit {
       {
         this.membreService.addMambre(Number(this.cookie.get('idPres')),data).subscribe(
           (res:any)=>{
-            this._success="activitée ajoutée avec succes !";
+            this._success="Membre ajouté avec succes !";
             this._error="";
           },
           error=>{

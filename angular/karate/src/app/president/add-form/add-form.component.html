@@ -77,10 +77,8 @@
       
             <div class="form-group col-12">
               <label for="tlphn2">Telephpne2</label>
-              <input type="text" id="tlphn2" class="form-control py-4" formControlName="tlphn2" [ngClass]="form.controls['tlphn2'].invalid && tlphn2.touched ? 'is-invalid' : form.controls['tlphn2'].valid? 'is-valid': '' ">
-              <div class="invalid-feedback" *ngIf="tlphn2.touched">
-                Ce champs est obligatoire.
-              </div>
+              <input type="text" id="tlphn2" class="form-control py-4" formControlName="tlphn2">
+              
             </div>
       
             <div class="form-group col-12">
@@ -129,42 +127,34 @@
       </div>
 
       <div class="row w-100 py-3 mt-3">
-        <h5>Informations parentale</h5>
+        <h5>Informations parentales</h5>
       </div>
 
       <div class="row w-100">
           <div class="form-group col-6">
           <label for="nomP">Nom parents</label>
-          <input type="text" id="nomP" class="form-control py-4" formControlName="nomP" [ngClass]="form.controls['nomP'].invalid && nomP.touched ? 'is-invalid' : form.controls['nomP'].valid? 'is-valid': '' ">
-          <div class="invalid-feedback" *ngIf="nomP.touched">
-            Ce champs est obligatoire.
-          </div>
+          <input type="text" id="nomP" class="form-control py-4" formControlName="nomP" >
+          
         </div>
 
         <div class="form-group col-6">
           <label for="prenomP">Prenom parents</label>
-          <input type="text" id="prenomP" class="form-control py-4" formControlName="prenomP" [ngClass]="form.controls['prenomP'].invalid && prenomP.touched ? 'is-invalid' : form.controls['prenomP'].valid? 'is-valid': '' ">
-          <div class="invalid-feedback" *ngIf="prenomP.touched">
-            Ce champs est obligatoire.
-          </div>
+          <input type="text" id="prenomP" class="form-control py-4" formControlName="prenomP" >
+        
         </div>
       </div>
 
       <div class="row w-100">
         <div class="form-group col-6">
         <label for="tlphn1P"> Telephone1 du parent</label>
-        <input type="tel" id="tlphn1P" class="form-control py-4" formControlName="tlphn1P" [ngClass]="form.controls['tlphn1P'].invalid && tlphn1P.touched ? 'is-invalid' : form.controls['tlphn1P'].valid? 'is-valid': '' ">
-        <div class="invalid-feedback" *ngIf="tlphn1P.touched">
-          Ce champs est obligatoire.
-        </div>
+        <input type="tel" id="tlphn1P" class="form-control py-4" formControlName="tlphn1P" >
+    
         </div>
 
         <div class="form-group col-6">
           <label for="tlphn2P">Telephpne2 du parent</label>
-          <input type="tel" id="tlphn2P" class="form-control py-4" formControlName="tlphn2P" [ngClass]="form.controls['tlphn2P'].invalid && tlphn2P.touched ? 'is-invalid' : form.controls['tlphn2P'].valid? 'is-valid': '' ">
-          <div class="invalid-feedback" *ngIf="tlphn2P.touched">
-            Ce champs est obligatoire.
-          </div>
+          <input type="tel" id="tlphn2P" class="form-control py-4" formControlName="tlphn2P">
+          
         </div>
       </div>
 
@@ -172,16 +162,14 @@
       <div class="row w-100">
         <div class="form-group col-6">
           <label for="emailP">Email parents</label>
-          <input type="email" id="emailP" class="form-control py-4" formControlName="emailP" [ngClass]="form.controls['emailP'].invalid && emailP.touched ? 'is-invalid' : form.controls['emailP'].valid? 'is-valid': '' ">
-          <div class="invalid-feedback" *ngIf="emailP.touched">
-            Ce champs est obligatoire.
-          </div>
+          <input type="email" id="emailP" class="form-control py-4" formControlName="emailP">
+    
         </div>      
 
        </div>
 
        <div class="row w-100 py-3 mt-3">
-        <h5>Informations Suplementaire</h5>
+        <h5>Informations Supplementaires</h5>
       </div>
 
       <div class="row w-100 m-0">
