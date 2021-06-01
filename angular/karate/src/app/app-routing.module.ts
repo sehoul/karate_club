@@ -38,8 +38,12 @@ import { AuthInstructeurGuard } from './guards/auth-instructeur.guard';
 import { CalendrierComponent } from './instructeur/calendrier/calendrier.component';
 import { AdminsComponent } from './president/admins/admins.component';
 import { AddadminComponent } from './president/addadmin/addadmin.component';
+import { AdminsComponent as adminS } from './secretaire/admins/admins.component';
+import { AddadminComponent as addAdminS} from './secretaire/addadmin/addadmin.component';
 import { EmploidutempsComponent } from './president/emploidutemps/emploidutemps.component';
 import { AddemploidutempsComponent } from './president/addemploidutemps/addemploidutemps.component';
+import { EmploidutempsComponent as empS} from './secretaire/emploidutemps/emploidutemps.component';
+import { AddemploidutempsComponent as addempS} from './secretaire/addemploidutemps/addemploidutemps.component';
 
 
 const routes: Routes = [
@@ -69,8 +73,8 @@ const routes: Routes = [
       {path:'ajout-groupe',component:FormGP},
       {path:'activites',component:ActivitesComponent},
       {path:'groupes',component:GroupesComponent},
-      {path:'admins',component:AdminsComponent},
-      {path:'ajouter-admin',component:AddadminComponent},
+      {path:'comptes',component:AdminsComponent},
+      {path:'ajouter-compte',component:AddadminComponent},
       {path:'emploidutemps',component:EmploidutempsComponent},
       {path:'ajouter-crenau',component:AddemploidutempsComponent},
 
@@ -86,6 +90,10 @@ const routes: Routes = [
       {path:'membres',component:ScrM},
       {path:'activites',component:ScrA},
       {path:'groupes',component:ScrG},
+      {path:'emploidutemps',component:empS},
+      {path:'ajouter-crenau',component:addempS},
+      {path:'comptes',component:adminS},
+      {path:'ajouter-compte',component:addAdminS},
     ]
   },
  

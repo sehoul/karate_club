@@ -37,6 +37,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { FullCalendarModule } from '@fullcalendar/angular';
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -70,6 +71,7 @@ registerLocaleData(localeFr);
     MatSelectModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+    FullCalendarModule
 
   ],
   providers: [CookieService,AuthSecretaireGuard,AuthPresidentGuard,AuthInstructeurGuard, { provide: HTTP_INTERCEPTORS, useClass: NetworkInterceptor, multi: true },{provide: LOCALE_ID, useValue: "fr-CA" } ],

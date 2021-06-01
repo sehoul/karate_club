@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Membre } from '../../membre.model';
 import { FormGroup , FormBuilder  ,FormControl , Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { CategoriesService } from 'src/app/Services/Categorie.service';
+import { GroupesService } from 'src/app/Services/groupes.service';
+import { MembresService } from 'src/app/Services/membres.service';
 
 @Component({
   selector: 'app-add-form',
@@ -8,9 +12,11 @@ import { FormGroup , FormBuilder  ,FormControl , Validators } from '@angular/for
   styleUrls: ['./add-form.component.css']
 })
 export class AddFormComponent implements OnInit {
+  
   form: FormGroup;
-
-  constructor(private fb: FormBuilder) {
+  _success:string="";
+  _error:string="";
+  constructor(private fb: FormBuilder,private service:CategoriesService, private activService:GroupesService,private membreService:MembresService,private cookie:CookieService) {
 
     this.form=this.fb.group({
       nom:  new FormControl('', [Validators.required]),
@@ -60,30 +66,78 @@ export class AddFormComponent implements OnInit {
   get observation() : any { return this.form.get('observation');}
 
 
-
-  ListMembres : any=[ {id: 1 , categorie: 'A' , genre:'H' , grade: '2' } ];
-  Categories : Array<any>=[ {id: 1 , val: 'Mini Poussins (4-5 ans)' },{id: 2 , val: 'Poussins (6-7 ans)' },{id: 3 , val: 'Pupilles (8-9 ans)' },{id: 4 , val: 'Benjamins (10-11 ans)' },{id: 5 , val: 'Minimes (12-13 ans)' },{id: 6 , val: 'Cadets (14-15 ans)' },{id: 7 , val: 'Juniors (16-17 ans)' },{id: 8 , val: 'Espoirs (18-19-20 ans)' },{id: 9 , val: 'Séniors (18 ans et+)' } ];
-  Genres : Array<any>=[ {id: 1 , val: 'Homme' }, {id: 2 , val: 'Femme' }, {id: 3 , val: 'Non precis' } ];
-
-
-
-  private membre:Array<Membre>=[
-    new Membre(1,"123456789","nom1","prenom1",new Date("2019-01-02"),"Homme","C1","G1","Adresse 12 Rue 1","+33 6 12 12 12 12","+336 33 33 33 33","mail@mail.com",null,null,null,null,null,12.2,new Date("2019-01-02"),"bleu","shi haja")
-  ]
+  Categories : Array<any>=[];
+  Activities : Array<any>=[];
 
 
   submit() {
-    console.log(this.form.getRawValue());
-    const data=this.form.getRawValue();
-    this.membre.push(new Membre(2,data.licenceFFK,data.nom,data.prenom,data.dateN,data.genre,data.categorie,data.groupe,data.adresse,data.tlphn1,data.tlphn2,data.email,data.nomP,data.prenomP,data.tlphn1P,data.tlphn2P,data.emailP,data.cotisation,data.dateI,data.grade,data.observation));
-    console.log(this.membre);
+    const data={
+      Adresse:this.form.getRawValue().adresse,
+      NumLicenceFFK:this.form.getRawValue().licenceFFK,
+      Categorie:{ id: Number(this.form.getRawValue().categorie) },
+      DateNaissance:this.form.getRawValue().dateN,
+      Email:this.form.getRawValue().email,
+      genre:this.form.getRawValue().genre,
+      prenom:this.form.getRawValue().prenom,
+      nom:this.form.getRawValue().nom,
+      telephone1:this.form.getRawValue().tlphn1,
+      telephone2:this.form.getRawValue().tlphn2,
+      dateInscription:this.form.getRawValue().dateI,
+      emailParents:this.form.getRawValue().emailP,
+      nomParents:this.form.getRawValue().nomP,
+      prenomParents:this.form.getRawValue().prenomP,
+      telephoneParents1:this.form.getRawValue().tlphn1P,
+      telephoneParents2:this.form.getRawValue().tlphn2P,
+      observation:this.form.getRawValue().observation,
+      grade:this.form.getRawValue().grade,
+      groupesMembre:[{groupe:{id:Number(this.form.getRawValue().groupe)}}],
+      cotisation:this.form.getRawValue().cotisation,
+    }
 
+    if( this.form.getRawValue().adresse != "" &&
+        this.form.getRawValue().licenceFFK != "" &&
+        this.form.getRawValue().categorie != "" &&
+        this.form.getRawValue().dateN != "" &&
+        this.form.getRawValue().email != "" &&
+        this.form.getRawValue().genre != "" &&
+        this.form.getRawValue().prenom != "" &&
+        this.form.getRawValue().nom != "" &&
+        this.form.getRawValue().tlphn1 != "" &&
+        this.form.getRawValue().dateI != "" &&
+        this.form.getRawValue().observation != "" &&
+        this.form.getRawValue().grade != "" &&
+        this.form.getRawValue().groupe != "" &&
+        this.form.getRawValue().cotisation != "" 
+      )
+      {
+        this.membreService.addMambre(Number(this.cookie.get('idSec')),data).subscribe(
+          (res:any)=>{
+            this._success="Membre ajouté avec succes !";
+            this._error="";
+          },
+          error=>{
+            this._success="";
+            this._error=error.error.message;
+          }
+        )
+
+      }else{
+        this._success="";
+        this._error="merci de remplire tous les champs";
+      }
+    console.log(this.form.getRawValue());
   }
 
 
   ngOnInit(): void {
-    console.log(this.Categories);
-
-
-  }
+    this.service.getCategories().subscribe((response: any) =>{
+      console.log(response);
+      this.Categories=response;
+     });
+     this.activService.getGroupes().subscribe((response: any) =>{
+      console.log(response);
+      this.Activities=response;
+     });
+    };
+    
 }
