@@ -21,18 +21,17 @@ interface Categorie{
 
 const USER_SCHEMA = {
   "id": "number",
-  "licenceFFK": "number",
+  "NumLicenceFFK": "number",
   "Nom": "string",
   "Prenom": "string",
   "DateNaissance": "date",
   "Genre": "string",
-  "Categorie": "string",
-  "adresse": "string",
+  "categorie": "string",
+  "Adresse": "string",
   "tlphn1": "string",
   "tlphn2": "string",
   "Email": "email",
-  "Activites": "string",
-  "nbInscritsFamille": "number"
+  "Activites": "string"
 };
 
 @Component({
@@ -66,6 +65,14 @@ export class MembresComponent implements OnInit,AfterViewInit {
   ngOnInit(){
     this.service.getMembres().subscribe((response: any) =>{
       this.USER_INFO=response;
+      let activitie:string="";
+          this.USER_INFO.forEach((element:any) => {
+            element.membreActivites.forEach((activitie_element:any) => {
+              activitie += activitie_element.Avtivite.nomActivite+",  ";
+            });
+            element.membreActivites=activitie;
+            activitie="";
+          });
       this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
       this.dataSource.paginator = this.paginator;
       this.dataSource.filterPredicate = this.getFilterPredicate();
@@ -78,12 +85,9 @@ export class MembresComponent implements OnInit,AfterViewInit {
   };
 
 
-  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","Categorie","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation","categorie", '$$edit'];
-  notdisplayedColumns: string[] = ["NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EamilParents"];
+  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation", '$$edit'];
+  notdisplayedColumns: string[] = ["NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents","membreActivites"];
   dataSchema:any = USER_SCHEMA;
- 
-
-
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
   
@@ -100,7 +104,6 @@ export class MembresComponent implements OnInit,AfterViewInit {
 
   }
 
-  dataSchema:any = USER_SCHEMA;
   edit(element:any){
     console.log(element);
 
@@ -180,14 +183,19 @@ export interface elem {
   DateNaissance: Date;
   Genre: string;
   categorie: string;
-  Activites: string ;
   Groupe: string;
   Adresse: string;
   Telephone1: string;
   Telephone2: string;
   Email: string;
   Cotisation: number;
-  nbInscritsFamille: number ;
-
-
+  NomParents: string;
+  PrenomParents: string;
+  TelephoneParents1: string;
+  TelephoneParents2: string;
+  EmailParents: string;
+  DateInscription: string;
+  Grade: string;
+  Observation: string;
+  membreActivites: any;
 }
