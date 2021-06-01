@@ -14,6 +14,10 @@ export class MembresService {
     return this.http.get(this.url);
   }
 
+  addMambre(idUser:number,data:any){
+    return this.http.post(this.url+"/add/"+idUser,data);
+  }
+
   deleteMembre(id:number,idUser:number){
     return this.http.get(this.url+"/delete/"+id+"/"+idUser);
   }

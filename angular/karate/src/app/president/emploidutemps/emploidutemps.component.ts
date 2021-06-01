@@ -9,8 +9,10 @@ import frLocale from '@fullcalendar/core/locales/fr';
 })
 export class EmploidutempsComponent implements OnInit {
 
-  temps=[{ title: 'event 123', date: '2021-05-18' },
-  { title: 'event 7584', date: '2021-05-19' }]
+  temps=[
+    { title: 'event 123', date: '2021-05-18' },
+    { title: 'event 7584', date: '2021-05-19' }
+  ]
   calendarOptions: CalendarOptions = {
     locales: [frLocale ],
     locale: 'fr',

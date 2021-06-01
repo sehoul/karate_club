@@ -4,6 +4,12 @@
   </div>
   <div class="container mw-100 p-5">
     <form  [formGroup]="form" (submit)="submit()">
+      <div *ngIf="_error" class="input-group  mb-2 alert-danger rounded py-4 px-3">
+        {{_error}}
+      </div>
+      <div *ngIf="_success" class="input-group mb-2 alert-info rounded py-4 px-3">
+        {{_success}}
+      </div>
       <div class="row w-100 py-3">
         <h5>Informations personelles</h5>
       </div>
@@ -50,7 +56,8 @@
           <label for="genre">Genre</label>
           <select type="text" id="genre" class="form-control" formControlName="genre" [ngClass]="form.controls['genre'].invalid && genre.touched ? 'is-invalid' : form.controls['genre'].valid? 'is-valid': '' " style=" height: 50px;">
             <option value="" selected disabled>Genre</option>
-            <option *ngFor="let gen of Genres" [value]="gen.id">{{gen.val}}</option>
+            <option value="Homme">Homme</option>
+            <option value="Femme">Femme</option>
           </select>
           <div class="invalid-feedback" *ngIf="genre.touched">
             Ce champs est obligatoire.

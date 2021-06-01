@@ -62,6 +62,12 @@ class InformationMedicale
         return $this->id;
     }
 
+    public function setId(int $id): self
+    {
+         $this->id=$id;
+         return $this;
+    }
+
     public function getCorrespondantMedical(): ?string
     {
         return $this->Correspondant_medical;

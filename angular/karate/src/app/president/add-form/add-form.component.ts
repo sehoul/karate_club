@@ -3,6 +3,8 @@ import { Membre } from '../../membre.model';
 import { FormGroup , FormBuilder  ,FormControl , Validators } from '@angular/forms';
 import { CategoriesService } from '../../Services/Categorie.service';
 import { GroupesService } from 'src/app/Services/groupes.service';
+import { MembresService } from 'src/app/Services/membres.service';
+import { CookieService } from 'ngx-cookie-service';
 interface Categorie{
   id:number,
   nomCategorie:string,
@@ -15,8 +17,9 @@ interface Categorie{
 })
 export class AddFormComponent implements OnInit {
   form: FormGroup;
-
-  constructor(private fb: FormBuilder,private service:CategoriesService, private activService:GroupesService) {
+  _success:string="";
+  _error:string="";
+  constructor(private fb: FormBuilder,private service:CategoriesService, private activService:GroupesService,private membreService:MembresService,private cookie:CookieService) {
 
     this.form=this.fb.group({
       nom:  new FormControl('', [Validators.required]),
@@ -66,14 +69,71 @@ export class AddFormComponent implements OnInit {
   get observation() : any { return this.form.get('observation');}
 
 
-
-  ListMembres : any=[ {id: 1 , categorie: 'A' , genre:'H' , grade: '2' } ];
   Categories : Array<Categorie>=[];
   Activities : Array<any>=[];
-  Genres : Array<any>=[ {id: 1 , val: 'Homme' }, {id: 2 , val: 'Femme' }, {id: 3 , val: 'Non precis' } ];
 
 
   submit() {
+    const data={
+      Adresse:this.form.getRawValue().adresse,
+      NumLicenceFFK:this.form.getRawValue().licenceFFK,
+      Categorie:{ id: Number(this.form.getRawValue().categorie) },
+      DateNaissance:this.form.getRawValue().dateN,
+      Email:this.form.getRawValue().email,
+      genre:this.form.getRawValue().genre,
+      prenom:this.form.getRawValue().prenom,
+      nom:this.form.getRawValue().nom,
+      telephone1:this.form.getRawValue().tlphn1,
+      telephone2:this.form.getRawValue().tlphn2,
+      dateInscription:this.form.getRawValue().dateI,
+      emailParents:this.form.getRawValue().emailP,
+      nomParents:this.form.getRawValue().nomP,
+      prenomParents:this.form.getRawValue().prenomP,
+      telephoneParents1:this.form.getRawValue().tlphn1P,
+      telephoneParents2:this.form.getRawValue().tlphn2P,
+      observation:this.form.getRawValue().observation,
+      grade:this.form.getRawValue().grade,
+      groupesMembre:[{groupe:{id:Number(this.form.getRawValue().groupe)}}],
+      cotisation:this.form.getRawValue().cotisation,
+    }
+
+    if( this.form.getRawValue().adresse != "" &&
+        this.form.getRawValue().licenceFFK != "" &&
+        this.form.getRawValue().categorie != "" &&
+        this.form.getRawValue().dateN != "" &&
+        this.form.getRawValue().email != "" &&
+        this.form.getRawValue().genre != "" &&
+        this.form.getRawValue().prenom != "" &&
+        this.form.getRawValue().nom != "" &&
+        this.form.getRawValue().tlphn1 != "" &&
+        this.form.getRawValue().tlphn2 != "" &&
+        this.form.getRawValue().dateI != "" &&
+        this.form.getRawValue().emailP != "" &&
+        this.form.getRawValue().nomP != "" &&
+        this.form.getRawValue().prenomP != "" &&
+        this.form.getRawValue().tlphn1P != "" &&
+        this.form.getRawValue().tlphn2P != "" &&
+        this.form.getRawValue().observation != "" &&
+        this.form.getRawValue().grade != "" &&
+        this.form.getRawValue().groupe != "" &&
+        this.form.getRawValue().cotisation != "" 
+      )
+      {
+        this.membreService.addMambre(Number(this.cookie.get('idPres')),data).subscribe(
+          (res:any)=>{
+            this._success="activitée ajoutée avec succes !";
+            this._error="";
+          },
+          error=>{
+            this._success="";
+            this._error=error.error.message;
+          }
+        )
+
+      }else{
+        this._success="";
+        this._error="merci de remplire tous les champs";
+      }
     console.log(this.form.getRawValue());
   }
 
