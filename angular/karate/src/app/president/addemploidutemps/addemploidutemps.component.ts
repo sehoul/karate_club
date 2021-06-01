@@ -73,6 +73,7 @@ export class AddemploidutempsComponent implements OnInit {
       this._success="";
       this._error="merci de remplire tous les champs";
     }
+    console.log(this.form.getRawValue());
 
   
 }

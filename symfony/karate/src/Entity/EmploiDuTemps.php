@@ -26,12 +26,16 @@ class EmploiDuTemps
     /**
      * @ORM\Column(type="date")
      */
-    private $date;
+    private $start;
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $end;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $description;
+    private $event;
 
     /**
      * @ORM\ManyToOne(targetEntity=Instructeur::class, inversedBy="EmploiDuTemps")
@@ -56,26 +60,37 @@ class EmploiDuTemps
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getStart(): ?\DateTimeInterface
     {
-        return $this->date;
+        return $this->start;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setStart(\DateTimeInterface $start): self
     {
-        $this->date = $date;
+        $this->start = $start;
+
+        return $this;
+    }
+    public function getEnd(): ?\DateTimeInterface
+    {
+        return $this->end;
+    }
+
+    public function setEnd(\DateTimeInterface $end): self
+    {
+        $this->end = $end;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getEvent(): ?string
     {
-        return $this->description;
+        return $this->event;
     }
 
-    public function setDescription(?string $description): self
+    public function setEvent(?string $event): self
     {
-        $this->description = $description;
+        $this->event = $event;
 
         return $this;
     }
