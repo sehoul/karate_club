@@ -57,7 +57,7 @@ class MembreController extends AbstractController
             if($data){
                 if($groupe && $activite){
                     if($membre_existe){
-                        return $this->json(['message' => "Oups!...ce numero de license FFK deja existe!"],400,);
+                        return $this->json(['message' => "Oups!...ce numero de licence FFK deja existe!"],400,);
                     }else{
 
                         $membre->setAdresse($data->getAdresse())
