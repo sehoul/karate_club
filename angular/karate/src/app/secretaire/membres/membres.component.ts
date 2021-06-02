@@ -53,6 +53,8 @@ export class MembresComponent implements OnInit, AfterViewInit {
   Prenom:string = '';
   FFK:string = '';
   Tout:string = '';
+   _success:string="";
+  _error:string="";
   constructor(private service: MembresService , private servicec: CategoriesService , private cookie:CookieService){
     this.searchForm = new FormGroup({
       Nom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),

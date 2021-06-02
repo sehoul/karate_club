@@ -46,7 +46,8 @@ export class GroupesComponent implements  OnInit,AfterViewInit {
   displayedColumns: string[] = ["id",
     "NomGroupe","activite" , '$$edit'];
 
-
+  _success:string="";
+  _error:string="";
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
   membres=this.USER_INFO;
@@ -91,7 +92,9 @@ delete(element:any,index:any,id:any){
         }
       },
       error=>{
-         
+        this._success="";
+        this._error=error.error.message;
+        console.log(error.error.message);
       });
       
     }

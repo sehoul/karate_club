@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ActivitesController extends AbstractController
 {
@@ -40,28 +41,34 @@ class ActivitesController extends AbstractController
         $user=$this->serializer->deserialize($data,User::class,'json');
         $user=$this->userRepository->findOneBy(['id' => $user->getId()]);
         $activite= $this->activiteRepository->findOneBy(['id' => $id]);
+        $all_activite= $this->activiteRepository->findAll();
         if($user){
 
             if($activite){
-                foreach( $activite->getGroupe() as $Groupe){
-                    $activite->removeGroupe($Groupe);
-                    $this->getDoctrine()->getManager()->remove($Groupe);
+                if(count($all_activite) > 1){
+
+                    foreach( $activite->getGroupe() as $Groupe){
+                        $activite->removeGroupe($Groupe);
+                        $this->getDoctrine()->getManager()->remove($Groupe);
+                    }
+                    foreach($activite->getMembreActivites() as $membreActiv){
+                        $activite->removeMembreActivite($membreActiv);
+                        $this->getDoctrine()->getManager()->remove($membreActiv);
+                    }
+                    $action=new Actions();
+                    $action->setUser($user)
+                    ->setType("Suppression")
+                    ->setDescription("Suppression de l'activitée \" ". ($activite->getNomActivite()) ." \"");
+                     $this->getDoctrine()->getManager()->persist($action);
+                    $user->addAction($action);
+                    $this->getDoctrine()->getManager()->flush();
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->remove($activite);
+                    $entityManager->flush();
+                    return $this->json(['success'=>true,'message'=>'activite supprimée avec succee'], 200, []);
+                }else{
+                    return $this->json(['message' => "Oups!...vous ne pouvez pas supprimer toutes les activitées!"],404,);
                 }
-                foreach($activite->getMembreActivites() as $membreActiv){
-                    $activite->removeMembreActivite($membreActiv);
-                    $this->getDoctrine()->getManager()->remove($membreActiv);
-                }
-                $action=new Actions();
-                $action->setUser($user)
-                ->setType("Suppression")
-                ->setDescription("Suppression de l'activitée \" ". ($activite->getNomActivite()) ." \"");
-                 $this->getDoctrine()->getManager()->persist($action);
-                $user->addAction($action);
-                $this->getDoctrine()->getManager()->flush();
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->remove($activite);
-                $entityManager->flush();
-                return $this->json(['success'=>true,'message'=>'activite supprimée avec succee'], 200, []);
             }else{
                 return $this->json(['message' => "Oups!...cette activitee n'est plus disponible!"],404,);
             }

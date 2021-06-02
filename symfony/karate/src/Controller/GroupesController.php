@@ -43,20 +43,24 @@ class GroupesController extends AbstractController
         $groupes= $this->groupeRepository->findOneBy(['id' => $id]);
         if ($user){
             if($groupes){
-               foreach( $groupes->getMembresGroupe() as $membreGroupe){
-                   $this->getDoctrine()->getManager()->remove($membreGroupe);
-               }
-               $action=new Actions();
-               $action->setUser($user)
-               ->setType("Suppression")
-               ->setDescription("Suppression du groupe \" ". ($groupes->getNomGroupe()) ." \"");
-                $this->getDoctrine()->getManager()->persist($action);
-               $user->addAction($action);
-                $this->getDoctrine()->getManager()->flush();
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->remove($groupes);
-                $entityManager->flush();
-                return $this->json(['success'=>true,'message'=>'groupe supprimé avec succee'], 200, []);
+                if(count($groupes->getActivite()->getGroupe())>1){
+                    foreach( $groupes->getMembresGroupe() as $membreGroupe){
+                        $this->getDoctrine()->getManager()->remove($membreGroupe);
+                    }
+                    $action=new Actions();
+                    $action->setUser($user)
+                    ->setType("Suppression")
+                    ->setDescription("Suppression du groupe \" ". ($groupes->getNomGroupe()) ." \"");
+                     $this->getDoctrine()->getManager()->persist($action);
+                    $user->addAction($action);
+                     $this->getDoctrine()->getManager()->flush();
+                     $entityManager = $this->getDoctrine()->getManager();
+                     $entityManager->remove($groupes);
+                     $entityManager->flush();
+                     return $this->json(['success'=>true,'message'=>'groupe supprimé avec succee'], 200, []);
+                }else{
+                    return $this->json(['message' => "Oups!... if faut qu'il existe au moin un groupe dans une activitée !"],400,);
+                }
             }else{
                 return $this->json(['message' => "Oups!...ce groupe n'est plus disponible!"],404,);
             }

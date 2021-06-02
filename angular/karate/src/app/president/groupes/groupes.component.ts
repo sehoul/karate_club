@@ -47,7 +47,8 @@ export class GroupesComponent implements AfterViewInit,OnInit {
   displayedColumns: string[] = ["id",
     "NomGroupe","activite" , '$$edit'];
 
-
+  _success:string="";
+  _error:string="";
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
   membres=USER_INFO;
@@ -73,10 +74,12 @@ export class GroupesComponent implements AfterViewInit,OnInit {
   edit(element:any){
     this.service.updateGroupe(Number(this.cookie.get('idPres')),{id:element.id,NomGroupe:element.NomGroupe,activite:{nomActivite:element.activite}}).subscribe(
       (res:any)=>{
-          console.log(res.message);
+        this._success=res.message;
+        this._error="";
       },
       error=>{
-        console.log("error");
+        this._success="";
+        this._error=error.error.message;
       }
     );
 
@@ -88,10 +91,13 @@ delete(element:any,index:any,id:any){
           this.USER_INFO.splice(Number(index), 1);
           this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
           this.dataSource.paginator = this.paginator;
+          this._success="";
+          this._error="";
         }
       },
       error=>{
-         
+        this._success="";
+        this._error=error.error.message;
       });
       
     }
