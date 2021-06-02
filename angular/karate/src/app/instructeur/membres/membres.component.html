@@ -7,6 +7,17 @@
     <h5 class="w-100">Barre de recherche :</h5>
     <form [formGroup]="searchForm" class="search__form">
 
+      
+      <mat-form-field class="search__form_field" appearance="outline">
+        <mat-label>Tout</mat-label>
+        <input type="text"
+               aria-label="Tout"
+               matInput
+               formControlName="Tout"
+               (keyup)="applyFilterbis()"
+        >
+      </mat-form-field>
+
       <mat-form-field class="search__form_field" appearance="outline" style=" margin: 0 15px;">
         <mat-label>Licence FFK </mat-label>
         <input type="text"
@@ -46,10 +57,10 @@
       <button class="btn btn-info ml-3" (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
     </div>
 
-  <table id="excel-table" mat-table [dataSource]="dataSource" multiTemplateDataRows  >
+  <table id="excel-table" mat-table [dataSource]="dataSource" multiTemplateDataRows matSort class="mat-elevation-z8"  >
 
     <ng-container matColumnDef="{{col}}"  *ngFor="let col of displayedColumns">
-      <th mat-header-cell *matHeaderCellDef  class="p-2">
+      <th mat-header-cell *matHeaderCellDef  class="p-2" mat-sort-header>
          <span class="text-center">
           {{col}}
         </span>

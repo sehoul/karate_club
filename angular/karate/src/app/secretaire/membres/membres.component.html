@@ -62,9 +62,9 @@
       {{_success}}
     </div>
 
-  <table id="excel-table" mat-table [dataSource]="dataSource" multiTemplateDataRows>
+  <table id="excel-table" mat-table [dataSource]="dataSource" multiTemplateDataRows matSort class="mat-elevation-z8">
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
-      <th mat-header-cell *matHeaderCellDef class="p-2">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">
         <span class="text-center" *ngIf="col !== '$$edit'">
           {{col}}
         </span>

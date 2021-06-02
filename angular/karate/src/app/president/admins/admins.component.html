@@ -14,9 +14,9 @@
 
     
 
-  <table id="excel-table" mat-table [dataSource]="dataSource" >
+  <table id="excel-table" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8"  >
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header >
         <span *ngIf="col !== '$$edit'">
           {{col}}
         </span>

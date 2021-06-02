@@ -24,6 +24,8 @@ import { EmploidutempsComponent } from './emploidutemps/emploidutemps.component'
 import { AddemploidutempsComponent } from './addemploidutemps/addemploidutemps.component';
 import { CalendrierComponent } from '../instructeur/calendrier/calendrier.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { GroupesmembresComponent } from './groupesmembres/groupesmembres.component';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -39,7 +41,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     AdminsComponent,
     AddadminComponent,
     EmploidutempsComponent,
-    AddemploidutempsComponent
+    AddemploidutempsComponent,
+    GroupesmembresComponent
 
   ],
   imports: [
@@ -58,6 +61,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     MatPaginatorModule,
     MatSelectModule,
     FullCalendarModule,
+    MatSortModule,
 
    
   ]

@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ActivitesService } from 'src/app/Services/activites.service';
 import { GroupesService } from 'src/app/Services/groupes.service';
 import * as XLSX from 'xlsx';
+import {MatSort} from '@angular/material/sort';
 
 
 
@@ -37,11 +38,15 @@ export class GroupesComponent implements  OnInit,AfterViewInit {
       });
       this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
      });
      this.ActiviteService.getActivites().subscribe((res:any)=>{
       this.activites=res;
     });
     }
+
+    //@ts-ignore
+  @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = ["id",
     "NomGroupe","activite" , '$$edit'];
@@ -107,6 +112,7 @@ delete(element:any,index:any,id:any){
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 

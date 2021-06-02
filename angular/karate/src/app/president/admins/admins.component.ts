@@ -9,7 +9,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import * as XLSX from 'xlsx';
 import { AdministrationService } from 'src/app/Services/administration.service';
-
+import {MatSort} from '@angular/material/sort';
 
 const USER_SCHEMA = {
   "id": "number",
@@ -41,9 +41,13 @@ hide = true;
       this.USER_INFO=res;
       this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
       
       }
+  //@ts-ignore
+  @ViewChild(MatSort) sort: MatSort;
+
 
   displayedColumns: string[] = ["id",
     "Nom",'Prenom','email','Tel','roles' ,'Nouveau Mot de passe', '$$edit'];
@@ -96,6 +100,7 @@ delete(element:any,index:any,id:any){
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
   
   applyFilter(event: Event) {

@@ -8,6 +8,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { CategoriesService } from 'src/app/Services/Categorie.service';
 import { MembresService } from 'src/app/Services/membres.service';
 import * as XLSX from 'xlsx';
+import {MatSort} from '@angular/material/sort';
+
 
 
 
@@ -44,6 +46,7 @@ const USER_SCHEMA = {
   ],
 })
 export class MembresComponent implements OnInit, AfterViewInit {
+
   expandedElement!: elem | null;
   USER_INFO: elem[] = [];
   dataSource = new MatTableDataSource<elem>(this.USER_INFO);
@@ -56,6 +59,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
    _success:string="";
   _error:string="";
   constructor(private service: MembresService , private servicec: CategoriesService , private cookie:CookieService){
+    
     this.searchForm = new FormGroup({
       Nom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
       Prenom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
@@ -63,6 +67,11 @@ export class MembresComponent implements OnInit, AfterViewInit {
       Tout: new FormControl('', Validators.pattern('^[a-zA-Z0-9 ]+$'))
     });
   }
+  
+
+   //@ts-ignore
+   @ViewChild(MatSort) sort: MatSort;
+
   ngOnInit(){
     this.service.getMembres().subscribe((response: any) =>{
       this.USER_INFO=response;
@@ -78,6 +87,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
       this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
       this.dataSource.paginator = this.paginator;
       this.dataSource.filterPredicate = this.getFilterPredicate();
+      this.dataSource.sort = this.sort;
     });
 
     this.servicec.getCategories().subscribe((response: any) =>{
@@ -114,8 +124,10 @@ export class MembresComponent implements OnInit, AfterViewInit {
   //@ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 

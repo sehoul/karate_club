@@ -7,6 +7,16 @@
     <h5 class="w-100">Barre de recherche :</h5>
     <form [formGroup]="searchForm" class="search__form">
 
+      <mat-form-field class="search__form_field" appearance="outline">
+        <mat-label>Tout</mat-label>
+        <input type="text"
+               aria-label="Tout"
+               matInput
+               formControlName="Tout"
+               (keyup)="applyFilterbis()"
+        >
+      </mat-form-field>
+
       <mat-form-field class="search__form_field" appearance="outline" style=" margin: 0 15px;">
         <mat-label>Licence FFK </mat-label>
         <input type="text"
@@ -45,10 +55,16 @@
       <h6>Operations :</h6>
       <button class="btn btn-info ml-3" (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
     </div>
+    <div *ngIf="_error" class="input-group  mb-2 alert-danger rounded py-4 px-3">
+      {{_error}}
+    </div>
+    <div *ngIf="_success" class="input-group mb-2 alert-info rounded py-4 px-3">
+      {{_success}}
+    </div>
 
-  <table id="excel-table" mat-table [dataSource]="dataSource" multiTemplateDataRows>
+  <table id="excel-table" mat-table [dataSource]="dataSource" multiTemplateDataRows matSort class="mat-elevation-z8">
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
-      <th mat-header-cell *matHeaderCellDef class="p-2">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">
         <span class="text-center" *ngIf="col !== '$$edit'">
           {{col}}
         </span>
@@ -65,10 +81,7 @@
           <span  *ngIf="col === 'DateNaissance' || col === 'DateInscription'" #spanHeader>
             {{element[col] | date: 'dd/MM/yyyy'}}
           </span>
-          <span *ngIf="col === 'categorie'">
-            {{element[col].nomCategorie}}
-          </span>
-          <span *ngIf="col !== 'DateNaissance' && col !== 'categorie' && col !== 'DateInscription'" #spanHeader>
+          <span *ngIf="col !== 'DateNaissance' && col !== 'DateInscription'" #spanHeader>
             {{element[col]}}
           </span>
         </div>
@@ -125,8 +138,8 @@
              [@detailExpand]="element === expandedElement  ? 'expanded' : 'collapsed'">
 
           <div class="example-element-description" *ngFor = "let col of notdisplayedColumns">
-           <span *ngIf="col!=='membreActivites';"> {{col}}</span>
-           <span *ngIf="col==='membreActivites';"> Activitiées </span>
+            <span *ngIf="col!=='membreActivites';"> {{col}}</span>
+            <span *ngIf="col==='membreActivites';"> Activitiées </span>
             <span class="example-element-description-attribution"> {{element[col]}} </span>
           </div>
         </div>

@@ -5,6 +5,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivitesService } from 'src/app/Services/activites.service';
 import * as XLSX from 'xlsx';
+import {MatSort} from '@angular/material/sort';
+
 
 
 
@@ -31,12 +33,16 @@ export class ActivitesComponent implements OnInit, AfterViewInit {
  
  ngAfterViewInit() {
    this.dataSource.paginator = this.paginator;
+   this.dataSource.sort = this.sort;
  }
 
   
    constructor(private service: ActivitesService,private cookie:CookieService){
   
    }
+   //@ts-ignore
+  @ViewChild(MatSort) sort: MatSort;
+
    ngOnInit(){
          this.service.getActivites().subscribe((response: any) =>{
            console.log(response);      
@@ -52,6 +58,7 @@ export class ActivitesComponent implements OnInit, AfterViewInit {
            console.log(this.USER_INFO);
            this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
            this.dataSource.paginator = this.paginator;
+           this.dataSource.sort = this.sort;
           });
       
    }

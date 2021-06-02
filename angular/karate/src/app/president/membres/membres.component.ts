@@ -10,6 +10,7 @@ import * as XLSX from 'xlsx';
 import {CategoriesService} from "../../Services/Categorie.service";
 import {CookieService} from "ngx-cookie-service";
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import {MatSort} from '@angular/material/sort';
 
 
 interface Categorie{
@@ -50,18 +51,28 @@ export class MembresComponent implements OnInit,AfterViewInit {
   expandedElement!: elem | null;
   USER_INFO: elem[] = [];
   dataSource = new MatTableDataSource<elem>(this.USER_INFO);
-  Categories: Array<Categorie> = [];
+  Categories: Array<any> = [];
   searchForm: FormGroup ;
   Nom:string = '' ;
   Prenom:string = '';
   FFK:string = '';
+  Tout:string = '';
+   _success:string="";
+  _error:string="";
   constructor(private service: MembresService , private servicec: CategoriesService , private cookie:CookieService){
+    
     this.searchForm = new FormGroup({
       Nom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
       Prenom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
       FFK: new FormControl('', Validators.pattern('^[a-zA-Z0-9 ]+$')),
+      Tout: new FormControl('', Validators.pattern('^[a-zA-Z0-9 ]+$'))
     });
   }
+  
+
+   //@ts-ignore
+   @ViewChild(MatSort) sort: MatSort;
+
   ngOnInit(){
     this.service.getMembres().subscribe((response: any) =>{
       this.USER_INFO=response;
@@ -71,11 +82,13 @@ export class MembresComponent implements OnInit,AfterViewInit {
               activitie += activitie_element.Avtivite.nomActivite+",  ";
             });
             element.membreActivites=activitie;
+            element.categorie=element.categorie.nomCategorie;
             activitie="";
           });
       this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
       this.dataSource.paginator = this.paginator;
       this.dataSource.filterPredicate = this.getFilterPredicate();
+      this.dataSource.sort = this.sort;
     });
 
     this.servicec.getCategories().subscribe((response: any) =>{
@@ -112,8 +125,10 @@ export class MembresComponent implements OnInit,AfterViewInit {
   //@ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 
@@ -128,11 +143,13 @@ export class MembresComponent implements OnInit,AfterViewInit {
     const n = this.searchForm.getRawValue().Nom;
     const p = this.searchForm.getRawValue().Prenom;
     const f = this.searchForm.getRawValue().FFK;
+    const t = this.searchForm.getRawValue().Tout;
     this.Nom = n === null ? '' : n;
     this.Prenom = p === null ? '' : p;
     this.FFK = f === null ? '' : f;
+    this.Tout = t === null ? '' : t;
 
-    const filterValue = this.Nom + '$' + this.Prenom + '$' + this.FFK;
+    const filterValue = this.Nom + '$' + this.Prenom + '$' + this.FFK + '$' + this.Tout;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
@@ -143,22 +160,27 @@ export class MembresComponent implements OnInit,AfterViewInit {
       const Nom = filterArray[0];
       const prenom = filterArray[1];
       const ffk = filterArray[2];
+      const Tout = filterArray[3];
       const matchFilter = [];
       const colonneN = row.Nom;
       const colonneP = row.Prenom;
-      const colonneFFk=row.NumLicenceFFK
+      const colonneFFk = row.NumLicenceFFK;
+      const colonneT = row.Nom + row.Prenom + row.NumLicenceFFK + row.categorie + row.Genre + row.membreActivites + row.Adresse + row.DateNaissance + row.Email + row.Telephone1 + row.Cotisation + row.DateInscription + row.Grade + row.Observation;
       const customFilterN = colonneN.toLowerCase().includes(Nom);
       const customFilterP = colonneP.toLowerCase().includes(prenom);
-      const customFilterT = colonneFFk.toLowerCase().includes(ffk);
+      const customFilterF = colonneFFk.toLowerCase().includes(ffk);
+      const customFilterT = colonneT.toLowerCase().includes(Tout);
+
       matchFilter.push(customFilterN);
       matchFilter.push(customFilterP);
+      matchFilter.push(customFilterF);
       matchFilter.push(customFilterT);
       return matchFilter.every(Boolean);
     };
   }
   delete(Nom:any,Prenom:any,index:any,id:any){
     if(confirm("Est ce que vous voulez vraiment supprimer le membre \" "+Prenom+" "+Nom+" \"")) {
-      this.service.deleteMembre(Number(id),Number(this.cookie.get('idPres'))).subscribe((res:any)=>{
+      this.service.deleteMembre(Number(id),Number(this.cookie.get('idSec'))).subscribe((res:any)=>{
           if(res.success){
             this.USER_INFO.splice(Number(index), 1);
             this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);

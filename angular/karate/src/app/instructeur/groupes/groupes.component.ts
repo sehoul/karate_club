@@ -6,6 +6,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { ActivitesService } from 'src/app/Services/activites.service';
 import { GroupesService } from 'src/app/Services/groupes.service';
 import * as XLSX from 'xlsx';
+import {MatSort} from '@angular/material/sort';
+
+
+
 
 
 const USER_INFO: elem[] = [];
@@ -29,28 +33,58 @@ export class GroupesComponent implements OnInit, AfterViewInit {
   USER_INFO: elem[] = [];
  dataSource = new MatTableDataSource<elem>(this.USER_INFO);
  activites:Array<any>=[];
-  constructor(private service: GroupesService, private cookie:CookieService,private ActiviteService:ActivitesService){}
+ MembresGroupes:Array<any>=[];
+  constructor(private service:GroupesService, private cookie:CookieService ,private ActiviteService:ActivitesService){}
+  //@ts-ignore
+  @ViewChild(MatSort) sort: MatSort;
+
   ngOnInit(){
-    this.service.getGroupes().subscribe((response: any) =>{
-      this.USER_INFO=response;
-      this.USER_INFO.forEach((element:any) => {
-        element.activite=element.activite.nomActivite;
+    this.service.getGroupesMembres().subscribe((response: any) =>{
+      response.forEach((element:any) => {
+          if(element.MembresGroupe.length)
+          {
+              element.MembresGroupe.forEach((membres:any) => {
+               this.USER_INFO.push({
+              Groupe:element.NomGroupe,
+              activite:element.activite.nomActivite,
+              LicenceFFK:membres.Membre.numLicenceFFK,
+              nom:membres.Membre.nom,
+              prenom:membres.Membre.prenom,
+              grade:membres.Membre.grade,
+              Categorie:membres.Membre.categorie.nomCategorie,
+               });
+            });
+          }else{
+            this.USER_INFO.push({
+              Groupe:element.NomGroupe,
+              activite:element.activite.nomActivite,
+              LicenceFFK:"liste vide ...",
+              nom:"liste vide ...",
+              prenom:"liste vide ...",
+              grade:"liste vide ...",
+              Categorie:"liste vide ...",
+               });
+          }
       });
       this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
      });
+
      this.ActiviteService.getActivites().subscribe((res:any)=>{
       this.activites=res;
     });
+    
+   
     }
 
-  displayedColumns: string[] = ["id",
-    "NomGroupe","activite"];
+  displayedColumns: string[] = ["activite",
+    "Groupe", "LicenceFFK","nom", "prenom" ,"grade","Categorie"];
 
 
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
-  membres=USER_INFO;
+  membres=this.USER_INFO;
   exportexcel(): void
   {
     /* pass here the table id */
@@ -70,32 +104,9 @@ export class GroupesComponent implements OnInit, AfterViewInit {
   }
   
   dataSchema:any = USER_SCHEMA;
-  edit(element:any){
-    this.service.updateGroupe(Number(this.cookie.get('idPres')),{id:element.id,NomGroupe:element.NomGroupe,activite:{nomActivite:element.activite}}).subscribe(
-      (res:any)=>{
-          console.log(res.message);
-      },
-      error=>{
-        console.log("error");
-      }
-    );
+ 
 
-  }
-delete(element:any,index:any,id:any){
-    if(confirm("Est ce que vous voulez vraiment supprimer le groupe \" "+element+" \"")) {
-      this.service.deleteGroupe(Number(id),{id:Number(this.cookie.get('idPres'))}).subscribe((res:any)=>{
-        if(res.success){
-          this.USER_INFO.splice(Number(index), 1);
-          this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
-          this.dataSource.paginator = this.paginator;
-        }
-      },
-      error=>{
-         
-      });
-      
-    }
-  }
+
 
 
 
@@ -104,6 +115,7 @@ delete(element:any,index:any,id:any){
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 
@@ -121,8 +133,11 @@ delete(element:any,index:any,id:any){
 }
 
 export interface elem {
-  id: number;
-  NomGroupe: string;
-  activite: any;
+  Groupe: string;
+  activite: string;
+  LicenceFFK: string;
+  nom: string;
+  prenom: string;
+  grade: string;
+  Categorie: string;
 }
-

@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CookieService } from 'ngx-cookie-service';
 import { AdministrationService } from 'src/app/Services/administration.service';
 import * as XLSX from 'xlsx';
+import {MatSort} from '@angular/material/sort';
 
 const USER_SCHEMA = {
   "id": "number", 
@@ -33,9 +34,14 @@ export class AdminsComponent implements OnInit {
         this.USER_INFO=res;
         this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       });
         
         }
+
+  //@ts-ignore
+  @ViewChild(MatSort) sort: MatSort;
+
   
     displayedColumns: string[] = ["id",
       "Nom",'Prenom','email','Tel','roles' ,'Nouveau Mot de passe', '$$edit'];
@@ -88,6 +94,7 @@ export class AdminsComponent implements OnInit {
   
     ngAfterViewInit() {
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     }
     
     applyFilter(event: Event) {
