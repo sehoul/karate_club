@@ -70,6 +70,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
               activitie += activitie_element.Avtivite.nomActivite+",  ";
             });
             element.membreActivites=activitie;
+            element.categorie=element.categorie.nomCategorie;
             activitie="";
           });
       this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);

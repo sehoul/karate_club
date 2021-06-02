@@ -75,10 +75,7 @@
           <span  *ngIf="col === 'DateNaissance' || col === 'DateInscription'" #spanHeader>
             {{element[col] | date: 'dd/MM/yyyy'}}
           </span>
-          <span *ngIf="col === 'categorie'">
-            {{element[col].nomCategorie}}
-          </span>
-          <span *ngIf="col !== 'DateNaissance' && col !== 'categorie' && col !== 'DateInscription'" #spanHeader>
+          <span *ngIf="col !== 'DateNaissance' && col !== 'DateInscription'" #spanHeader>
             {{element[col]}}
           </span>
         </div>
