@@ -10,6 +10,9 @@ export class EmploidutempsService {
 
   constructor(private http: HttpClient) { }
 
+  getCrenau(){
+    return this.http.get(this.url);
+  }
 
   addCrenau(id:number,data:any){
     return this.http.post(this.url+"/add/"+id,data);

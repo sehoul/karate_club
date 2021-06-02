@@ -32,7 +32,7 @@ class EmploisDuTempsController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->json($this->emploiDuTempsRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','start','end','event','groupe']]);
+        return $this->json($this->emploiDuTempsRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['start','end','event','groupe'=>['nomGroupe'],'instructeur'=>['nom']]]);
 
     }
     /**

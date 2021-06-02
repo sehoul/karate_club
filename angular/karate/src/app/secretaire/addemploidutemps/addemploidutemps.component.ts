@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { EmploidutempsService } from 'src/app/Services/emploidutemps.service';
 import { GroupesService } from 'src/app/Services/groupes.service';
 import { InstructeurService } from 'src/app/Services/instructeur.service';
 
@@ -18,7 +19,7 @@ export class AddemploidutempsComponent implements OnInit {
   Activites: any;
   Instructeurs: any;
 
-  constructor(private instructeurService:InstructeurService,private groupeService:GroupesService, private fb: FormBuilder,private cookie:CookieService) {
+  constructor(private instructeurService:InstructeurService,private groupeService:GroupesService, private fb: FormBuilder,private cookie:CookieService, private EmploisDuTemps:EmploidutempsService) {
     this.form=this.fb.group({
       nomevenement:  new FormControl('', [Validators.required]),
       dateE:new FormControl('', [Validators.required]),
@@ -39,42 +40,33 @@ export class AddemploidutempsComponent implements OnInit {
 
   submit() {
     const data={
-      nomevenement:this.form.getRawValue().nomevenement,
-      dateE:this.form.getRawValue().dateE,
-      dateF:this.form.getRawValue().dateF,
-
+      event:this.form.getRawValue().nomevenement,
+      start:this.form.getRawValue().dateE,
+      end:this.form.getRawValue().dateF,
       Instructeur:{ 
         id:Number(this.form.getRawValue().Instructeur)
       },
-      Activite:{ 
-        id:Number(this.form.getRawValue().Activite)
-      },
-      Groupe:{ 
-        id:Number(this.form.getRawValue().Groupe)
-      },
+      groupe:{ id:Number(this.form.getRawValue().Activite)},
     }
-  
     
-    if(data.nomevenement!="" && data.Instructeur.id && data.Activite && data.dateE && data.dateF && data.Activite){
-
-     /*this.EmploidutempsService.getGroupes(Number(this.cookie.get('idPres')),data).subscribe(
+    if(data.event!="" && data.Instructeur.id && data.groupe && data.start && data.end){
+      console.log(data);
+     this.EmploisDuTemps.addCrenau(Number(this.cookie.get('idPres')),data).subscribe(
         (res:any)=>{
           this._success="Crenau ajoutée avec succes !";
           this._error="";
         },
-        (error: { error: { message: string; }; })=>{
+        error=>{
           this._success="";
           this._error=error.error.message;
         }
-      )*/
-
-
+      );
     }else{
+      console.log(data);
       this._success="";
       this._error="merci de remplire tous les champs";
     }
 
-  
 }
 
   ngOnInit(): void {
