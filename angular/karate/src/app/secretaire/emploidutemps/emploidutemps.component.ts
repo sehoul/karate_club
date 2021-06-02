@@ -7,7 +7,8 @@ import { EmploidutempsService } from 'src/app/Services/emploidutemps.service';
 interface ev{
   title: string,
   start:string,
-  end:string
+  end:string,
+  color:string
 }
 
 @Component({
@@ -19,7 +20,7 @@ export class EmploidutempsComponent implements OnInit {
 
   temps:Array<ev>=[]
   calendarOptions:CalendarOptions | undefined 
- 
+  color=['#264653','#7209b7','#d00000','#81b29a','#6b705c'];
   handleDateClick(arg: { dateStr: string; }) {
     alert('date click! ' + arg.dateStr)
   }
@@ -32,7 +33,8 @@ export class EmploidutempsComponent implements OnInit {
         this.temps.push( 
           {title:element.event +" ("+ element.instructeur.nom +") group : ("+element.groupe.nomGroupe+")",
           start:element.start,
-          end:element.end
+          end:element.end,
+          color:this.color[Math.floor(Math.random() * this.color.length)]
          }
          );
       }); 
