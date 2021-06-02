@@ -90,7 +90,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
   dataSchema:any = USER_SCHEMA;
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
-  
+
 
   exportexcel(): void
   {
@@ -116,7 +116,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

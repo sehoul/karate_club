@@ -52,11 +52,13 @@ export class MembresComponent implements OnInit, AfterViewInit {
   Nom:string = '' ;
   Prenom:string = '';
   FFK:string = '';
+  Tout:string = '';
   constructor(private service: MembresService , private servicec: CategoriesService , private cookie:CookieService){
     this.searchForm = new FormGroup({
       Nom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
       Prenom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
       FFK: new FormControl('', Validators.pattern('^[a-zA-Z0-9 ]+$')),
+      Tout: new FormControl('', Validators.pattern('^[a-zA-Z0-9 ]+$'))
     });
   }
   ngOnInit(){
@@ -87,7 +89,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
   dataSchema:any = USER_SCHEMA;
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
-  
+
 
   exportexcel(): void
   {
@@ -113,7 +115,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -125,11 +127,13 @@ export class MembresComponent implements OnInit, AfterViewInit {
     const n = this.searchForm.getRawValue().Nom;
     const p = this.searchForm.getRawValue().Prenom;
     const f = this.searchForm.getRawValue().FFK;
+    const t = this.searchForm.getRawValue().Tout;
     this.Nom = n === null ? '' : n;
     this.Prenom = p === null ? '' : p;
     this.FFK = f === null ? '' : f;
+    this.Tout = t === null ? '' : t;
 
-    const filterValue = this.Nom + '$' + this.Prenom + '$' + this.FFK;
+    const filterValue = this.Nom + '$' + this.Prenom + '$' + this.FFK + '$' + this.Tout;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
@@ -140,15 +144,20 @@ export class MembresComponent implements OnInit, AfterViewInit {
       const Nom = filterArray[0];
       const prenom = filterArray[1];
       const ffk = filterArray[2];
+      const Tout = filterArray[3];
       const matchFilter = [];
       const colonneN = row.Nom;
       const colonneP = row.Prenom;
-      const colonneFFk=row.NumLicenceFFK
+      const colonneFFk = row.NumLicenceFFK;
+      const colonneT = row.Nom + row.Prenom + row.NumLicenceFFK + row.categorie + row.Genre + row.membreActivites + row.Adresse + row.DateNaissance + row.Email + row.Telephone1 + row.Cotisation + row.DateInscription + row.Grade + row.Observation;
       const customFilterN = colonneN.toLowerCase().includes(Nom);
       const customFilterP = colonneP.toLowerCase().includes(prenom);
-      const customFilterT = colonneFFk.toLowerCase().includes(ffk);
+      const customFilterF = colonneFFk.toLowerCase().includes(ffk);
+      const customFilterT = colonneT.toLowerCase().includes(Tout);
+
       matchFilter.push(customFilterN);
       matchFilter.push(customFilterP);
+      matchFilter.push(customFilterF);
       matchFilter.push(customFilterT);
       return matchFilter.every(Boolean);
     };
