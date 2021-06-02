@@ -23,5 +23,8 @@ export class GroupesService {
   addGroupe(id:number,data:any){
     return this.http.post(this.url+"/add/"+id,data);
   }
+  getGroupesMembres(){ 
+    return this.http.get(this.url+"/membres");
+  }
 
 }

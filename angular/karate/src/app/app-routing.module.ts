@@ -44,6 +44,7 @@ import { EmploidutempsComponent } from './president/emploidutemps/emploidutemps.
 import { AddemploidutempsComponent } from './president/addemploidutemps/addemploidutemps.component';
 import { EmploidutempsComponent as empS} from './secretaire/emploidutemps/emploidutemps.component';
 import { AddemploidutempsComponent as addempS} from './secretaire/addemploidutemps/addemploidutemps.component';
+import {  GroupesmembresComponent as grpmembreS } from './secretaire/groupesmembres/groupesmembres.component';
 
 
 const routes: Routes = [
@@ -94,6 +95,8 @@ const routes: Routes = [
       {path:'ajouter-crenau',component:addempS},
       {path:'comptes',component:adminS},
       {path:'ajouter-compte',component:addAdminS},
+      {path:'groupes-membres',component:grpmembreS},
+      
     ]
   },
  

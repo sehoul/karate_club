@@ -1,0 +1,65 @@
+<div class="conainer-fluid">
+    <div class="w-100 pl-5 text-white top-title">
+      <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Liste des groupes</h2>
+    </div>
+    <div class="recherche">
+      <h5 class="w-100">Barre de recherche :</h5>
+      <input (keyup)="applyFilter($event)" placeholder="Recherchez...." #input>
+    </div>
+       
+      <div class="shadow-sm p-3 mb-5 bg-white rounded operation">
+        <h6>Operations :</h6>
+        <button class="btn btn-info ml-3" (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
+      </div>
+  
+      
+  
+    <table id="excel-table" mat-table [dataSource]="dataSource" >
+      <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
+        <th mat-header-cell *matHeaderCellDef>
+          <span *ngIf="col !== '$$edit'">
+            {{col}}
+          </span>
+        </th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <div *ngIf="!element.isEdit">
+            
+            
+              {{element[col]}}
+          
+          </div>
+          
+            <ng-template #defaultField>
+              <mat-form-field *ngIf="col!=='id' && col !== 'activite' else SelectField">
+                <mat-label>{{col}}</mat-label>
+                <input type="{{dataSchema[col]}}" matInput [(ngModel)]="element[col]"> 
+              </mat-form-field>
+            </ng-template>
+  
+            <ng-template #SelectField>
+              <mat-form-field *ngIf="col === 'activite'; else nonEditedTemplate">
+                <mat-label>Activite</mat-label>
+                <mat-select [(value)]="element[col]" [(ngModel)]="element[col]">
+                  <mat-option *ngFor="let activite of activites" [value]="activite.nomActivite" >{{activite.nomActivite}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </ng-template>
+  
+            <ng-template #nonEditedTemplate>
+              <span #spanHeader>
+                {{element[col]}} 
+              </span>
+            </ng-template>
+  
+          
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[10, 50, 200]" showFirstLastButtons></mat-paginator>
+    
+  
+  
+  

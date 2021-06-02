@@ -22,6 +22,7 @@ import { AddemploidutempsComponent } from './addemploidutemps/addemploidutemps.c
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AdminsComponent } from './admins/admins.component';
 import { AddadminComponent } from './addadmin/addadmin.component';
+import { GroupesmembresComponent } from './groupesmembres/groupesmembres.component';
 
 
 
@@ -37,7 +38,8 @@ import { AddadminComponent } from './addadmin/addadmin.component';
     EmploidutempsComponent,
     AddemploidutempsComponent,
     AdminsComponent,
-    AddadminComponent
+    AddadminComponent,
+    GroupesmembresComponent
   ],
   imports: [
     CommonModule,
