@@ -136,4 +136,11 @@ class GroupesController extends AbstractController
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
         }
     }
+     /**
+     * @Route("/groupes/membres", name="groupes_membre", methods={"GET"})
+     */
+    public function getGroupesMembre(): Response
+    {
+        return $this->json($this->groupeRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['NomGroupe','activite'=>['nomActivite'],'MembresGroupe'=>['Membre'=>['numLicenceFFK','nom','prenom','grade','categorie'=>['nomCategorie']]]]]);
+    }
 }

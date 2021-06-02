@@ -90,7 +90,7 @@ class MembreController extends AbstractController
     
                         $membreGroupe->setGroupe($groupe)
                         ->setMembre($membre);
-                        $this->getDoctrine()->getManager()->persist($membreActivite);
+                        $this->getDoctrine()->getManager()->persist($membreGroupe);
     
                         $action=new Actions();
                         $action->setUser($user)
