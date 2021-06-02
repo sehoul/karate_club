@@ -56,7 +56,8 @@ ngAfterViewInit() {
   displayedColumns: string[] = ["id",
     "nomActivite","cotisation" ,"Groupe", '$$edit'];
 
-
+  _success:string="";
+  _error:string="";
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
   membres=this.USER_INFO;
@@ -93,11 +94,13 @@ ngAfterViewInit() {
           this.USER_INFO.splice(Number(index), 1);
           this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
           this.dataSource.paginator = this.paginator;
-        }
-      },
-      error=>{
-         
-      });
+          this._success=res.message;
+          this._error="";
+        }},
+        error=>{
+          this._success="";
+          this._error=error.error.message;
+        });
       
     }
   }
