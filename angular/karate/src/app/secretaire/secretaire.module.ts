@@ -24,6 +24,7 @@ import { AdminsComponent } from './admins/admins.component';
 import { AddadminComponent } from './addadmin/addadmin.component';
 import { GroupesmembresComponent } from './groupesmembres/groupesmembres.component';
 import { MatSortModule } from '@angular/material/sort';
+import { AddmembreactivitesComponent } from './addmembreactivites/addmembreactivites.component';
 
 
 
@@ -40,7 +41,8 @@ import { MatSortModule } from '@angular/material/sort';
     AddemploidutempsComponent,
     AdminsComponent,
     AddadminComponent,
-    GroupesmembresComponent
+    GroupesmembresComponent,
+    AddmembreactivitesComponent
   ],
   imports: [
     CommonModule,
