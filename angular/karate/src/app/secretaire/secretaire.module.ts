@@ -23,6 +23,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { AdminsComponent } from './admins/admins.component';
 import { AddadminComponent } from './addadmin/addadmin.component';
 import { GroupesmembresComponent } from './groupesmembres/groupesmembres.component';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -51,11 +52,12 @@ import { GroupesmembresComponent } from './groupesmembres/groupesmembres.compone
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-   MatTableExporterModule,
-   MatSelectModule,
-   MatPaginatorModule,
-   RouterModule,
-   FullCalendarModule
+    MatTableExporterModule,
+    MatSelectModule,
+    MatPaginatorModule,
+    RouterModule,
+    MatSortModule,
+    FullCalendarModule
   ]
 })
 export class SecretaireModule { }
