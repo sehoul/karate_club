@@ -99,7 +99,6 @@ delete(element:any,index:any,id:any){
       error=>{
         this._success="";
         this._error=error.error.message;
-        console.log(error.error.message);
       });
       
     }

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class EmploidutempsService {
-  private url= 'http://localhost:8000/EmploisDuTemps';
+  private url= 'http://localhost:8000/emploisDuTemps';
 
 
   constructor(private http: HttpClient) { }

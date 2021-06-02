@@ -51,7 +51,8 @@ hide = true;
 
   displayedColumns: string[] = ["id",
     "Nom",'Prenom','email','Tel','roles' ,'Nouveau Mot de passe', '$$edit'];
-
+  _success:string="";
+  _error:string="";
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
   exportexcel(): void
@@ -83,10 +84,13 @@ delete(element:any,index:any,id:any){
             this.USER_INFO.splice(Number(index), 1);
             this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
             this.dataSource.paginator = this.paginator;
+            this._success="";
+            this._error="";
           }
         },
         error=>{
-          
+          this._success="";
+          this._error=error.error.message;
         });
         
       }

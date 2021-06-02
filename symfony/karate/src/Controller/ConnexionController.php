@@ -127,21 +127,25 @@ class ConnexionController extends AbstractController
         $usertoRemove=$this->userRepository->findOneBy(['id' => $id]); 
         if ($user){
             if ($usertoRemove){
-                foreach($usertoRemove->getActions() as $action){
-                    $usertoRemove->removeAction($action);
-                    $this->getDoctrine()->getManager()->remove($action);
+                if(count($this->userRepository->findBy(['Role'=>$usertoRemove->getRoles()]))>1){
+                    foreach($usertoRemove->getActions() as $action){
+                        $usertoRemove->removeAction($action);
+                        $this->getDoctrine()->getManager()->remove($action);
+                    }
+                    $action=new Actions();
+                    $action->setUser($user)
+                    ->setType("Suppression")
+                    ->setDescription("Suppression de l'utilisateur \" ". ($usertoRemove->getNom()) ." \"");
+                     $this->getDoctrine()->getManager()->persist($action);
+                    $user->addAction($action);
+                    $this->getDoctrine()->getManager()->flush();
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->remove($usertoRemove);
+                    $entityManager->flush();
+                    return $this->json(['success'=>true,'message'=>'utilisateur supprimé avec succee'], 200, []);
+                }else{
+                    return $this->json(['message' => "Oups!...il faut au mois un compte de type: " . $usertoRemove->getRoles() . "!"],400,);
                 }
-                $action=new Actions();
-                $action->setUser($user)
-                ->setType("Suppression")
-                ->setDescription("Suppression de l'utilisateur \" ". ($usertoRemove->getNom()) ." \"");
-                 $this->getDoctrine()->getManager()->persist($action);
-                $user->addAction($action);
-                $this->getDoctrine()->getManager()->flush();
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->remove($usertoRemove);
-                $entityManager->flush();
-                return $this->json(['success'=>true,'message'=>'utilisateur supprimé avec succee'], 200, []);
             }else{
                 return $this->json(['message' => "Oups!...cet utilisateur n'est plus disponible!"],404,);
             } 
