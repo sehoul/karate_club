@@ -85,3 +85,6 @@ tr.example-element-row:not(.example-expanded-row):active {
     align-items: baseline;
 }
 
+th.mat-sort-header-sorted {
+  color: black;
+}

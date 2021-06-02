@@ -57,6 +57,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
           });
       this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
       this.dataSource.paginator = this.paginator;
+ 
       this.dataSource.filterPredicate = this.getFilterPredicate();
     });
 
@@ -66,7 +67,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
     });
   };
 
-
+ 
   displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation"];
   notdisplayedColumns: string[] = ["NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents","membreActivites"];
   title = 'angular-app';
@@ -92,9 +93,11 @@ export class MembresComponent implements OnInit,AfterViewInit {
 
   //@ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  
+  
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+
   }
 
   
