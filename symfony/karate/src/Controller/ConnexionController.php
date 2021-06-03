@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Actions;
+use App\Entity\Instructeur;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -88,6 +89,17 @@ class ConnexionController extends AbstractController
                     ->setTel($user_data->getTel())
                     ->setPassword($this->userPasswordEncoder->encodePassword($new_user,$user_data->getPassword()));
                     $this->getDoctrine()->getManager()->persist($new_user);
+                    $this->getDoctrine()->getManager()->flush();
+                    if($new_user->getRoles()==="instructeur"){
+                        $instructeur= new Instructeur();
+                        $instructeur->setCompteId($new_user->getId())
+                        ->setNom($user_data->getNom())
+                        ->setEmail($user_data->getEmail())
+                        ->setPrenom($user_data->getPrenom())
+                        ->setTel1($user_data->getTel())
+                        ->setNumLicenceFFK("(vide)");
+                        $this->getDoctrine()->getManager()->persist($instructeur);
+                    }
                     $action=new Actions();
                     $action->setUser($user)
                     ->setType("Creation")
@@ -156,7 +168,7 @@ class ConnexionController extends AbstractController
 
 
 /**
-     * @Route("/admin/update/{id}", name="register", methods={"POST"})
+     * @Route("/admin/update/{id}", name="update", methods={"POST"})
      */
     public function update_user(Request $request,$id)
     {

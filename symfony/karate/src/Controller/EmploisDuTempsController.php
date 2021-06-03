@@ -40,7 +40,7 @@ class EmploisDuTempsController extends AbstractController
      */
     public function instructeurCrenau($id): Response
     {
-        return $this->json($this->emploiDuTempsRepository->findBy(['instructeur'=>$this->instructeurRepository->findOneBy(['id' => $id])]), 200, [],[AbstractNormalizer::ATTRIBUTES => ['start','end','event','groupe'=>['nomGroupe'],'instructeur'=>['nom']]]);
+        return $this->json($this->emploiDuTempsRepository->findBy(['instructeur'=>$this->instructeurRepository->findOneBy(['compteId' => $id])]), 200, [],[AbstractNormalizer::ATTRIBUTES => ['start','end','event','groupe'=>['nomGroupe'],'instructeur'=>['nom']]]);
 
     }
     /**

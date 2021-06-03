@@ -35,22 +35,22 @@ class Instructeur
     private $Prenom;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $Date_naissance;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Genre;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $CategorieFFK;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Adresse;
 
@@ -70,12 +70,12 @@ class Instructeur
     private $Email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Grade;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Observation;
 
@@ -88,6 +88,11 @@ class Instructeur
      * @ORM\OneToMany(targetEntity=EmploiDuTemps::class, mappedBy="instructeur")
      */
     private $EmploiDuTemps;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $compteId;
 
     public function __construct()
     {
@@ -307,6 +312,18 @@ class Instructeur
                 $emploiDuTemp->setInstructeur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompteId(): ?int
+    {
+        return $this->compteId;
+    }
+
+    public function setCompteId(int $compteId): self
+    {
+        $this->compteId = $compteId;
 
         return $this;
     }
