@@ -32,9 +32,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NetworkInterceptor } from './Services/network.interceptor';
-<<<<<<< HEAD
-import { ExcelComponent } from './excel/excel.component';
-=======
 import { MatSelectModule } from '@angular/material/select';
 
 import { LOCALE_ID } from '@angular/core';
@@ -43,7 +40,6 @@ import localeFr from '@angular/common/locales/fr';
 import { FullCalendarModule } from '@fullcalendar/angular';
 registerLocaleData(localeFr);
 
->>>>>>> 3f5a74a0034484be63e61c8f33cdaa6e6d3e8a4b
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +50,6 @@ registerLocaleData(localeFr);
     MyTableComponent,
     AuthComponent,
     LogoutComponent,
-    ExcelComponent,
 
   ],
   imports: [
