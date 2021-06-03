@@ -15,6 +15,7 @@ export class LogoutComponent implements OnInit {
   ngOnInit(): void {
       this.Auth.setSecretaireLogedIn(false,'');
       this.Auth.setPresidentLogedIn(false,'');
+      this.Auth.setInstructeurLogedIn(false,'');
       this.cookie.deleteAll();
       this.router.navigate(['connexion'])
    
