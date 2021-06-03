@@ -1,7 +1,7 @@
 <p>excel works!</p>
 
 
-<input type="file" (change)="onFileChange($event)" multiple="false" />
+<input *ngFor="let activite of Actiitees" accept=".xlsx , .csv , .xls" type="file" (change)="onFileChange($event,activite.id)" multiple="false" placeholder="activite.nomActvite"/>
 
 <table>
     <tbody>
