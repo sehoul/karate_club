@@ -38,6 +38,7 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { ExcelComponent } from './excel/excel.component';
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -50,6 +51,7 @@ registerLocaleData(localeFr);
     MyTableComponent,
     AuthComponent,
     LogoutComponent,
+    ExcelComponent,
 
   ],
   imports: [
