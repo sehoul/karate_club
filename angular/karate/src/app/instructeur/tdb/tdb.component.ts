@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { HistoriqueService } from 'src/app/Services/historique.service';
 
 @Component({
   selector: 'app-tdb',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TdbComponent implements OnInit {
 
-  constructor() { }
+  now:string="";
+  
+  todayDate:Date;
+  
+  constructor(private cookie:CookieService) { 
+    this.todayDate = new Date();
+    setInterval(() => {
+      this.now = new Date().toString().split(' ')[4];
+    }, 1);
+  }
 
   ngOnInit(): void {
+    
+    
+  
   }
 
 }

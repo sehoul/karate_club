@@ -17,6 +17,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { MatSortModule } from '@angular/material/sort';
+import { RouterModule } from '@angular/router';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -47,6 +48,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MatPaginatorModule,
     FormsModule,
     MatSortModule,
+    RouterModule  
   ]
 })
 export class InstructeurModule { }
