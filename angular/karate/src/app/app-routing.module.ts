@@ -47,11 +47,13 @@ import { AddemploidutempsComponent as addempS} from './secretaire/addemploidutem
 import {  GroupesmembresComponent as grpmembreS } from './secretaire/groupesmembres/groupesmembres.component';
 import {AddmembreactivitesComponent} from "./secretaire/addmembreactivites/addmembreactivites.component";
 import { GroupesmembresComponent } from './president/groupesmembres/groupesmembres.component';
+import { ExcelComponent } from './excel/excel.component';
 
 
 const routes: Routes = [
 
   {path:'', component:HomepageComponent},
+  {path:'excel', component:ExcelComponent},
   {path:'connexion', component:AuthComponent},
   {path:'logout', component:LogoutComponent},
   {path:'t', component:MyTableComponent},
