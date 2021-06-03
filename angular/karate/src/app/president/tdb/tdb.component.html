@@ -21,7 +21,7 @@
         <div class="right">
             <div class="horloge"><div class="color"></div> <h5>{{now}} {{todayDate | date : 'yyyy-MMMM-dd'}}</h5></div>
             <div class="activities">
-                <h6 class="px-5 mt-5 mb-0">Historique des operations</h6>
+                <h6 class="px-5 mt-4 mb-0">Historique des operations</h6>
 
                 <ul *ngIf="historique.length" class="p-4 mt-0">
                     <li *ngFor="let action of historique">

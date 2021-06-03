@@ -55,7 +55,8 @@
 }
 .horloge {
     width: 70%;
-    height: 130px;
+    height: 190px;
+    max-height: 190px;
     margin: 4%;
     padding: 2%;
     box-sizing: border-box;
@@ -81,7 +82,7 @@
 }
 .activities {
     width: 90%;
-    max-height: 90%;
+    height: 80%;
     box-sizing: border-box;
     position: relative;
     border-radius: 10px;
