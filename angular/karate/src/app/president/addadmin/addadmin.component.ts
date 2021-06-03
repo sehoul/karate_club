@@ -83,7 +83,7 @@ export class AddadminComponent implements OnInit {
         );
     }else{
       this._success="";
-      this._error="merci de remplire tous les champs";
+      this._error="Merci de remplir tous les champs";
     }
 
   }

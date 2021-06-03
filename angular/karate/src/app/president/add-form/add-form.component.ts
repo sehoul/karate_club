@@ -115,7 +115,7 @@ export class AddFormComponent implements OnInit {
       {
         this.membreService.addMambre(Number(this.cookie.get('idPres')),data).subscribe(
           (res:any)=>{
-            this._success="Membre ajouté avec succes !";
+            this._success="Membre a été bien ajouté !";
             this._error="";
           },
           error=>{
@@ -126,7 +126,7 @@ export class AddFormComponent implements OnInit {
 
       }else{
         this._success="";
-        this._error="merci de remplire tous les champs";
+        this._error="Merci de remplir tous les champs";
       }
     console.log(this.form.getRawValue());
   }

@@ -19,11 +19,13 @@ interface ev{
 export class EmploidutempsComponent implements OnInit {
 
   temps:Array<ev>=[]
-  calendarOptions:CalendarOptions | undefined 
-  color=['#264653','#7209b7','#d00000','#81b29a','#6b705c'];
+  calendarOptions: CalendarOptions | undefined 
+ 
   handleDateClick(arg: { dateStr: string; }) {
     alert('date click! ' + arg.dateStr)
   }
+  
+  color=['#264653','#7209b7','#d00000','#81b29a','#6b705c'];
 
   constructor(private emploisService:EmploidutempsService) { }
 
@@ -63,4 +65,6 @@ export class EmploidutempsComponent implements OnInit {
  
      });
   }
+
+
 }

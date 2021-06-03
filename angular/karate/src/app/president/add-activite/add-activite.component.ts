@@ -34,7 +34,7 @@ export class AddActiviteComponent implements OnInit {
 
       this.Service.addActivite(Number(this.cookie.get('idPres')),data).subscribe(
         (res:any)=>{
-          this._success="activitée ajoutée avec succes !";
+          this._success="Activitée a été bien ajoutée !";
           this._error="";
         },
         error=>{
@@ -44,7 +44,7 @@ export class AddActiviteComponent implements OnInit {
       )
     }else{
       this._success="";
-      this._error="merci de remplire tous les champs";
+      this._error="Merci de remplir tous les champs";
     }
   }
 

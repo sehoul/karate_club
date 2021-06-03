@@ -58,7 +58,7 @@ class EmploisDuTempsController extends AbstractController
         if($user){
             if($groupe && $instructeur){
                 if($crenau_existe){
-                    return $this->json(['message' => "Oups!...l'emplois du temps du \" " . $instructeur->getNom() . " \" est deja reservé pour ce crenau !"],400,);
+                    return $this->json(['message' => "Oups!...L'emplois du temps du \" " . $instructeur->getNom() . " \" est deja reservé pour ce crenau !"],400,);
                   }else{
                     $crenau->setEvent($data_crenau->getEvent())
                     ->setGroupe($groupe)
@@ -68,14 +68,14 @@ class EmploisDuTempsController extends AbstractController
                     $action=new Actions();
                     $action->setUser($user)
                     ->setType("Ajout")
-                    ->setDescription("Vous avez ajouter un crenau \" ". ($crenau->getEvent()) . " de " . $crenau->getStart() . " à " . $crenau->getEnd() ." \"");
+                    ->setDescription("Vous avez ajouté un crenau \" ". ($crenau->getEvent()) . " de " . $crenau->getStart() . " à " . $crenau->getEnd() ." \"");
                     $this->getDoctrine()->getManager()->persist($action);
                     $this->getDoctrine()->getManager()->persist($crenau);
                     $this->getDoctrine()->getManager()->flush();
-                    return $this->json(['success'=>true,'message'=>'crenau bien ajoutée' . $crenau->getStart()], 200, []);
+                    return $this->json(['success'=>true,'message'=>'Crenau a été bien ajouté' . $crenau->getStart()], 200, []);
                 }
             }else{
-                  return $this->json(['message' => "Oups!...ce groupe n'existe plus!"],400,);
+                  return $this->json(['message' => "Oups!...Ce groupe n'existe plus!"],400,);
               }
         }else{
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);

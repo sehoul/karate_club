@@ -27,6 +27,6 @@ class CategoriesController extends AbstractController
      */
     public function deleteCategories($id): Response
     {
-        return $this->json(['message' => "Oups!...cette categorie n'est plus disponible!"],404,);
+        return $this->json(['message' => "Oups!...Cette categorie n'existe plus'!"],404,);
     }
 }

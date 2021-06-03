@@ -19,7 +19,7 @@ export class AddemploidutempsComponent implements OnInit {
   Activites: any;
   Instructeurs: any;
 
-  constructor(private instructeurService:InstructeurService,private groupeService:GroupesService, private fb: FormBuilder,private cookie:CookieService, private EmploisDuTemps:EmploidutempsService) {
+  constructor(private instructeurService:InstructeurService,private groupeService:GroupesService, private EmploisDuTemps:EmploidutempsService, private fb: FormBuilder,private cookie:CookieService) {
     this.form=this.fb.group({
       nomevenement:  new FormControl('', [Validators.required]),
       dateE:new FormControl('', [Validators.required]),
@@ -51,9 +51,9 @@ export class AddemploidutempsComponent implements OnInit {
     
     if(data.event!="" && data.Instructeur.id && data.groupe && data.start && data.end){
       console.log(data);
-     this.EmploisDuTemps.addCrenau(Number(this.cookie.get('idPres')),data).subscribe(
+     this.EmploisDuTemps.addCrenau(Number(this.cookie.get('idSec')),data).subscribe(
         (res:any)=>{
-          this._success="Crenau ajoutée avec succes !";
+          this._success="Crenau a été bien ajouté!";
           this._error="";
         },
         error=>{
@@ -64,7 +64,7 @@ export class AddemploidutempsComponent implements OnInit {
     }else{
       console.log(data);
       this._success="";
-      this._error="merci de remplire tous les champs";
+      this._error="Merci de remplir tous les champs";
     }
 
 }
@@ -80,3 +80,8 @@ export class AddemploidutempsComponent implements OnInit {
 
   }
   }
+
+
+  
+
+

@@ -58,19 +58,19 @@ class ActivitesController extends AbstractController
                     $action=new Actions();
                     $action->setUser($user)
                     ->setType("Suppression")
-                    ->setDescription("Suppression de l'activitée \" ". ($activite->getNomActivite()) ." \"");
+                    ->setDescription("Vous avez supprimé l'activitée \" ". ($activite->getNomActivite()) ." \"");
                      $this->getDoctrine()->getManager()->persist($action);
                     $user->addAction($action);
                     $this->getDoctrine()->getManager()->flush();
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->remove($activite);
                     $entityManager->flush();
-                    return $this->json(['success'=>true,'message'=>'activite supprimée avec succee'], 200, []);
+                    return $this->json(['success'=>true,'message'=>'Activite a été supprimée '], 200, []);
                 }else{
-                    return $this->json(['message' => "Oups!...vous ne pouvez pas supprimer toutes les activitées!"],404,);
+                    return $this->json(['message' => "Oups!...Vous ne pouvez pas supprimer toutes les activitées!"],404,);
                 }
             }else{
-                return $this->json(['message' => "Oups!...cette activitee n'est plus disponible!"],404,);
+                return $this->json(['message' => "Oups!...Cette activitée n'existe plus!"],404,);
             }
         }else{
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
@@ -93,15 +93,15 @@ class ActivitesController extends AbstractController
                 $action=new Actions();
                 $action->setUser($user)
                 ->setType("Modification")
-                ->setDescription("Modification de l'activitée \" ". ($activite->getNomActivite()) ." \"");
+                ->setDescription("Vous avez modifié l'activitée \" ". ($activite->getNomActivite()) ." \"");
                  $this->getDoctrine()->getManager()->persist($action);
                   $this->getDoctrine()->getManager()->flush();
-                  return $this->json(['success'=>true,'message'=>'activitée modifiée avec succee'], 200, []);
+                  return $this->json(['success'=>true,'message'=>'Activitée a été bien modifiée '], 200, []);
               }else{
                 return $this->json(['message' => "Oups!...une erreur est survenue!"],500,);
               }
             }else{
-                return $this->json(['message' => "Oups!...cette activitée n'est plus disponible!"],404,);
+                return $this->json(['message' => "Oups!...Cette activitée n'existe plus'!"],404,);
             }
         }else{
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
@@ -127,11 +127,11 @@ class ActivitesController extends AbstractController
                     $action=new Actions();
                     $action->setUser($user)
                     ->setType("Ajout")
-                    ->setDescription("Vous avez ajouter une nouvelle activitée \" ". ($activite->getNomActivite()) ." \"");
+                    ->setDescription("Vous avez ajouté une nouvelle activitée \" ". ($activite->getNomActivite()) ." \"");
                      $this->getDoctrine()->getManager()->persist($action);
                      $this->getDoctrine()->getManager()->persist($activite);
                       $this->getDoctrine()->getManager()->flush();
-                      return $this->json(['success'=>true,'message'=>'activite bien ajoutée'], 200, []);
+                      return $this->json(['success'=>true,'message'=>'Activite a été bien ajoutée'], 200, []);
                   }
               }else{
                 return $this->json(['message' => "Oups!...une erreur est survenue!"],500,);

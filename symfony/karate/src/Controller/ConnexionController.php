@@ -44,14 +44,14 @@ class ConnexionController extends AbstractController
                 }else{
                     return $this->json([
                         'status' => 400,
-                        'message' => "wrong password"
+                        'message' => "Mot de passe incorrect"
                     ],400);
                 }
             }
             else{
                 return $this->json([
                     'status' => 404,
-                    'message' => "username or email not found"
+                    'message' => "Le nom d'utilisateur ou le mot de passe est incorrect "
                 ],404);
             }
 
@@ -76,7 +76,7 @@ class ConnexionController extends AbstractController
             if($user_existe){
                     return $this->json([
                         'status' => 400,
-                        'message' => "email deja existe !"
+                        'message' => "Email dèja existe !"
                     ],400);
             }
             else{
@@ -103,13 +103,13 @@ class ConnexionController extends AbstractController
                     $action=new Actions();
                     $action->setUser($user)
                     ->setType("Creation")
-                    ->setDescription("Creation d'un nouveau membre administratif \" ". ($user_data->getNom()) . " " . ($user_data->getPrenom()) ." \"");
+                    ->setDescription("Vous avez créé un nouveau compte\" ". ($user_data->getNom()) . " " . ($user_data->getPrenom()) ." \"");
                     $this->getDoctrine()->getManager()->persist($action);
                     $user->addAction($action);
                     $this->getDoctrine()->getManager()->flush();
                     return $this->json([
                         'status' => 200,
-                        'message' => "Le nouveau membre administratif a été bien ajouté !"
+                        'message' => "Le nouveau compte a été bien ajouté !"
                     ],200);
 
                 }else{
@@ -147,19 +147,19 @@ class ConnexionController extends AbstractController
                     $action=new Actions();
                     $action->setUser($user)
                     ->setType("Suppression")
-                    ->setDescription("Suppression de l'utilisateur \" ". ($usertoRemove->getNom()) ." \"");
+                    ->setDescription("Vous avez supprimé le compte du \" ". ($usertoRemove->getNom()) ." \"");
                      $this->getDoctrine()->getManager()->persist($action);
                     $user->addAction($action);
                     $this->getDoctrine()->getManager()->flush();
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->remove($usertoRemove);
                     $entityManager->flush();
-                    return $this->json(['success'=>true,'message'=>'utilisateur supprimé avec succee'], 200, []);
+                    return $this->json(['success'=>true,'message'=>'Utilisateur supprimé !'], 200, []);
                 }else{
-                    return $this->json(['message' => "Oups!...il faut au mois un compte de type: " . $usertoRemove->getRoles() . "!"],400,);
+                    return $this->json(['message' => "Vous ne pouvez pas supprimer ce compte : " . $usertoRemove->getRoles() . "!"],400,);
                 }
             }else{
-                return $this->json(['message' => "Oups!...cet utilisateur n'est plus disponible!"],404,);
+                return $this->json(['message' => "Oups!...Cet utilisateur n'existe plus'!"],404,);
             } 
         }else{
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
@@ -189,7 +189,7 @@ class ConnexionController extends AbstractController
                         $action=new Actions();
                         $action->setUser($user)
                         ->setType("Modification")
-                        ->setDescription("Modification du membre \" ". ($user_existe->getNom()) . " " . ($user_existe->getPrenom()) ." \"");
+                        ->setDescription("Vous avez modifié le compte du  \" ". ($user_existe->getNom()) . " " . ($user_existe->getPrenom()) ." \"");
                         $this->getDoctrine()->getManager()->persist($action);
                         $user->addAction($action);
                         $this->getDoctrine()->getManager()->flush();
@@ -200,7 +200,7 @@ class ConnexionController extends AbstractController
                     }else{
                         return $this->json([
                             'status' => 400,
-                            'message' => "vous ne pouvez pas changer le role de cet utilisateur car c'est le seule \" " . $user_existe->getRoles() . " \" !"
+                            'message' => "Vous ne pouvez pas changer le role de cet utilisateur\" " . $user_existe->getRoles() . " \" !"
                         ],400);
                     }
                 }else{
@@ -210,7 +210,7 @@ class ConnexionController extends AbstractController
             else{
                 return $this->json([
                     'status' => 400,
-                    'message' => "cet utilisateur n'existe plus!"
+                    'message' => "Cet utilisateur n'existe plus!"
                 ],400);
                 
             }

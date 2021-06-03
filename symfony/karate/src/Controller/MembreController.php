@@ -57,7 +57,7 @@ class MembreController extends AbstractController
             if($data){
                 if($groupe && $activite){
                     if($membre_existe){
-                        return $this->json(['message' => "Oups!...ce numero de licence FFK deja existe!"],400,);
+                        return $this->json(['message' => "Oups!...Numéro de licence FFK deja existe!"],400,);
                     }else{
 
                         $membre->setAdresse($data->getAdresse())
@@ -95,18 +95,18 @@ class MembreController extends AbstractController
                         $action=new Actions();
                         $action->setUser($user)
                         ->setType("Ajout")
-                        ->setDescription("Ajout du membre \" ". ($membre->getNom()) . " " . ($membre->getPrenom()) ." \"");
+                        ->setDescription("Vous avez ajouté le membre \" ". ($membre->getNom()) . " " . ($membre->getPrenom()) ." \"");
                         $this->getDoctrine()->getManager()->persist($action);
                         $user->addAction($action);
                         $this->getDoctrine()->getManager()->flush();
-                        return $this->json(['success'=>true,'message'=>'membre ajouté modifié avec succee'], 200, []);
+                        return $this->json(['success'=>true,'message'=>'Membre a été bien ajouté'], 200, []);
                     }
 
                 }else{
-                    return $this->json(['message' => "Oups!...activité ou groupe n'est plus disponible!"],404,);
+                    return $this->json(['message' => "Oups!...Activité ou Groupe n'existe plus'!"],404,);
                 }
             }else{
-                return $this->json(['message' => "Oups!...ce groupe n'est plus disponible!"],404,);
+                return $this->json(['message' => "Oups!...Ce groupe n'existe plus'!"],404,);
             }
         }else{
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);

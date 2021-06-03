@@ -51,11 +51,11 @@ export class GroupesmembresComponent implements OnInit {
              this.USER_INFO.push({
                Groupe:element.NomGroupe,
                activite:element.activite.nomActivite,
-               LicenceFFK:"liste vide ...",
-               nom:"liste vide ...",
-               prenom:"liste vide ...",
-               grade:"liste vide ...",
-               Categorie:"liste vide ...",
+               LicenceFFK:" vide ...",
+               nom:" vide ...",
+               prenom:" vide ...",
+               grade:" vide ...",
+               Categorie:" vide ...",
                 });
            }
        });

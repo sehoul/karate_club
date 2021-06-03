@@ -50,19 +50,19 @@ class GroupesController extends AbstractController
                     $action=new Actions();
                     $action->setUser($user)
                     ->setType("Suppression")
-                    ->setDescription("Suppression du groupe \" ". ($groupes->getNomGroupe()) ." \"");
+                    ->setDescription("Vous avez supprimé le groupe \" ". ($groupes->getNomGroupe()) ." \"");
                      $this->getDoctrine()->getManager()->persist($action);
                     $user->addAction($action);
                      $this->getDoctrine()->getManager()->flush();
                      $entityManager = $this->getDoctrine()->getManager();
                      $entityManager->remove($groupes);
                      $entityManager->flush();
-                     return $this->json(['success'=>true,'message'=>'groupe supprimé avec succee'], 200, []);
+                     return $this->json(['success'=>true,'message'=>'Groupe supprimé '], 200, []);
                 }else{
-                    return $this->json(['message' => "Oups!... if faut qu'il existe au moin un groupe dans une activitée !"],400,);
+                    return $this->json(['message' => "Oups!... Il faut avoir au moins un groupe dans une activitée !"],400,);
                 }
             }else{
-                return $this->json(['message' => "Oups!...ce groupe n'est plus disponible!"],404,);
+                return $this->json(['message' => "Oups!...Ce groupe n'existe plus'!"],404,);
             }
         }else{
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
@@ -86,17 +86,17 @@ class GroupesController extends AbstractController
                     $action=new Actions();
                     $action->setUser($user)
                     ->setType("Modification")
-                    ->setDescription("Modification du groupe \" ". ($groupe->getNomGroupe()) ." \"");
+                    ->setDescription("Vous avez modifié le groupe \" ". ($groupe->getNomGroupe()) ." \"");
                     $this->getDoctrine()->getManager()->persist($action);
                     $user->addAction($action);
                     $this->getDoctrine()->getManager()->flush();
-                    return $this->json(['success'=>true,'message'=>'groupe modifié avec succee'], 200, []);
+                    return $this->json(['success'=>true,'message'=>'Groupe a été bien modifié '], 200, []);
                 }else{
-                    return $this->json(['message' => "Oups!...ce groupe n'est plus disponible!"],404,);
+                    return $this->json(['message' => "Oups!...Ce groupe n'existe plus'!"],404,);
                 }
 
             }else{
-                return $this->json(['message' => "Oups!...cette activité n'est plus disponible!"],404,);
+                return $this->json(['message' => "Oups!...Cette activité n'existe plus'!"],404,);
             }
         }else{
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
@@ -125,16 +125,16 @@ class GroupesController extends AbstractController
                     $action=new Actions();
                     $action->setUser($user)
                     ->setType("Ajout")
-                    ->setDescription("Ajout du groupe \" ". ($groupe->getNomGroupe()) ." \"");
+                    ->setDescription("Vous avez ajouté le groupe \" ". ($groupe->getNomGroupe()) ." \"");
                     $this->getDoctrine()->getManager()->persist($action);
                     $user->addAction($action);
                     $this->getDoctrine()->getManager()->flush();
-                    return $this->json(['success'=>true,'message'=>'groupe modifié avec succee'], 200, []);
+                    return $this->json(['success'=>true,'message'=>'Groupe a été bien modifié '], 200, []);
                     return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
                 }else{
                 }
             }else{
-                return $this->json(['message' => "Oups!...ce groupe n'est plus disponible!"],404,);
+                return $this->json(['message' => "Oups!...Ce groupe n'existe plus'!"],404,);
             }
         }else{
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);

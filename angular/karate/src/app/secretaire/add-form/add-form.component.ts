@@ -12,7 +12,6 @@ import { MembresService } from 'src/app/Services/membres.service';
   styleUrls: ['./add-form.component.css']
 })
 export class AddFormComponent implements OnInit {
-  
   form: FormGroup;
   _success:string="";
   _error:string="";
@@ -112,7 +111,7 @@ export class AddFormComponent implements OnInit {
       {
         this.membreService.addMambre(Number(this.cookie.get('idSec')),data).subscribe(
           (res:any)=>{
-            this._success="Membre ajouté avec succes !";
+            this._success="Membre a été bien ajouté !";
             this._error="";
           },
           error=>{
@@ -123,7 +122,7 @@ export class AddFormComponent implements OnInit {
 
       }else{
         this._success="";
-        this._error="merci de remplire tous les champs";
+        this._error="Merci de remplir tous les champs";
       }
     console.log(this.form.getRawValue());
   }
@@ -140,4 +139,7 @@ export class AddFormComponent implements OnInit {
      });
     };
     
+
+
+  
 }

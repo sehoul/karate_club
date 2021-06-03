@@ -49,7 +49,7 @@ export class AddgroupeComponent implements OnInit {
 
       this.groupeService.addGroupe(Number(this.cookie.get('idSec')),data).subscribe(
         (res:any)=>{
-          this._success="groupe ajoutée avec succes !";
+          this._success="Groupe a été bien ajouté!";
           this._error="";
         },
         error=>{
@@ -59,7 +59,7 @@ export class AddgroupeComponent implements OnInit {
       )
     }else{
       this._success="";
-      this._error="merci de remplire tous les champs";
+      this._error="Merci de remplir tous les champs";
     }
 
   }

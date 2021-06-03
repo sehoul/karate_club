@@ -52,7 +52,7 @@ export class AddemploidutempsComponent implements OnInit {
       console.log(data);
      this.EmploisDuTemps.addCrenau(Number(this.cookie.get('idPres')),data).subscribe(
         (res:any)=>{
-          this._success="Crenau ajoutée avec succes !";
+          this._success="Crenau a été bien ajouté!";
           this._error="";
         },
         error=>{
@@ -63,7 +63,7 @@ export class AddemploidutempsComponent implements OnInit {
     }else{
       console.log(data);
       this._success="";
-      this._error="merci de remplire tous les champs";
+      this._error="Merci de remplir tous les champs";
     }
 
 }

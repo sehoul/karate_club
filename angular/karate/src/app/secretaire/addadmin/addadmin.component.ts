@@ -68,7 +68,7 @@ export class AddadminComponent implements OnInit {
       Role:this.formAA.getRawValue().Role,
     }
     if(data.Nom!="" && data.Prenom!="" && data.Tel!="" && data.Email!="" && data.Password!="" && this.formAA.getRawValue().ConfirmationMotDePasse!="" && data.Role!=""){
-      this.AdminService.register(Number(this.cookie.get('idPres')),data).subscribe(
+      this.AdminService.register(Number(this.cookie.get('idSec')),data).subscribe(
         (res:any)=>{
             this._success=res.message;
             this._error="";
@@ -80,7 +80,7 @@ export class AddadminComponent implements OnInit {
         );
     }else{
       this._success="";
-      this._error="merci de remplire tous les champs";
+      this._error="Merci de remplir tous les champs";
     }
 
   }

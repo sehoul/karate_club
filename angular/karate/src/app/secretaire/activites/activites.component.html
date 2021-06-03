@@ -11,7 +11,12 @@
       <h6>Operations :</h6>
       <button class="btn btn-info ml-3" (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
     </div>
-    
+    <div *ngIf="_error" class="input-group  mb-2 alert-danger rounded py-4 px-3">
+      {{_error}}
+    </div>
+    <div *ngIf="_success" class="input-group mb-2 alert-info rounded py-4 px-3">
+      {{_success}}
+    </div>
 
   <table id="excel-table" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8"  >
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
