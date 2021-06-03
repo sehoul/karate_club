@@ -1,5 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
+interface excelData{ 
+id 
+licenceFFK 
+nom
+prenom
+dateNaissance
+genre
+categorie
+adresse
+tlphn1
+tlphn2
+email
+activites
+nbInscritsFamille
+ }
 
 @Component({
   selector: 'app-excel',
@@ -18,8 +33,6 @@ export class ExcelComponent implements OnInit {
   onFileChange(evt: any){
     const target : DataTransfer = <DataTransfer>(evt.target);
 
-    if (target.files.length! == 1) throw new Error('Impossible dutiliser plusieurs documents');
-
     const reader: FileReader = new FileReader();
 
     reader.onload = (e: any) => {
@@ -35,11 +48,16 @@ export class ExcelComponent implements OnInit {
 
       this.data = (XLSX.utils.sheet_to_json(ws, {header: 1}));
 
-      console.log(this.data);
+      this.data[0].forEach((element:any) => {
+        console.log(element);
+      });
     };
 
+    console.log(target.files.length);
 
     reader.readAsBinaryString(target.files[0]);
+
+  
 
   }
 
