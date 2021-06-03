@@ -63,7 +63,7 @@ class ConnexionController extends AbstractController
         
     } 
     /**
-     * @Route("/register/{id}", name="register", methods={"POST"})
+     * @Route("/admin/register/{id}", name="register", methods={"POST"})
      */
     public function register(Request $request,$id)
     {
@@ -111,7 +111,7 @@ class ConnexionController extends AbstractController
     }
     
      /**
-     * @Route("/Admins", name="get_Admins", methods={"GET"})
+     * @Route("/admin/Admins", name="get_Admins", methods={"GET"})
      */
     public function getAdmins()
     {
@@ -119,7 +119,7 @@ class ConnexionController extends AbstractController
     }
 
      /**
-     * @Route("/admin/delete/{idUser}/{id}", name="delete_Admins", methods={"GET"})
+     * @Route("/admin/admin/delete/{idUser}/{id}", name="delete_Admins", methods={"GET"})
      */
     public function deleteAdmins($idUser,$id)
     {
@@ -153,4 +153,59 @@ class ConnexionController extends AbstractController
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
         }  
     }
+
+
+/**
+     * @Route("/admin/update/{id}", name="register", methods={"POST"})
+     */
+    public function update_user(Request $request,$id)
+    {
+        $data=$request->getContent();
+        $user=$this->userRepository->findOneBy(['id' => $id]);
+        $user_data = $this->serializer->deserialize($data,User::class,'json');
+        $user_existe=$this->userRepository->findOneBy(['id' => $user_data->getId()]);
+        if($user){
+            if($user_existe){
+                if($user_data){
+                    if(count($this->userRepository->findBy(['Role' => $user_existe->getRoles()]))>1 || ($user_existe->getRoles()===$user_data->getRoles())){
+                        $user_existe->setEmail($user_data->getEmail())
+                        ->setNom($user_data->getNom())
+                        ->setPrenom($user_data->getPrenom())
+                        ->setRole($user_data->getRoles())
+                        ->setTel($user_data->getTel())
+                        ->setPassword($this->userPasswordEncoder->encodePassword($user_existe,$user_data->getPassword()));
+                        $action=new Actions();
+                        $action->setUser($user)
+                        ->setType("Modification")
+                        ->setDescription("Modification du membre \" ". ($user_existe->getNom()) . " " . ($user_existe->getPrenom()) ." \"");
+                        $this->getDoctrine()->getManager()->persist($action);
+                        $user->addAction($action);
+                        $this->getDoctrine()->getManager()->flush();
+                        return $this->json([
+                            'status' => 200,
+                            'message' => "Le membre administratif a été bien mis à jour !"
+                        ],200);
+                    }else{
+                        return $this->json([
+                            'status' => 400,
+                            'message' => "vous ne pouvez pas changer le role de cet utilisateur car c'est le seule \" " . $user_existe->getRoles() . " \" !"
+                        ],400);
+                    }
+                }else{
+                    return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
+                }
+            }
+            else{
+                return $this->json([
+                    'status' => 400,
+                    'message' => "cet utilisateur n'existe plus!"
+                ],400);
+                
+            }
+        }else{
+            return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
+        }       
+    }
+
+
 }

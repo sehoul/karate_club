@@ -50,7 +50,7 @@ hide = true;
 
 
   displayedColumns: string[] = ["id",
-    "Nom",'Prenom','email','Tel','roles' ,'Nouveau Mot de passe', '$$edit'];
+    "Nom",'Prenom','email','Tel','roles' ,'NouveauMotDePasse', '$$edit'];
   _success:string="";
   _error:string="";
   title = 'angular-app';
@@ -75,6 +75,16 @@ hide = true;
   
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
+    this.AdminService.updateAdmin(Number(this.cookie.get('idPres')),{id: element.id ,Tel: element.Tel, email: element.email, role: element.roles, Nom: element.Nom, Prenom: element.Prenom,Password:element.NouveauMotDePasse}).subscribe(
+      (res:any)=>{
+        this._success=res.message;
+        this._error="";
+    },
+    error=>{
+      this._success="";
+      this._error=error.error.message;
+    }
+    )
     console.log(element);
   }
 delete(element:any,index:any,id:any){
@@ -96,7 +106,10 @@ delete(element:any,index:any,id:any){
       }
   }
   hashPassword(password: string){
-    return "*".repeat(password.length)
+    if((""+password)=== "undefined")
+        return password;
+    else
+        return "*".repeat(password.length)
   }
 
   //@ts-ignore

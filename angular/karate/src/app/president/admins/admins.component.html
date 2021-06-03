@@ -33,10 +33,10 @@
             <button class="btn btn-link text-dark" title="Modifier" (click)="element.isEdit = !element.isEdit"><i class="bi bi-pencil-square"></i></button>
             <button class="btn btn-link text-danger ml-2" title="Supprimer" (click)="delete(element['Nom'],i,element['id'])"><i class="bi bi-trash-fill"></i></button>
           </div>           
-          <span *ngIf="col === 'Password'; spanHeader" #spanHeader>
+          <span *ngIf="col === 'NouveauMotDePasse'; " #spanHeader>
             {{hashPassword(element[col])}}
           </span>
-          <span *ngIf="col !== 'Password'; spanHeader" #spanHeader>
+          <span *ngIf="col !== 'NouveauMotDePasse'; " #spanHeader>
             {{ element[col]}}
           </span>
         
@@ -46,7 +46,7 @@
             <button class="btn btn-success text-white" title="Valider" (click)="element.isEdit = !element.isEdit;edit(element)"><i class="bi bi-check-square-fill"></i> valider</button>
           </div>
           <ng-template #passwordField>
-            <mat-form-field *ngIf="col==='Nouveau Mot de passe'; else SelectField">
+            <mat-form-field *ngIf="col==='NouveauMotDePasse'; else SelectField">
               <mat-label>{{col}}</mat-label>
               <input type="password" [type]="hide ? 'password' : 'text'" matInput [(ngModel)]="element[col]"> 
               <mat-icon matSuffix (click)="hide = !hide"> <i [ngClass]="{'bi bi-eye-slash-fill': !hide , 'bi bi-eye-fill':hide}"></i></mat-icon>
