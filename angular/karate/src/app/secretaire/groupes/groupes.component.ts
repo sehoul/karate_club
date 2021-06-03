@@ -2,6 +2,8 @@ import { ElementRef, OnInit } from '@angular/core';
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { CookieService } from 'ngx-cookie-service';
+import { ActivitesService } from 'src/app/Services/activites.service';
 import { GroupesService } from 'src/app/Services/groupes.service';
 import * as XLSX from 'xlsx';
 
@@ -25,27 +27,29 @@ const USER_SCHEMA = {
 export class GroupesComponent implements  OnInit,AfterViewInit {
   USER_INFO: elem[] = [];
  dataSource = new MatTableDataSource<elem>(this.USER_INFO);
- groupes!: any[];
-  constructor(private service: GroupesService){}
+ activites:Array<any>=[];
+  constructor(private service: GroupesService, private cookie:CookieService,private ActiviteService:ActivitesService){}
   ngOnInit(){
-        this.service.getGroupes().subscribe((response: any) =>{
-          console.log(response);
-          
-          this.USER_INFO=response;
-          this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
-          this.dataSource.paginator = this.paginator;
-         });
-          };
+    this.service.getGroupes().subscribe((response: any) =>{
+      this.USER_INFO=response;
+      this.USER_INFO.forEach((element:any) => {
+        element.activite=element.activite.nomActivite;
+      });
+      this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+      this.dataSource.paginator = this.paginator;
+     });
+     this.ActiviteService.getActivites().subscribe((res:any)=>{
+      this.activites=res;
+    });
+    }
 
-
-    displayedColumns: string[] = ["id",
+  displayedColumns: string[] = ["id",
     "NomGroupe","activite" , '$$edit'];
-      
 
 
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
- 
+  membres=this.USER_INFO;
   exportexcel(): void
   {
     /* pass here the table id */
@@ -66,9 +70,33 @@ export class GroupesComponent implements  OnInit,AfterViewInit {
   
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
-    console.log(element);
+    console.log(element)
+    this.service.updateGroupe(Number(this.cookie.get('idSec')),{id:element.id,NomGroupe:element.NomGroupe,activite:{nomActivite:element.activite}}).subscribe(
+      (res:any)=>{
+          console.log(res.message);
+      },
+      error=>{
+        console.log("error");
+      }
+    );
 
   }
+delete(element:any,index:any,id:any){
+    if(confirm("Est ce que vous voulez vraiment supprimer le groupe \" "+element+" \"")) {
+      this.service.deleteGroupe(Number(id),{id:Number(this.cookie.get('idSec'))}).subscribe((res:any)=>{
+        if(res.success){
+          this.USER_INFO.splice(Number(index), 1);
+          this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+          this.dataSource.paginator = this.paginator;
+        }
+      },
+      error=>{
+         
+      });
+      
+    }
+  }
+
 
 
   //@ts-ignore
@@ -86,11 +114,14 @@ export class GroupesComponent implements  OnInit,AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   
+  
+
+
 
 }
+
 export interface elem {
   id: number;
   NomGroupe: string;
   activite: any;
 }
-

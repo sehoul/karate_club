@@ -3,6 +3,7 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { CookieService } from 'ngx-cookie-service';
+import { ActivitesService } from 'src/app/Services/activites.service';
 import { GroupesService } from 'src/app/Services/groupes.service';
 import * as XLSX from 'xlsx';
 
@@ -27,9 +28,8 @@ export class GroupesComponent implements AfterViewInit,OnInit {
 
   USER_INFO: elem[] = [];
  dataSource = new MatTableDataSource<elem>(this.USER_INFO);
- groupes!: any[];
- 
-  constructor(private service: GroupesService, private cookie:CookieService){}
+ activites:Array<any>=[];
+  constructor(private service: GroupesService, private cookie:CookieService,private ActiviteService:ActivitesService){}
   ngOnInit(){
     this.service.getGroupes().subscribe((response: any) =>{
       this.USER_INFO=response;
@@ -39,7 +39,10 @@ export class GroupesComponent implements AfterViewInit,OnInit {
       this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
       this.dataSource.paginator = this.paginator;
      });
-      };
+     this.ActiviteService.getActivites().subscribe((res:any)=>{
+      this.activites=res;
+    });
+    }
 
   displayedColumns: string[] = ["id",
     "NomGroupe","activite" , '$$edit'];
@@ -68,7 +71,7 @@ export class GroupesComponent implements AfterViewInit,OnInit {
   
   dataSchema:any = USER_SCHEMA;
   edit(element:any){
-    this.service.updateGroupe(Number(this.cookie.get('idPres')),{id:element.id,NomGroupe:element.NomGroupe,activite:element.nomActivite}).subscribe(
+    this.service.updateGroupe(Number(this.cookie.get('idPres')),{id:element.id,NomGroupe:element.NomGroupe,activite:{nomActivite:element.activite}}).subscribe(
       (res:any)=>{
           console.log(res.message);
       },

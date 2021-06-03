@@ -36,6 +36,8 @@ import { AuthSecretaireGuard } from './guards/auth-secretaire.guard';
 import { AuthPresidentGuard } from './guards/auth-president.guard';
 import { AuthInstructeurGuard } from './guards/auth-instructeur.guard';
 import { CalendrierComponent } from './instructeur/calendrier/calendrier.component';
+import { AdminsComponent } from './president/admins/admins.component';
+import { AddadminComponent } from './president/addadmin/addadmin.component';
 
 
 const routes: Routes = [
@@ -64,7 +66,9 @@ const routes: Routes = [
       {path:'ajout-activitee',component:FormAcP},
       {path:'ajout-groupe',component:FormGP},
       {path:'activites',component:ActivitesComponent},
-      {path:'groupes',component:GroupesComponent}
+      {path:'groupes',component:GroupesComponent},
+      {path:'admins',component:AdminsComponent},
+      {path:'ajouter-admin',component:AddadminComponent},
 
     ]
   },
@@ -77,9 +81,11 @@ const routes: Routes = [
       {path:'ajout-groupe',component:FormGS},
       {path:'membres',component:ScrM},
       {path:'activites',component:ScrA},
-      {path:'groupes',component:ScrG}
+      {path:'groupes',component:ScrG},
     ]
   },
+ 
+
   {path:'**', redirectTo:'/',pathMatch: 'full'}
 
 

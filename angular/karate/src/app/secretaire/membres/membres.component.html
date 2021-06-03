@@ -2,6 +2,30 @@
   <div class="w-100 pl-5 text-white top-title">
     <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Liste des membres</h2>
   </div>
+  <form [formGroup]="searchForm" class="search__form">
+
+    <mat-form-field class="search__form_field" appearance="outline">
+      <mat-label>Nom</mat-label>
+      <input type="text"
+             aria-label="Recherche par Nom"
+             matInput
+             formControlName="Nom"
+             (keyup)="applyFilterbis()"
+      >
+    </mat-form-field>
+
+    <mat-form-field class="search__form_field" appearance="outline">
+      <mat-label>Prenom </mat-label>
+      <input type="text"
+             aria-label="Prenom"
+             matInput
+             formControlName="Prenom"
+             (keyup)="applyFilterbis()"
+      >
+    </mat-form-field>
+
+
+  </form>
   <div class="recherche">
     <h5 class="w-100">Barre de recherche :</h5>
     <input (keyup)="applyFilter($event)" placeholder="Recherchez...." #input>

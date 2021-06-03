@@ -20,7 +20,7 @@ const USER_SCHEMA = {
 })
 export class ActivitesComponent implements OnInit, AfterViewInit {
   
- USER_INFO: elem[] = [];
+  USER_INFO: elem[] = [];
  dataSource = new MatTableDataSource<elem>(this.USER_INFO); 
 //@ts-ignore
 @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -31,12 +31,11 @@ ngAfterViewInit() {
   activites!: any[];
  
   constructor(private service: ActivitesService,private cookie:CookieService){
- 
+  
   }
   ngOnInit(){
         this.service.getActivites().subscribe((response: any) =>{
-          console.log(response);
-          
+          console.log(response);      
           this.USER_INFO=response;
           let groupe:string="";
           this.USER_INFO.forEach((element:any) => {
@@ -50,7 +49,8 @@ ngAfterViewInit() {
           this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
           this.dataSource.paginator = this.paginator;
          });
-          };
+     
+  }
   
 
   displayedColumns: string[] = ["id",

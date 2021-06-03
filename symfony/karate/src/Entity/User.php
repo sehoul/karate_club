@@ -41,6 +41,21 @@ class User implements UserInterface
      */
     private $actions;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Prenom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Tel;
+
     public function __construct()
     {
         $this->actions = new ArrayCollection();
@@ -151,6 +166,42 @@ class User implements UserInterface
                 $action->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->Nom;
+    }
+
+    public function setNom(string $Nom): self
+    {
+        $this->Nom = $Nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->Prenom;
+    }
+
+    public function setPrenom(string $Prenom): self
+    {
+        $this->Prenom = $Prenom;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->Tel;
+    }
+
+    public function setTel(string $Tel): self
+    {
+        $this->Tel = $Tel;
 
         return $this;
     }

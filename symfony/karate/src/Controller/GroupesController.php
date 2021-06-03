@@ -73,19 +73,26 @@ class GroupesController extends AbstractController
         $data=$request->getContent();
         $data=$this->serializer->deserialize($data,Groupe::class,'json');
         $groupe= $this->groupeRepository->findOneBy(['id' => $data->getId()]);
+        $activite= $this->activiteRepository->findOneBy(['nomActivite' => $data->getActivite()->getNomActivite()]);
         if ($user){
-            if($groupe){
-                $groupe->setNomGroupe($data->getNomGroupe());
-                $action=new Actions();
-                $action->setUser($user)
-                ->setType("Modification")
-                ->setDescription("Modification du groupe \" ". ($groupe->getNomGroupe()) ." \"");
-                $this->getDoctrine()->getManager()->persist($action);
-                $user->addAction($action);
-                $this->getDoctrine()->getManager()->flush();
-                return $this->json(['success'=>true,'message'=>'groupe modifié avec succee'], 200, []);
+            if($activite){
+                if($groupe){
+                    $groupe->setNomGroupe($data->getNomGroupe())
+                            ->setActivite($activite);
+                    $action=new Actions();
+                    $action->setUser($user)
+                    ->setType("Modification")
+                    ->setDescription("Modification du groupe \" ". ($groupe->getNomGroupe()) ." \"");
+                    $this->getDoctrine()->getManager()->persist($action);
+                    $user->addAction($action);
+                    $this->getDoctrine()->getManager()->flush();
+                    return $this->json(['success'=>true,'message'=>'groupe modifié avec succee'], 200, []);
+                }else{
+                    return $this->json(['message' => "Oups!...ce groupe n'est plus disponible!"],404,);
+                }
+
             }else{
-                return $this->json(['message' => "Oups!...ce groupe n'est plus disponible!"],404,);
+                return $this->json(['message' => "Oups!...cette activité n'est plus disponible!"],404,);
             }
         }else{
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);

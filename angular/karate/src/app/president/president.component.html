@@ -66,6 +66,23 @@
             </a>
         </li>
     </ul>
+    <p class="text-gray font-weight-bold text-uppercase px-3 small pt-2 pb-1 mb-0">Administration</p>
+    <ul class="nav flex-column bg-white mb-0">
+        <li class="nav-item" >
+            <a [routerLink]="['admins']" class="nav-link my-1 ml-2 text-dark ">
+                <i class="bi bi-display-fill mr-2"></i>
+                
+                Administrateurs
+            </a>
+        </li>
+        <li class="nav-item text-dark" >
+            <a  [routerLink]="['ajouter-admin']" class="nav-link  my-1 ml-2 text-dark" >
+                
+                <i class="bi bi-plus-square mr-2"></i>
+                    Ajouter administrateur
+            </a>
+        </li>
+    </ul>
 
     <nav class="navbar fixed-bottom navbar-light " style="position: initial;background: white;">
         <div class="container-fluid">

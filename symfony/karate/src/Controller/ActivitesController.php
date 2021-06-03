@@ -108,19 +108,24 @@ class ActivitesController extends AbstractController
         $user=$this->userRepository->findOneBy(['id' => $id]);
         $data=$request->getContent();
         $activite_req=$this->serializer->deserialize($data,Activite::class,'json');
+        $activite_existe=$this->activiteRepository->findOneBy(['nomActivite' => $activite_req->getNomActivite()]);
         $activite= new Activite();
         if($user){
               if($activite_req) {
-                  $activite->setNomActivite($activite_req->getNomActivite())
-                  ->setCotisation($activite_req->getCotisation());
-                $action=new Actions();
-                $action->setUser($user)
-                ->setType("Ajout")
-                ->setDescription("Vous avez ajouter une nouvelle activitée \" ". ($activite->getNomActivite()) ." \"");
-                 $this->getDoctrine()->getManager()->persist($action);
-                 $this->getDoctrine()->getManager()->persist($activite);
-                  $this->getDoctrine()->getManager()->flush();
-                  return $this->json(['success'=>true,'message'=>'activite bien ajoutée'], 200, []);
+                  if($activite_existe){
+                    return $this->json(['message' => "Oups!...cette activité deja existe!"],400,);
+                  }else{
+                      $activite->setNomActivite($activite_req->getNomActivite())
+                      ->setCotisation($activite_req->getCotisation());
+                    $action=new Actions();
+                    $action->setUser($user)
+                    ->setType("Ajout")
+                    ->setDescription("Vous avez ajouter une nouvelle activitée \" ". ($activite->getNomActivite()) ." \"");
+                     $this->getDoctrine()->getManager()->persist($action);
+                     $this->getDoctrine()->getManager()->persist($activite);
+                      $this->getDoctrine()->getManager()->flush();
+                      return $this->json(['success'=>true,'message'=>'activite bien ajoutée'], 200, []);
+                  }
               }else{
                 return $this->json(['message' => "Oups!...une erreur est survenue!"],500,);
               }
