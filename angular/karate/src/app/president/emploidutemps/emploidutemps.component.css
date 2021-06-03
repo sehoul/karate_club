@@ -1,0 +1,18 @@
+.top-title {
+  background: linear-gradient(to right, #293241, #ee6c4d);
+  box-shadow: 1px 2px 10px #80251f;
+    }
+    table{
+      max-width: 100%;
+      min-width: 100%;
+    }
+    .btn-edit {
+      text-align: right;
+    }
+    h2 {
+      text-align: center;
+      padding-top: 20px;
+    }
+    
+  
+ 

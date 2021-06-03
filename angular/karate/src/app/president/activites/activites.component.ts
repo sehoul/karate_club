@@ -4,6 +4,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivitesService } from 'src/app/Services/activites.service';
 import { CookieService } from 'ngx-cookie-service';
+import {MatSort} from '@angular/material/sort';
 
 import * as XLSX from 'xlsx';
 
@@ -27,6 +28,7 @@ export class ActivitesComponent implements OnInit, AfterViewInit {
 
 ngAfterViewInit() {
   this.dataSource.paginator = this.paginator;
+  this.dataSource.sort = this.sort;
 }
   activites!: any[];
  
@@ -48,15 +50,19 @@ ngAfterViewInit() {
           console.log(this.USER_INFO);
           this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
           this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
          });
      
   }
+  //@ts-ignore
+  @ViewChild(MatSort) sort: MatSort;
   
 
   displayedColumns: string[] = ["id",
     "nomActivite","cotisation" ,"Groupe", '$$edit'];
 
-
+  _success:string="";
+  _error:string="";
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
   membres=this.USER_INFO;
@@ -93,11 +99,13 @@ ngAfterViewInit() {
           this.USER_INFO.splice(Number(index), 1);
           this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
           this.dataSource.paginator = this.paginator;
-        }
-      },
-      error=>{
-         
-      });
+          this._success=res.message;
+          this._error="";
+        }},
+        error=>{
+          this._success="";
+          this._error=error.error.message;
+        });
       
     }
   }

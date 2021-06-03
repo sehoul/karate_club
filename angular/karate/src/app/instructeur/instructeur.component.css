@@ -59,6 +59,7 @@ mat-progress-spinner {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.4s;
   overflow-y: auto;
+  z-index: 99;
 }
 
 .page-content {

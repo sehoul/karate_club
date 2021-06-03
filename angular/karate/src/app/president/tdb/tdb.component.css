@@ -81,8 +81,6 @@
 }
 .activities {
     width: 85%;
-    height: 80%;
-    padding: 6%;
     box-sizing: border-box;
     position: relative;
     overflow: hidden;

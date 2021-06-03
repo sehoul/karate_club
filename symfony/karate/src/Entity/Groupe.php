@@ -42,9 +42,15 @@ class Groupe
      */
     private $MembresGroupe;
 
+    /**
+     * @ORM\OneToMany(targetEntity=EmploiDuTemps::class, mappedBy="groupe")
+     */
+    private $emploiDuTemps;
+
     public function __construct()
     {
         $this->MembresGroupe = new ArrayCollection();
+        $this->emploiDuTemps = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -118,6 +124,36 @@ class Groupe
             // set the owning side to null (unless already changed)
             if ($membresGroupe->getGroupe() === $this) {
                 $membresGroupe->setGroupe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EmploiDuTemps[]
+     */
+    public function getEmploiDuTemps(): Collection
+    {
+        return $this->emploiDuTemps;
+    }
+
+    public function addEmploiDuTemp(EmploiDuTemps $emploiDuTemp): self
+    {
+        if (!$this->emploiDuTemps->contains($emploiDuTemp)) {
+            $this->emploiDuTemps[] = $emploiDuTemp;
+            $emploiDuTemp->setGroupe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmploiDuTemp(EmploiDuTemps $emploiDuTemp): self
+    {
+        if ($this->emploiDuTemps->removeElement($emploiDuTemp)) {
+            // set the owning side to null (unless already changed)
+            if ($emploiDuTemp->getGroupe() === $this) {
+                $emploiDuTemp->setGroupe(null);
             }
         }
 

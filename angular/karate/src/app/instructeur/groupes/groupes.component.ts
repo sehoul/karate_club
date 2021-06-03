@@ -2,10 +2,17 @@ import { ElementRef, OnInit } from '@angular/core';
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { CookieService } from 'ngx-cookie-service';
+import { ActivitesService } from 'src/app/Services/activites.service';
 import { GroupesService } from 'src/app/Services/groupes.service';
 import * as XLSX from 'xlsx';
+import {MatSort} from '@angular/material/sort';
 
 
+
+
+
+const USER_INFO: elem[] = [];
 
 
 
@@ -25,25 +32,59 @@ const USER_SCHEMA = {
 export class GroupesComponent implements OnInit, AfterViewInit {
   USER_INFO: elem[] = [];
  dataSource = new MatTableDataSource<elem>(this.USER_INFO);
- groupes!: any[];
-  constructor(private service: GroupesService){}
-  ngOnInit(){
-        this.service.getGroupes().subscribe((response: any) =>{
-          console.log(response);
-          
-          this.USER_INFO=response;
-          this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
-          this.dataSource.paginator = this.paginator;
-         });
-          };
+ activites:Array<any>=[];
+ MembresGroupes:Array<any>=[];
+  constructor(private service:GroupesService, private cookie:CookieService ,private ActiviteService:ActivitesService){}
+  //@ts-ignore
+  @ViewChild(MatSort) sort: MatSort;
 
-          displayedColumns: string[] = ["id",
-          "NomGroupe","activite"];
-      
+  ngOnInit(){
+    this.service.getGroupesMembres().subscribe((response: any) =>{
+      response.forEach((element:any) => {
+          if(element.MembresGroupe.length)
+          {
+              element.MembresGroupe.forEach((membres:any) => {
+               this.USER_INFO.push({
+              Groupe:element.NomGroupe,
+              activite:element.activite.nomActivite,
+              LicenceFFK:membres.Membre.numLicenceFFK,
+              nom:membres.Membre.nom,
+              prenom:membres.Membre.prenom,
+              grade:membres.Membre.grade,
+              Categorie:membres.Membre.categorie.nomCategorie,
+               });
+            });
+          }else{
+            this.USER_INFO.push({
+              Groupe:element.NomGroupe,
+              activite:element.activite.nomActivite,
+              LicenceFFK:"liste vide ...",
+              nom:"liste vide ...",
+              prenom:"liste vide ...",
+              grade:"liste vide ...",
+              Categorie:"liste vide ...",
+               });
+          }
+      });
+      this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+     });
+
+     this.ActiviteService.getActivites().subscribe((res:any)=>{
+      this.activites=res;
+    });
+    
+   
+    }
+
+  displayedColumns: string[] = ["activite",
+    "Groupe", "LicenceFFK","nom", "prenom" ,"grade","Categorie"];
+
 
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
-
+  membres=this.USER_INFO;
   exportexcel(): void
   {
     /* pass here the table id */
@@ -62,12 +103,11 @@ export class GroupesComponent implements OnInit, AfterViewInit {
  
   }
   
-  dataSource = new MatTableDataSource<elem>(this.USER_INFO);;
   dataSchema:any = USER_SCHEMA;
-  edit(element:any){
-    console.log(element);
+ 
 
-  }
+
+
 
 
   //@ts-ignore
@@ -75,6 +115,7 @@ export class GroupesComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 
@@ -85,13 +126,18 @@ export class GroupesComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   
+  
 
 
 
 }
 
 export interface elem {
-  id: number;
-  NomGroupe: string;
-  activite: any;
+  Groupe: string;
+  activite: string;
+  LicenceFFK: string;
+  nom: string;
+  prenom: string;
+  grade: string;
+  Categorie: string;
 }

@@ -18,25 +18,33 @@ class EmploiDuTemps
     private $id;
 
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $groupe;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $description;
+    private $event;
 
     /**
      * @ORM\ManyToOne(targetEntity=Instructeur::class, inversedBy="EmploiDuTemps")
      */
     private $instructeur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Groupe::class, inversedBy="emploiDuTemps")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $groupe;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $start;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $end;
 
     public function getId(): ?int
     {
@@ -44,38 +52,14 @@ class EmploiDuTemps
     }
 
 
-    public function getGroupe(): ?string
+    public function getEvent(): ?string
     {
-        return $this->groupe;
+        return $this->event;
     }
 
-    public function setGroupe(string $groupe): self
+    public function setEvent(?string $event): self
     {
-        $this->groupe = $groupe;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
+        $this->event = $event;
 
         return $this;
     }
@@ -88,6 +72,42 @@ class EmploiDuTemps
     public function setInstructeur(?Instructeur $instructeur): self
     {
         $this->instructeur = $instructeur;
+
+        return $this;
+    }
+
+    public function getGroupe(): ?Groupe
+    {
+        return $this->groupe;
+    }
+
+    public function setGroupe(?Groupe $groupe): self
+    {
+        $this->groupe = $groupe;
+
+        return $this;
+    }
+
+    public function getStart(): ?string
+    {
+        return $this->start;
+    }
+
+    public function setStart(string $start): self
+    {
+        $this->start = $start;
+
+        return $this;
+    }
+
+    public function getEnd(): ?string
+    {
+        return $this->end;
+    }
+
+    public function setEnd(string $end): self
+    {
+        $this->end = $end;
 
         return $this;
     }

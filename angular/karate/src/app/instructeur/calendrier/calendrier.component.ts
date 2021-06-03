@@ -10,14 +10,15 @@ import frLocale from '@fullcalendar/core/locales/fr';
 export class CalendrierComponent implements OnInit {
 
   calendarOptions: CalendarOptions = {
-    locales: [frLocale ],
+    locales: [frLocale],
     locale: 'fr',
     initialView: 'dayGridMonth',
     dateClick: this.handleDateClick.bind(this), // bind is important!
     events: [
-      { title: 'event 1', date: '2021-05-18' },
-      { title: 'event 2', date: '2021-05-19' }
-    ]
+      { title: 'event 1', date: '2021-05-18', color: '#2a9d8f' },
+      { title: 'event 2', date: '2021-05-19',color: '#0077b6' }
+    ],
+    
   };
  
   handleDateClick(arg: { dateStr: string; }) {

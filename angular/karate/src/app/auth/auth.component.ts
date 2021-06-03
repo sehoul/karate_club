@@ -37,7 +37,6 @@ export class AuthComponent implements OnInit {
       }
       this.Auth.getUser(data).subscribe(
         result => {
-            console.log(result);
             if(result.success){
               switch (result.result.roles) {
                   case 'secretaire':
@@ -47,7 +46,7 @@ export class AuthComponent implements OnInit {
                     this.Auth.setPresidentLogedIn(true,result.result.id.toString()); this.router.navigate(['p'])  
                     break;
                   case 'admin':
-                    this.Auth.setSecretaireLogedIn(true,result.result.id.toString()); this.router.navigate(['s'])  
+                    this.Auth.setSecretaireLogedIn(true,result.result.id.toString()); this.router.navigate(['p'])  
                     break;
                   case 'instructeur':
                     this.Auth.setInstructeurLogedIn(true,result.result.id.toString()); this.router.navigate(['i'])  

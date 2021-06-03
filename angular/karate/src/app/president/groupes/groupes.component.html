@@ -1,6 +1,6 @@
 <div class="conainer-fluid">
   <div class="w-100 pl-5 text-white top-title">
-    <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Liste des groupes</h2>
+    <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Gestion des groupes</h2>
   </div>
   <div class="recherche">
     <h5 class="w-100">Barre de recherche :</h5>
@@ -12,11 +12,17 @@
       <button class="btn btn-info ml-3" (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
     </div>
 
-    
+    <div *ngIf="_error" class="input-group  mb-2 alert-danger rounded py-4 px-3">
+      {{_error}}
+    </div>
+    <div *ngIf="_success" class="input-group mb-2 alert-info rounded py-4 px-3">
+      {{_success}}
+    </div>
 
-  <table id="excel-table" mat-table [dataSource]="dataSource" >
+  <table id="excel-table" mat-table [dataSource]="dataSource"matSort class="mat-elevation-z8" 
+  >
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
         <span *ngIf="col !== '$$edit'">
           {{col}}
         </span>

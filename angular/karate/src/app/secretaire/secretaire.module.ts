@@ -17,6 +17,14 @@ import { MatTableExporterModule } from 'mat-table-exporter';
 import { TdbComponent } from './tdb/tdb.component';
 import { RouterModule } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
+import { EmploidutempsComponent } from './emploidutemps/emploidutemps.component';
+import { AddemploidutempsComponent } from './addemploidutemps/addemploidutemps.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { AdminsComponent } from './admins/admins.component';
+import { AddadminComponent } from './addadmin/addadmin.component';
+import { GroupesmembresComponent } from './groupesmembres/groupesmembres.component';
+import { MatSortModule } from '@angular/material/sort';
+import { AddmembreactivitesComponent } from './addmembreactivites/addmembreactivites.component';
 
 
 
@@ -28,7 +36,13 @@ import { MatSelectModule } from '@angular/material/select';
     MembresComponent,
     GroupesComponent,
     ActivitesComponent,
-    TdbComponent
+    TdbComponent,
+    EmploidutempsComponent,
+    AddemploidutempsComponent,
+    AdminsComponent,
+    AddadminComponent,
+    GroupesmembresComponent,
+    AddmembreactivitesComponent
   ],
   imports: [
     CommonModule,
@@ -40,10 +54,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-   MatTableExporterModule,
-   MatSelectModule,
-   MatPaginatorModule,
-   RouterModule
+    MatTableExporterModule,
+    MatSelectModule,
+    MatPaginatorModule,
+    RouterModule,
+    MatSortModule,
+    FullCalendarModule
   ]
 })
 export class SecretaireModule { }

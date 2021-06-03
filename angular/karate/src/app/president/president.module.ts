@@ -20,6 +20,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AdminsComponent } from './admins/admins.component';
 import { AddadminComponent } from './addadmin/addadmin.component';
 import { MatSelectModule } from '@angular/material/select';
+import { EmploidutempsComponent } from './emploidutemps/emploidutemps.component';
+import { AddemploidutempsComponent } from './addemploidutemps/addemploidutemps.component';
+import { CalendrierComponent } from '../instructeur/calendrier/calendrier.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { GroupesmembresComponent } from './groupesmembres/groupesmembres.component';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -33,7 +39,11 @@ import { MatSelectModule } from '@angular/material/select';
     GroupesComponent,
     TdbComponent,
     AdminsComponent,
-    AddadminComponent
+    AddadminComponent,
+    EmploidutempsComponent,
+    AddemploidutempsComponent,
+    GroupesmembresComponent
+
   ],
   imports: [
     RouterModule,
@@ -49,7 +59,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatNativeDateModule,
     MatTableExporterModule,
     MatPaginatorModule,
-    MatSelectModule
+    MatSelectModule,
+    FullCalendarModule,
+    MatSortModule,
+
    
   ]
 })

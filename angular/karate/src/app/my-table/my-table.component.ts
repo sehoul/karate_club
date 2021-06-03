@@ -65,7 +65,7 @@ export class MyTableComponent implements AfterViewInit,OnInit {
 
 
   public searchForm: FormGroup ;
-  public Nom:any = '' ;
+  public Tout:any = '' ;
   public prenom:any = '';
 
 
@@ -127,21 +127,21 @@ export class MyTableComponent implements AfterViewInit,OnInit {
     return (row: elem, filters: string) => {
       // split string per '$' to array
       const filterArray = filters.split('$');
-      const Nom = filterArray[0];
+      const Tout = filterArray[0];
       const prenom = filterArray[1];
 
       const matchFilter = [];
 
       // Fetch data from row
-      const colonneN = row.nom;
+      const colonneT = row.nom + row.prenom + row.licenceFFK + row.categorie + row.genre + row.activites + row.adresse + row.dateNaissance + row.email + row.tlphn1 + row.tlphn2 + row.nbInscritsFamille;
       const colonneP = row.prenom;
 
       // verify fetching data by our searching values
-      const customFilterN = colonneN.toLowerCase().includes(Nom);
+      const customFilterT = colonneT.toLowerCase().includes(Tout);
       const customFilterP = colonneP.toLowerCase().includes(prenom);
 
       // push boolean values into array
-      matchFilter.push(customFilterN);
+      matchFilter.push(customFilterT);
       matchFilter.push(customFilterP);
 
       // return true if all values in array is true
@@ -158,18 +158,18 @@ export class MyTableComponent implements AfterViewInit,OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   applyFilterbis() {
-    const n = this.searchForm.getRawValue().Nom;
+    const t = this.searchForm.getRawValue().Tout;
     const p = this.searchForm.getRawValue().Prenom;
 
-    this.Nom = n === null ? '' : n;
+    this.Tout = t === null ? '' : t;
     this.prenom = p === null ? '' : p;
 
-    const filterValue = this.Nom + '$' + this.prenom;
+    const filterValue = this.Tout + '$' + this.prenom;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   constructor() {
     this.searchForm = new FormGroup({
-      Nom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
+      Tout: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
       Prenom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
     });
   }
