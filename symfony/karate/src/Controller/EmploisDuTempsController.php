@@ -35,6 +35,14 @@ class EmploisDuTempsController extends AbstractController
         return $this->json($this->emploiDuTempsRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['start','end','event','groupe'=>['nomGroupe'],'instructeur'=>['nom']]]);
 
     }
+     /**
+     * @Route("/emploisDuTemps/{id}", name="emplois_du_temps_instructeur", methods={"GET"})
+     */
+    public function instructeurCrenau($id): Response
+    {
+        return $this->json($this->emploiDuTempsRepository->findBy(['instructeur'=>$this->instructeurRepository->findOneBy(['id' => $id])]), 200, [],[AbstractNormalizer::ATTRIBUTES => ['start','end','event','groupe'=>['nomGroupe'],'instructeur'=>['nom']]]);
+
+    }
     /**
      * @Route("/emploisDuTemps/add/{id}", name="add_emplois_du_temps", methods={"POST"})
      */

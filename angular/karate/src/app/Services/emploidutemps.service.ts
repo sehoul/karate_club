@@ -14,6 +14,10 @@ export class EmploidutempsService {
     return this.http.get(this.url);
   }
 
+  getCrenauInstructeur(id:number){
+    return this.http.get(this.url+"/"+id);
+  }
+
   addCrenau(id:number,data:any){
     return this.http.post(this.url+"/add/"+id,data);
   }
