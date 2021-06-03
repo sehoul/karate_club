@@ -57,10 +57,10 @@ const routes: Routes = [
   {path:'t', component:MyTableComponent},
 
   {path:'i', component:InstructeurComponent,
-    //canActivate: [AuthInstructeurGuard],
+    canActivate: [AuthInstructeurGuard],
     children:[
       {path:'calendrier',component:CalendrierComponent},
-      {path:'tdb',component:TdbI},
+      {path:'',component:TdbI},
       {path:'groupes',component:InstG},
       {path:'membres',component:InstM}
     ]

@@ -1,1 +1,25 @@
-<p>tdb works!</p>
+<div class="conainer-fluid">
+    <div class="pl-5 pt-5 text-white top-title">
+      <h2 class="pl-5 ml-3 pt-5 pb-4 text-left">Tableau de Bord</h2>
+    </div>
+    <div class="container-xxl p-5 my-5 main">
+        <div class="left">
+            <div class="membre"  [routerLink] = "[ 'membres' ]">
+                <h4>Afficher les membres</h4>
+                <p>
+                    Informations personelles, informations des parents des membres ...
+                </p>
+                <span>
+                    <i class="bi bi-arrow-right"></i>
+                </span>
+            </div>
+            <div class="groupe" [routerLink] = "[ 'groupes' ]">
+                <h5>Consulter les groupes de chaque activitée... <i class="bi bi-arrow-right"></i></h5>
+            </div>
+        </div>
+        <div class="right">
+            <div class="horloge"><div class="color"></div> <h5>{{now}} {{todayDate | date : 'yyyy-MMMM-dd' : 'fr'}}</h5></div>
+            
+        </div>
+    </div>
+</div>
