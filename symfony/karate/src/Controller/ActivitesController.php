@@ -45,7 +45,7 @@ class ActivitesController extends AbstractController
         if($user){
 
             if($activite){
-                if((count($all_activite) > 1) || ($activite->getNom()==="karaté")){
+                if((count($all_activite) > 1) && !($activite->getNom()==="karaté")){
 
                     foreach( $activite->getGroupe() as $Groupe){
                         $activite->removeGroupe($Groupe);
