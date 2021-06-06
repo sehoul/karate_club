@@ -46,7 +46,7 @@ class ActivitesController extends AbstractController
         if($user){
 
             if($activite){
-                if((count($all_activite) > 1) && !(u(u($activite->getNomActivite())->lower())->trim()=="karaté")){
+                if((count($all_activite) > 1) && (!(u(u($activite->getNomActivite())->lower())->trim()=="karate") || !(u(u($activite->getNomActivite())->lower())->trim()=="karaté"))){
 
                     foreach( $activite->getGroupe() as $Groupe){
                         foreach($Groupe->getEmploiDuTemps() as $crenau){
