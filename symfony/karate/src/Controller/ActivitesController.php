@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Constraints\Length;
+use function Symfony\Component\String\u;
 
 class ActivitesController extends AbstractController
 {
@@ -45,9 +46,17 @@ class ActivitesController extends AbstractController
         if($user){
 
             if($activite){
-                if((count($all_activite) > 1) && !($activite->getNomActivite()->trim()->lower()=="karaté")){
+                if((count($all_activite) > 1) && !(u(u($activite->getNomActivite())->lower())->trim()=="karaté")){
 
                     foreach( $activite->getGroupe() as $Groupe){
+                        foreach($Groupe->getEmploiDuTemps() as $crenau){
+                            $Groupe->removeEmploiDuTemp($crenau);
+                            $this->getDoctrine()->getManager()->remove($crenau);
+                        }
+                        foreach($Groupe->getMembresGroupe() as $membregroupe){
+                            $Groupe->removeMembresGroupe($membregroupe);
+                            $this->getDoctrine()->getManager()->remove($membregroupe);
+                        }
                         $activite->removeGroupe($Groupe);
                         $this->getDoctrine()->getManager()->remove($Groupe);
                     }
@@ -67,7 +76,7 @@ class ActivitesController extends AbstractController
                     $entityManager->flush();
                     return $this->json(['success'=>true,'message'=>'Activite a été supprimée '], 200, []);
                 }else{
-                    return $this->json(['message' => "Oups!...Vous ne pouvez pas supprimer toutes les activitées!"],404,);
+                    return $this->json(['message' => "Oups!...Vous ne pouvez pas supprimer toutes les activitées et l'activitée karaté!"],404,);
                 }
             }else{
                 return $this->json(['message' => "Oups!...Cette activitée n'existe plus!"],404,);
