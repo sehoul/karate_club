@@ -67,10 +67,21 @@ export class AddFormComponent implements OnInit {
 
   Categories : Array<any>=[];
   Activities : Array<any>=[];
+
   //@ts-ignore
   cotisation:any;
   update_cotisation(value:any,cotisation:any){
     cotisation.value =  this.Activities.find(x => x.id == value).activite.cotisation;
+
+  }
+
+  informationParentalRequired:boolean=true
+  categorieChange(value:any){
+      if(this.Categories.find(x => x.id== value).nomCategorie==="Séniors")
+        this.informationParentalRequired=false;
+      else
+        this.informationParentalRequired=true;
+      
 
   }
 
@@ -111,35 +122,54 @@ export class AddFormComponent implements OnInit {
         this.form.getRawValue().observation != "" &&
         this.form.getRawValue().grade != "" &&
         this.form.getRawValue().groupe != "" &&
-        this.form.getRawValue().cotisation != "" 
+        this.form.getRawValue().cotisation != ""      
       )
       {
-        this.membreService.addMambre(Number(this.cookie.get('idSec')),data).subscribe(
-          (res:any)=>{
-            this._success="Membre a été bien ajouté !";
-            this._error="";
-          },
-          error=>{
+        if(this.informationParentalRequired){
+          if(
+            this.form.getRawValue().nomP != "" &&
+            this.form.getRawValue().prenomP != "" &&
+            this.form.getRawValue().tlphn1P != "" &&
+            this.form.getRawValue().emailP != ""
+          ){
+            this.membreService.addMambre(Number(this.cookie.get('idSec')),data).subscribe(
+              (res:any)=>{
+                this._success="Membre a été bien ajouté !";
+                this._error="";
+              },
+              error=>{
+                this._success="";
+                this._error=error.error.message;
+              }
+            )
+          }else{
             this._success="";
-            this._error=error.error.message;
-          }
-        )
-
+            this._error="Merci de remplir les informations des parents";
+          }          
+        }else{
+          this.membreService.addMambre(Number(this.cookie.get('idSec')),data).subscribe(
+            (res:any)=>{
+              this._success="Membre a été bien ajouté !";
+              this._error="";
+            },
+            error=>{
+              this._success="";
+              this._error=error.error.message;
+            }
+          )
+        }
       }else{
         this._success="";
         this._error="Merci de remplir tous les champs";
       }
-    console.log(this.form.getRawValue());
   }
 
 
   ngOnInit(): void {
     this.service.getCategories().subscribe((response: any) =>{
-      console.log(response);
       this.Categories=response;
      });
      this.activService.getGroupes().subscribe((response: any) =>{
-      console.log(response);
       this.Activities=response;
      });
     };
