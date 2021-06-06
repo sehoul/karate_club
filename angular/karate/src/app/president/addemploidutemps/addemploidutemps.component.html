@@ -9,10 +9,10 @@
         <div *ngIf="_success" class="input-group mb-2 alert-info rounded py-4 px-3">
           {{_success}}
         </div>
-
+        <p>Les champs avec  <b class="text-danger">  *  </b> sont obligatoires. </p>
     <div class="row w-100">
         <div class="form-group col-12">
-            <label for="nomevenement">Nom d'événement</label>
+            <label for="nomevenement">Nom d'événement <b class="text-danger">*</b></label>
             <input type="text" id="nomevenement" class="form-control py-4" formControlName="nomevenement" [ngClass]="form.controls['nomevenement'].invalid && nomevenement.touched ? 'is-invalid' : form.controls['nomevenement'].valid? 'is-valid': '' ">
             <div class="invalid-feedback" *ngIf="nomevenement.touched">
               Ce champs est obligatoire.
@@ -24,14 +24,14 @@
 
       <div class="row w-100">
         <div class="form-group col-6">
-                <label for="dateE">Date debut</label>
+                <label for="dateE">Date debut <b class="text-danger">*</b></label>
                 <input type="datetime-local" min="0" id="dateE" class="form-control py-4" formControlName="dateE" [ngClass]="form.controls['dateE'].invalid && dateE.touched ? 'is-invalid' : form.controls['dateE'].valid? 'is-valid': '' ">
                 <div class="invalid-feedback" *ngIf="dateE.touched">
                   Ce champs est obligatoire.
                 </div>
               </div>
         <div class="form-group col-6">
-                <label for="dateF">Date fin</label>
+                <label for="dateF">Date fin <b class="text-danger">*</b></label>
                 <input type="datetime-local" min="0" id="dateF" class="form-control py-4" formControlName="dateF" [ngClass]="form.controls['dateF'].invalid && dateF.touched ? 'is-invalid' : form.controls['dateF'].valid? 'is-valid': '' ">
                 <div class="invalid-feedback" *ngIf="dateF.touched">
                   Ce champs est obligatoire.
@@ -42,7 +42,7 @@
 
          <div class="row w-100">
              <div class="form-group col-6">
-             <label for="Activite">Activité</label>
+             <label for="Activite">Activité <b class="text-danger">*</b></label>
              <select type="text" id="Activite" class="form-control" formControlName="Activite" [ngClass]="form.controls['Activite'].invalid && Activite.touched ? 'is-invalid' : form.controls['Activite'].valid? 'is-valid': '' " style=" height: 55px;" >
                  <option value="" selected disabled>Choisissez une activité ...</option>
                  <option *ngFor="let activ of Activites" [value]="activ.id">{{activ.activite.nomActivite}}---{{activ.NomGroupe}}</option>
@@ -54,7 +54,7 @@
            
      
            <div class="form-group col-6">
-             <label for="Instructeur">Instructeur</label>
+             <label for="Instructeur">Instructeur <b class="text-danger">*</b></label>
              <select type="text" id="Instructeur" class="form-control" formControlName="Instructeur" [ngClass]="form.controls['Instructeur'].invalid && Instructeur.touched ? 'is-invalid' : form.controls['Instructeur'].valid? 'is-valid': '' " style=" height: 55px;" >
                <option value="" selected disabled>Choisissez un instructeur...</option>
                <option *ngFor="let ins of Instructeurs" [value]="ins.id"> {{ins.NumLicenceFFK}} --- {{ins.Nom}} {{ins.Prenom}}</option>

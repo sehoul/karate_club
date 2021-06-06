@@ -9,8 +9,9 @@
       <div *ngIf="_success" class="input-group mb-2 alert-info rounded py-4 px-3">
         {{_success}}
       </div>
+      <p>Les champs avec  <b class="text-danger">  *  </b> sont obligatoires. </p>
     <div class="form-group">
-      <label for="NomGroupe">Nom groupe</label>
+      <label for="NomGroupe">Nom groupe <b class="text-danger">*</b></label>
       <input type="text" id="NomGroupe" class="form-control py-4" formControlName="NomGroupe" [ngClass]="formAA.controls['NomGroupe'].invalid && NomGroupe.touched ? 'is-invalid' : formAA.controls['NomGroupe'].valid? 'is-valid': '' ">
       <div class="invalid-feedback" *ngIf="NomGroupe.touched">
         Ce champs est obligatoire.
@@ -19,7 +20,7 @@
 
 
     <div class="form-group">
-      <label for="Instructeur">Instructeur</label>
+      <label for="Instructeur">Instructeur <b class="text-danger">*</b></label>
       <select type="text" id="Instructeur" class="form-control" formControlName="Instructeur" [ngClass]="formAA.controls['Instructeur'].invalid && Instructeur.touched ? 'is-invalid' : formAA.controls['Instructeur'].valid? 'is-valid': '' " style=" height: 55px;" >
         <option value="" selected disabled>Choisissez une activité ...</option>
         <option *ngFor="let ins of Instructeurs" [value]="ins.id"> {{ins.NumLicenceFFK}} --- {{ins.Nom}} {{ins.Prenom}}</option>
@@ -31,7 +32,7 @@
 
     
       <div class="form-group">
-        <label for="Activite">Activité</label>
+        <label for="Activite">Activité <b class="text-danger">*</b></label>
         <select type="text" id="Activite" class="form-control" formControlName="Activite" [ngClass]="formAA.controls['Activite'].invalid && Activite.touched ? 'is-invalid' : formAA.controls['Activite'].valid? 'is-valid': '' " style=" height: 55px;" >
           <option value="" selected disabled>Choisissez une activité ...</option>
           <option *ngFor="let activ of Activites" [value]="activ.id">{{activ.nomActivite}}</option>
