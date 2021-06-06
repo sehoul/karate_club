@@ -98,8 +98,8 @@ export class MembresComponent implements OnInit,AfterViewInit {
   };
 
 
-  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation", '$$edit'];
-  notdisplayedColumns: string[] = ["NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents","membreActivites"];
+  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","membreActivites","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation", '$$edit'];
+  notdisplayedColumns: string[] = ["NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents"];
   dataSchema:any = USER_SCHEMA;
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
@@ -180,7 +180,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
   }
   delete(Nom:any,Prenom:any,index:any,id:any){
     if(confirm("Est ce que vous voulez vraiment supprimer le membre \" "+Prenom+" "+Nom+" \"")) {
-      this.service.deleteMembre(Number(id),Number(this.cookie.get('idSec'))).subscribe((res:any)=>{
+      this.service.deleteMembre(Number(id),Number(this.cookie.get('iPres'))).subscribe((res:any)=>{
           if(res.success){
             this.USER_INFO.splice(Number(index), 1);
             this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
