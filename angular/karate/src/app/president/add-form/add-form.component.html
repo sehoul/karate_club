@@ -11,16 +11,16 @@
         {{_success}}
       </div>
       <div class="row w-100 py-3">
-        
+
         <h5>Informations personnelles</h5>
-        
+
       </div>
       <p>Les champs avec  <b class="text-danger">  *  </b> sont obligatoires. </p>
-      
+
       <div class="row w-100">
         <div class="form-group col-12">
           <label for="LicenceFFK">Numero de Licence FFK<b class="text-danger">*</b></label>
-          <input type="text" id="LicenceFFK" class="form-control py-4" formControlName="licenceFFK" [ngClass]="form.controls['licenceFFK'].invalid && licenceFFK.touched ? 'is-invalid' : form.controls['licenceFFK'].valid? 'is-valid': '' ">
+          <input type="text" id="LicenceFFK" pattern="[a-zA-Z0-9]{1,50}" class="form-control py-4" formControlName="licenceFFK"   [ngClass]="form.controls['licenceFFK'].invalid && licenceFFK.touched ? 'is-invalid' : form.controls['licenceFFK'].valid? 'is-valid': '' ">
           <div class="invalid-feedback" *ngIf="licenceFFK.touched">
             Ce champs est obligatoire.
           </div>
@@ -54,8 +54,8 @@
             Ce champs est obligatoire.
           </div>
         </div>
-  
-  
+
+
         <div class="form-group col-6">
           <label for="genre">Genre<b class="text-danger">*</b></label>
           <select type="text" id="genre" class="form-control" formControlName="genre" [ngClass]="form.controls['genre'].invalid && genre.touched ? 'is-invalid' : form.controls['genre'].valid? 'is-valid': '' " style=" height: 50px;">
@@ -78,13 +78,13 @@
                 Ce champs est obligatoire.
               </div>
             </div>
-      
+
             <div class="form-group col-12">
               <label for="tlphn2">Telephone 2</label>
               <input type="text" id="tlphn2" class="form-control py-4" formControlName="tlphn2">
-              
+
             </div>
-      
+
             <div class="form-group col-12">
               <label for="email">Email<b class="text-danger">*</b></label>
               <input type="email" id="email" class="form-control py-4" formControlName="email" [ngClass]="form.controls['email'].invalid && email.touched ? 'is-invalid' : form.controls['email'].valid? 'is-valid': '' ">
@@ -105,7 +105,7 @@
 
         </div>
       </div>
-      
+
       <div class="row w-100">
 
         <div class="form-group col-6">
@@ -138,13 +138,13 @@
           <div class="form-group col-6">
           <label for="nomP">Nom parents</label>
           <input type="text" id="nomP" class="form-control py-4" formControlName="nomP" >
-          
+
         </div>
 
         <div class="form-group col-6">
           <label for="prenomP">Prenom parents</label>
           <input type="text" id="prenomP" class="form-control py-4" formControlName="prenomP" >
-        
+
         </div>
       </div>
 
@@ -152,13 +152,13 @@
         <div class="form-group col-6">
         <label for="tlphn1P"> Telephone 1 du parent</label>
         <input type="tel" id="tlphn1P" class="form-control py-4" formControlName="tlphn1P" >
-    
+
         </div>
 
         <div class="form-group col-6">
           <label for="tlphn2P">Telephone 2 du parent</label>
           <input type="tel" id="tlphn2P" class="form-control py-4" formControlName="tlphn2P">
-          
+
         </div>
       </div>
 
@@ -167,8 +167,8 @@
         <div class="form-group col-6">
           <label for="emailP">Email parents</label>
           <input type="email" id="emailP" class="form-control py-4" formControlName="emailP">
-    
-        </div>      
+
+        </div>
 
        </div>
 
@@ -178,7 +178,7 @@
 
       <div class="row w-100 m-0">
         <div class="row w-50 col-6 p-0">
-          
+
         <div class="form-group col-12">
           <label for="dateI">Date 1ere inscription<b class="text-danger">*</b></label>
           <input type="date" id="dateI" class="form-control py-4" formControlName="dateI" [ngClass]="form.controls['dateI'].invalid && dateI.touched ? 'is-invalid' : form.controls['dateI'].valid? 'is-valid': '' ">
@@ -186,7 +186,7 @@
             Ce champs est obligatoire.
           </div>
         </div>
-        
+
           <div class="form-group col-12">
             <label for="cotisation">cotisation<b class="text-danger">*</b></label>
             <input type="number" id="cotisation" class="form-control py-4" formControlName="cotisation" [ngClass]="form.controls['cotisation'].invalid && cotisation.touched ? 'is-invalid' : form.controls['cotisation'].valid? 'is-valid': '' ">
@@ -216,7 +216,7 @@
           </div>
 
           </div>
-          <div class="row w-50 col-6 ml-0">    
+          <div class="row w-50 col-6 ml-0">
           <div class="form-group col-12">
             <label for="Observation">Observation</label>
             <textarea id="Observation" cols="15" rows="9" class="form-control py-4"  formControlName="observation"></textarea>
@@ -230,3 +230,5 @@
     </form>
   </div>
 </div>
+
+

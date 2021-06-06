@@ -81,7 +81,7 @@ export class AddFormComponent implements OnInit {
         this.informationParentalRequired=false;
       else
         this.informationParentalRequired=true;
-      
+
 
   }
 
@@ -122,8 +122,7 @@ export class AddFormComponent implements OnInit {
         this.form.getRawValue().observation != "" &&
         this.form.getRawValue().grade != "" &&
         this.form.getRawValue().groupe != "" &&
-        this.form.getRawValue().cotisation != ""      
-      )
+        this.form.getRawValue().cotisation != "")
       {
         if(this.informationParentalRequired){
           if(
@@ -145,7 +144,7 @@ export class AddFormComponent implements OnInit {
           }else{
             this._success="";
             this._error="Merci de remplir les informations des parents";
-          }          
+          }
         }else{
           this.membreService.addMambre(Number(this.cookie.get('idSec')),data).subscribe(
             (res:any)=>{
@@ -173,8 +172,8 @@ export class AddFormComponent implements OnInit {
       this.Activities=response;
      });
     };
-    
 
 
-  
+
+
 }

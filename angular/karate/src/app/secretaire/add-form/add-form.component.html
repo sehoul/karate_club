@@ -50,8 +50,8 @@
             Ce champs est obligatoire.
           </div>
         </div>
-  
-  
+
+
         <div class="form-group col-6">
           <label for="genre">Genre</label>
           <select type="text" id="genre" class="form-control" formControlName="genre" [ngClass]="form.controls['genre'].invalid && genre.touched ? 'is-invalid' : form.controls['genre'].valid? 'is-valid': '' " style=" height: 50px;">
@@ -74,13 +74,13 @@
                 Ce champs est obligatoire.
               </div>
             </div>
-      
+
             <div class="form-group col-12">
               <label for="tlphn2">Telephpne2</label>
               <input type="text" id="tlphn2" class="form-control py-4" formControlName="tlphn2">
-              
+
             </div>
-      
+
             <div class="form-group col-12">
               <label for="email">Email</label>
               <input type="email" id="email" class="form-control py-4" formControlName="email" [ngClass]="form.controls['email'].invalid && email.touched ? 'is-invalid' : form.controls['email'].valid? 'is-valid': '' ">
@@ -101,7 +101,7 @@
 
         </div>
       </div>
-      
+
       <div class="row w-100">
 
         <div class="form-group col-6">
@@ -137,6 +137,8 @@
           <div class="invalid-feedback" *ngIf="nomP.touched && informationParentalRequired">
             Ce champs est obligatoire.
           </div>
+
+
         </div>
 
         <div class="form-group col-6">
@@ -145,6 +147,7 @@
           <div class="invalid-feedback" *ngIf="prenomP.touched && informationParentalRequired">
             Ce champs est obligatoire.
           </div>
+
         </div>
       </div>
 
@@ -155,11 +158,13 @@
         <div class="invalid-feedback" *ngIf="tlphn1P.touched && informationParentalRequired">
           Ce champs est obligatoire.
         </div>
+
         </div>
 
         <div class="form-group col-6">
           <label for="tlphn2P">Telephpne2 du parent</label>
           <input type="tel" id="tlphn2P" class="form-control py-4" formControlName="tlphn2P" >
+
         </div>
       </div>
 
@@ -171,7 +176,7 @@
           <div class="invalid-feedback" *ngIf="emailP.touched && informationParentalRequired">
             Ce champs est obligatoire.
           </div>
-        </div>      
+        </div>
 
        </div>
 
@@ -181,7 +186,7 @@
 
       <div class="row w-100 m-0">
         <div class="row w-50 col-6 p-0">
-          
+
         <div class="form-group col-12">
           <label for="dateI">Date 1ere inscription</label>
           <input type="date" id="dateI" class="form-control py-4" formControlName="dateI" [ngClass]="form.controls['dateI'].invalid && dateI.touched ? 'is-invalid' : form.controls['dateI'].valid? 'is-valid': '' ">
@@ -189,7 +194,7 @@
             Ce champs est obligatoire.
           </div>
         </div>
-        
+
           <div class="form-group col-12">
             <label for="cotisation">cotisation</label>
             <input type="number" id="cotisation" class="form-control py-4" formControlName="cotisation" [ngClass]="form.controls['cotisation'].invalid && cotisation.touched ? 'is-invalid' : form.controls['cotisation'].valid? 'is-valid': '' " #coti>
@@ -219,7 +224,7 @@
           </div>
 
           </div>
-          <div class="row w-50 col-6 ml-0">    
+          <div class="row w-50 col-6 ml-0">
           <div class="form-group col-12">
             <label for="Observation">Observation</label>
             <textarea id="Observation" cols="15" rows="9" class="form-control py-4"  formControlName="observation"></textarea>

@@ -110,7 +110,7 @@ export class AddFormComponent implements OnInit {
         this.form.getRawValue().observation != "" &&
         this.form.getRawValue().grade != "" &&
         this.form.getRawValue().groupe != "" &&
-        this.form.getRawValue().cotisation != "" 
+        this.form.getRawValue().cotisation != ""
       )
       {
         this.membreService.addMambre(Number(this.cookie.get('idPres')),data).subscribe(
@@ -142,8 +142,8 @@ export class AddFormComponent implements OnInit {
       this.Activities=response;
      });
     };
-    
 
 
-  
+
+
 }
