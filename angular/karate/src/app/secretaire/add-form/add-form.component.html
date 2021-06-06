@@ -16,7 +16,7 @@
       <div class="row w-100">
         <div class="form-group col-12">
           <label for="LicenceFFK">Numero de Licence FFK</label>
-          <input type="text" id="LicenceFFK" class="form-control py-4" formControlName="licenceFFK" [ngClass]="form.controls['licenceFFK'].invalid && licenceFFK.touched ? 'is-invalid' : form.controls['licenceFFK'].valid? 'is-valid': '' ">
+          <input type="text" id="LicenceFFK" pattern="[a-zA-Z0-9]{1,50}" class="form-control py-4" formControlName="licenceFFK" [ngClass]="form.controls['licenceFFK'].invalid && licenceFFK.touched ? 'is-invalid' : form.controls['licenceFFK'].valid? 'is-valid': '' " #ffk (keypress)="keyPress(ffk,$event)">
           <div class="invalid-feedback" *ngIf="licenceFFK.touched">
             Ce champs est obligatoire.
           </div>

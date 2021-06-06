@@ -81,9 +81,15 @@ export class AddFormComponent implements OnInit {
         this.informationParentalRequired=false;
       else
         this.informationParentalRequired=true;
-
-
   }
+
+  keyPress(element:any,event: KeyboardEvent) {
+    const pattern = /[~`!@#$%\^&*()+=\-\[\]\\';,.¤ç°/{}|\\":<>\?]/;
+    const inputChar = event.key;
+    element.value.replace(pattern, ""); 
+   
+}
+
 
   submit() {
     const data={
