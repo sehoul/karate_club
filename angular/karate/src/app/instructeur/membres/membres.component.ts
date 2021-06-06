@@ -15,7 +15,20 @@ interface Categorie{
   nomCategorie:string,
   Description:string
 };
-
+const USER_SCHEMA = {
+  "id": "number",
+  "NumLicenceFFK": "number",
+  "Nom": "string",
+  "Prenom": "string",
+  "DateNaissance": "date",
+  "Genre": "string",
+  "categorie": "string",
+  "Adresse": "string",
+  "tlphn1": "string",
+  "tlphn2": "string",
+  "Email": "email",
+  "Activites": "string"
+};
 @Component({
   selector: 'app-membres',
   templateUrl: './membres.component.html',
@@ -32,13 +45,16 @@ export class MembresComponent implements OnInit,AfterViewInit {
   expandedElement!: elem | null;
   USER_INFO: elem[] = [];
   dataSource = new MatTableDataSource<elem>(this.USER_INFO);
-  Categories: Array<Categorie> = [];
+  Categories: Array<any> = [];
   searchForm: FormGroup ;
   Nom:string = '' ;
   Prenom:string = '';
-  Tout:string = '';
   FFK:string = '';
+  Tout:string = '';
+   _success:string="";
+  _error:string="";
   constructor(private service: MembresService , private servicec: CategoriesService , private cookie:CookieService){
+    
     this.searchForm = new FormGroup({
       Nom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
       Prenom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
@@ -46,6 +62,11 @@ export class MembresComponent implements OnInit,AfterViewInit {
       Tout: new FormControl('', Validators.pattern('^[a-zA-Z0-9 ]+$'))
     });
   }
+  
+
+   //@ts-ignore
+   @ViewChild(MatSort) sort: MatSort;
+
   ngOnInit(){
     this.service.getMembres().subscribe((response: any) =>{
       this.USER_INFO=response;
@@ -55,16 +76,14 @@ export class MembresComponent implements OnInit,AfterViewInit {
               activitie += activitie_element.Avtivite.nomActivite+",  ";
             });
             element.membreActivites=activitie;
+            element.categorie=element.categorie.nomCategorie;
             activitie="";
           });
       this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
       this.dataSource.paginator = this.paginator;
       this.dataSource.filterPredicate = this.getFilterPredicate();
       this.dataSource.sort = this.sort;
- 
-     
     });
-    
 
     this.servicec.getCategories().subscribe((response: any) =>{
       console.log(response);
@@ -72,12 +91,13 @@ export class MembresComponent implements OnInit,AfterViewInit {
     });
   };
 
- 
-  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation"];
-  notdisplayedColumns: string[] = ["NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents","membreActivites"];
+
+  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","Activitiées","categorie","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation"];
+  notdisplayedColumns: string[] = ["NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents"];
+  dataSchema:any = USER_SCHEMA;
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
-  
+
 
   exportexcel(): void
   {
@@ -98,21 +118,20 @@ export class MembresComponent implements OnInit,AfterViewInit {
 
   //@ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  //@ts-ignore
-  @ViewChild(MatSort) sort: MatSort;
 
-  
-  
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-
+    this.dataSource.sort = this.sort;
   }
 
-  
 
- 
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    const filterValue2 = filterValue + '$' +'';
+    this.dataSource.filter = filterValue2.trim().toLowerCase();
+  }
 
   applyFilterbis() {
     const n = this.searchForm.getRawValue().Nom;
@@ -124,7 +143,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
     this.FFK = f === null ? '' : f;
     this.Tout = t === null ? '' : t;
 
-    const filterValue = this.Nom + '$' + this.Prenom + '$' + this.FFK+ '$' + this.Tout;
+    const filterValue = this.Nom + '$' + this.Prenom + '$' + this.FFK + '$' + this.Tout;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
@@ -152,6 +171,21 @@ export class MembresComponent implements OnInit,AfterViewInit {
       matchFilter.push(customFilterT);
       return matchFilter.every(Boolean);
     };
+  }
+  delete(Nom:any,Prenom:any,index:any,id:any){
+    if(confirm("Est ce que vous voulez vraiment supprimer le membre \" "+Prenom+" "+Nom+" \"")) {
+      this.service.deleteMembre(Number(id),Number(this.cookie.get('idSec'))).subscribe((res:any)=>{
+          if(res.success){
+            this.USER_INFO.splice(Number(index), 1);
+            this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+            this.dataSource.paginator = this.paginator;
+          }
+        },
+        error=>{
+
+        });
+
+    }
   }
 
 }

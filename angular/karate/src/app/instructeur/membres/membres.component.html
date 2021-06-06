@@ -84,9 +84,10 @@
       <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
         <div class="example-element-detail"
              [@detailExpand]="element === expandedElement  ? 'expanded' : 'collapsed'">
-          
+
           <div class="example-element-description" *ngFor = "let col of notdisplayedColumns">
-            {{col}}
+            <span *ngIf="col!=='membreActivites';"> {{col}}</span>
+            <span *ngIf="col==='membreActivites';"> Activitiées </span>
             <span class="example-element-description-attribution"> {{element[col]}} </span>
           </div>
         </div>
