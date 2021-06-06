@@ -116,9 +116,9 @@
         </div>
         <div class="form-group col-6">
           <label for="groupe">Activite</label>
-          <select id="groupe" class="form-control" formControlName="groupe" [ngClass]="form.controls['groupe'].invalid && groupe.touched ? 'is-invalid' : form.controls['groupe'].valid? 'is-valid': '' " style=" height: 50px;">
+          <select id="groupe" class="form-control" formControlName="groupe" [ngClass]="form.controls['groupe'].invalid && groupe.touched ? 'is-invalid' : form.controls['groupe'].valid? 'is-valid': '' " style=" height: 50px;" #activitie  (change)="update_cotisation(activitie.value,coti)"  >
             <option value="" selected disabled>Sélectionnez une activite ...</option>
-            <option *ngFor="let activ of Activities" [value]="activ.id">{{activ.activite.nomActivite}} &#09;----&#09;{{activ.NomGroupe}}</option>
+            <option *ngFor="let activ of Activities"[value]="activ.id">{{activ.activite.nomActivite}} &#09;----&#09;{{activ.NomGroupe}}</option>
           </select>
           <div class="invalid-feedback" *ngIf="groupe.touched">
             Ce champs est obligatoire.
@@ -185,7 +185,7 @@
         
           <div class="form-group col-12">
             <label for="cotisation">cotisation</label>
-            <input type="number" id="cotisation" class="form-control py-4" formControlName="cotisation" [ngClass]="form.controls['cotisation'].invalid && cotisation.touched ? 'is-invalid' : form.controls['cotisation'].valid? 'is-valid': '' ">
+            <input type="number" id="cotisation" class="form-control py-4" formControlName="cotisation" [ngClass]="form.controls['cotisation'].invalid && cotisation.touched ? 'is-invalid' : form.controls['cotisation'].valid? 'is-valid': '' " #coti>
             <div class="invalid-feedback" *ngIf="cotisation.touched">
               Ce champs est obligatoire.
             </div>

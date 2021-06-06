@@ -30,7 +30,7 @@ class GroupesController extends AbstractController
      */
     public function getGroupes(): Response
     {
-        return $this->json($this->groupeRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','NomGroupe','activite'=>['nomActivite']]]);
+        return $this->json($this->groupeRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','NomGroupe','activite'=>['nomActivite','cotisation']]]);
     }
      /**
      * @Route("/groupes/delete/{id}", name="delete_groupe", methods={"POST"})

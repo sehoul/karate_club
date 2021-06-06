@@ -67,7 +67,12 @@ export class AddFormComponent implements OnInit {
 
   Categories : Array<any>=[];
   Activities : Array<any>=[];
+  //@ts-ignore
+  cotisation:any;
+  update_cotisation(value:any,cotisation:any){
+    cotisation.value =  this.Activities.find(x => x.id == value).activite.cotisation;
 
+  }
 
   submit() {
     const data={
