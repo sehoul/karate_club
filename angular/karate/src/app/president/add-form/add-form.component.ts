@@ -93,7 +93,9 @@ export class AddFormComponent implements OnInit {
     element.value.replace(pattern, ""); 
    
 }
-
+isValid(str:string) {
+  return !/[~`!@#$%\^&*()+=\-\[\]\\';,.^ç¤/{}|\\":<>\?]/g.test(str);
+}
 
   submit() {
     const data={
@@ -120,7 +122,7 @@ export class AddFormComponent implements OnInit {
     }
 
     if( this.form.getRawValue().adresse != "" &&
-        this.form.getRawValue().licenceFFK != "" &&
+    this.isValid(this.form.getRawValue().licenceFFK) &&
         this.form.getRawValue().categorie != "" &&
         this.form.getRawValue().dateN != "" &&
         this.form.getRawValue().email != "" &&
