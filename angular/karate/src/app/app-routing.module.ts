@@ -48,6 +48,7 @@ import {  GroupesmembresComponent as grpmembreS } from './secretaire/groupesmemb
 import {AddmembreactivitesComponent} from "./secretaire/addmembreactivites/addmembreactivites.component";
 import { GroupesmembresComponent } from './president/groupesmembres/groupesmembres.component';
 import { ExcelComponent } from './excel/excel.component';
+import { ProfilComponent } from './instructeur/profil/profil.component';
 
 
 const routes: Routes = [
@@ -64,7 +65,8 @@ const routes: Routes = [
       {path:'calendrier',component:CalendrierComponent},
       {path:'',component:TdbI},
       {path:'groupes',component:InstG},
-      {path:'membres',component:InstM}
+      {path:'membres',component:InstM},
+      {path:'profil',component:ProfilComponent},
     ]
   },
 

@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { MatSortModule } from '@angular/material/sort';
 import { RouterModule } from '@angular/router';
+import { ProfilComponent } from './profil/profil.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -29,7 +30,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CalendrierComponent,
     TdbComponent,
     MembresComponent,
-    GroupesComponent
+    GroupesComponent,
+    ProfilComponent
   
     
    

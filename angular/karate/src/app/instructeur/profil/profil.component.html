@@ -1,0 +1,71 @@
+<div class="conainer-fluid mb-5">
+    <div class="w-100 pl-5 text-white top-title">
+      <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Mon profil</h2>
+    </div>
+
+      <form  [formGroup]="formAA" (submit)="submit()" class="container mt-5 p-5 mb-5">
+        <div *ngIf="_error" class="input-group  mb-2 alert-danger rounded py-4 px-3">
+          {{_error}}
+        </div>
+        <div *ngIf="_success" class="input-group mb-2 alert-info rounded py-4 px-3">
+          {{_success}}
+        </div>
+        <p>Les champs avec  <b class="text-danger">  *  </b> sont obligatoires. </p> 
+
+        <div class="form-group">
+            <label for="LicenceIns">Licene FFK <b class="text-danger">*</b></label>
+            <input type="text" id="LicenceIns" class="form-control py-4" formControlName="LicenceIns" [ngClass]="formAA.controls['LicenceIns'].invalid && LicenceIns.touched ? 'is-invalid' : formAA.controls['LicenceIns'].valid? 'is-valid': '' ">
+            <div class="invalid-feedback" *ngIf="LicenceIns.touched">
+              Ce champs est obligatoire.
+            </div>
+          </div> 
+        
+        <div class="form-group">
+            <label for="NomIns">Nom <b class="text-danger">*</b></label>
+            <input type="text" id="NomAdm" class="form-control py-4" formControlName="NomIns" [ngClass]="formAA.controls['NomIns'].invalid && NomIns.touched ? 'is-invalid' : formAA.controls['NomIns'].valid? 'is-valid': '' ">
+            <div class="invalid-feedback" *ngIf="NomIns.touched">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+        <div class="invalid-feedback" *ngIf="NomIns.touched">
+          Ce champs est obligatoire.
+        </div>
+      
+      <div class="form-group">
+        <label for="PrenomIns">Prenom <b class="text-danger">*</b></label>
+        <input type="text" id="PrenomIns" class="form-control py-4" formControlName="PrenomIns" [ngClass]="formAA.controls['PrenomIns'].invalid && PrenomIns.touched ? 'is-invalid' : formAA.controls['PrenomIns'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="PrenomIns.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+      <div class="form-MailAdm">
+        <label for="MailIns">Adresse mail <b class="text-danger">*</b></label>
+        <input type="text" id="MailIns" class="form-control py-4" formControlName="MailIns" [ngClass]="formAA.controls['MailIns'].invalid && MailIns.touched ? 'is-invalid' : formAA.controls['MailIns'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="MailIns.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="TlphnIns"> Telephone</label>
+        <input id="TlphnIns" class="form-control py-4" formControlName="TlphnIns" [ngClass]="formAA.controls['TlphnIns'].invalid && TlphnIns.touched ? 'is-invalid' : formAA.controls['TlphnIns'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="TlphnIns.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
+
+
+        
+      
+
+
+
+
+  
+  
+      
+  
+        <button type="submit" class="btn btn-primary px-3 py-2 mr-3 mt-2" style="float: right;" >Valider</button>
+  
+  
+  
+  
