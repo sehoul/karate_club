@@ -55,16 +55,15 @@ export class EmploidutempsComponent implements OnInit {
         eventClick: function(info) {
           var eventObj = info.event;
           if((new DatePipe('fr-FR')).transform(eventObj.end,'M/d/yy hh:mm'))
-            alert(eventObj.title +" de "+ (new DatePipe('fr-FR')).transform(eventObj.start,'M/d/yy hh:mm')  + " à " + (new DatePipe('fr-FR')).transform(eventObj.end,'M/d/yy hh:mm') );
+            alert(eventObj.title +" de "+ (new DatePipe('fr-FR')).transform(eventObj.start,'M/d/yy hh:mm')  + " à " + (new DatePipe('fr-FR')).transform(eventObj.end,'M/d/yy hh:mm'));
           else
-          alert(eventObj.title +" de "+ (new DatePipe('fr-FR')).transform(eventObj.start,'M/d/yy hh:mm')  + " à " + (new DatePipe('fr-FR')).transform(eventObj.start,'M/d/yy hh:mm') );
-    
+            alert(eventObj.title +" de "+ (new DatePipe('fr-FR')).transform(eventObj.start,'M/d/yy hh:mm')  + " à " + (new DatePipe('fr-FR')).transform(eventObj.start,'M/d/yy hh:mm'));   
         }
       };
      },error=>{
- 
+
+      
+
      });
   }
-
-
 }
