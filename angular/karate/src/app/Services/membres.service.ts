@@ -21,4 +21,7 @@ export class MembresService {
   deleteMembre(id:number,idUser:number){
     return this.http.get(this.url+"/delete/"+id+"/"+idUser);
   }
+  updateMembre(idUser:number,data:any){
+    return this.http.get(this.url+"/update/"+idUser,data);
+  }
 }

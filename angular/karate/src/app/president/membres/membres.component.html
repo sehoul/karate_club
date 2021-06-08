@@ -55,18 +55,32 @@
       <h6>Operations :</h6>
       <button class="btn btn-info ml-3" (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
     </div>
-    <div *ngIf="_error" class="input-group  mb-2 alert-danger rounded py-4 px-3">
-      {{_error}}
+    <div *ngIf="_error" class="alertBack">
+      <div class="input-group  mb-2 alert-danger rounded py-4 px-3">
+        <div class="col-11">
+          {{_error}}
+        </div>
+        <div class="col-1 h3 m-0 ng-tns-c164-0 p-0 text-center btn" (click)="errorAlert()">
+          <i class="bi bi-x h3"></i>
+        </div>
+      </div>
     </div>
-    <div *ngIf="_success" class="input-group mb-2 alert-info rounded py-4 px-3">
-      {{_success}}
+      <div *ngIf="_success" class="alertBack">  
+      <div  class="row mb-2 alert-info rounded py-4 px-3">
+        <div class="col-11">
+          {{_success}}
+        </div>
+        <div class="col-1 h3 m-0 ng-tns-c164-0 p-0 text-center btn" (click)="successAlert()">
+          <i class="bi bi-x h3"></i>
+        </div>
+      </div>
     </div>
 
   <table id="excel-table" mat-table [dataSource]="dataSource" multiTemplateDataRows matSort class="mat-elevation-z8">
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">
         <span class="text-center" *ngIf="col !== '$$edit'">
-          {{col !=='membreActivites'? col : 'Activitées' }}
+          {{col !=='GroupesMembre'? col : 'Activitées' }}
 
         </span>
         
@@ -76,7 +90,7 @@
 
         <div *ngIf="!element.isEdit" [style.width]="col==='Adresse' || col ==='Observation'?'200px':'auto'">
           <div class="btn-edit" *ngIf="col === '$$edit'; spanHeader" >
-            <button class="btn btn-link text-info" title="Modifier" (click)="element.isEdit = !element.isEdit"><i class="bi bi-pencil-square"></i></button>
+            <button class="btn btn-link text-info" title="Modifier" (click)="element.isEdit = !element.isEdit;"><i class="bi bi-pencil-square"></i></button>
             <button class="btn btn-link text-danger ml-2" title="Supprimer" (click)="delete(element['Nom'],element['Prenom'],i,element['id'])"><i class="bi bi-trash-fill"></i></button>
           </div>
 
@@ -100,18 +114,32 @@
             </mat-form-field>
           </ng-template>
           <ng-template #defaultField>
-            <mat-form-field *ngIf="col!=='id' && col !== 'Genre' && col !== 'categorie' else SelectField">
+            <mat-form-field *ngIf="col!=='id' && col !== 'Genre' && col !== 'categorie' && col!=='GroupesMembre' else SelectField">
               <mat-label>{{col}}</mat-label>
               <input  type="{{dataSchema[col]}}" matInput [(ngModel)]="element[col]">
             </mat-form-field>
           </ng-template>
           <ng-template #SelectField>
-            <mat-form-field *ngIf="col === 'Genre' else SelectCategories">
+            <mat-form-field *ngIf="col === 'Genre' else SelectFieldActivitie">
               <mat-label>Genre</mat-label>
-              <mat-select [(value)]="element[col]" [(ngModel)]="element[col]">
+              <mat-select [(value)]="element[col]" [(ngModel)]="element[col]" >
                 <mat-option  value="Homme" >Homme</mat-option>
                 <mat-option  value="Femme" >Femme</mat-option>
                 <mat-option  value="Non precis" >Non precis</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-template>
+
+
+          <ng-template #SelectFieldActivitie>
+            <mat-form-field appearance="fill" *ngIf="col === 'GroupesMembre' else SelectCategories">
+              <mat-label>Activitee</mat-label>
+              <mat-select [(ngModel)]="element[col]" multiple>
+                <mat-optgroup *ngFor="let activitie of Activities" [label]="activitie.nomActivite">
+                  <mat-option *ngFor="let groupe of activitie.Groupe" [value]="groupe.NomGroupe">
+                    {{groupe.NomGroupe}}
+                  </mat-option>
+                </mat-optgroup>
               </mat-select>
             </mat-form-field>
           </ng-template>
@@ -154,7 +182,7 @@
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[20, 100, 1000]" showFirstLastButtons></mat-paginator>
+  <mat-paginator style="display: block;  position: fixed;  right: 0;  background: #fff;  width: 100%;" [pageSizeOptions]="[20, 100, 1000]" showFirstLastButtons></mat-paginator>
 
 
 

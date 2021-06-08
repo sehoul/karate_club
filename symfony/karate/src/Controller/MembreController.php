@@ -36,7 +36,7 @@ class MembreController extends AbstractController
      */
     public function index(): Response
     { 
-        return $this->json($this->membreRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','NumLicenceFFK','Nom','Prenom','DateNaissance','Genre','Adresse','Telephone1','Telephone2','Email','NomParents','PrenomParents','TelephoneParents1','TelephoneParents2','EmailParents','Cotisation','DateInscription','Grade','Observation','categorie'=>['nomCategorie'],'membreActivites'=>['Avtivite'=>['nomActivite']]]]);
+        return $this->json($this->membreRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','NumLicenceFFK','Nom','Prenom','DateNaissance','Genre','Adresse','Telephone1','Telephone2','Email','NomParents','PrenomParents','TelephoneParents1','TelephoneParents2','EmailParents','Cotisation','DateInscription','Grade','Observation','categorie'=>['nomCategorie'],'GroupesMembre'=>['Groupe'=>['nomGroupe']]]]);
     }
     /**
      * @Route("/membres/add/{id}", name="add_membre" , methods={"POST"})
@@ -108,6 +108,42 @@ class MembreController extends AbstractController
             }else{
                 return $this->json(['message' => "Oups!...Ce groupe n'existe plus'!"],404,);
             }
+        }else{
+            return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
+        }    
+    }
+     /**
+     * @Route("/membres/delete/{id}/{idUser}", name="delete_membre" , methods={"GET"})
+     */
+    public function deleteMembre($id,$idUser,Request $request): Response
+    { 
+        $user=$this->userRepository->findOneBy(['id' => $idUser]);
+        $membre=$this->membreRepository->findOneBy(["id"=>$id]);
+        if ($user){
+                    if($membre){
+
+                        foreach ($membre->getMembreActivites() as $membreactivite) {
+                            $this->getDoctrine()->getManager()->remove($membreactivite);
+                        }
+                        foreach ($membre->getGroupesMembre() as $membregroupe) {
+                            $this->getDoctrine()->getManager()->remove($membregroupe);
+                        }
+                        if($membre->getInformationMedicale()){
+
+                            $this->getDoctrine()->getManager()->remove($membre->getInformationMedicale());
+                        }
+                        $action=new Actions();
+                        $action->setUser($user)
+                        ->setType("Suppression")
+                        ->setDescription("Vous avez supprimé le membre \" ". ($membre->getNom()) . " " . ($membre->getPrenom()) ." \"");
+                        $this->getDoctrine()->getManager()->persist($action);
+                        $user->addAction($action);
+                        $this->getDoctrine()->getManager()->remove($membre);
+                        $this->getDoctrine()->getManager()->flush();
+                        return $this->json(['success'=>true,'message'=>'Membre a été bien supprimé'], 200, []);
+                    }else{
+                    return $this->json(['message' => "Oups!...membre n'existe plus'!"],404,);
+                }
         }else{
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
         }    
