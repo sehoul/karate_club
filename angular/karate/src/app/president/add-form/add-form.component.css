@@ -16,4 +16,13 @@
     select {
       font-family: 'FontAwesome', 'Second Font name'
     }
-    
+    .alertBack {
+      background: #ffffff2e;
+      position: fixed;
+      right: 0;
+      z-index: 3;
+      width: calc(100% - 15rem);
+      height: 100%;
+      align-items: center;
+      padding: 200px;
+    }

@@ -45,10 +45,18 @@ export class AddActiviteComponent implements OnInit {
     }else{
       this._success="";
       this._error="Merci de remplir tous les champs";
+      
     }
+    
+
+    
   }
+  
+
 
 
   ngOnInit(): void {
   }
+
+
 }

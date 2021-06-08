@@ -4,14 +4,28 @@
   </div>
   <div class="container mw-100 p-5">
     <form  [formGroup]="form" (submit)="submit()">
-      <div *ngIf="_error" class="input-group  mb-2 alert-danger rounded py-4 px-3">
-        {{_error}}
+        <div *ngIf="_error" class="alertBack">
+        <div class="input-group  mb-2 alert-danger rounded py-4 px-3">
+          <div class="col-11">
+            {{_error}}
+          </div>
+          <div class="col-1 h3 m-0 ng-tns-c164-0 p-0 text-center btn" (click)="errorAlert()">
+            <i class="bi bi-x h3"></i>
+          </div>
+        </div>
       </div>
-      <div *ngIf="_success" class="input-group mb-2 alert-info rounded py-4 px-3">
-        {{_success}}
-      </div>
+        <div *ngIf="_success" class="alertBack">  
+        <div  class="row mb-2 alert-info rounded py-4 px-3">
+          <div class="col-11">
+            {{_success}}
+          </div>
+          <div class="col-1 h3 m-0 ng-tns-c164-0 p-0 text-center btn" (click)="successAlert()">
+            <i class="bi bi-x h3"></i>
+          </div>
+        </div>
       <div class="row w-100 py-3">
         <h5>Informations personnelles</h5>
+      </div>
       </div>
       <p>Les champs avec  <b class="text-danger">  *  </b> sont obligatoires. </p>
       <div class="row w-100">

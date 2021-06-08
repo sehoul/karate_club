@@ -187,5 +187,11 @@ isValid(str:string) {
 
 
 
+    errorAlert(){
+      this._error="";
+    }
+    successAlert(){
+      this._success="";
+    }
 
 }

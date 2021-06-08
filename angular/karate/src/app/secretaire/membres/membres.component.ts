@@ -9,29 +9,34 @@ import { CategoriesService } from 'src/app/Services/Categorie.service';
 import { MembresService } from 'src/app/Services/membres.service';
 import * as XLSX from 'xlsx';
 import {MatSort} from '@angular/material/sort';
+import { ActivitesService } from 'src/app/Services/activites.service';
 
 
 
 
 
+interface Categorie{
+  id:number,
+  nomCategorie:string,
+  Description:string
+};
 
 const USER_SCHEMA = {
   "id": "number",
-  "licenceFFK": "number",
+  "Cotisation": "number",
   "Nom": "string",
   "Prenom": "string",
-  "dateNaissance": "date",
-  "genre": "string",
+  "DateNaissance": "date",
+  "Genre": "string",
   "categorie": "string",
-  "adresse": "string",
+  "Adresse": "string",
   "tlphn1": "string",
   "tlphn2": "string",
-  "email": "string",
-  "activites": "string",
-  "nbInscritsFamille": "number"
-
-
+  "Email": "email",
+  "Activites": "string",
+  "DateInscription":"date",
 };
+
 
 @Component({
   selector: 'app-membres',
@@ -51,6 +56,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
   USER_INFO: elem[] = [];
   dataSource = new MatTableDataSource<elem>(this.USER_INFO);
   Categories: Array<any> = [];
+  Activities: Array<any> = [];
   searchForm: FormGroup ;
   Nom:string = '' ;
   Prenom:string = '';
@@ -58,7 +64,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
   Tout:string = '';
    _success:string="";
   _error:string="";
-  constructor(private service: MembresService , private servicec: CategoriesService , private cookie:CookieService){
+  constructor(private service: MembresService , private servicec: CategoriesService , private cookie:CookieService, private activite:ActivitesService){
     
     this.searchForm = new FormGroup({
       Nom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
@@ -68,7 +74,6 @@ export class MembresComponent implements OnInit, AfterViewInit {
     });
   }
   
-
    //@ts-ignore
    @ViewChild(MatSort) sort: MatSort;
 
@@ -76,11 +81,12 @@ export class MembresComponent implements OnInit, AfterViewInit {
     this.service.getMembres().subscribe((response: any) =>{
       this.USER_INFO=response;
       let activitie:string="";
+      let selected:Array<string>=[]
           this.USER_INFO.forEach((element:any) => {
-            element.membreActivites.forEach((activitie_element:any) => {
-              activitie += activitie_element.Avtivite.nomActivite+",  ";
+            element.GroupesMembre.forEach((groupe:any) => {
+              activitie += groupe.Groupe.nomGroupe+",";
             });
-            element.membreActivites=activitie;
+            element.GroupesMembre=activitie.slice(0, activitie.length-1);;
             element.categorie=element.categorie.nomCategorie;
             activitie="";
           });
@@ -89,15 +95,17 @@ export class MembresComponent implements OnInit, AfterViewInit {
       this.dataSource.filterPredicate = this.getFilterPredicate();
       this.dataSource.sort = this.sort;
     });
+    
+    this.activite.getActivites().subscribe((response:any)=>{
+      this.Activities=response;
+    })
 
     this.servicec.getCategories().subscribe((response: any) =>{
-      console.log(response);
       this.Categories=response;
     });
   };
 
-
-  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","membreActivites","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation", '$$edit'];
+  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","GroupesMembre","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation", '$$edit'];
   notdisplayedColumns: string[] = ["NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents"];
   dataSchema:any = USER_SCHEMA;
   title = 'angular-app';
@@ -115,9 +123,57 @@ export class MembresComponent implements OnInit, AfterViewInit {
     XLSX.writeFile(wb, this.fileName);
 
   }
-
+  isValid(str:string) {
+    return !/[~`!@#$%\^&*()+=\-\[\]\\';,.^ç¤/{}|\\":<>\?]/g.test(str);
+  }
   edit(element:any){
-    console.log(element);
+    const data={
+      Adresse:element.Adresse,
+      Cotisation:element.Cotisation,
+      DateInscription:element.DateInscription,
+      DateNaissance:element.DateNaissance,
+      Email:element.Email,
+      Genre:element.Genre,
+      Grade:element.Grade,
+      GroupesMembre:element.GroupesMembre,
+      Nom:element.Nom,
+      NumLicenceFFK:element.NumLicenceFFK,
+      Observation:element.Observation,
+      Prenom:element.Prenom,
+      Telephone1:element.Telephone1,
+      Telephone2:element.Telephone2,
+      categorie:element.categorie,
+    }
+
+    if(
+      data.Adresse !="" &&
+      data.Cotisation &&
+      data.DateInscription !="" &&
+      data.DateNaissance !="" &&
+      data.Email !="" &&
+      data.Genre !="" &&
+      data.Grade !="" &&
+      data.GroupesMembre.length &&
+      data.Nom !="" &&
+      this.isValid(data.NumLicenceFFK) &&
+      data.Observation !="" &&
+      data.Prenom !="" &&
+      data.Telephone1 !="" &&
+      data.categorie !=""
+    ){
+
+      this.service.updateMembre(Number(this.cookie.get('idSec')),data).subscribe((res:any)=>{
+        this._error="";
+      },
+      error=>{
+
+      }
+      )
+      
+
+    }else{
+      this._error="Merci de remplire correctement tout les champs";
+    }
 
   }
 
@@ -164,7 +220,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
       const colonneN = row.Nom;
       const colonneP = row.Prenom;
       const colonneFFk = row.NumLicenceFFK;
-      const colonneT = row.Nom + row.Prenom + row.NumLicenceFFK + row.categorie + row.Genre + row.membreActivites + row.Adresse + row.DateNaissance + row.Email + row.Telephone1 + row.Cotisation + row.DateInscription + row.Grade + row.Observation;
+      const colonneT = row.Nom + row.Prenom + row.NumLicenceFFK + row.categorie + row.Genre + row.GroupesMembre + row.Adresse + row.DateNaissance + row.Email + row.Telephone1 + row.Cotisation + row.DateInscription + row.Grade + row.Observation;
       const customFilterN = colonneN.toLowerCase().includes(Nom);
       const customFilterP = colonneP.toLowerCase().includes(prenom);
       const customFilterF = colonneFFk.toLowerCase().includes(ffk);
@@ -179,11 +235,24 @@ export class MembresComponent implements OnInit, AfterViewInit {
   }
   delete(Nom:any,Prenom:any,index:any,id:any){
     if(confirm("Est ce que vous voulez vraiment supprimer le membre \" "+Prenom+" "+Nom+" \"")) {
-      this.service.deleteMembre(Number(id),Number(this.cookie.get('idSec'))).subscribe((res:any)=>{
+      this.service.deleteMembre(Number(id),Number(this.cookie.get('idPres'))).subscribe((res:any)=>{
           if(res.success){
-            this.USER_INFO.splice(Number(index), 1);
-            this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
-            this.dataSource.paginator = this.paginator;
+            this.service.getMembres().subscribe((response: any) =>{
+              this.USER_INFO=response;
+              let activitie:string="";
+                  this.USER_INFO.forEach((element:any) => {
+                    element.GroupesMembre.forEach((groupe:any) => {
+                      activitie += groupe.Groupe.nomGroupe+",";
+                    });
+                    element.GroupesMembre=activitie.slice(0, activitie.length-1);;
+                    element.categorie=element.categorie.nomCategorie;
+                    activitie="";
+                  });
+              this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.filterPredicate = this.getFilterPredicate();
+              this.dataSource.sort = this.sort;
+            });
           }
         },
         error=>{
@@ -191,6 +260,13 @@ export class MembresComponent implements OnInit, AfterViewInit {
         });
 
     }
+  }
+
+  errorAlert(){
+    this._error="";
+  }
+  successAlert(){
+    this._success="";
   }
 
 }
@@ -218,5 +294,5 @@ export interface elem {
   DateInscription: string;
   Grade: string;
   Observation: string;
-  membreActivites: any;
+  GroupesMembre: any;
 }
