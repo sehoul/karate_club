@@ -4,7 +4,7 @@
   </div>
   <div class="container mw-100 p-5">
     <form  [formGroup]="form" (submit)="submit()">
-        <div *ngIf="_error" class="alertBack">
+      <div *ngIf="_error" class="alertBack">
         <div class="input-group  mb-2 alert-danger rounded py-4 px-3">
           <div class="col-11">
             {{_error}}
@@ -23,10 +23,10 @@
             <i class="bi bi-x h3"></i>
           </div>
         </div>
-      <div class="row w-100 py-3">
-        <h5>Informations personnelles</h5>
-      </div>
-      </div>
+        </div>
+        <div class="row w-100 py-3">
+          <h5>Informations personnelles</h5>
+        </div>
       <p>Les champs avec  <b class="text-danger">  *  </b> sont obligatoires. </p>
       <div class="row w-100">
         <div class="form-group col-12">
