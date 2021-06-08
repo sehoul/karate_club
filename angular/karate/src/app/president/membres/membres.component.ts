@@ -19,6 +19,12 @@ interface Categorie{
   nomCategorie:string,
   Description:string
 };
+interface groupe{
+  NomGroupe:string;
+}
+interface membregroup{
+  Groupe:groupe
+};
 
 
 const USER_SCHEMA = {
@@ -125,22 +131,31 @@ export class MembresComponent implements OnInit,AfterViewInit {
     return !/[~`!@#$%\^&*()+=\-\[\]\\';,.^ç¤/{}|\\":<>\?]/g.test(str);
   }
   edit(element:any){
+
+    const listGroupe:Array<membregroup>=[]
+
+    element.GroupesMembre.forEach((element:string) => {
+      listGroupe.push({Groupe:{NomGroupe:element}})
+    });
+
     const data={
+      id:element.id,
       Adresse:element.Adresse,
-      Cotisation:element.Cotisation,
+      Cotisation:Number(element.Cotisation),
       DateInscription:element.DateInscription,
       DateNaissance:element.DateNaissance,
       Email:element.Email,
       Genre:element.Genre,
       Grade:element.Grade,
-      GroupesMembre:element.GroupesMembre,
+      GroupesMembre:listGroupe,
       Nom:element.Nom,
       NumLicenceFFK:element.NumLicenceFFK,
       Observation:element.Observation,
       Prenom:element.Prenom,
       Telephone1:element.Telephone1,
       Telephone2:element.Telephone2,
-      categorie:element.categorie,
+      categorie: { nomCategorie: element.categorie },
+     
     }
 
     if(
@@ -157,7 +172,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
       data.Observation !="" &&
       data.Prenom !="" &&
       data.Telephone1 !="" &&
-      data.categorie !=""
+      data.categorie.nomCategorie !=""
     ){
 
       this.service.updateMembre(Number(this.cookie.get('idPres')),data).subscribe((res:any)=>{

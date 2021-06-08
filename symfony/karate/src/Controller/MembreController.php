@@ -148,4 +148,88 @@ class MembreController extends AbstractController
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
         }    
     }
+     /**
+     * @Route("/membres/update/{id}", name="update_membre" , methods={"POST"})
+     */
+    public function updateMembre($id,Request $request): Response
+    { 
+        $user=$this->userRepository->findOneBy(['id' => $id]);
+        $data=$request->getContent();
+        $data=$this->serializer->deserialize($data,Membre::class,'json');
+        $categorie=$this->categorieRepository->findOneBy(["nomCategorie"=>$data->getCategorie()->getNomCategorie()]);
+        $membre_existe=$this->membreRepository->findOneBy(["id"=>$data->getId()]);
+        if ($user){
+            if($data){
+                if($categorie){
+
+                    if($membre_existe){ 
+                        $membre_existe->setAdresse($data->getAdresse())
+                        ->setNumLicenceFFK($data->getNumLicenceFFK())
+                        ->setCategorie($categorie)
+                        ->setCotisation($data->getCotisation())
+                        ->setDateNaissance($data->getDateNaissance())
+                        ->setEmail($data->getEmail())
+                        ->setGenre($data->getGenre())
+                        ->setGrade($data->getGrade())
+                        ->setMalade(false)
+                        ->setPrenom($data->getPrenom())
+                        ->setNom($data->getNom())
+                        ->setTelephone1($data->getTelephone1())
+                        ->setTelephone2($data->getTelephone2())
+                        ->setDateInscription($data->getDateInscription())
+                        ->setEmailParents($data->getEmailParents())
+                        ->setNomParents($data->getNomParents())
+                        ->setPrenomParents($data->getPrenomParents())
+                        ->setTelephoneParents1($data->getTelephoneParents1())
+                        ->setTelephoneParents2($data->getTelephoneParents2())
+                        ->setObservation($data->getObservation());                        
+                        foreach ($membre_existe->getMembreActivites() as $membreactivite) {
+                            $this->getDoctrine()->getManager()->remove($membreactivite);
+                        }
+                        foreach ($membre_existe->getGroupesMembre() as $membregroupe) {
+                            $this->getDoctrine()->getManager()->remove($membregroupe);
+                        }
+                        
+                        foreach($data->getGroupesMembre() as $groupe){
+                            $membreActivite= new MembreActivite();
+                            $membreGroupe= new GroupeMembre();
+                            if ($groupe){
+                                $groupe_existe=$this->groupeRepository->findOneBy(["NomGroupe"=>$groupe->getGroupe()->getNomGroupe()]);
+                                if($groupe_existe){
+                                    $membreActivite->setAvtivite($groupe_existe->getActivite())
+                                    ->setCotisation($data->getCotisation())
+                                    ->setMembre($membre_existe)
+                                    ->setDatePremiereInscription($data->getDateInscription());
+                                    $this->getDoctrine()->getManager()->persist($membreActivite);
+            
+                                    $membreGroupe->setGroupe($groupe_existe)
+                                    ->setMembre($membre_existe);
+                                    $this->getDoctrine()->getManager()->persist($membreGroupe);
+                                }
+                                else{
+                                    return $this->json(['message' => "Oups!...Ce groupe que vous voullez attribuer a ce membre n'est plus disponible'!"],404,);
+                                }
+                            }
+                        }
+                        $action=new Actions();
+                        $action->setUser($user)
+                        ->setType("Modification")
+                        ->setDescription("Vous avez modifié le membre \" ". ($membre_existe->getNom()) . " " . ($membre_existe->getPrenom()) ." \"");
+                        $this->getDoctrine()->getManager()->persist($action);
+                        $user->addAction($action);
+                        $this->getDoctrine()->getManager()->flush();
+                        return $this->json(['success'=>true,'message'=>'Membre a été bien ajouté'], 200, []);
+                    }else{
+                        return $this->json(['message' => "Oups!...ce membre n'est existe pas!"],400,);
+                    }
+                }else{
+                    return $this->json(['message' => "Oups!...categorie n'existe pas!"],400,);
+                }
+            }else{
+                return $this->json(['message' => "Oups!...erreur est survenus'!"],404,);
+            }
+        }else{
+            return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
+        }    
+    }
 }

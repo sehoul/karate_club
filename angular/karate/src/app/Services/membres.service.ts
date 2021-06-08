@@ -22,6 +22,6 @@ export class MembresService {
     return this.http.get(this.url+"/delete/"+id+"/"+idUser);
   }
   updateMembre(idUser:number,data:any){
-    return this.http.get(this.url+"/update/"+idUser,data);
+    return this.http.post(this.url+"/update/"+idUser,data);
   }
 }
