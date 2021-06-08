@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
+use function Symfony\Component\String\u;
 
 
 class EmploisDuTempsController extends AbstractController
@@ -32,7 +33,7 @@ class EmploisDuTempsController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->json($this->emploiDuTempsRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['start','end','event','groupe'=>['nomGroupe'],'instructeur'=>['nom']]]);
+        return $this->json($this->emploiDuTempsRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','start','end','event','groupe'=>['nomGroupe'],'instructeur'=>['nom']]]);
 
     }
      /**
@@ -77,6 +78,30 @@ class EmploisDuTempsController extends AbstractController
             }else{
                   return $this->json(['message' => "Oups!...Ce groupe n'existe plus!"],400,);
               }
+        }else{
+            return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
+        }
+    }
+    /**
+     * @Route("/emploisDuTemps/delete/{id}/{idUser}", name="delete_emplois_du_temps", methods={"GET"})
+     */
+    public function deleteCreneau($id,$idUser): Response
+    {
+        $user=$this->userRepository->findOneBy(['id' => $idUser]);
+        $crenau_existe= $this->emploiDuTempsRepository->findOneBy(['id'=>$id]);
+        if($user){
+                if(!$crenau_existe){
+                    return $this->json(['message' => "Oups!...Ce crenau n'existe plus!"],400,);
+                  }else{
+                    $action=new Actions();
+                    $action->setUser($user)
+                    ->setType("Suppression")
+                    ->setDescription("Vous avez supprimé un crenau \" ". ($crenau_existe->getEvent()) . " de " . $crenau_existe->getStart() . " à " . $crenau_existe->getEnd() ." \"");
+                    $this->getDoctrine()->getManager()->persist($action);
+                    $this->getDoctrine()->getManager()->remove($crenau_existe);
+                    $this->getDoctrine()->getManager()->flush();
+                    return $this->json(['success'=>true,'message'=>'Crenau a été bien supprimé'], 200, []);
+                }
         }else{
             return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
         }

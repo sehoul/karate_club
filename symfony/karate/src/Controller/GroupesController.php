@@ -112,25 +112,29 @@ class GroupesController extends AbstractController
         $data=$this->serializer->deserialize($data,Groupe::class,'json');
         $instructeur=$this->instructeurRepository->findOneBy(["id"=>$data->getInstructeur()->getId()]);
         $activite=$this->activiteRepository->findOneBy(["id"=>$data->getActivite()->getId()]);
+        $groupe_existe= $this->groupeRepository->findOneBy(['nomGroupe' => $data->getNomGroupe()]);
         $groupe=new Groupe();
         if ($user){
             if($data){
                 if($instructeur && $activite){
-
-                    $groupe->setNomGroupe($data->getNomGroupe())
-                    ->setActivite($activite)
-                    ->setInstructeur($instructeur);
-                    $this->getDoctrine()->getManager()->persist($groupe);
-    
-                    $action=new Actions();
-                    $action->setUser($user)
-                    ->setType("Ajout")
-                    ->setDescription("Vous avez ajouté le groupe \" ". ($groupe->getNomGroupe()) ." \"");
-                    $this->getDoctrine()->getManager()->persist($action);
-                    $user->addAction($action);
-                    $this->getDoctrine()->getManager()->flush();
-                    return $this->json(['success'=>true,'message'=>'Groupe a été bien modifié '], 200, []);
-                    return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
+                    if($groupe_existe){
+                        return $this->json(['message' => "Oups!...Ce groupe existe déja'!"],404,);
+                    }else{
+                        $groupe->setNomGroupe($data->getNomGroupe())
+                        ->setActivite($activite)
+                        ->setInstructeur($instructeur);
+                        $this->getDoctrine()->getManager()->persist($groupe);
+        
+                        $action=new Actions();
+                        $action->setUser($user)
+                        ->setType("Ajout")
+                        ->setDescription("Vous avez ajouté le groupe \" ". ($groupe->getNomGroupe()) ." \"");
+                        $this->getDoctrine()->getManager()->persist($action);
+                        $user->addAction($action);
+                        $this->getDoctrine()->getManager()->flush();
+                        return $this->json(['success'=>true,'message'=>'Groupe a été bien modifié '], 200, []);
+                        return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
+                    }
                 }else{
                 }
             }else{
