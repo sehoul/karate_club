@@ -4,6 +4,7 @@
     </div>
 
       <form  [formGroup]="formAA" (submit)="submit()" class="container mt-5 p-5 mb-5">
+        
         <div *ngIf="_error" class="input-group  mb-2 alert-danger rounded py-4 px-3">
           {{_error}}
         </div>
@@ -13,7 +14,7 @@
         <p>Les champs avec  <b class="text-danger">  *  </b> sont obligatoires. </p> 
 
         <div class="form-group">
-            <label for="LicenceIns">Licene FFK <b class="text-danger">*</b></label>
+            <label for="LicenceIns">Numéro de licence FFK <b class="text-danger">*</b></label>
             <input type="text" id="LicenceIns" class="form-control py-4" formControlName="LicenceIns" [ngClass]="formAA.controls['LicenceIns'].invalid && LicenceIns.touched ? 'is-invalid' : formAA.controls['LicenceIns'].valid? 'is-valid': '' ">
             <div class="invalid-feedback" *ngIf="LicenceIns.touched">
               Ce champs est obligatoire.
@@ -38,6 +39,13 @@
           Ce champs est obligatoire.
         </div>
       </div>
+      <div class="form-group">
+        <label for="dateN">Date de Naissance<b class="text-danger">*</b></label>
+        <input type="date" id="dateN" class="form-control py-4" formControlName="dateN" [ngClass]="formAA.controls['dateN'].invalid && dateN.touched ? 'is-invalid' : formAA.controls['dateN'].valid? 'is-valid': '' ">
+        <div class="invalid-feedback" *ngIf="dateN.touched">
+          Ce champs est obligatoire.
+        </div>
+      </div>
       <div class="form-MailAdm">
         <label for="MailIns">Adresse mail <b class="text-danger">*</b></label>
         <input type="text" id="MailIns" class="form-control py-4" formControlName="MailIns" [ngClass]="formAA.controls['MailIns'].invalid && MailIns.touched ? 'is-invalid' : formAA.controls['MailIns'].valid? 'is-valid': '' ">
@@ -45,13 +53,89 @@
           Ce champs est obligatoire.
         </div>
       </div>
-      <div class="form-group">
-        <label for="TlphnIns"> Telephone</label>
-        <input id="TlphnIns" class="form-control py-4" formControlName="TlphnIns" [ngClass]="formAA.controls['TlphnIns'].invalid && TlphnIns.touched ? 'is-invalid' : formAA.controls['TlphnIns'].valid? 'is-valid': '' ">
-        <div class="invalid-feedback" *ngIf="TlphnIns.touched">
-          Ce champs est obligatoire.
+       <div class="form-group ">
+          <label for="genre">Genre<b class="text-danger">*</b></label>
+          <select type="text" id="genre" class="form-control" formControlName="genre" [ngClass]="formAA.controls['genre'].invalid && genre.touched ? 'is-invalid' : formAA.controls['genre'].valid? 'is-valid': '' " style=" height: 50px;">
+            <option value="" selected disabled>Genre</option>
+            <option value="Homme">Homme</option>
+            <option value="Femme">Femme</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="genre.touched">
+            Ce champs est obligatoire.
+          </div>
         </div>
-      </div>
+        <div class="form-group ">
+          <label for="tlphn1"> Telephone1<b class="text-danger">*</b></label>
+          <input id="tlphn1" class="form-control py-4" formControlName="tlphn1" [ngClass]="formAA.controls['tlphn1'].invalid && tlphn1.touched ? 'is-invalid' : formAA.controls['tlphn1'].valid? 'is-valid': '' ">
+          <div class="invalid-feedback" *ngIf="tlphn1.touched">
+            Ce champs est obligatoire.
+          </div>
+        </div>
+
+        <div class="form-group ">
+          <label for="tlphn2">Telephone2</label>
+          <input type="text" id="tlphn2" class="form-control py-4" formControlName="tlphn2">
+
+        </div>
+        <div class="form-group ">
+          <label for="adresse">Adresse<b class="text-danger">*</b></label>
+          <textarea id="adresse" class="form-control py-4" formControlName="adresse" rows="9" [ngClass]="formAA.controls['adresse'].invalid && adresse.touched ? 'is-invalid' : formAA.controls['adresse'].valid? 'is-valid': '' ">
+          </textarea>
+          <div class="invalid-feedback" *ngIf="adresse.touched">
+            Ce champs est obligatoire.
+          </div>
+          <div class="form-group ">
+            <label for="grade">grade<b class="text-danger">*</b></label>
+            <select id="grade" class="selectpicker form-control" formControlName="grade" [ngClass]="formAA.controls['grade'].invalid && grade.touched ? 'is-invalid' : formAA.controls['grade'].valid? 'is-valid': '' " style=" height: 50px;">
+              <option value="" selected disabled>Sélectionnez une grade ...</option>
+              <option value="Blanche" style="color:rgb(197, 197, 197)">&#xf111; Blanche</option>
+              <option value="Jaune" style="color:rgb(231, 229, 85)">&#xf111; Jaune</option>
+              <option value="Orange" style="color:rgb(236, 133, 48)">&#xf111; Orange</option>
+              <option value="Verte" style="color:rgb(101, 216, 111)">&#xf111; Verte</option>
+              <option value="Bleue 1" style="color:rgb(41, 103, 246)">&#xf111; Bleue 1</option>
+              <option value="Bleue 2" style="color:rgb(40, 79, 209)">&#xf111; Bleue 2</option>
+              <option value="Marron 1" style="color:rgb(175, 82, 6)">&#xf111; Marron 1</option>
+              <option value="Marron 2" style="color:rgb(182, 91, 7)">&#xf111; Marron 2</option>
+              <option value="Marron 3" style="color:rgb(170, 99, 7)">&#xf111; Marron 3</option>
+              <option value="Noire" style="color:rgb(0, 0, 0)">&#xf111; Noire</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="grade.touched">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+
+
+          <div class="form-group ">
+            <label for="activite">Activite<b class="text-danger">*</b></label>
+            <select id="activite" class="form-control" formControlName="activite" [ngClass]="formAA.controls['activite'].invalid && activite.touched ? 'is-invalid' : formAA.controls['activite'].valid? 'is-valid': '' " style=" height: 50px;" #activitie  >
+              <option value="" selected disabled>Sélectionnez une activite ...</option>
+              <option *ngFor="let activ of Activities"[value]="activ.id">{{activ.activite.nomActivite}} &#09;----&#09;{{activ.NomGroupe}}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="activite.touched">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="categorie">Categorie<b class="text-danger">*</b></label>
+            <select id="categorie" class="form-control" formControlName="categorie" [ngClass]="formAA.controls['categorie'].invalid && categorie.touched ? 'is-invalid' : formAA.controls['categorie'].valid? 'is-valid': '' " style=" height: 50px;" #Cat>
+              <option value="" selected disabled>Sélectionnez une categorie ...</option>
+              <option *ngFor="let cat of Categories" [value]="cat.id">{{cat.nomCategorie}} {{cat.Description}}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="categorie.touched">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+      
+            <div class="form-group">
+              <label for="Observation">Observation<b class="text-danger">*</b></label>
+              <textarea id="Observation" cols="15" rows="9" class="form-control py-4"  formControlName="observation" [ngClass]="formAA.controls['observation'].invalid && observation.touched ? 'is-invalid' : formAA.controls['observation'].valid? 'is-valid': '' "></textarea>
+              <div class="invalid-feedback" *ngIf="observation.touched">
+                Ce champs est obligatoire.
+              </div>
+            </div>
+            </div>
+            
 
 
         
@@ -64,8 +148,7 @@
   
       
   
-        <button type="submit" class="btn btn-primary px-3 py-2 mr-3 mt-2" style="float: right;" >Valider</button>
-  
-  
+        <button type="submit" class="btn btn-primary px-3 py-2 mr-3 mt-2" style="float: right;" >Mettre à jour mon profil</button>
+      
   
   
