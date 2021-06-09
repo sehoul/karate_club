@@ -39,7 +39,11 @@ export class GroupesComponent implements  OnInit,AfterViewInit {
        this.USER_INFO=response;
        this.USER_INFO.forEach((element:any) => {
          element.activite=element.activite.nomActivite;
-         element.instructeur=element.instructeur.nom+" "+element.instructeur.prenom;
+         if(element.instructeur){
+           element.instructeur=element.instructeur.nom+" "+element.instructeur.prenom;
+          }else{
+           element.instructeur="pas d'instructeur";
+         }
        });
        this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
        this.dataSource.paginator = this.paginator;
