@@ -131,12 +131,16 @@ export class MembresComponent implements OnInit,AfterViewInit {
     return !/[~`!@#$%\^&*()+=\-\[\]\\';,.^ç¤/{}|\\":<>\?]/g.test(str);
   }
   edit(element:any){
-
+    console.log(element);
     const listGroupe:Array<membregroup>=[]
-
-    element.GroupesMembre.forEach((element:string) => {
-      listGroupe.push({Groupe:{NomGroupe:element}})
-    });
+    if(Array.isArray(element.GroupesMembre)){
+      element.GroupesMembre.forEach((element:string) => {
+        listGroupe.push({Groupe:{NomGroupe:element}})
+      });
+    }else{
+      listGroupe.push({Groupe:{NomGroupe:element.GroupesMembre}})
+    }
+  
 
     const data={
       id:element.id,
