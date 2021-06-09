@@ -35,6 +35,7 @@ class Groupe
     /**
      * @ORM\ManyToOne(targetEntity=Activite::class, inversedBy="Groupe")
      * @Groups({"Groupe:Activite"})
+     * @ORM\OrderBy({"nomActivite" = "ASC"})
      */
     private $activite;
 

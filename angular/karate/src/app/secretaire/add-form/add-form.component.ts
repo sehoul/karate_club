@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Membre } from '../../membre.model';
 import { FormGroup , FormBuilder  ,FormControl , Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
@@ -11,7 +11,7 @@ import { MembresService } from 'src/app/Services/membres.service';
   templateUrl: './add-form.component.html',
   styleUrls: ['./add-form.component.css']
 })
-export class AddFormComponent implements OnInit {
+export class AddFormComponent implements OnInit , AfterViewInit {
   form: FormGroup;
   _success:string="";
   _error:string="";
@@ -41,6 +41,9 @@ export class AddFormComponent implements OnInit {
 
 
     });
+  }
+  ngAfterViewInit(): void {
+    console.log(this.Activities);
   }
 
   get licenceFFK() : any {   return this.form.get('licenceFFK');}
@@ -173,8 +176,13 @@ isValid(str:string) {
      });
      this.activService.getGroupes().subscribe((response: any) =>{
       this.Activities=response;
-     });
+      console.log(this.Activities);
+      console.log(this.Activities.sort());
+     
+    });
+     
     };
+
 
     errorAlert(){
       this._error="";
