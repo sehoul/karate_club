@@ -133,14 +133,18 @@ class ActivitesController extends AbstractController
                   }else{
                       $activite->setNomActivite($activite_req->getNomActivite())
                       ->setCotisation($activite_req->getCotisation());
+                    $groupe= new Groupe();
+                    $groupe->setNomGroupe($activite->getNomActivite() . ' groupe: inconnu')
+                    ->setActivite($activite);
                     $action=new Actions();
                     $action->setUser($user)
                     ->setType("Ajout")
                     ->setDescription("Vous avez ajouté une nouvelle activitée \" ". ($activite->getNomActivite()) ." \"");
                      $this->getDoctrine()->getManager()->persist($action);
+                     $this->getDoctrine()->getManager()->persist($groupe);
                      $this->getDoctrine()->getManager()->persist($activite);
                       $this->getDoctrine()->getManager()->flush();
-                      return $this->json(['success'=>true,'message'=>'Activite a été bien ajoutée'], 200, []);
+                      return $this->json(['success'=>true,'message'=>'Activite a été bien ajoutée avec la creation d\'un groupe inconnu'], 200, []);
                   }
               }else{
                 return $this->json(['message' => "Oups!...une erreur est survenue!"],500,);

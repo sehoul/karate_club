@@ -28,6 +28,7 @@ class Groupe
 
     /**
      * @ORM\ManyToOne(targetEntity=Instructeur::class, inversedBy="GroupeEncadre")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $instructeur;
 
