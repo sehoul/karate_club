@@ -86,7 +86,7 @@ export class GroupesComponent implements AfterViewInit,OnInit {
    
    dataSchema:any = USER_SCHEMA;
    edit(element:any){
-     this.service.updateGroupe(Number(this.cookie.get('idSec')),{id:element.id,NomGroupe:element.NomGroupe,activite:{nomActivite:element.activite},instructeur:{nom:element.instructeur.split(' ',2)[0],prenom:element.instructeur.split(' ',2)[1]}}).subscribe(
+     this.service.updateGroupe(Number(this.cookie.get('idPres')),{id:element.id,NomGroupe:element.NomGroupe,activite:{nomActivite:element.activite},instructeur:{nom:element.instructeur.split(' ',2)[0],prenom:element.instructeur.split(' ',2)[1]}}).subscribe(
        (res:any)=>{
          this._success=res.message;
          this._error="";
@@ -100,7 +100,7 @@ export class GroupesComponent implements AfterViewInit,OnInit {
    }
  delete(element:any,index:any,id:any){
      if(confirm("Est ce que vous voulez vraiment supprimer le groupe \" "+element+" \"")) {
-       this.service.deleteGroupe(Number(id),{id:Number(this.cookie.get('idSec'))}).subscribe((res:any)=>{
+       this.service.deleteGroupe(Number(id),{id:Number(this.cookie.get('idPres'))}).subscribe((res:any)=>{
          if(res.success){
            this.USER_INFO.splice(Number(index), 1);
            this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
