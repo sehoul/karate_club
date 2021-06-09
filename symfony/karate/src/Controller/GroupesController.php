@@ -112,7 +112,7 @@ class GroupesController extends AbstractController
         $data=$this->serializer->deserialize($data,Groupe::class,'json');
         $instructeur=$this->instructeurRepository->findOneBy(["id"=>$data->getInstructeur()->getId()]);
         $activite=$this->activiteRepository->findOneBy(["id"=>$data->getActivite()->getId()]);
-        $groupe_existe= $this->groupeRepository->findOneBy(['nomGroupe' => $data->getNomGroupe()]);
+        $groupe_existe= $this->groupeRepository->findOneBy(['NomGroupe' => $data->getNomGroupe()]);
         $groupe=new Groupe();
         if ($user){
             if($data){
