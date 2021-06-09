@@ -175,10 +175,7 @@ isValid(str:string) {
       this.Categories=response;
      });
      this.activService.getGroupes().subscribe((response: any) =>{
-      this.Activities=response;
-      console.log(this.Activities);
-      console.log(this.Activities.sort());
-     
+      this.Activities=response;     
     });
      
     };
