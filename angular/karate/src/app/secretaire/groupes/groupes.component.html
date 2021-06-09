@@ -51,12 +51,22 @@
           </ng-template>
 
           <ng-template #SelectField>
-            <mat-form-field *ngIf="col === 'activite'; else nonEditedTemplate">
+            <mat-form-field *ngIf="col === 'activite'; else SelectFieldinstructeur">
               <mat-label>Activite</mat-label>
               <mat-select [(value)]="element[col]" [(ngModel)]="element[col]">
                 <mat-option *ngFor="let activite of activites" [value]="activite.nomActivite" >{{activite.nomActivite}}</mat-option>
               </mat-select>
             </mat-form-field>
+            
+          </ng-template>
+          <ng-template #SelectFieldinstructeur>
+            <mat-form-field *ngIf="col === 'instructeur'; else nonEditedTemplate">
+              <mat-label>instructeur</mat-label>
+              <mat-select [(value)]="element[col]" [(ngModel)]="element[col]">
+                <mat-option *ngFor="let ins of instructeur" [value]="ins.nom + ' ' + ins.prenom" >{{ins.nom + ' ' + ins.prenom}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            
           </ng-template>
 
           <ng-template #nonEditedTemplate>

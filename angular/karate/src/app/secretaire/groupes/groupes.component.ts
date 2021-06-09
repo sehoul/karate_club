@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivitesService } from 'src/app/Services/activites.service';
 import { GroupesService } from 'src/app/Services/groupes.service';
+import { InstructeurService } from 'src/app/Services/instructeur.service';
 import * as XLSX from 'xlsx';
 import {MatSort} from '@angular/material/sort';
 
@@ -31,12 +32,14 @@ export class GroupesComponent implements  OnInit,AfterViewInit {
   USER_INFO: elem[] = [];
   dataSource = new MatTableDataSource<elem>(this.USER_INFO);
   activites:Array<any>=[];
-   constructor(private service: GroupesService, private cookie:CookieService,private ActiviteService:ActivitesService){}
+  instructeur:Array<any>=[];
+   constructor(private service: GroupesService, private cookie:CookieService,private ActiviteService:ActivitesService, private InstructeurService:InstructeurService){}
    ngOnInit(){
      this.service.getGroupes().subscribe((response: any) =>{
        this.USER_INFO=response;
        this.USER_INFO.forEach((element:any) => {
          element.activite=element.activite.nomActivite;
+         element.instructeur=element.instructeur.nom+" "+element.instructeur.prenom;
        });
        this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
        this.dataSource.paginator = this.paginator;
@@ -45,10 +48,14 @@ export class GroupesComponent implements  OnInit,AfterViewInit {
       this.ActiviteService.getActivites().subscribe((res:any)=>{
        this.activites=res;
      });
+     this.InstructeurService.getInstructeursMiniInfo().subscribe((rep:any)=>{
+       this.instructeur=rep;
+
+    });
      }
  
    displayedColumns: string[] = ["id",
-     "NomGroupe","activite" , '$$edit'];
+     "NomGroupe","activite" , "instructeur",'$$edit'];
  
    _success:string="";
    _error:string="";
@@ -137,6 +144,7 @@ export class GroupesComponent implements  OnInit,AfterViewInit {
    id: number;
    NomGroupe: string;
    activite: any;
+   instructeur:any;
  }
  
  
