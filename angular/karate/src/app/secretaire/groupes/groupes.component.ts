@@ -86,7 +86,7 @@ export class GroupesComponent implements  OnInit,AfterViewInit {
    
    dataSchema:any = USER_SCHEMA;
    edit(element:any){
-     this.service.updateGroupe(Number(this.cookie.get('idSec')),{id:element.id,NomGroupe:element.NomGroupe,activite:{nomActivite:element.activite}}).subscribe(
+     this.service.updateGroupe(Number(this.cookie.get('idSec')),{id:element.id,NomGroupe:element.NomGroupe,activite:{nomActivite:element.activite},instructeur:{nom:element.instructeur.split(' ',2)[0],prenom:element.instructeur.split(' ',2)[1]}}).subscribe(
        (res:any)=>{
          this._success=res.message;
          this._error="";

@@ -78,23 +78,28 @@ class GroupesController extends AbstractController
         $data=$this->serializer->deserialize($data,Groupe::class,'json');
         $groupe= $this->groupeRepository->findOneBy(['id' => $data->getId()]);
         $activite= $this->activiteRepository->findOneBy(['nomActivite' => $data->getActivite()->getNomActivite()]);
+        $instructeur=$this->instructeurRepository->findOneBy(["Nom"=>$data->getInstructeur()->getNom(),"Prenom"=>$data->getInstructeur()->getPrenom()]);
         if ($user){
             if($activite){
-                if($groupe){
-                    $groupe->setNomGroupe($data->getNomGroupe())
-                            ->setActivite($activite);
-                    $action=new Actions();
-                    $action->setUser($user)
-                    ->setType("Modification")
-                    ->setDescription("Vous avez modifié le groupe \" ". ($groupe->getNomGroupe()) ." \"");
-                    $this->getDoctrine()->getManager()->persist($action);
-                    $user->addAction($action);
-                    $this->getDoctrine()->getManager()->flush();
-                    return $this->json(['success'=>true,'message'=>'Groupe a été bien modifié '], 200, []);
+                if($instructeur){
+                    if($groupe){
+                        $groupe->setNomGroupe($data->getNomGroupe())
+                                ->setActivite($activite)
+                                ->setInstructeur($instructeur);
+                        $action=new Actions();
+                        $action->setUser($user)
+                        ->setType("Modification")
+                        ->setDescription("Vous avez modifié le groupe \" ". ($groupe->getNomGroupe()) ." \"");
+                        $this->getDoctrine()->getManager()->persist($action);
+                        $user->addAction($action);
+                        $this->getDoctrine()->getManager()->flush();
+                        return $this->json(['success'=>true,'message'=>'Groupe a été bien modifié '], 200, []);
+                    }else{
+                        return $this->json(['message' => "Oups!...Ce groupe n'existe plus'!"],404,);
+                    }
                 }else{
-                    return $this->json(['message' => "Oups!...Ce groupe n'existe plus'!"],404,);
+                    return $this->json(['message' => "Oups!...Cet instructeur n'existe plus'!"],404,);
                 }
-
             }else{
                 return $this->json(['message' => "Oups!...Cette activité n'existe plus'!"],404,);
             }
