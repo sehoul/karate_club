@@ -115,22 +115,38 @@
             </mat-form-field>
           </ng-template>
           <ng-template #defaultField>
-            <mat-form-field *ngIf="col!=='id' && col !== 'Genre' && col !== 'categorie' && col!=='GroupesMembre' else SelectField">
+            <mat-form-field *ngIf="col!=='id' && col !== 'Genre' && col !== 'categorie' && col!=='GroupesMembre' && col!='Grade' else SelectField">
               <mat-label>{{col}}</mat-label>
               <input  type="{{dataSchema[col]}}" matInput [(ngModel)]="element[col]">
             </mat-form-field>
           </ng-template>
           <ng-template #SelectField>
-            <mat-form-field *ngIf="col === 'Genre' else SelectFieldActivitie">
+            <mat-form-field *ngIf="col === 'Genre' else GradSelect">
               <mat-label>Genre</mat-label>
               <mat-select [(value)]="element[col]" [(ngModel)]="element[col]" >
                 <mat-option  value="Homme" >Homme</mat-option>
                 <mat-option  value="Femme" >Femme</mat-option>
-                <mat-option  value="Non precis" >Non precis</mat-option>
               </mat-select>
             </mat-form-field>
           </ng-template>
 
+          <ng-template #GradSelect>
+            <mat-form-field *ngIf="col === 'Grade' else SelectFieldActivitie">
+              <mat-label>Grade</mat-label>
+              <mat-select [(value)]="element[col]" [(ngModel)]="element[col]" >
+                <mat-option  value="Blanche" >Blanche</mat-option>
+                <mat-option  value="Jaune" >Jaune</mat-option>
+                <mat-option  value="Orange" >Orange</mat-option>
+                <mat-option  value="Verte" >Verte</mat-option>
+                <mat-option  value="Bleue 1" >Bleue 1</mat-option>
+                <mat-option  value="Bleue 2" >Bleue 2</mat-option>
+                <mat-option  value="Marron 1" >Marron 1</mat-option>
+                <mat-option  value=" Marron 2" > Marron 2</mat-option>
+                <mat-option  value="Marron 3" >Marron 3</mat-option>
+                <mat-option  value="Noire" >Noire</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-template>
 
           <ng-template #SelectFieldActivitie>
             <mat-form-field appearance="fill" *ngIf="col === 'GroupesMembre' else SelectCategories">

@@ -181,9 +181,11 @@ export class MembresComponent implements OnInit,AfterViewInit {
 
       this.service.updateMembre(Number(this.cookie.get('idPres')),data).subscribe((res:any)=>{
         this._error="";
+        this._success=res.message
       },
       error=>{
-
+        this._success=""
+        this._error=error.error.message
       }
       )
       
@@ -270,9 +272,13 @@ export class MembresComponent implements OnInit,AfterViewInit {
               this.dataSource.filterPredicate = this.getFilterPredicate();
               this.dataSource.sort = this.sort;
             });
+            this._error="";
+            this._success=res.message
           }
         },
         error=>{
+          this._success=""
+        this._error=error.error.message
 
         });
 
