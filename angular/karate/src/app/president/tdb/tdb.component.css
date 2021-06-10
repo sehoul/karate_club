@@ -13,8 +13,11 @@
     flex-direction: column;
     align-items: center;
 }
+.main .right{
+    width:55%;
+}
 .membre {
-    height: 45%;
+    height: 62%;
     width: 75%;
     margin: 4%;
     padding: 4%;
@@ -54,11 +57,10 @@
     font-size: 1.4rem;
 }
 .horloge {
-    width: 70%;
-    height: 190px;
-    max-height: 190px;
+    height: 100px;
+    max-height: 186px;
     margin: 4%;
-    padding: 2%;
+    padding: 6%;
     box-sizing: border-box;
     position: relative;
     display: flex;
@@ -81,7 +83,6 @@
     font-size: 2rem;
 }
 .activities {
-    width: 90%;
     height: 400px;
     box-sizing: border-box;
     position: relative;
@@ -113,7 +114,4 @@
 }
 .Suppression{
     background: #ec3030;
-}
-.Creation{
-    background: #16b116;
 }

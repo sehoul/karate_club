@@ -77,7 +77,7 @@ mat-progress-spinner {
     margin: 0;
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 1250px) {
     #sidebar {
       margin-left: -15rem;
     }
