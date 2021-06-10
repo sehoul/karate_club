@@ -1,18 +1,18 @@
 .top-title {
-  
-    background:linear-gradient(to right top, #c31432, #240b36);
-    box-shadow: 1px 2px 10px #f44336;
-    }
-    table{
-      max-width: 100%;
-      min-width: 100%;
-    }
-    .btn-edit {
-      text-align: right;
-    }
-    h2 {
-      text-align: center;
-      padding-top: 20px;
-    }
+  background: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+  box-shadow: 1px 2px 10px #62055fc2;
 
-  
+  box-shadow: 1px 2px 10px #995aa0b2;
+  }
+  table{
+    max-width: 100%;
+    min-width: 100%;
+  }
+  .btn-edit {
+    text-align: right;
+  }
+  h2 {
+    text-align: center;
+    padding-top: 20px;
+  }
+

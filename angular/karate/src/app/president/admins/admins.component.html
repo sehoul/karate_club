@@ -30,7 +30,7 @@
         <div *ngIf="!element.isEdit">
           
           <div class="btn-edit" *ngIf="col === '$$edit'; spanHeader" >
-            <button class="btn btn-link text-dark" title="Modifier" (click)="element.isEdit = !element.isEdit"><i class="bi bi-pencil-square"></i></button>
+            <button class="btn btn-link text-info" title="Modifier" (click)="element.isEdit = !element.isEdit"><i class="bi bi-pencil-square"></i></button>
             <button class="btn btn-link text-danger ml-2" title="Supprimer" (click)="delete(element['Nom'],i,element['id'])"><i class="bi bi-trash-fill"></i></button>
           </div>           
           <span *ngIf="col === 'NouveauMotDePasse'; " #spanHeader>
