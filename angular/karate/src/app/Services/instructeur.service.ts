@@ -17,4 +17,8 @@ export class InstructeurService {
     return this.http.get(this.url+"/"+id);
   }
 
+  updateProfile(id:number,data:any){
+    return this.http.post(this.url+"/update/"+id,data);
+  }
+
 }

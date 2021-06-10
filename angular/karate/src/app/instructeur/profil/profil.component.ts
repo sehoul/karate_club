@@ -69,28 +69,38 @@ export class ProfilComponent implements OnInit {
   Categories : Array<any>=[];
   Activities : Array<any>=[];
 
+  isValid(str:string) {
+    return !/[~`!@#$%\^&*()+=\-\[\]\\';,.^ç¤/{}|\\":<>\?]/g.test(str);
+  }
   submit() {
-    const data={
-      Nom:this.formAA.getRawValue().NomIns,
-      Prenom:this.formAA.getRawValue().PrenomIns,
-      Email:this.formAA.getRawValue().MailIns,
-      Tel1:this.formAA.getRawValue().tlphn1,
-      Tel2:this.formAA.getRawValue().tlphn2,
-      NumLicenceFFK:this.formAA.getRawValue().LicenceIns,
-      Genre:this.formAA.getRawValue().genre,
-      adresse:this.formAA.getRawValue().adresse,
-      grade:this.formAA.getRawValue().grade,
-      CategorieFFK:this.formAA.getRawValue().categorie,
-      dateNaissance:this.formAA.getRawValue().dateN,
-    }
-    if(data.Nom!="" && data.Prenom!="" && data.Tel1!="" && data.Email!="" && data.NumLicenceFFK!="" && data.Genre!=""&& data.adresse!="" && data.grade!="" && data.CategorieFFK!="" && data.dateNaissance!=""){
-    {
-      this._success="";
-      this._error="Merci de remplir tous les champs";
-    }
+      const data={
+        Nom:this.formAA.getRawValue().NomIns,
+        Prenom:this.formAA.getRawValue().PrenomIns,
+        Email:this.formAA.getRawValue().MailIns,
+        Tel1:this.formAA.getRawValue().tlphn1,
+        Tel2:this.formAA.getRawValue().tlphn2,
+        NumLicenceFFK:this.formAA.getRawValue().LicenceIns,
+        Genre:this.formAA.getRawValue().genre,
+        adresse:this.formAA.getRawValue().adresse,
+        grade:this.formAA.getRawValue().grade,
+        CategorieFFK:this.formAA.getRawValue().categorie,
+        dateNaissance:this.formAA.getRawValue().dateN,
+      }
+      if(data.Nom!="" && data.Prenom!="" && data.Tel1!="" && data.Email!="" && this.isValid(data.NumLicenceFFK) && data.Genre!=""&& data.adresse!="" && data.grade!="" && data.CategorieFFK!="" && data.dateNaissance!=""){
+        this.instructeur.updateProfile(Number(this.cookie.get('idInst')),data).subscribe((res:any)=>{
+          this._success=res.message;
+          this._error="";
+        },error=>{
+          this._success="";
+          this._error=error.error.message;
+        });
+      
+      }else{
+        this._success="";
+        this._error="Merci de remplir tous les champs";
+      }
 
     }
-  }
 
   ngOnInit(): void {
     this.service.getCategories().subscribe((response: any) =>{
@@ -101,40 +111,17 @@ export class ProfilComponent implements OnInit {
      });
      this.instructeur.getProfile(Number(this.cookie.get('idInst'))).subscribe((res:any)=>{
 
-      
-        if(res.NumLicenceFFK){
-          this.setLicenceIns(res.NumLicenceFFK);
-        }
-        if(res.Nom){
-          this.setNomIns(res.Nom);
-        }
-        if(res.Prenom){
-          this.setPrenomIns(res.Prenom);
-        }
-        if(res.Email){
-          this.setMailIns(res.Email);
-        }
-        if(res.tel1){
-          this.settlphn1(res.tel1);
-        }
-        if(res.tel2){
-          this.settlphn2(res.tel2);
-        }
-        if(res.Genre){
-          this.setgenre(res.Genre);
-        }
-        if(res.adresse){
-          this.setadresse(res.adresse);
-        }
-        if(res.grade){
-          this.setgrade(res.grade);
-        }
-        if(res.CategorieFFK){
-          this.setcategorie(res.CategorieFFK);
-        }
-        if(res.dateNaissance){
-          this.setdateN(res.dateNaissance);
-        }
+        if(res.NumLicenceFFK){this.setLicenceIns(res.NumLicenceFFK); }
+        if(res.Nom)           this.setNomIns(res.Nom);       
+        if(res.Prenom)        this.setPrenomIns(res.Prenom);    
+        if(res.Email)         this.setMailIns(res.Email);      
+        if(res.tel1)          this.settlphn1(res.tel1);       
+        if(res.tel2)          this.settlphn2(res.tel2);       
+        if(res.Genre)         this.setgenre(res.Genre);        
+        if(res.Adresse)       this.setadresse(res.Adresse);     
+        if(res.Grade)         this.setgrade(res.Grade);        
+        if(res.CategorieFFK)  this.setcategorie(res.CategorieFFK); 
+        if(res.dateNaissance) this.setdateN(res.dateNaissance); 
 
      },error=>{
 

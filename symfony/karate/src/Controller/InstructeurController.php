@@ -5,16 +5,21 @@ namespace App\Controller;
 use App\Entity\Actions;
 use App\Entity\Instructeur;
 use App\Repository\InstructeurRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class InstructeurController extends AbstractController
 {
-    public function __construct(InstructeurRepository $instructeurRepository){
+    public function __construct(InstructeurRepository $instructeurRepository,UserRepository $userRepository,SerializerInterface $serializer){
         $this->instructeurRepository=$instructeurRepository;
+        $this->userRepository=$userRepository;
+        $this->serializer=$serializer;
+
     }
     /**
      * @Route("/instructeur/mini-info", name="instructeur_miniInfo", methods={"GET"})
@@ -48,7 +53,7 @@ class InstructeurController extends AbstractController
                     ->setDateNaissance($instructeur_data->getDateNaissance())
                     ->setGenre($instructeur_data->getGenre())
                     ->setTel1($instructeur_data->getTel1())
-                    ->setTel1($instructeur_data->getTel2())
+                    ->setTel2($instructeur_data->getTel2())
                     ->setEmail($instructeur_data->getEmail())
                     ->setAdresse($instructeur_data->getAdresse())
                     ->setCategorieFFK($instructeur_data->getCategorieFFK())
