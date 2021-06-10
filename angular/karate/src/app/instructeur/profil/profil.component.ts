@@ -58,7 +58,6 @@ export class ProfilComponent implements OnInit {
    setNomIns(value:string){   this.formAA.get('NomIns')?.setValue(value);}
    setPrenomIns(value:string){   this.formAA.get('PrenomIns')?.setValue(value);}
    setMailIns(value:string){   this.formAA.get('MailIns')?.setValue(value);}
-   setTlphnIns(value:string){   this.formAA.get('TlphnIns')?.setValue(value);}
    setgenre(value:string){   this.formAA.get('genre')?.setValue(value);}
    settlphn1(value:string){   this.formAA.get('tlphn1')?.setValue(value);}
    settlphn2(value:string){   this.formAA.get('tlphn2')?.setValue(value);}
@@ -84,7 +83,7 @@ export class ProfilComponent implements OnInit {
       CategorieFFK:this.formAA.getRawValue().categorie,
       dateNaissance:this.formAA.getRawValue().dateN,
     }
-    if(data.Nom!="" && data.Prenom!="" && data.Tel!="" && data.Email!="" && data.Licence!="" && data.genre!=""&& data.adresse!="" && data.grade!="" && data.categorie!="" && data.dateN!=""){
+    if(data.Nom!="" && data.Prenom!="" && data.Tel1!="" && data.Email!="" && data.NumLicenceFFK!="" && data.Genre!=""&& data.adresse!="" && data.grade!="" && data.CategorieFFK!="" && data.dateNaissance!=""){
     {
       this._success="";
       this._error="Merci de remplir tous les champs";
@@ -101,11 +100,40 @@ export class ProfilComponent implements OnInit {
       this.Activities=response;
      });
      this.instructeur.getProfile(Number(this.cookie.get('idInst'))).subscribe((res:any)=>{
+
+      
         if(res.NumLicenceFFK){
           this.setLicenceIns(res.NumLicenceFFK);
         }
         if(res.Nom){
           this.setNomIns(res.Nom);
+        }
+        if(res.Prenom){
+          this.setPrenomIns(res.Prenom);
+        }
+        if(res.Email){
+          this.setMailIns(res.Email);
+        }
+        if(res.tel1){
+          this.settlphn1(res.tel1);
+        }
+        if(res.tel2){
+          this.settlphn2(res.tel2);
+        }
+        if(res.Genre){
+          this.setgenre(res.Genre);
+        }
+        if(res.adresse){
+          this.setadresse(res.adresse);
+        }
+        if(res.grade){
+          this.setgrade(res.grade);
+        }
+        if(res.CategorieFFK){
+          this.setcategorie(res.CategorieFFK);
+        }
+        if(res.dateNaissance){
+          this.setdateN(res.dateNaissance);
         }
 
      },error=>{
