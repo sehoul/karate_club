@@ -13,4 +13,8 @@ export class InstructeurService {
     return this.http.get(this.url+"/mini-info");
   }
 
+  getProfile(id:number){
+    return this.http.get(this.url+"/"+id);
+  }
+
 }

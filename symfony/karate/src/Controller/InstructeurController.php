@@ -15,10 +15,17 @@ class InstructeurController extends AbstractController
         $this->instructeurRepository=$instructeurRepository;
     }
     /**
-     * @Route("/instructeur/mini-info", name="instructeur", methods={"GET"})
+     * @Route("/instructeur/mini-info", name="instructeur_miniInfo", methods={"GET"})
      */
-    public function getinstructeur(): Response
+    public function getInstructeurMiniInfo(): Response
     {
         return $this->json($this->instructeurRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','NumLicenceFFK','Nom','Prenom']]);
+    }
+    /**
+     * @Route("/instructeur/{id}", name="instructeur_get", methods={"GET"})
+     */
+    public function getInstructeur($id): Response
+    {
+        return $this->json($this->instructeurRepository->findOneBy(['compteId' => $id]), 200, [],[AbstractNormalizer::ATTRIBUTES => ['NumLicenceFFK','Nom','Prenom','Date_naissance','Genre','CategorieFFK','Adresse','Tel_1','Tel_2','Email','Grade']]);
     }
 }
