@@ -31,7 +31,6 @@ export class ProfilComponent implements OnInit {
       adresse:  new FormControl('', [Validators.required]),
       grade:  new FormControl('', [Validators.required]),
       categorie:  new FormControl('', [Validators.required]),
-      observation:  new FormControl('', [Validators.required]),
       dateN:  new FormControl('', [Validators.required]),
      
      },{ 
@@ -51,7 +50,6 @@ export class ProfilComponent implements OnInit {
    get adresse() : any {   return this.formAA.get('adresse');}
    get grade() : any {   return this.formAA.get('grade');}
    get categorie() : any {   return this.formAA.get('categorie');}
-   get observation() : any {   return this.formAA.get('observation');}
    get dateN() : any {   return this.formAA.get('dateN');}
 
 
@@ -67,7 +65,6 @@ export class ProfilComponent implements OnInit {
    setadresse(value:string){   this.formAA.get('adresse')?.setValue(value);}
    setgrade(value:string){   this.formAA.get('grade')?.setValue(value);}
    setcategorie(value:string){   this.formAA.get('categorie')?.setValue(value);}
-   setobservation(value:string){   this.formAA.get('observation')?.setValue(value);}
    setdateN(value:string){   this.formAA.get('dateN')?.setValue(value);}
 
   Categories : Array<any>=[];
@@ -78,17 +75,16 @@ export class ProfilComponent implements OnInit {
       Nom:this.formAA.getRawValue().NomIns,
       Prenom:this.formAA.getRawValue().PrenomIns,
       Email:this.formAA.getRawValue().MailIns,
-      Tel:this.formAA.getRawValue().TlphnIns,
-      Licence:this.formAA.getRawValue().LicenceIns,
-      genre:this.formAA.getRawValue().genre,
+      Tel1:this.formAA.getRawValue().tlphn1,
+      Tel2:this.formAA.getRawValue().tlphn2,
+      NumLicenceFFK:this.formAA.getRawValue().LicenceIns,
+      Genre:this.formAA.getRawValue().genre,
       adresse:this.formAA.getRawValue().adresse,
       grade:this.formAA.getRawValue().grade,
-      activite:this.formAA.getRawValue().activite,
-      categorie:this.formAA.getRawValue().categorie,
-      observation:this.formAA.getRawValue().observation,
-      dateN:this.formAA.getRawValue().dateN,
+      CategorieFFK:this.formAA.getRawValue().categorie,
+      dateNaissance:this.formAA.getRawValue().dateN,
     }
-    if(data.Nom!="" && data.Prenom!="" && data.Tel!="" && data.Email!="" && data.Licence!="" && data.genre!=""&& data.adresse!="" && data.grade!="" && data.activite!=""&& data.categorie!=""&& data.observation!="" && data.dateN!=""){
+    if(data.Nom!="" && data.Prenom!="" && data.Tel!="" && data.Email!="" && data.Licence!="" && data.genre!=""&& data.adresse!="" && data.grade!="" && data.categorie!="" && data.dateN!=""){
     {
       this._success="";
       this._error="Merci de remplir tous les champs";
@@ -105,9 +101,12 @@ export class ProfilComponent implements OnInit {
       this.Activities=response;
      });
      this.instructeur.getProfile(Number(this.cookie.get('idInst'))).subscribe((res:any)=>{
-
-        this.setLicenceIns(res.NumLicenceFFK);
-        this.setNomIns(res.Nom);
+        if(res.NumLicenceFFK){
+          this.setLicenceIns(res.NumLicenceFFK);
+        }
+        if(res.Nom){
+          this.setNomIns(res.Nom);
+        }
 
      },error=>{
 

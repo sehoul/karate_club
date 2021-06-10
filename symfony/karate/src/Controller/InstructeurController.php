@@ -26,6 +26,6 @@ class InstructeurController extends AbstractController
      */
     public function getInstructeur($id): Response
     {
-        return $this->json($this->instructeurRepository->findOneBy(['compteId' => $id]), 200, [],[AbstractNormalizer::ATTRIBUTES => ['NumLicenceFFK','Nom','Prenom','Date_naissance','Genre','CategorieFFK','Adresse','Tel_1','Tel_2','Email','Grade']]);
+        return $this->json($this->instructeurRepository->findOneBy(['compteId' => $id]), 200, [],[AbstractNormalizer::ATTRIBUTES => ['NumLicenceFFK','Nom','Prenom','dateNaissance','Genre','CategorieFFK','Adresse','tel1','tel2','Email','Grade']]);
     }
 }
