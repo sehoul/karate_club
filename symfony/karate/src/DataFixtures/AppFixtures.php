@@ -2,15 +2,15 @@
 
 namespace App\DataFixtures;
 
-
+use App\Entity\Categorie;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
 use App\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+   
     public function __construct( UserPasswordEncoderInterface $userPasswordEncoder){
         $this->userPasswordEncoder=$userPasswordEncoder;
     }
@@ -25,6 +25,33 @@ class AppFixtures extends Fixture
      
         $manager->persist($user);
         
+        $categorie = new Categorie();
+        $categorie-> setNomCategorie('Mini poussins');
+        $manager-> persist($categorie);
+        $categorie=new Categorie();
+        $categorie-> setNomCategorie('Poussins');
+        $manager-> persist($categorie);
+        $categorie=new Categorie();
+        $categorie-> setNomCategorie('pupilles');
+        $manager-> persist($categorie);
+        $categorie=new Categorie();
+        $categorie-> setNomCategorie('Benjamins');
+        $manager-> persist($categorie);
+        $categorie=new Categorie();
+        $categorie-> setNomCategorie('Minimes');
+        $manager-> persist($categorie);
+        $categorie=new Categorie();
+        $categorie-> setNomCategorie('Cadets');
+        $manager-> persist($categorie);
+        $categorie=new Categorie();
+        $categorie-> setNomCategorie('Juniors');
+        $manager-> persist($categorie);
+        $categorie=new Categorie();
+        $categorie-> setNomCategorie('Espoirs');
+        $manager-> persist($categorie);
+        $categorie=new Categorie();
+        $categorie-> setNomCategorie('Séniors');
+        $manager-> persist($categorie);
         $manager->flush();
     }
 }
