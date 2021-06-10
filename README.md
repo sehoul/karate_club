@@ -4,26 +4,24 @@
 
 ### Server local
 
----
-
 + Telecharger et installer [Wampp](https://www.wampserver.com/#download-wrapper)
 
-### Outils
-
 ---
+
+### Outils
 
 + Telecharger et installer [NodeJs](https://nodejs.org/dist/v14.17.0/node-v14.17.0-x64.msi)
 + Télecharger et installer [google Chrome](https://www.google.com/intl/fr_fr/chrome/)
 
-### Installation Angular
-
 ---
+
+### Installation Angular
 
 + Dans un terminal executez la commande `npm install -g @angular/cli`
 
-### Symfony
-
 ---
+
+### Symfony
 
 + Configurer le back end en passant par les etapes suivantes :
 
@@ -32,16 +30,15 @@
    3. Télecharger [le projet](https://github.com/sehoul/karate_club) en format .zip et l'extraire dans un dossier 
 
 
-### Wampp
-
 ---
+
+### Wampp
 
    + Lancer Wampp
 
+---
 
 ### Installation
-
----
 
 ##### Angular
  
@@ -61,11 +58,9 @@
       5. `symfony console doctrine:fixtures:load`
       6. `symfony serve`
 
-
+---
 
 ### Dernières étapes
-
----
 
    1. Appuyer sur `Win + R` et lancer la commande `chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-securit`
    2. Acceder au http://localhost:4200/  depuis google chrome
