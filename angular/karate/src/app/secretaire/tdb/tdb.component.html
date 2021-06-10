@@ -8,22 +8,22 @@
                 <h4>Ajouter des membres</h4>
                 <p>
                     Informations personelles, informations des parents,
-                     effectuer une activitée
+                     effectuer une activitée,
                 </p>
                 <span>
                     <i class="bi bi-arrow-right"></i>
                 </span>
             </div>
-            <div class="groupe" [routerLink]="['groupes-membres']">
+            <div class="groupe" [routerLink]="[ 'groupes-membres' ]">
                 <h5>Consulter les groupes de chaque activitée... <i class="bi bi-arrow-right"></i></h5>
             </div>
         </div>
         <div class="right">
-            <div class="horloge"><div class="color"></div> <h5>{{now}} {{todayDate | date : 'yyyy-MMMM-dd' : 'fr'}}</h5></div>
+            <div class="horloge"><div class="color"></div> <h5>{{now}} {{todayDate | date : 'yyyy-MMMM-dd'}}</h5></div>
             <div class="activities">
-                <h6>Historique des operations</h6>
+                <h6 class="px-5 mt-4 mb-0">Historique des operations</h6>
 
-                <ul *ngIf="historique.length">
+                <ul *ngIf="historique.length" class="p-4 mt-0">
                     <li *ngFor="let action of historique">
                         <div [class]="action.type"></div><span>{{action.description}}</span>
                     </li>
