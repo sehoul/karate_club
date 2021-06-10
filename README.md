@@ -4,19 +4,19 @@
 
 #### Server local
 
-⋅⋅* Telecharger et installer [Wampp](https://www.wampserver.com/#download-wrapper)
++ Telecharger et installer [Wampp](https://www.wampserver.com/#download-wrapper)
 
 ### Outils
 
-⋅⋅* Telecharger et installer [NodeJs](https://nodejs.org/dist/v14.17.0/node-v14.17.0-x64.msi)
++ Telecharger et installer [NodeJs](https://nodejs.org/dist/v14.17.0/node-v14.17.0-x64.msi)
 
 ### Installation Angular
 
-⋅⋅* Dans un terminal executer la commande `npm install -g @angular/cli`
++ Dans un terminal executer la commande `npm install -g @angular/cli`
 
 ### Symfony
 
-⋅⋅* Configurer le back end en passant par les etapes suivantes:
++ Configurer le back end en passant par les etapes suivantes:
 
    3. Telecharger et installer [Composer](https://getcomposer.org/Composer-Setup.exe)
    4. Telecharger et installer [Symfony](https://get.symfony.com/cli/setup.exe)
