@@ -218,18 +218,18 @@ class MembreController extends AbstractController
                         $this->getDoctrine()->getManager()->persist($action);
                         $user->addAction($action);
                         $this->getDoctrine()->getManager()->flush();
-                        return $this->json(['success'=>true,'message'=>'Membre a été bien ajouté'], 200, []);
+                        return $this->json(['success'=>true,'message'=>'Membre a été bien modifié'], 200, []);
                     }else{
-                        return $this->json(['message' => "Oups!...ce membre n'est existe pas!"],400,);
+                        return $this->json(['message' => "Oups!...ce membre n'est existe pas!"],404,);
                     }
                 }else{
-                    return $this->json(['message' => "Oups!...categorie n'existe pas!"],400,);
+                    return $this->json(['message' => "Oups!...categorie n'existe pas!"],404,);
                 }
             }else{
-                return $this->json(['message' => "Oups!...erreur est survenus'!"],404,);
+                return $this->json(['message' => "Oups!...erreur est survenus'!"],400,);
             }
         }else{
-            return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
+            return $this->json(['message' => "Oups!...erreur est survenus!"],400,);
         }    
     }
 }

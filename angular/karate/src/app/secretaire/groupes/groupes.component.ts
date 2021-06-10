@@ -102,10 +102,21 @@ export class GroupesComponent implements  OnInit,AfterViewInit {
      if(confirm("Est ce que vous voulez vraiment supprimer le groupe \" "+element+" \"")) {
        this.service.deleteGroupe(Number(id),{id:Number(this.cookie.get('idSec'))}).subscribe((res:any)=>{
          if(res.success){
-           this.USER_INFO.splice(Number(index), 1);
-           this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
-           this.dataSource.paginator = this.paginator;
-           this._success="";
+          this.service.getGroupes().subscribe((response: any) =>{
+            this.USER_INFO=response;
+            this.USER_INFO.forEach((element:any) => {
+              element.activite=element.activite.nomActivite;
+              if(element.instructeur){
+                element.instructeur=element.instructeur.nom+" "+element.instructeur.prenom;
+               }else{
+                element.instructeur="pas d'instructeur";
+              }
+            });
+            this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+           });
+           this._success=res.message;
            this._error="";
          }
        },

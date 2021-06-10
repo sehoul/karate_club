@@ -180,11 +180,13 @@ export class MembresComponent implements OnInit, AfterViewInit {
         data.categorie.nomCategorie !=""
       ){
   
-        this.service.updateMembre(Number(this.cookie.get('idPres')),data).subscribe((res:any)=>{
+        this.service.updateMembre(Number(this.cookie.get('idSec')),data).subscribe((res:any)=>{
           this._error="";
+          this._success=res.message
         },
         error=>{
-  
+          this._success=""
+          this._error=error.error.message
         }
         )
         
@@ -253,7 +255,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
     }
     delete(Nom:any,Prenom:any,index:any,id:any){
       if(confirm("Est ce que vous voulez vraiment supprimer le membre \" "+Prenom+" "+Nom+" \"")) {
-        this.service.deleteMembre(Number(id),Number(this.cookie.get('idPres'))).subscribe((res:any)=>{
+        this.service.deleteMembre(Number(id),Number(this.cookie.get('idSec'))).subscribe((res:any)=>{
             if(res.success){
               this.service.getMembres().subscribe((response: any) =>{
                 this.USER_INFO=response;
@@ -271,9 +273,13 @@ export class MembresComponent implements OnInit, AfterViewInit {
                 this.dataSource.filterPredicate = this.getFilterPredicate();
                 this.dataSource.sort = this.sort;
               });
+              this._error="";
+              this._success=res.message
             }
           },
           error=>{
+            this._success=""
+          this._error=error.error.message
   
           });
   

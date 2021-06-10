@@ -134,7 +134,7 @@ class ActivitesController extends AbstractController
                       $activite->setNomActivite($activite_req->getNomActivite())
                       ->setCotisation($activite_req->getCotisation());
                     $groupe= new Groupe();
-                    $groupe->setNomGroupe($activite->getNomActivite() . ' groupe: inconnu')
+                    $groupe->setNomGroupe(' groupe: inconnu')
                     ->setActivite($activite);
                     $action=new Actions();
                     $action->setUser($user)

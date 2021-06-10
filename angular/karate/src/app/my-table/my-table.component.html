@@ -31,7 +31,16 @@
   </form>
 
 
-
+  <mat-form-field>
+    <mat-select placeholder="Bank" #singleSelect>
+      <mat-option>
+        <ngx-mat-select-search></ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let element of test" [value]="element.licenceFFK">
+        {{element.licenceFFK}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
 
   <table #table id="excel-table" mat-table [dataSource]="dataSource" >

@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Repository\UserRepository;
+use function Symfony\Component\String\u;
 
 class GroupesController extends AbstractController
 {
@@ -81,24 +82,28 @@ class GroupesController extends AbstractController
         $instructeur=$this->instructeurRepository->findOneBy(["Nom"=>$data->getInstructeur()->getNom(),"Prenom"=>$data->getInstructeur()->getPrenom()]);
         if ($user){
             if($activite){
-                if($instructeur){
-                    if($groupe){
-                        $groupe->setNomGroupe($data->getNomGroupe())
-                                ->setActivite($activite)
-                                ->setInstructeur($instructeur);
-                        $action=new Actions();
-                        $action->setUser($user)
-                        ->setType("Modification")
-                        ->setDescription("Vous avez modifié le groupe \" ". ($groupe->getNomGroupe()) ." \"");
-                        $this->getDoctrine()->getManager()->persist($action);
-                        $user->addAction($action);
-                        $this->getDoctrine()->getManager()->flush();
-                        return $this->json(['success'=>true,'message'=>'Groupe a été bien modifié '], 200, []);
-                    }else{
-                        return $this->json(['message' => "Oups!...Ce groupe n'existe plus'!"],404,);
-                    }
+                if(u(u($groupe->getNomGroupe())->lower())->containsAny("inconnu")){
+                    return $this->json(['message' => "Oups!...Vous ne pouvez pas modifier un groupe inconnu!"],400,);
                 }else{
-                    return $this->json(['message' => "Oups!...Cet instructeur n'existe plus'!"],404,);
+                    if($instructeur){
+                        if($groupe){
+                            $groupe->setNomGroupe($data->getNomGroupe())
+                                    ->setActivite($activite)
+                                    ->setInstructeur($instructeur);
+                            $action=new Actions();
+                            $action->setUser($user)
+                            ->setType("Modification")
+                            ->setDescription("Vous avez modifié le groupe \" ". ($groupe->getNomGroupe()) ." \"");
+                            $this->getDoctrine()->getManager()->persist($action);
+                            $user->addAction($action);
+                            $this->getDoctrine()->getManager()->flush();
+                            return $this->json(['success'=>true,'message'=>'Groupe a été bien modifié '], 200, []);
+                        }else{
+                            return $this->json(['message' => "Oups!...Ce groupe n'existe plus'!"],404,);
+                        }
+                    }else{
+                        return $this->json(['message' => "Oups!...Cet instructeur n'existe plus'!"],404,);
+                    }
                 }
             }else{
                 return $this->json(['message' => "Oups!...Cette activité n'existe plus'!"],404,);
