@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CookieService } from 'ngx-cookie-service';
 import { CategoriesService } from 'src/app/Services/Categorie.service';
 import { MembresService } from 'src/app/Services/membres.service';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 import * as XLSX from 'xlsx';
 import {MatSort} from '@angular/material/sort';
 import { ActivitesService } from 'src/app/Services/activites.service';
@@ -36,13 +35,7 @@ interface Categorie{
   selector: 'app-membres',
   templateUrl: './membres.component.html',
   styleUrls: ['./membres.component.css'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+ 
 })
 export class MembresComponent implements OnInit,AfterViewInit {
   expandedElement!: elem | null;
@@ -98,8 +91,8 @@ export class MembresComponent implements OnInit,AfterViewInit {
     });
   };
 
-  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","GroupesMembre","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation", '$$edit'];
-  notdisplayedColumns: string[] = ["NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents"];
+  displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","GroupesMembre","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents","Observation"];
+  notdisplayedColumns: string[] = [];
 
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
@@ -110,7 +103,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
     ws['!cols'] = [];
-    ws['!cols'][13] = { hidden: true };
+    //ws['!cols'][13] = { hidden: true };
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     XLSX.writeFile(wb, this.fileName);
