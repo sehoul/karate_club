@@ -103,6 +103,10 @@ export class MembresComponent implements OnInit, AfterViewInit {
       this.servicec.getCategories().subscribe((response: any) =>{
         this.Categories=response;
       });
+      let date=new Date();
+      let test = formatDate(new Date(), 'yyyy/MM/dd', 'fr');
+      let test2=Date.parse(test);
+      console.log(date.getTime())
     };
   
     displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","GroupesMembre","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents","Observation", '$$edit'];
