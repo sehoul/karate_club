@@ -10,6 +10,7 @@ import { MembresService } from 'src/app/Services/membres.service';
 import * as XLSX from 'xlsx';
 import {MatSort} from '@angular/material/sort';
 import { ActivitesService } from 'src/app/Services/activites.service';
+import { DatePipe, formatDate } from '@angular/common';
 
 
 
