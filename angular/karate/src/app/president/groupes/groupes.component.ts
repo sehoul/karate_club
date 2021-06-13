@@ -40,7 +40,7 @@ export class GroupesComponent implements AfterViewInit,OnInit {
        this.USER_INFO.forEach((element:any) => {
          element.activite=element.activite.nomActivite;
          if(element.instructeur){
-           element.instructeur=element.instructeur.nom+" "+element.instructeur.prenom;
+           element.instructeur=element.instructeur.id+"#"+element.instructeur.nom+" "+element.instructeur.prenom;
           }else{
            element.instructeur="pas d'instructeur";
          }
@@ -86,7 +86,7 @@ export class GroupesComponent implements AfterViewInit,OnInit {
    
    dataSchema:any = USER_SCHEMA;
    edit(element:any){
-     this.service.updateGroupe(Number(this.cookie.get('idPres')),{id:element.id,NomGroupe:element.NomGroupe,activite:{nomActivite:element.activite},instructeur:{nom:element.instructeur.split(' ',2)[0],prenom:element.instructeur.split(' ',2)[1]}}).subscribe(
+     this.service.updateGroupe(Number(this.cookie.get('idPres')),{id:element.id,NomGroupe:element.NomGroupe,activite:{nomActivite:element.activite},instructeur:{id:Number(element.instructeur.split('#',1))}}).subscribe(
        (res:any)=>{
          this._success=res.message;
          this._error="";
@@ -117,7 +117,9 @@ export class GroupesComponent implements AfterViewInit,OnInit {
      }
    }
  
- 
+   splitinstructeur(str:any){
+     return str.split("#",2)[1];
+   }
  
    //@ts-ignore
    @ViewChild(MatPaginator) paginator: MatPaginator;

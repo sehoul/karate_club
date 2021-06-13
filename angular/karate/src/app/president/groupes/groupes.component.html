@@ -34,10 +34,12 @@
             <button class="btn btn-link text-info" title="Modifier" (click)="element.isEdit = !element.isEdit"><i class="bi bi-pencil-square"></i></button>
             <button class="btn btn-link text-danger ml-2" title="Supprimer" (click)="delete(element['NomGroupe'],i,element['id'])"><i class="bi bi-trash-fill"></i></button>
           </div>           
-          <span  #spanHeader>
+          <span *ngIf="col === 'instructeur'"  #spanHeader>
+            {{ splitinstructeur(element[col])}}
+          </span>
+          <span *ngIf="col !== 'instructeur'"  #spanHeader>
             {{element[col]}}
           </span>
-        
         </div>
         <div *ngIf="element.isEdit">
           <div class="btn-edit" *ngIf="col === '$$edit'; else defaultField">
@@ -63,7 +65,7 @@
             <mat-form-field *ngIf="col === 'instructeur'; else nonEditedTemplate">
               <mat-label>instructeur</mat-label>
               <mat-select [(value)]="element[col]" [(ngModel)]="element[col]">
-                <mat-option *ngFor="let ins of instructeur" [value]="ins.Nom + ' ' + ins.Prenom" >{{ins.Nom + ' ' + ins.Prenom}}</mat-option>
+                <mat-option *ngFor="let ins of instructeur" [value]="ins.id+'#'+ins.Nom + ' ' + ins.Prenom" >{{ins.Nom + '  ' + ins.Prenom}}</mat-option>
               </mat-select>
             </mat-form-field>
             
