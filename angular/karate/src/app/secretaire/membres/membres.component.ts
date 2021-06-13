@@ -49,7 +49,7 @@ const USER_SCHEMA = {
   selector: 'app-membres',
   templateUrl: './membres.component.html',
   styleUrls: ['./membres.component.css'],
- 
+
 })
 export class MembresComponent implements OnInit, AfterViewInit {
     expandedElement!: elem | null;
@@ -65,7 +65,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
      _success:string="";
     _error:string="";
     constructor(private service: MembresService , private servicec: CategoriesService , private cookie:CookieService, private activite:ActivitesService){
-      
+
       this.searchForm = new FormGroup({
         Nom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
         Prenom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
@@ -73,10 +73,10 @@ export class MembresComponent implements OnInit, AfterViewInit {
         Tout: new FormControl('', Validators.pattern('^[a-zA-Z0-9 ]+$'))
       });
     }
-    
+
      //@ts-ignore
      @ViewChild(MatSort) sort: MatSort;
-  
+
     ngOnInit(){
       this.service.getMembres().subscribe((response: any) =>{
         this.USER_INFO=response;
@@ -95,11 +95,11 @@ export class MembresComponent implements OnInit, AfterViewInit {
         this.dataSource.filterPredicate = this.getFilterPredicate();
         this.dataSource.sort = this.sort;
       });
-      
+
       this.activite.getActivites().subscribe((response:any)=>{
         this.Activities=response;
       })
-  
+
       this.servicec.getCategories().subscribe((response: any) =>{
         this.Categories=response;
       });
@@ -108,14 +108,14 @@ export class MembresComponent implements OnInit, AfterViewInit {
       let test2=Date.parse(test);
       console.log(date.getTime())
     };
-  
+
     displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","GroupesMembre","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents","Observation", '$$edit'];
     //notdisplayedColumns: string[] = [];
     dataSchema:any = USER_SCHEMA;
     title = 'angular-app';
     fileName= 'karte-club.xlsx';
-  
-  
+
+
     exportexcel(): void
     {
       let element = document.getElementById('excel-table');
@@ -125,13 +125,13 @@ export class MembresComponent implements OnInit, AfterViewInit {
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
       XLSX.writeFile(wb, this.fileName);
-  
+
     }
     isValid(str:string) {
       return !/[~`!@#$%\^&*()+=\-\[\]\\';,.^ç¤/{}|\\":<>\?]/g.test(str);
     }
     edit(element:any){
-      
+
       const listGroupe:Array<membregroup>=[]
       if(Array.isArray(element.GroupesMembre)){
         element.GroupesMembre.forEach((element:string) => {
@@ -140,8 +140,8 @@ export class MembresComponent implements OnInit, AfterViewInit {
       }else{
         listGroupe.push({Groupe:{NomGroupe:element.GroupesMembre}})
       }
-    
-  
+
+
       const data={
         id:element.id,
         Adresse:element.Adresse,
@@ -164,9 +164,9 @@ export class MembresComponent implements OnInit, AfterViewInit {
         TelephoneParents2: element.TelephoneParents2,
         EmailParents: element.EmailParents,
         categorie: { nomCategorie: element.categorie },
-       
+
       }
-  
+
       if(
         data.Adresse !="" &&
         data.Cotisation &&
@@ -187,7 +187,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
         data.EmailParents !="" &&
         data.categorie.nomCategorie !=""
       ){
-  
+
         this.service.updateMembre(Number(this.cookie.get('idSec')),data).subscribe((res:any)=>{
           this._error="";
           this._success=res.message
@@ -197,31 +197,31 @@ export class MembresComponent implements OnInit, AfterViewInit {
           this._error=error.error.message
         }
         )
-        
-  
+
+
       }else{
         this._error="Merci de remplir correctement tous les champs";
       }
-  
+
     }
-  
+
     //@ts-ignore
     @ViewChild(MatPaginator) paginator: MatPaginator;
-  
-  
+
+
     ngAfterViewInit() {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }
-  
-  
-  
+
+
+
     applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
       const filterValue2 = filterValue + '$' +'';
       this.dataSource.filter = filterValue2.trim().toLowerCase();
     }
-  
+
     applyFilterbis() {
       const n = this.searchForm.getRawValue().Nom;
       const p = this.searchForm.getRawValue().Prenom;
@@ -231,12 +231,12 @@ export class MembresComponent implements OnInit, AfterViewInit {
       this.Prenom = p === null ? '' : p;
       this.FFK = f === null ? '' : f;
       this.Tout = t === null ? '' : t;
-  
+
       const filterValue = this.Nom + '$' + this.Prenom + '$' + this.FFK + '$' + this.Tout;
       this.dataSource.filter = filterValue.trim().toLowerCase();
     }
-  
-  
+
+
     getFilterPredicate() {
       return (row: elem, filters: string) => {
         const filterArray = filters.split('$');
@@ -248,12 +248,12 @@ export class MembresComponent implements OnInit, AfterViewInit {
         const colonneN = row.Nom;
         const colonneP = row.Prenom;
         const colonneFFk = row.NumLicenceFFK;
-        const colonneT = row.Nom + row.Prenom + row.NumLicenceFFK + row.categorie + row.Genre + row.GroupesMembre + row.Adresse + row.DateNaissance + row.Email + row.Telephone1 + row.Cotisation + row.DateInscription + row.Grade + row.Observation;
+        const colonneT = row.Nom + row.Prenom + row.NumLicenceFFK + row.categorie + row.Genre + row.GroupesMembre + row.Adresse + row.DateNaissance + row.Email + row.Telephone1 + row.Cotisation + row.DateInscription + row.Grade + row.Observation + row.NomParents + row.PrenomParents + row.EmailParents + row.TelephoneParents1 + row.TelephoneParents2 + row.Telephone2;
         const customFilterN = colonneN.toLowerCase().includes(Nom);
         const customFilterP = colonneP.toLowerCase().includes(prenom);
         const customFilterF = colonneFFk.toLowerCase().includes(ffk);
         const customFilterT = colonneT.toLowerCase().includes(Tout);
-  
+
         matchFilter.push(customFilterN);
         matchFilter.push(customFilterP);
         matchFilter.push(customFilterF);
@@ -288,22 +288,22 @@ export class MembresComponent implements OnInit, AfterViewInit {
           error=>{
             this._success=""
           this._error=error.error.message
-  
+
           });
-  
+
       }
     }
-  
+
     errorAlert(){
       this._error="";
     }
     successAlert(){
       this._success="";
     }
-  
+
   }
-  
-  
+
+
   export interface elem {
     id: number;
     NumLicenceFFK: string;
@@ -328,4 +328,3 @@ export class MembresComponent implements OnInit, AfterViewInit {
     Observation: string;
     GroupesMembre: any;
   }
-  

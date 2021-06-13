@@ -58,7 +58,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
    _success:string="";
   _error:string="";
   constructor(private service: MembresService , private servicec: CategoriesService , private cookie:CookieService, private activite:ActivitesService){
-    
+
     this.searchForm = new FormGroup({
       Nom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
       Prenom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
@@ -66,7 +66,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
       Tout: new FormControl('', Validators.pattern('^[a-zA-Z0-9 ]+$'))
     });
   }
-  
+
    //@ts-ignore
    @ViewChild(MatSort) sort: MatSort;
 
@@ -88,7 +88,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
       this.dataSource.filterPredicate = this.getFilterPredicate();
       this.dataSource.sort = this.sort;
     });
-    
+
     this.activite.getActivites().subscribe((response:any)=>{
       this.Activities=response;
     })
@@ -100,7 +100,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
 
   displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","GroupesMembre","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation", '$$edit'];
   notdisplayedColumns: string[] = ["NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents"];
- 
+
   title = 'angular-app';
   fileName= 'karte-club.xlsx';
 
@@ -116,8 +116,8 @@ export class MembresComponent implements OnInit,AfterViewInit {
     XLSX.writeFile(wb, this.fileName);
 
   }
- 
-  
+
+
 
   //@ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -162,7 +162,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
       const colonneN = row.Nom;
       const colonneP = row.Prenom;
       const colonneFFk = row.NumLicenceFFK;
-      const colonneT = row.Nom + row.Prenom + row.NumLicenceFFK + row.categorie + row.Genre + row.GroupesMembre + row.Adresse + row.DateNaissance + row.Email + row.Telephone1 + row.Cotisation + row.DateInscription + row.Grade + row.Observation;
+      const colonneT = row.Nom + row.Prenom + row.NumLicenceFFK + row.categorie + row.Genre + row.GroupesMembre + row.Adresse + row.DateNaissance + row.Email + row.Telephone1 + row.Cotisation + row.DateInscription + row.Grade + row.Observation + row.NomParents + row.PrenomParents + row.EmailParents + row.TelephoneParents1 + row.TelephoneParents2 + row.Telephone2;
       const customFilterN = colonneN.toLowerCase().includes(Nom);
       const customFilterP = colonneP.toLowerCase().includes(prenom);
       const customFilterF = colonneFFk.toLowerCase().includes(ffk);
