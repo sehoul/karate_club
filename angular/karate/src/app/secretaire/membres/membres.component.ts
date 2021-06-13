@@ -196,7 +196,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
         
   
       }else{
-        this._error="veillez remplire correctement tout les champs";
+        this._error="Merci de remplir correctement tous les champs";
       }
   
     }

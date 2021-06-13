@@ -59,7 +59,7 @@ class EmploisDuTempsController extends AbstractController
         if($user){
             if($groupe && $instructeur){
                 if($crenau_existe){
-                    return $this->json(['message' => "Oups!...L'emplois du temps du \" " . $instructeur->getNom() . " \" est deja reservé pour ce crenau !"],400,);
+                    return $this->json(['message' => "Oups!...L'instructeur \" " . $instructeur->getNom() . " \" ne peut pas avoir plusieurs créneaux simultanément"],400,);
                   }else{
                     $crenau->setEvent($data_crenau->getEvent())
                     ->setGroupe($groupe)
@@ -73,7 +73,7 @@ class EmploisDuTempsController extends AbstractController
                     $this->getDoctrine()->getManager()->persist($action);
                     $this->getDoctrine()->getManager()->persist($crenau);
                     $this->getDoctrine()->getManager()->flush();
-                    return $this->json(['success'=>true,'message'=>'Crenau a été bien ajouté' . $crenau->getStart()], 200, []);
+                    return $this->json(['success'=>true,'message'=>'Créneau a été bien ajouté' . $crenau->getStart()], 200, []);
                 }
             }else{
                   return $this->json(['message' => "Oups!...Ce groupe n'existe plus!"],400,);
