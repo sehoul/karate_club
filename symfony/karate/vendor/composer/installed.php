@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'dd66b447cd0153ea2047d1d6f9b488e4c3578a7f',
+    'reference' => '037926404722c58935d28b21d139fc639c0fdeb2',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'dd66b447cd0153ea2047d1d6f9b488e4c3578a7f',
+      'reference' => '037926404722c58935d28b21d139fc639c0fdeb2',
     ),
     'amphp/amp' => 
     array (
@@ -573,8 +573,8 @@
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache-implementation' => 
