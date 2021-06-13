@@ -153,6 +153,11 @@ export class MembresComponent implements OnInit, AfterViewInit {
         Prenom:element.Prenom,
         Telephone1:element.Telephone1,
         Telephone2:element.Telephone2,
+        NomParents: element.NomParents,
+        PrenomParents: element.PrenomParents,
+        TelephoneParents1: element.TelephoneParents1,
+        TelephoneParents2: element.TelephoneParents2,
+        EmailParents: element.EmailParents,
         categorie: { nomCategorie: element.categorie },
        
       }
@@ -171,6 +176,11 @@ export class MembresComponent implements OnInit, AfterViewInit {
         data.Observation !="" &&
         data.Prenom !="" &&
         data.Telephone1 !="" &&
+        data.NomParents !="" &&
+        data.PrenomParents !="" &&
+        data.TelephoneParents1 !="" &&
+        data.TelephoneParents2 !="" &&
+        data.EmailParents !="" &&
         data.categorie.nomCategorie !=""
       ){
   
