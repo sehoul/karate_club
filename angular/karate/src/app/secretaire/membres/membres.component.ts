@@ -140,8 +140,6 @@ export class MembresComponent implements OnInit, AfterViewInit {
       }else{
         listGroupe.push({Groupe:{NomGroupe:element.GroupesMembre}})
       }
-
-
       const data={
         id:element.id,
         Adresse:element.Adresse,
@@ -164,9 +162,9 @@ export class MembresComponent implements OnInit, AfterViewInit {
         TelephoneParents2: element.TelephoneParents2,
         EmailParents: element.EmailParents,
         categorie: { nomCategorie: element.categorie },
-
+  
       }
-
+  
       if(
         data.Adresse !="" &&
         data.Cotisation &&
@@ -181,28 +179,50 @@ export class MembresComponent implements OnInit, AfterViewInit {
         data.Observation !="" &&
         data.Prenom !="" &&
         data.Telephone1 !="" &&
-        data.NomParents !="" &&
-        data.PrenomParents !="" &&
-        data.TelephoneParents1 !="" &&
-        data.EmailParents !="" &&
         data.categorie.nomCategorie !=""
       ){
-
-        this.service.updateMembre(Number(this.cookie.get('idSec')),data).subscribe((res:any)=>{
-          this._error="";
-          this._success=res.message
-        },
-        error=>{
-          this._success=""
-          this._error=error.error.message
+  
+        let date1 =formatDate(new Date(), 'yyyy/MM/dd', 'fr');
+        let date2 = new Date(date1);
+        let date3 = new Date(element.DateNaissance);
+        let diff = date2.getTime() - date3.getTime();
+        let years = (diff / (1000*3600*24))/365;
+        if(years>18){
+          this.service.updateMembre(Number(this.cookie.get('idPres')),data).subscribe((res:any)=>{
+            this._error="";
+            this._success=res.message
+          },
+          error=>{
+            this._success=""
+            this._error=error.error.message
+          }
+          );
+  
         }
-        )
-
-
+        else{
+          if(
+            data.NomParents  &&
+            data.PrenomParents  &&
+            data.TelephoneParents1  &&
+            data.EmailParents  
+          ){
+            this.service.updateMembre(Number(this.cookie.get('idPres')),data).subscribe((res:any)=>{
+              this._error="";
+              this._success=res.message
+            },
+            error=>{
+              this._success=""
+              this._error=error.error.message
+            });
+          }else{
+            this._error="Ce membre est mineur! merci de remplir les informations des parents";
+          }
+          
+        }
       }else{
         this._error="Merci de remplir correctement tous les champs";
       }
-
+  
     }
 
     //@ts-ignore
