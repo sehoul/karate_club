@@ -179,7 +179,6 @@ export class MembresComponent implements OnInit, AfterViewInit {
         data.NomParents !="" &&
         data.PrenomParents !="" &&
         data.TelephoneParents1 !="" &&
-        data.TelephoneParents2 !="" &&
         data.EmailParents !="" &&
         data.categorie.nomCategorie !=""
       ){
