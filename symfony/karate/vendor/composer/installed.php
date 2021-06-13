@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'fa4663f9c3d79a7d8c5c41107bc5449b45e7f5b1',
+    'reference' => '84fc6ffb13993aad42e75c6192aff791c91aab24',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'fa4663f9c3d79a7d8c5c41107bc5449b45e7f5b1',
+      'reference' => '84fc6ffb13993aad42e75c6192aff791c91aab24',
     ),
     'amphp/amp' => 
     array (
@@ -416,6 +416,15 @@
       ),
       'reference' => '1cb1cde8e8dd0f70cc0fe51354a59acad9302084',
     ),
+    'nikic/php-parser' => 
+    array (
+      'pretty_version' => 'v4.10.5',
+      'version' => '4.10.5.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '4432ba399e47c66624bc73c8c0f811e5c109576f',
+    ),
     'ocramius/package-versions' => 
     array (
       'replaced' => 
@@ -564,8 +573,8 @@
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache-implementation' => 
