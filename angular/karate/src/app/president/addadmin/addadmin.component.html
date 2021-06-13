@@ -1,4 +1,4 @@
-<div class="conainer-fluid mb-5">
+<div class="conainer-fluid pb-5">
     <div class="w-100 pl-5 text-white top-title">
       <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Ajouter un compte</h2>
     </div>
@@ -33,10 +33,10 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="TlphnAdm"> Telephone</label>
-        <input id="TlphnAdm" class="form-control py-4" formControlName="TlphnAdm" [ngClass]="formAA.controls['TlphnAdm'].invalid && TlphnAdm.touched ? 'is-invalid' : formAA.controls['TlphnAdm'].valid? 'is-valid': '' ">
-        <div class="invalid-feedback" *ngIf="TlphnAdm.touched">
-          Ce champs est obligatoire.
+        <label for="TlphnAdm"> Telephone<b class="text-danger">*</b></label>
+      <input id="TlphnAdm" class="form-control py-4" formControlName="TlphnAdm" [ngClass]="formAA.controls['TlphnAdm'].invalid && TlphnAdm.touched ? 'is-invalid' : formAA.controls['TlphnAdm'].valid? 'is-valid': '' ">
+      <div class="invalid-feedback" *ngIf="TlphnAdm.touched">
+        Ce champs est obligatoire.
         </div>
       </div>
 
