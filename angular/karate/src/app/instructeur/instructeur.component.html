@@ -1,1 +1,92 @@
-<p>instructeur works!</p>
+<!-- Vertical navbar -->
+<div class="vertical-nav bg-white" id="sidebar" [ngClass]="{active:_active}">
+  <div class="py-4 px-3 mb-4 bg-white" style="border-bottom: 2px solid #83112e;">
+    <div class="media d-flex align-items-center">
+      <div class="media-body">
+        <img src="../../assets/img/karatelogo.png" class="img-fluid" alt="...">
+      </div>
+    </div>
+  </div>
+
+  <p class="text-gray font-weight-bold text-uppercase px-3 small pt-2 pb-1 mb-0">Menu</p>
+  <ul class="nav flex-column bg-white mb-0">
+    <li class="nav-item" >
+      <a [routerLink]="['','i']" class="nav-link my-1 ml-2 text-dark ">
+        <i class="bi bi-columns-gap mr-2"  style= "color:#52b788;"></i>
+        Tableau de Bord
+      </a>
+    </li>
+  </ul>
+
+
+  <p class="text-gray font-weight-bold text-uppercase px-3 small pt-2 pb-1 mb-0">Membres</p>
+  <ul class="nav flex-column bg-white mb-0 ">
+    <li class="nav-item" >
+      <a [routerLink]="['membres']" class="nav-link my-1 ml-2  text-dark">
+        <i class="bi bi-file-person mr-2" style="color:#5d6ab8;"></i>
+                    Liste des membres
+      </a>
+    </li>
+  </ul>
+
+
+  <p class="text-gray font-weight-bold text-uppercase px-3 small pt-2 pb-1 mb-0">Groupes</p>
+  <ul class="nav flex-column bg-white mb-0">
+    <li class="nav-item" >
+      <a [routerLink]="['groupes']" class="nav-link my-1 ml-2 text-dark ">
+        <i class="bi bi-people-fill mr-2" style="color:#52b788;"></i>
+        Liste des groupes
+      </a>
+    </li>
+
+  </ul>
+
+
+  <p class="text-gray font-weight-bold text-uppercase px-3 small pt-2 pb-1 mb-0">Emploi du temps</p>
+  <ul class="nav flex-column bg-white mb-0">
+    <li class="nav-item" >
+      <a [routerLink]="['calendrier']" class="nav-link my-1 ml-2 text-dark ">
+        <i class="bi bi-calendar-date mr-2" style="color:#5d6ab8;"></i>                
+        Emplois du temps
+      </a>
+    </li>
+
+  </ul>
+
+  <nav class="navbar fixed-bottom navbar-light " style="position: initial;background: white;">
+    <div class="container-fluid">
+      <ul class="nav flex-column bg-white mb-0">
+          <li class="nav-item" >
+                <a [routerLink]="['profil']" class="nav-link text-info my-2 ml-2 text-center" >
+                    <i class="bi bi-person-circle mr-2 "></i>
+                    Profil
+                </a>
+            </li>
+        
+        <li class="nav-item">
+          <a [routerLink]="['../logout']" class="nav-link text-danger my-2 ml-2">
+            <i class="bi bi-box-arrow-left mr-2"></i>
+            Deconnexion
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+<!-- End vertical navbar -->
+
+
+<!-- Page content holder -->
+<div class="page-content p-0" id="content" [ngClass]="{active:_active}">
+  <!-- Toggle button -->
+  <div class="top ">
+    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 m-4" (click)="side_bar_menu()"><div class="animated-icon2" [ngClass]="{open:!_active}"><span></span><span></span><span></span><span></span></div></button>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+<div class="loader"  *ngIf="loading$ | async">
+  <mat-progress-spinner class="custom-spinner" diameter="50" strokeWidth="3" [mode]="'indeterminate'"></mat-progress-spinner>
+  </div>
+<!-- content -->
+
+

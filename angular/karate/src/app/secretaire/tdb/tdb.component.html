@@ -1,0 +1,37 @@
+<div class="conainer-fluid">
+    <div class="pl-5 pt-5 text-white top-title">
+      <h2 class="pl-5 ml-3 pt-5 pb-4 text-left">Tableau de Bord</h2>
+    </div>
+    <div class="container-xxl p-5 my-5 main">
+        <div class="left">
+            <div class="membre"  [routerLink]="[ 'ajouter-membre' ]">
+                <h4>Ajouter des membres</h4>
+                <p>
+                    Informations personelles, informations des parents,
+                     effectuer une activitée,
+                </p>
+                <span>
+                    <i class="bi bi-arrow-right"></i>
+                </span>
+            </div>
+            <div class="groupe" [routerLink]="[ 'groupes-membres' ]">
+                <h5>Consulter les groupes de chaque activitée... <i class="bi bi-arrow-right"></i></h5>
+            </div>
+        </div>
+        <div class="right">
+            <div class="horloge"><div class="color"></div> <h5>{{now}} {{todayDate | date : 'yyyy-MMMM-dd'}}</h5></div>
+            <div class="activities">
+                <h6 class="px-5 mt-4 mb-0">Historique des operations</h6>
+
+                <ul *ngIf="historique.length" class="p-4 mt-0">
+                    <li *ngFor="let action of historique">
+                        <div [class]="action.type"></div><span>{{action.description}}</span>
+                    </li>
+                </ul>
+                <ul *ngIf="!historique.length">
+                   <h4 class="text-secondary">Vous n'avez effectué aucune operation</h4>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

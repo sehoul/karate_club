@@ -1,0 +1,17 @@
+<p>excel works!</p>
+
+
+<input *ngFor="let activite of Actiitees" accept=".xlsx , .csv , .xls" type="file" (change)="onFileChange($event,activite.id)" multiple="false" placeholder="activite.nomActvite"/>
+
+<table>
+    <tbody>
+        <tr *ngFor="let row of data">
+            <td *ngFor="let cell of row">
+                {{cell}}
+            </td>
+            
+        </tr>
+    </tbody>
+</table>
+
+<!-- faire un bouton qui envoie ces données a la base de données-->
