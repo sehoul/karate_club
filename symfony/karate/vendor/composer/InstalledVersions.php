@@ -30,11 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-<<<<<<< HEAD
-    'reference' => 'be5188e6b61e8dde16813e7c594496c229d8b41e',
-=======
     'reference' => 'bb2e42bf8173f2f028a321373f17169ab59ab66e',
->>>>>>> dev2
     'name' => '__root__',
   ),
   'versions' => 
@@ -46,9 +42,6 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-<<<<<<< HEAD
-      'reference' => 'be5188e6b61e8dde16813e7c594496c229d8b41e',
-=======
       'reference' => 'bb2e42bf8173f2f028a321373f17169ab59ab66e',
     ),
     'amphp/amp' => 
@@ -167,7 +160,6 @@ private static $installed = array (
       array (
       ),
       'reference' => '0f56438b9197e224325e88f305346f0221df1f71',
->>>>>>> dev2
     ),
     'composer/package-versions-deprecated' => 
     array (
@@ -198,21 +190,12 @@ private static $installed = array (
     ),
     'doctrine/cache' => 
     array (
-<<<<<<< HEAD
-      'pretty_version' => '1.11.0',
-      'version' => '1.11.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'a9c1b59eba5a08ca2770a76eddb88922f504e8e0',
-=======
       'pretty_version' => '2.0.3',
       'version' => '2.0.3.0',
       'aliases' => 
       array (
       ),
       'reference' => 'c9622c6820d3ede1e2315a6a377ea1076e421d88',
->>>>>>> dev2
     ),
     'doctrine/collections' => 
     array (
@@ -396,21 +379,12 @@ private static $installed = array (
     ),
     'laminas/laminas-code' => 
     array (
-<<<<<<< HEAD
-      'pretty_version' => '4.2.1',
-      'version' => '4.2.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'a1e7f8b6467ac7f277b8e027e8537fa13664a8d8',
-=======
       'pretty_version' => '4.3.0',
       'version' => '4.3.0.0',
       'aliases' => 
       array (
       ),
       'reference' => '1beb4447f9efd26041eba7eff50614e798c353fd',
->>>>>>> dev2
     ),
     'laminas/laminas-eventmanager' => 
     array (
@@ -872,8 +846,6 @@ private static $installed = array (
       array (
       ),
       'reference' => '7e82f6084d7cae521a75ef2cb5c9457bbda785f4',
-<<<<<<< HEAD
-=======
     ),
     'symfony/http-client-implementation' => 
     array (
@@ -881,7 +853,6 @@ private static $installed = array (
       array (
         0 => '2.2',
       ),
->>>>>>> dev2
     ),
     'symfony/http-foundation' => 
     array (
@@ -1327,11 +1298,7 @@ private static $installed = array (
     array (
       'replaced' => 
       array (
-<<<<<<< HEAD
-        0 => '4.2.1',
-=======
         0 => '4.3.0',
->>>>>>> dev2
       ),
     ),
     'zendframework/zend-eventmanager' => 
