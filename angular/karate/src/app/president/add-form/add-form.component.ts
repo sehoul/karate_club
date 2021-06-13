@@ -5,6 +5,8 @@ import { CategoriesService } from '../../Services/Categorie.service';
 import { GroupesService } from 'src/app/Services/groupes.service';
 import { MembresService } from 'src/app/Services/membres.service';
 import { CookieService } from 'ngx-cookie-service';
+import {DatePipe} from "@angular/common";
+import {formatDate} from '@angular/common';
 interface Categorie{
   id:number,
   nomCategorie:string,
@@ -90,8 +92,8 @@ export class AddFormComponent implements OnInit {
   keyPress(element:any,event: KeyboardEvent) {
     const pattern = /[~`!@#$%\^&*()+=\-\[\]\\';,.¤ç°/{}|\\":<>\?]/;
     const inputChar = event.key;
-    element.value.replace(pattern, ""); 
-   
+    element.value.replace(pattern, "");
+
 }
 isValid(str:string) {
   return !/[~`!@#$%\^&*()+=\-\[\]\\';,.^ç¤/{}|\\":<>\?]/g.test(str);
@@ -192,6 +194,20 @@ isValid(str:string) {
     }
     successAlert(){
       this._success="";
+    }
+    dd(elem:any){
+      let date1 =formatDate(new Date(), 'yyyy/MM/dd', 'en');
+
+      let date2 = new Date(date1);
+
+      let date3 = new Date(elem.value);
+
+      let diff = date2.getTime() - date3.getTime();
+
+      let years = (diff / (1000*3600*24))/365;
+
+      console.log(years);
+
     }
 
 }

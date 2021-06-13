@@ -65,7 +65,7 @@
         </div>
       </div>
     </div>
-      <div *ngIf="_success" class="alertBack">  
+      <div *ngIf="_success" class="alertBack">
       <div  class="row mb-2 alert-info rounded py-4 px-3">
         <div class="col-11">
           {{_success}}
@@ -84,7 +84,7 @@
           {{col !=='GroupesMembre'? col : 'Activitées' }}
 
         </span>
-        
+
       </th>
       <td mat-cell *matCellDef="let element;let i=index" class="p-2" [style.width]="col==='$$edit' ? '110px':'auto'">
 
@@ -179,8 +179,8 @@
         </div>
       </td>
     </ng-container>
-    
-    
+
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

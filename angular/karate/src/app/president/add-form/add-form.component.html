@@ -14,7 +14,7 @@
           </div>
         </div>
       </div>
-        <div *ngIf="_success" class="alertBack">  
+        <div *ngIf="_success" class="alertBack">
         <div  class="row mb-2 alert-info rounded py-4 px-3">
           <div class="col-11">
             {{_success}}
@@ -64,7 +64,7 @@
 
         <div class="form-group col-6">
           <label for="dateN">Date de Naissance<b class="text-danger">*</b></label>
-          <input type="date" id="dateN" class="form-control py-4" formControlName="dateN" [ngClass]="form.controls['dateN'].invalid && dateN.touched ? 'is-invalid' : form.controls['dateN'].valid? 'is-valid': '' ">
+          <input #datenaissance (change)="dd(datenaissance)" type="date" id="dateN" class="form-control py-4" formControlName="dateN" [ngClass]="form.controls['dateN'].invalid && dateN.touched ? 'is-invalid' : form.controls['dateN'].valid? 'is-valid': '' ">
           <div class="invalid-feedback" *ngIf="dateN.touched">
             Ce champs est obligatoire.
           </div>
