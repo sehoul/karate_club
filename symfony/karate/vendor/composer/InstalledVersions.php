@@ -1249,6 +1249,33 @@ private static $installed = array (
       ),
       'reference' => '118ef73c177a033955af1342ec54f08dd1bf6d8e',
     ),
+    'symfony/web-profiler-bundle' => 
+    array (
+      'pretty_version' => 'v5.2.8',
+      'version' => '5.2.8.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '68aea5b0ca1328c2a1ae3df04cce50302a5106f9',
+    ),
+    'symfony/yaml' => 
+    array (
+      'pretty_version' => 'v5.2.9',
+      'version' => '5.2.9.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd23115e4a3d50520abddccdbec9514baab1084c8',
+    ),
+    'twig/extra-bundle' => 
+    array (
+      'pretty_version' => 'v3.3.1',
+      'version' => '3.3.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e12a8ee63387abb83fb7e4c897663bfb94ac22b6',
+    ),
     'twig/twig' => 
     array (
       'pretty_version' => 'v3.3.2',
