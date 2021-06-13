@@ -36,8 +36,7 @@ ngAfterViewInit() {
   
   }
   ngOnInit(){
-        this.service.getActivites().subscribe((response: any) =>{
-          console.log(response);      
+        this.service.getActivites().subscribe((response: any) =>{   
           this.USER_INFO=response;
           let groupe:string="";
           this.USER_INFO.forEach((element:any) => {
@@ -52,7 +51,6 @@ ngAfterViewInit() {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
          });
-     
   }
   //@ts-ignore
   @ViewChild(MatSort) sort: MatSort;
