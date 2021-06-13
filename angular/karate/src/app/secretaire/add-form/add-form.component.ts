@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { CategoriesService } from 'src/app/Services/Categorie.service';
 import { GroupesService } from 'src/app/Services/groupes.service';
 import { MembresService } from 'src/app/Services/membres.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-add-form',
@@ -81,6 +82,17 @@ export class AddFormComponent implements OnInit , AfterViewInit {
   informationParentalRequired:boolean=true
   categorieChange(value:any){
       if(this.Categories.find(x => x.id== value).nomCategorie==="Séniors")
+        this.informationParentalRequired=false;
+      else
+        this.informationParentalRequired=true;
+  }
+  dd(elem:any){
+    let date1 =formatDate(new Date(), 'yyyy/MM/dd', 'fr');
+    let date2 = new Date(date1);
+    let date3 = new Date(elem.value);
+    let diff = date2.getTime() - date3.getTime();
+    let years = (diff / (1000*3600*24))/365;
+    if(years>18)
         this.informationParentalRequired=false;
       else
         this.informationParentalRequired=true;

@@ -82,8 +82,14 @@ export class AddFormComponent implements OnInit {
   }
 
   informationParentalRequired:boolean=true
-  categorieChange(value:any){
-      if(this.Categories.find(x => x.id== value).nomCategorie==="Séniors")
+
+  dd(elem:any){
+    let date1 =formatDate(new Date(), 'yyyy/MM/dd', 'fr');
+    let date2 = new Date(date1);
+    let date3 = new Date(elem.value);
+    let diff = date2.getTime() - date3.getTime();
+    let years = (diff / (1000*3600*24))/365;
+    if(years>18)
         this.informationParentalRequired=false;
       else
         this.informationParentalRequired=true;
@@ -93,7 +99,6 @@ export class AddFormComponent implements OnInit {
     const pattern = /[~`!@#$%\^&*()+=\-\[\]\\';,.¤ç°/{}|\\":<>\?]/;
     const inputChar = event.key;
     element.value.replace(pattern, "");
-
 }
 isValid(str:string) {
   return !/[~`!@#$%\^&*()+=\-\[\]\\';,.^ç¤/{}|\\":<>\?]/g.test(str);
@@ -195,19 +200,6 @@ isValid(str:string) {
     successAlert(){
       this._success="";
     }
-    dd(elem:any){
-      let date1 =formatDate(new Date(), 'yyyy/MM/dd', 'en');
-
-      let date2 = new Date(date1);
-
-      let date3 = new Date(elem.value);
-
-      let diff = date2.getTime() - date3.getTime();
-
-      let years = (diff / (1000*3600*24))/365;
-
-      console.log(years);
-
-    }
+   
 
 }

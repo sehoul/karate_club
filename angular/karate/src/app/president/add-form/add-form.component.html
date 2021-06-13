@@ -125,7 +125,7 @@
 
         <div class="form-group col-6">
           <label for="categorie">Categorie<b class="text-danger">*</b></label>
-          <select id="categorie" class="form-control" formControlName="categorie" [ngClass]="form.controls['categorie'].invalid && categorie.touched ? 'is-invalid' : form.controls['categorie'].valid? 'is-valid': '' " style=" height: 50px;" #Cat (change)="categorieChange(Cat.value)">
+          <select id="categorie" class="form-control" formControlName="categorie" [ngClass]="form.controls['categorie'].invalid && categorie.touched ? 'is-invalid' : form.controls['categorie'].valid? 'is-valid': '' " style=" height: 50px;" #Cat >
             <option value="" selected disabled>Sélectionnez une categorie ...</option>
             <option *ngFor="let cat of Categories" [value]="cat.id">{{cat.nomCategorie}} {{cat.Description}}</option>
           </select>
