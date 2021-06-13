@@ -55,7 +55,7 @@ hide = true;
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
     ws['!cols'] = [];
-    ws['!cols'][3] = { hidden: true };
+    ws['!cols'][7] = { hidden: true };
  
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();

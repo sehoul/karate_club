@@ -48,13 +48,7 @@ const USER_SCHEMA = {
   selector: 'app-membres',
   templateUrl: './membres.component.html',
   styleUrls: ['./membres.component.css'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+ 
 })
 export class MembresComponent implements OnInit, AfterViewInit {
     expandedElement!: elem | null;
@@ -110,8 +104,8 @@ export class MembresComponent implements OnInit, AfterViewInit {
       });
     };
   
-    displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","GroupesMembre","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","Observation", '$$edit'];
-    notdisplayedColumns: string[] = ["NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents"];
+    displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","GroupesMembre","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents","Observation", '$$edit'];
+    //notdisplayedColumns: string[] = [];
     dataSchema:any = USER_SCHEMA;
     title = 'angular-app';
     fileName= 'karte-club.xlsx';
@@ -122,7 +116,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
       let element = document.getElementById('excel-table');
       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
       ws['!cols'] = [];
-      ws['!cols'][13] = { hidden: true };
+      //ws['!cols'][23] = { hidden: true };
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
       XLSX.writeFile(wb, this.fileName);

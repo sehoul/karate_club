@@ -31,22 +31,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   height: 104px;
 }
 
-.example-element-symbol {
-  font-weight: bold;
-  font-size: 40px;
-  line-height: normal;
-}
 
-.example-element-description {
-  color:#5f379c ;
-  padding: 16px;
-}
-
-.example-element-description-attribution {
-  padding-left: 8px;
-  color: black;
-  opacity: 0.7;
-}
 
 .top-title {
   width: 2600px;
