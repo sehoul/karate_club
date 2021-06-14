@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Membre;
 use App\Entity\Actions;
+use App\Entity\Categorie;
 use App\Entity\GroupeMembre;
 use App\Entity\MembreActivite;
 use App\Repository\ActiviteRepository;
@@ -18,6 +19,7 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\Request;
+use function Symfony\Component\String\u;
 
 
 class MembreController extends AbstractController
@@ -225,6 +227,91 @@ class MembreController extends AbstractController
                 }else{
                     return $this->json(['message' => "Oups!...categorie n'existe pas!"],404,);
                 }
+            }else{
+                return $this->json(['message' => "Oups!...erreur est survenus'!"],400,);
+            }
+        }else{
+            return $this->json(['message' => "Oups!...erreur est survenus!"],400,);
+        }    
+    }
+     /**
+     * @Route("/membres/excel/update/{id}", name="update_membre_excel" , methods={"POST"})
+     */
+    public function updateMembreByExcel($id,Request $request): Response
+    { 
+        $user=$this->userRepository->findOneBy(['id' => $id]);
+        $data=$request->getContent();
+        $data=$this->serializer->deserialize($data,Membre::class,'json');
+        
+        return $this->json($data, 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','NumLicenceFFK','Nom','Prenom','DateNaissance','Genre','Adresse','Telephone1','Telephone2','Email','NomParents','PrenomParents','TelephoneParents1','TelephoneParents2','EmailParents','Cotisation','DateInscription','Grade','Observation','categorie'=>['nomCategorie'],'GroupesMembre'=>['Groupe'=>['NomGroupe']]]]);
+        if ($user){
+            if($data){
+                foreach ($data as $membreData) {
+                    $categorie=$this->categorieRepository->findOneBy(["nomCategorie"=>u(u($membreData->getCategorie()->getNomCategorie())->trim())->title()]);
+                    $membre_existe=$this->membreRepository->findOneBy(["NumLicenceFFK"=>$membreData->getNumLicenceFFK()]);
+                    if(!$categorie){
+                        $categorie=new Categorie();
+                        $categorie->setNomCategorie(u(u($membreData->getCategorie()->getNomCategorie())->trim())->title());
+                        $this->getDoctrine()->getManager()->persist($categorie);
+                        $this->getDoctrine()->getManager()->flush();
+                    }
+                    if($membre_existe){ 
+                        $membre_existe->setAdresse($membreData->getAdresse())
+                        ->setNumLicenceFFK($membreData->getNumLicenceFFK())
+                        ->setCategorie($categorie)
+                        ->setCotisation($membreData->getCotisation())
+                        ->setDateNaissance($membreData->getDateNaissance())
+                        ->setEmail($membreData->getEmail())
+                        ->setGenre($membreData->getGenre())
+                        ->setGrade($membreData->getGrade())
+                        ->setMalade(false)
+                        ->setPrenom($membreData->getPrenom())
+                        ->setNom($membreData->getNom())
+                        ->setTelephone1($membreData->getTelephone1())
+                        ->setTelephone2($membreData->getTelephone2())
+                        ->setDateInscription($membreData->getDateInscription())
+                        ->setEmailParents($membreData->getEmailParents())
+                        ->setNomParents($membreData->getNomParents())
+                        ->setPrenomParents($membreData->getPrenomParents())
+                        ->setTelephoneParents1($membreData->getTelephoneParents1())
+                        ->setTelephoneParents2($membreData->getTelephoneParents2())
+                        ->setObservation($membreData->getObservation());                        
+                        foreach ($membre_existe->getMembreActivites() as $membreactivite) {
+                            $this->getDoctrine()->getManager()->remove($membreactivite);
+                        }
+                        foreach ($membre_existe->getGroupesMembre() as $membregroupe) {
+                            $this->getDoctrine()->getManager()->remove($membregroupe);
+                        }
+                        
+                        foreach($membreData->getGroupesMembre() as $groupe){
+                            $membreActivite= new MembreActivite();
+                            $membreGroupe= new GroupeMembre();
+                            if ($groupe){
+                                $groupe_existe=$this->groupeRepository->findOneBy(["NomGroupe"=>$groupe->getGroupe()->getNomGroupe()]);
+                                if($groupe_existe){
+                                    $membreActivite->setAvtivite($groupe_existe->getActivite())
+                                    ->setCotisation($membreData->getCotisation())
+                                    ->setMembre($membre_existe)
+                                    ->setDatePremiereInscription($membreData->getDateInscription());
+                                    $this->getDoctrine()->getManager()->persist($membreActivite);
+            
+                                    $membreGroupe->setGroupe($groupe_existe)
+                                    ->setMembre($membre_existe);
+                                    $this->getDoctrine()->getManager()->persist($membreGroupe);
+                                }
+                            }
+                        }
+                        $action=new Actions();
+                        $action->setUser($user)
+                        ->setType("Modification")
+                        ->setDescription("Vous avez modifié le membre \" ". ($membre_existe->getNom()) . " " . ($membre_existe->getPrenom()) ." \"");
+                        $this->getDoctrine()->getManager()->persist($action);
+                        $user->addAction($action);
+                        $this->getDoctrine()->getManager()->flush();
+                        
+                    }                    
+                } 
+                return $this->json(['success'=>true,'message'=>'importation bien faite'], 200, []);
             }else{
                 return $this->json(['message' => "Oups!...erreur est survenus'!"],400,);
             }

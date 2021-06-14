@@ -80,8 +80,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
     ngOnInit(){
       this.service.getMembres().subscribe((response: any) =>{
         this.USER_INFO=response;
-        let activitie:string="";
-        let selected:Array<string>=[]
+        let activitie:string="";  
             this.USER_INFO.forEach((element:any) => {
               element.GroupesMembre.forEach((groupe:any) => {
                 activitie += groupe.Groupe.nomGroupe+",";
@@ -103,10 +102,6 @@ export class MembresComponent implements OnInit, AfterViewInit {
       this.servicec.getCategories().subscribe((response: any) =>{
         this.Categories=response;
       });
-      let date=new Date();
-      let test = formatDate(new Date(), 'yyyy/MM/dd', 'fr');
-      let test2=Date.parse(test);
-      console.log(date.getTime())
     };
 
     displayedColumns: string[] = ["id","NumLicenceFFK","Nom","Prenom","DateNaissance","Genre","categorie","GroupesMembre","Adresse","Telephone1","Telephone2","Email","Cotisation","DateInscription","Grade","NomParents","PrenomParents","TelephoneParents1","TelephoneParents2","EmailParents","Observation", '$$edit'];
@@ -121,7 +116,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
       let element = document.getElementById('excel-table');
       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
       ws['!cols'] = [];
-      //ws['!cols'][23] = { hidden: true };
+      ws['!cols'][0] = { hidden: true };
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
       XLSX.writeFile(wb, this.fileName);
@@ -188,7 +183,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
         let diff = date2.getTime() - date3.getTime();
         let years = (diff / (1000*3600*24))/365;
         if(years>18){
-          this.service.updateMembre(Number(this.cookie.get('idPres')),data).subscribe((res:any)=>{
+          this.service.updateMembre(Number(this.cookie.get('idSec')),data).subscribe((res:any)=>{
             this._error="";
             this._success=res.message
           },
@@ -321,6 +316,81 @@ export class MembresComponent implements OnInit, AfterViewInit {
       this._success="";
     }
 
+    excel:Array<excelData>=[]
+    GroupeMembre:Array<groupeMembre>=[]
+    data!: [][];
+    onFileChange(evt: any,label:any){
+      label.innerHTML=evt.target.value.split('\\')[2];
+      const target : DataTransfer = <DataTransfer>(evt.target);
+  
+      const reader: FileReader = new FileReader();
+  
+      reader.onload = (e: any) => {
+        const bstr: string = e.target.result;
+  
+        const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary'});
+  
+        const wsname : string = wb.SheetNames[0];
+  
+        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+  
+        console.log()
+  
+        this.data = (XLSX.utils.sheet_to_json(ws, {header: 1}));
+        let i=0
+        this.data.forEach((element:any) => {
+          if(i && element.length){ 
+            element[7].split(',').forEach((groupe: string ) => {
+              this.GroupeMembre.push({Groupe:{nomGroupe:groupe}});
+            });
+            this.excel.push({
+              NumLicenceFFK: element[1],
+              Nom: element[2],
+              Prenom: element[3],
+              DateNaissance:element[4],
+              Genre: element[5],
+              categorie: {nomCategorie:element[6]},
+              GroupesMembre: this.GroupeMembre,
+              Adresse: element[8],
+              Telephone1: element[9],
+              Telephone2: element[10],
+              Email: element[11],
+              Cotisation: element[12],
+              DateInscription: element[13],
+              Grade: element[14],
+              NomParents: element[15],
+              PrenomParents: element[16],
+              TelephoneParents1: element[17],
+              TelephoneParents2: element[18],
+              EmailParents: element[19],
+              Observation: element[20]
+            });
+          }
+          this.GroupeMembre=[];
+          i++;
+        });
+        console.log(this.excel)
+        if(this.data.length==i){
+          this.service.MambreExcel(Number(this.cookie.get('idSec')),this.excel).subscribe((res:any)=>{
+            this._error="";
+            this._success=res.message
+          },
+          error=>{
+            this._success=""
+          this._error=error.error.message
+  
+          });
+        }
+      };
+  
+     // console.log(target.files.length);
+  
+      reader.readAsBinaryString(target.files[0]);
+  
+    
+  
+    }
+
   }
 
 
@@ -348,3 +418,32 @@ export class MembresComponent implements OnInit, AfterViewInit {
     Observation: string;
     GroupesMembre: any;
   }
+  interface excelData{ 
+    NumLicenceFFK: string;
+    Nom: string | null;
+    Prenom: string | null;
+    DateNaissance: Date | null;
+    Genre: string | null;
+    categorie: any | null;
+    GroupesMembre: any | null;
+    Adresse: string | null;
+    Telephone1: string | null;
+    Telephone2: string | null;
+    Email: string | null;
+    Cotisation: number | null;
+    NomParents: string | null;
+    PrenomParents: string | null;
+    TelephoneParents1: string | null;
+    TelephoneParents2: string | null;
+    EmailParents: string | null;
+    DateInscription: string | null;
+    Grade: string | null;
+    Observation: string | null;
+   }
+
+
+  interface groupeMembre {
+    Groupe: {
+        nomGroupe:string;
+      }
+}

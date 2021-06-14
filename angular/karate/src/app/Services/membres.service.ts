@@ -24,4 +24,8 @@ export class MembresService {
   updateMembre(idUser:number,data:any){
     return this.http.post(this.url+"/update/"+idUser,data);
   }
+
+  MambreExcel(idUser:number,data:any){
+    return this.http.post(this.url+"/excel/update/"+idUser,data);
+  }
 }

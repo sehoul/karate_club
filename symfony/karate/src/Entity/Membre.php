@@ -234,18 +234,6 @@ class Membre
         return $this;
     }
 
-    public function getGroupe(): ?string
-    {
-        return $this->Groupe;
-    }
-
-    public function setGroupe(string $Groupe): self
-    {
-        $this->Groupe = $Groupe;
-
-        return $this;
-    }
-
     public function getAdresse(): ?string
     {
         return $this->Adresse;

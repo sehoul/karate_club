@@ -137,7 +137,9 @@
           <label for="groupe">Activite<b class="text-danger">*</b></label>
           <select id="groupe" class="form-control" formControlName="groupe" [ngClass]="form.controls['groupe'].invalid && groupe.touched ? 'is-invalid' : form.controls['groupe'].valid? 'is-valid': '' " style=" height: 50px;" #activitie  (change)="update_cotisation(activitie.value,coti)"  >
             <option value="" selected disabled>Sélectionnez une activite ...</option>
-            <option *ngFor="let activ of Activities"[value]="activ.id">{{activ.activite.nomActivite}} &#09;----&#09;{{activ.NomGroupe}}</option>
+            <optgroup *ngFor="let activ of Activities" label="{{activ.nomActivite}}" >
+              <option *ngFor="let groupe of activ.Groupe" [value]="groupe.id">{{groupe.NomGroupe}}</option>
+            </optgroup>
           </select>
           <div class="invalid-feedback" *ngIf="groupe.touched">
             Ce champs est obligatoire.

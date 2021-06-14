@@ -6,6 +6,7 @@ import { CategoriesService } from 'src/app/Services/Categorie.service';
 import { GroupesService } from 'src/app/Services/groupes.service';
 import { MembresService } from 'src/app/Services/membres.service';
 import { formatDate } from '@angular/common';
+import { ActivitesService } from 'src/app/Services/activites.service';
 
 @Component({
   selector: 'app-add-form',
@@ -16,7 +17,7 @@ export class AddFormComponent implements OnInit , AfterViewInit {
   form: FormGroup;
   _success:string="";
   _error:string="";
-  constructor(private fb: FormBuilder,private service:CategoriesService, private activService:GroupesService,private membreService:MembresService,private cookie:CookieService) {
+  constructor(private fb: FormBuilder,private service:CategoriesService, private activService:ActivitesService,private membreService:MembresService,private cookie:CookieService) {
 
     this.form=this.fb.group({
       nom:  new FormControl('', [Validators.required]),
@@ -75,8 +76,13 @@ export class AddFormComponent implements OnInit , AfterViewInit {
   //@ts-ignore
   cotisation:any;
   update_cotisation(value:any,cotisation:any){
-    cotisation.value =  this.Activities.find(x => x.id == value).activite.cotisation;
-
+    this.Activities.forEach(element => {
+      element.Groupe.forEach((groupe: { id: number; }) => {
+      if(groupe.id==Number(value)){
+        cotisation.value=element.cotisation;
+      }
+    })
+    });
   }
 
   informationParentalRequired:boolean=true
@@ -186,7 +192,7 @@ isValid(str:string) {
     this.service.getCategories().subscribe((response: any) =>{
       this.Categories=response;
      });
-     this.activService.getGroupes().subscribe((response: any) =>{
+     this.activService.getActivites().subscribe((response: any) =>{
       this.Activities=response;     
     });
      

@@ -77,8 +77,13 @@ export class AddFormComponent implements OnInit {
   //@ts-ignore
   cotisation:any;
   update_cotisation(value:any,cotisation:any){
-    cotisation.value =  this.Activities.find(x => x.id == value).activite.cotisation;
-
+    this.Activities.forEach(element => {
+      element.Groupe.forEach((groupe: { id: number; }) => {
+      if(groupe.id==Number(value)){
+        cotisation.value=element.cotisation;
+      }
+    })
+    });
   }
 
   informationParentalRequired:boolean=true

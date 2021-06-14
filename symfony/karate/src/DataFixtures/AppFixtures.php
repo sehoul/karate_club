@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
         $categorie-> setNomCategorie('Poussins');
         $manager-> persist($categorie);
         $categorie=new Categorie();
-        $categorie-> setNomCategorie('pupilles');
+        $categorie-> setNomCategorie('Pupilles');
         $manager-> persist($categorie);
         $categorie=new Categorie();
         $categorie-> setNomCategorie('Benjamins');

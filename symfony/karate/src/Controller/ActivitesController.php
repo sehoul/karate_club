@@ -31,7 +31,7 @@ class ActivitesController extends AbstractController
      */
     public function getActivites(): Response
     {
-        return $this->json($this->activiteRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','nomActivite','cotisation','Groupe'=>['NomGroupe']]]);
+        return $this->json($this->activiteRepository->findAll(), 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','nomActivite','cotisation','Groupe'=>['id','NomGroupe']]]);
     }
     /**
      * @Route("/activites/delete/{id}", name="delete_activitee", methods={"POST"})
@@ -134,7 +134,7 @@ class ActivitesController extends AbstractController
                       $activite->setNomActivite($activite_req->getNomActivite())
                       ->setCotisation($activite_req->getCotisation());
                     $groupe= new Groupe();
-                    $groupe->setNomGroupe(' groupe: inconnu')
+                    $groupe->setNomGroupe('groupe: inconnu (' . ($activite->getNomActivite()) . ')')
                     ->setActivite($activite);
                     $action=new Actions();
                     $action->setUser($user)
