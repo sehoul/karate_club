@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Membre } from '../../membre.model';
 import { FormGroup , FormBuilder  ,FormControl , Validators } from '@angular/forms';
 import { CategoriesService } from '../../Services/Categorie.service';
-import { GroupesService } from 'src/app/Services/groupes.service';
 import { MembresService } from 'src/app/Services/membres.service';
 import { CookieService } from 'ngx-cookie-service';
 import {DatePipe} from "@angular/common";
 import {formatDate} from '@angular/common';
+import { ActivitesService } from 'src/app/Services/activites.service';
 interface Categorie{
   id:number,
   nomCategorie:string,
@@ -21,7 +21,7 @@ export class AddFormComponent implements OnInit {
   form: FormGroup;
   _success:string="";
   _error:string="";
-  constructor(private fb: FormBuilder,private service:CategoriesService, private activService:GroupesService,private membreService:MembresService,private cookie:CookieService) {
+  constructor(private fb: FormBuilder,private service:CategoriesService, private activService:ActivitesService,private membreService:MembresService,private cookie:CookieService) {
 
     this.form=this.fb.group({
       nom:  new FormControl('', [Validators.required]),
@@ -192,9 +192,9 @@ isValid(str:string) {
     this.service.getCategories().subscribe((response: any) =>{
       this.Categories=response;
      });
-     this.activService.getGroupes().subscribe((response: any) =>{
-      this.Activities=response;
-     });
+     this.activService.getActivites().subscribe((response: any) =>{
+      this.Activities=response;     
+    });
     };
 
 

@@ -80,8 +80,9 @@
         </div>
       </div>
     </div>
-
-  <table id="excel-table" mat-table [dataSource]="dataSource" multiTemplateDataRows matSort class="mat-elevation-z8">
+<div class="container-xxl pb-4">
+ 
+  <table id="excel-table" mat-table [dataSource]="dataSource" multiTemplateDataRows matSort class="mat-elevation-z8" class="mb-5 pb-5">
 
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns" [stickyEnd]="col==='$$edit'">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="p-2">
@@ -189,5 +190,6 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
-  <mat-paginator style="display: block;  position: fixed;  right: 0;  background: #fff;  width: 100%;" [pageSizeOptions]="[20, 100, 300, 500, 1000]" showFirstLastButtons></mat-paginator>
+ 
+</div>
+  <mat-paginator style="display: block;  position: fixed;  right: 0;  background: #fff;  width: 100%; bottom:0; z-index:9;" [pageSizeOptions]="[20, 100, 300, 500, 1000]" showFirstLastButtons></mat-paginator>

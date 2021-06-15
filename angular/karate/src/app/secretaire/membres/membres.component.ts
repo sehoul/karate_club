@@ -316,7 +316,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
       this._success="";
     }
 
-    excel:Array<excelData>=[]
+    excel!:excelData
     GroupeMembre:Array<groupeMembre>=[]
     data!: [][];
     onFileChange(evt: any,label:any){
@@ -343,52 +343,49 @@ export class MembresComponent implements OnInit, AfterViewInit {
             element[7].split(',').forEach((groupe: string ) => {
               this.GroupeMembre.push({Groupe:{nomGroupe:groupe}});
             });
-            this.excel.push({
-              NumLicenceFFK: element[1],
-              Nom: element[2],
-              Prenom: element[3],
-              DateNaissance:element[4],
-              Genre: element[5],
-              categorie: {nomCategorie:element[6]},
-              GroupesMembre: this.GroupeMembre,
-              Adresse: element[8],
-              Telephone1: element[9],
-              Telephone2: element[10],
-              Email: element[11],
-              Cotisation: element[12],
-              DateInscription: element[13],
-              Grade: element[14],
-              NomParents: element[15],
-              PrenomParents: element[16],
-              TelephoneParents1: element[17],
-              TelephoneParents2: element[18],
-              EmailParents: element[19],
-              Observation: element[20]
-            });
+            this.excel=new excelData();
+            this.excel={
+              NumLicenceFFK: element[1]?element[1]+"":"",
+              Nom: element[2]?element[2]+"":"",
+              Prenom: element[3]?element[3]+"":"",
+              DateNaissance:new Date(element[4]),
+              Genre: element[5]?element[5]+"":"",
+              categorie: {nomCategorie:element[6]?element[6]+"":""},
+              GroupesMembre: this.GroupeMembre?this.GroupeMembre:"",
+              Adresse: element[8]?element[8]+"":"",
+              Telephone1: element[9]?element[9]+"":"",
+              Telephone2: element[10]?element[10]+"":"",
+              Email: element[11]?element[11]+"":"",
+              Cotisation: Number(element[12]),
+              DateInscription:new Date(element[13]),
+              Grade: element[14]?element[14]+"":"",
+              NomParents: element[15]?element[15]+"":"",
+              PrenomParents: element[16]?element[16]+"":"",
+              TelephoneParents1: element[17]?element[17]+"":"",
+              TelephoneParents2: element[18]?element[18]+"":"",
+              EmailParents: element[19]?element[19]+"":"",
+              Observation: element[20]?element[20]+"":""
+            };
+
+              this.service.MambreExcel(Number(this.cookie.get('idSec')),this.excel).subscribe((res:any)=>{
+              },
+              error=>{
+                this._success=""
+                this._error=error.error.message
+                
+              });
+              console.log(this.excel)
           }
           this.GroupeMembre=[];
           i++;
         });
-        console.log(this.excel)
-        if(this.data.length==i){
-          this.service.MambreExcel(Number(this.cookie.get('idSec')),this.excel).subscribe((res:any)=>{
-            this._error="";
-            this._success=res.message
-          },
-          error=>{
-            this._success=""
-          this._error=error.error.message
-  
-          });
-        }
+        this._error="";
+        this._success="Importation terminée !"
       };
   
      // console.log(target.files.length);
   
-      reader.readAsBinaryString(target.files[0]);
-  
-    
-  
+      reader.readAsBinaryString(target.files[0]);  
     }
 
   }
@@ -418,27 +415,27 @@ export class MembresComponent implements OnInit, AfterViewInit {
     Observation: string;
     GroupesMembre: any;
   }
-  interface excelData{ 
-    NumLicenceFFK: string;
-    Nom: string | null;
-    Prenom: string | null;
-    DateNaissance: Date | null;
-    Genre: string | null;
-    categorie: any | null;
-    GroupesMembre: any | null;
-    Adresse: string | null;
-    Telephone1: string | null;
-    Telephone2: string | null;
-    Email: string | null;
-    Cotisation: number | null;
-    NomParents: string | null;
-    PrenomParents: string | null;
-    TelephoneParents1: string | null;
-    TelephoneParents2: string | null;
-    EmailParents: string | null;
-    DateInscription: string | null;
-    Grade: string | null;
-    Observation: string | null;
+  export class excelData{ 
+    NumLicenceFFK: string ="";
+    Nom: string | null ="";
+    Prenom: string | null ="";
+    DateNaissance: Date | null =new Date();
+    Genre: string | null ="";
+    categorie: any | null ="";
+    GroupesMembre: any | null ="";
+    Adresse: string | null ="";
+    Telephone1: string | null ="";
+    Telephone2: string | null ="";
+    Email: string | null ="";
+    Cotisation: number | null =0;
+    NomParents: string | null ="";
+    PrenomParents: string | null ="";
+    TelephoneParents1: string | null ="";
+    TelephoneParents2: string | null ="";
+    EmailParents: string | null ="";
+    DateInscription: Date | null =new Date();
+    Grade: string | null ="";
+    Observation: string | null ="";
    }
 
 

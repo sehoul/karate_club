@@ -51,10 +51,15 @@
 </form>
   </div>
 
-    <div class="shadow-sm p-3 mb-5 bg-white rounded operation">
-      <h6>Operations :</h6>
-      <button class="btn btn-info ml-3" (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
+  <div class="shadow-sm p-3 mb-5 bg-white rounded operation ">
+    <h6 class="">Operations :</h6>
+    <button class="btn btn-info ml-3 " (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
+    <div class=" btn btn-warning ml-3" style=" width: 205px; height: 39px; ">
+      <input type="file" name="file" accept=".xlsx , .csv , .xls" id="file" class="inputfile" style="display:none;" (change)="onFileChange($event,label)" multiple="false" />
+      <i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>
+      <label for="file" style="cursor:pointer;" #label>importer fichier Excel</label>
     </div>
+  </div>
     <div *ngIf="_error" class="alertBack">
       <div class="input-group  mb-2 alert-danger rounded py-4 px-3">
         <div class="col-11 h5">
@@ -75,7 +80,7 @@
         </div>
       </div>
     </div>
-
+    <div class="container-xxl pb-4">
   <table id="excel-table" mat-table [dataSource]="dataSource" multiTemplateDataRows matSort class="mat-elevation-z8">
 
     <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns" [stickyEnd]="col==='$$edit'">
@@ -185,7 +190,8 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator style="display: block;  position: fixed;  right: 0;  background: #fff;  width: 100%;" [pageSizeOptions]="[20, 100, 300, 500, 1000]" showFirstLastButtons></mat-paginator>
+</div>
+<mat-paginator style="display: block;  position: fixed;  right: 0;  background: #fff;  width: 100%; bottom:0; z-index:9;" [pageSizeOptions]="[20, 100, 300, 500, 1000]" showFirstLastButtons></mat-paginator>
 
 
 

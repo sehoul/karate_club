@@ -63,6 +63,7 @@ tr.example-element-row:not(.example-expanded-row):active {
     align-items: center;
     display: flex;
     flex-direction: column;
+    z-index: 9;
 }
 
 .operation{
