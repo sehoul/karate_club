@@ -54,11 +54,11 @@
     <div class="shadow-sm p-3 mb-5 bg-white rounded operation ">
       <h6 class="">Operations :</h6>
       <button class="btn btn-info ml-3 " (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
-      <!-- <div class=" btn btn-warning ml-3" style=" width: 205px; height: 39px; ">
+      <div class=" btn btn-warning ml-3" style=" width: 205px; height: 39px; ">
         <input type="file" name="file" accept=".xlsx , .csv , .xls" id="file" class="inputfile" style="display:none;" (change)="onFileChange($event,label)" multiple="false" />
         <i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>
         <label for="file" style="cursor:pointer;" #label>importer fichier Excel</label>
-      </div> -->
+      </div>
     </div>
     <div *ngIf="_error" class="alertBack">
       <div class="input-group  mb-2 alert-danger rounded py-4 px-3">
