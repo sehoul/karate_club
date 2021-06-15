@@ -381,10 +381,8 @@ export class MembresComponent implements OnInit, AfterViewInit {
         });
         this._error="";
         this._success="Importation terminée !"
+        window.location.reload();
       };
-  
-     // console.log(target.files.length);
-  
       reader.readAsBinaryString(target.files[0]);  
     }
 
