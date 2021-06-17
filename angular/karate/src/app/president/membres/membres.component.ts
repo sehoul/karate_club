@@ -13,6 +13,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import {MatSort} from '@angular/material/sort';
 import { ActivitesService } from 'src/app/Services/activites.service';
 import { formatDate } from '@angular/common';
+import { TableUtil } from "./TableUtil";
 
 
 interface Categorie{
@@ -111,15 +112,35 @@ export class MembresComponent implements OnInit,AfterViewInit {
   fileName= 'karte-club.xlsx';
 
 
+ exportArray() {
+    const onlyNameAndSymbolArr: Partial<exportp>[] = this.USER_INFO.map((x:any) => ({
+      NumLicenceFFK: x.NumLicenceFFK,
+      Nom: x.Nom,
+      Prenom: x.Prenom,
+      DateNaissance: x.DateNaissance,
+      Genre: x.Genre,
+      categorie: x.categorie,
+      Activite: x.GroupesMembre,
+      Adresse: x.Adresse,
+      Telephone1: x.Telephone1,
+      Telephone2: x.Telephone2,
+      Email: x.Email,
+      Cotisation: x.Cotisation,
+      DateInscription: x.DateInscription,
+      Grade: x.Grade,
+      NomParents: x.NomParents,
+      PrenomParents: x.PrenomParents,
+      TelephoneParents1: x.TelephoneParents1,
+      TelephoneParents2: x.TelephoneParents2,
+      EmailParents: x.EmailParents,
+      Observation: x.Observation,
+    }));
+    TableUtil.exportArrayToExcel(onlyNameAndSymbolArr, "Membres");
+  }
+
   exportexcel(): void
   {
-    let element = document.getElementById('excel-table');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
-    ws['!cols'] = [];
-    //ws['!cols'][13] = { hidden: true };
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    XLSX.writeFile(wb, this.fileName);
+    this.exportArray()
 
   }
   isValid(str:string) {
@@ -341,34 +362,34 @@ export class MembresComponent implements OnInit,AfterViewInit {
       let i=0
       this.data.forEach((element:any) => {
         if(i && element.length){ 
-          element[7].split(',').forEach((groupe: string ) => {
+          element[6].split(',').forEach((groupe: string ) => {
             this.GroupeMembre.push({Groupe:{nomGroupe:groupe}});
           });
           this.excel=new excelData();
           this.excel={
-            NumLicenceFFK: element[1]?element[1]+"":"",
-            Nom: element[2]?element[2]+"":"",
-            Prenom: element[3]?element[3]+"":"",
-            DateNaissance:new Date(element[4]),
-            Genre: element[5]?element[5]+"":"",
-            categorie: {nomCategorie:element[6]?element[6]+"":""},
+            NumLicenceFFK: element[0]?element[0]+"":"",
+            Nom: element[1]?element[1]+"":"",
+            Prenom: element[2]?element[2]+"":"",
+            DateNaissance:element[3],
+            Genre: element[4]?element[4]+"":"",
+            categorie: {nomCategorie:element[5]?element[5]+"":""},
             GroupesMembre: this.GroupeMembre?this.GroupeMembre:"",
-            Adresse: element[8]?element[8]+"":"",
-            Telephone1: element[9]?element[9]+"":"",
-            Telephone2: element[10]?element[10]+"":"",
-            Email: element[11]?element[11]+"":"",
-            Cotisation: Number(element[12]),
-            DateInscription:new Date(element[13]),
-            Grade: element[14]?element[14]+"":"",
-            NomParents: element[15]?element[15]+"":"",
-            PrenomParents: element[16]?element[16]+"":"",
-            TelephoneParents1: element[17]?element[17]+"":"",
-            TelephoneParents2: element[18]?element[18]+"":"",
-            EmailParents: element[19]?element[19]+"":"",
-            Observation: element[20]?element[20]+"":""
+            Adresse: element[7]?element[7]+"":"",
+            Telephone1: element[8]?element[8]+"":"",
+            Telephone2: element[9]?element[9]+"":"",
+            Email: element[10]?element[10]+"":"",
+            Cotisation: Number(element[11]),
+            DateInscription:element[12],
+            Grade: element[13]?element[13]+"":"",
+            NomParents: element[14]?element[14]+"":"",
+            PrenomParents: element[15]?element[15]+"":"",
+            TelephoneParents1: element[16]?element[16]+"":"",
+            TelephoneParents2: element[17]?element[17]+"":"",
+            EmailParents: element[18]?element[18]+"":"",
+            Observation: element[19]?element[19]+"":""
           };
 
-            this.service.MambreExcel(Number(this.cookie.get('idSec')),this.excel).subscribe((res:any)=>{
+            this.service.MambreExcel(Number(this.cookie.get('idPres')),this.excel).subscribe((res:any)=>{
             },
             error=>{
               this._success=""
@@ -381,8 +402,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
         i++;
       });
       this._error="";
-      this._success="Importation terminée !"
-      window.location.reload();
+      this._success="Cette operation va prendre du temps (ça depend de la taille du fichier) estimation d'une seconde pour un membre !"
     };
    reader.readAsBinaryString(target.files[0]);  
   }
@@ -414,6 +434,7 @@ export interface elem {
   Observation: string;
   GroupesMembre: any;
 }
+
 export class excelData{ 
   NumLicenceFFK: string ="";
   Nom: string | null ="";
@@ -437,7 +458,30 @@ export class excelData{
   Observation: string | null ="";
  }
 
-
+ export interface exportp {
+  id: number;
+  NumLicenceFFK: string;
+  Nom: string;
+  Prenom: string;
+  DateNaissance: Date;
+  Genre: string;
+  categorie: string;
+  Groupe: string;
+  Adresse: string;
+  Telephone1: string;
+  Telephone2: string;
+  Email: string;
+  Cotisation: number;
+  NomParents: string;
+  PrenomParents: string;
+  TelephoneParents1: string;
+  TelephoneParents2: string;
+  EmailParents: string;
+  DateInscription: Date;
+  Grade: string;
+  Observation: string;
+  Activite: any;
+}
 interface groupeMembre {
   Groupe: {
       nomGroupe:string;
