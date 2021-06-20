@@ -21,10 +21,6 @@ export class CalendrierComponent implements OnInit {
 
   temps:Array<ev>=[]
   calendarOptions: CalendarOptions | undefined 
- 
-  // handleDateClick(arg: { dateStr: string; }) {
-  //   alert('date click! ' + arg.dateStr)
-  // }
   
   color=['#264653','#7209b7','#d00000','#81b29a','#6b705c'];
 
@@ -51,7 +47,6 @@ export class CalendrierComponent implements OnInit {
         },
         themeSystem: 'bootstrap',
         initialView: 'dayGridMonth',
-        //dateClick: this.handleDateClick.bind(this), // bind is important!
         events: this.temps,
         eventClick: function(info) {
           var eventObj = info.event;
