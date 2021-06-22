@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Membre } from '../../membre.model';
 import { FormGroup , FormBuilder  ,FormControl , Validators } from '@angular/forms';
 import { CategoriesService } from '../../Services/Categorie.service';
@@ -22,7 +22,8 @@ export class AddFormComponent implements OnInit {
   _success:string="";
   _error:string="";
   constructor(private fb: FormBuilder,private service:CategoriesService, private activService:ActivitesService,private membreService:MembresService,private cookie:CookieService) {
-
+   
+ 
     this.form=this.fb.group({
       nom:  new FormControl('', [Validators.required]),
       licenceFFK:new FormControl('', [Validators.required]),
@@ -73,14 +74,16 @@ export class AddFormComponent implements OnInit {
 
   Categories : Array<any>=[];
   Activities : Array<any>=[];
-
+  Covalid:boolean=false
   //@ts-ignore
   cotisation:any;
   update_cotisation(value:any,cotisation:any){
+    this.Covalid=true;
     this.Activities.forEach(element => {
       element.Groupe.forEach((groupe: { id: number; }) => {
       if(groupe.id==Number(value)){
         cotisation.value=element.cotisation;
+       
       }
     })
     });
@@ -146,7 +149,7 @@ isValid(str:string) {
         this.form.getRawValue().observation != "" &&
         this.form.getRawValue().grade != "" &&
         this.form.getRawValue().groupe != "" &&
-        this.form.getRawValue().cotisation != "")
+        Number(this.form.getRawValue().cotisation).toString()!="")
       {
         if(this.informationParentalRequired){
           if(
