@@ -72,10 +72,12 @@ export class AddFormComponent implements OnInit , AfterViewInit {
 
   Categories : Array<any>=[];
   Activities : Array<any>=[];
+  Covalid:boolean=false
 
   //@ts-ignore
   cotisation:any;
   update_cotisation(value:any,cotisation:any){
+    this.Covalid=true;
     this.Activities.forEach(element => {
       element.Groupe.forEach((groupe: { id: number; }) => {
       if(groupe.id==Number(value)){
@@ -146,7 +148,7 @@ isValid(str:string) {
         this.form.getRawValue().observation != "" &&
         this.form.getRawValue().grade != "" &&
         this.form.getRawValue().groupe != "" &&
-        this.form.getRawValue().cotisation != "")
+        Number(this.form.getRawValue().cotisation).toString()!="")
       {
         if(this.informationParentalRequired){
           if(

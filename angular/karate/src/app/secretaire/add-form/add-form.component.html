@@ -216,13 +216,13 @@
           </div>
         </div>
 
-          <div class="form-group col-12">
-            <label for="cotisation">Cotisation <b class="text-danger">*</b></label>
-            <input type="number" id="cotisation" class="form-control py-4" formControlName="cotisation" [ngClass]="form.controls['cotisation'].invalid && cotisation.touched ? 'is-invalid' : form.controls['cotisation'].valid? 'is-valid': '' " #coti>
-            <div class="invalid-feedback" *ngIf="cotisation.touched">
-              Ce champs est obligatoire.
-            </div>
+        <div class="form-group col-12">
+          <label for="cotisation">Cotisation <b class="text-danger">*</b></label>
+          <input type="number" id="cotisation" class="form-control py-4" formControlName="cotisation" [ngClass]="form.controls['cotisation'].invalid && cotisation.touched && !Covalid ? 'is-invalid' : Covalid? 'is-valid': '' " #coti (keyup)="coti.value?Covalid=true:Covalid=false">
+          <div class="invalid-feedback" *ngIf="cotisation.touched && !Covalid">
+            Ce champs est obligatoire.
           </div>
+        </div>
 
           <div class="form-group col-12">
             <label for="grade">grade<b class="text-danger">*</b></label>
