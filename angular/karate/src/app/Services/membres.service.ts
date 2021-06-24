@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,8 @@ export class MembresService {
 
   MambreExcel(idUser:number,data:any){
     return this.http.post(this.url+"/excel/update/"+idUser,data);
+  }
+  UploadFile(idUser:number,file: any) {
+    return this.http.post(this.url+"/excel/update/"+idUser, file);
   }
 }

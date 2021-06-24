@@ -55,10 +55,12 @@
     <h6 class="">Operations :</h6>
     <button class="btn btn-info ml-3 " (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
     <div class=" btn btn-warning ml-3" style=" width: 205px; height: 39px; ">
-      <input type="file" name="file" accept=".xlsx , .csv , .xls" id="file" class="inputfile" style="display:none;" (change)="onFileChange($event,label)" multiple="false" />
+      <input type="file" name="file" accept=".csv" id="file" class="inputfile" style="display:none;" (change)="onFileChange($event,label)" multiple="false" />
       <i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>
       <label for="file" style="cursor:pointer;" #label>importer fichier Excel</label>
     </div>
+    
+    <button class="btn btn-success d-flex ml-2" [style.display]="selected?'none!important':'block'" (click)="upload()"> importer <div class="annimated ml-1"><i class="bi bi-upload"></i></div>  </button>
   </div>
     <div *ngIf="_error" class="alertBack">
       <div class="input-group  mb-2 alert-danger rounded py-4 px-3">

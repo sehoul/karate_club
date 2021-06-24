@@ -2,16 +2,19 @@
 
 namespace App\Controller;
 
+use Amp\Cache\Cache;
 use App\Entity\Membre;
 use App\Entity\Actions;
 use App\Entity\Categorie;
 use App\Entity\GroupeMembre;
 use App\Entity\MembreActivite;
+use App\Entity\Path;
 use App\Repository\ActiviteRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\MembreRepository;
 use App\Repository\UserRepository;
+use Exception;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\Request;
 use function Symfony\Component\String\u;
+use League\Csv\Reader;
 
 
 class MembreController extends AbstractController
@@ -241,73 +245,89 @@ class MembreController extends AbstractController
     { 
         $user=$this->userRepository->findOneBy(['id' => $id]);
         $data=$request->getContent();
-        $data=$this->serializer->deserialize($data,Membre::class,'json');
-        $categorie=$this->categorieRepository->findOneBy(["nomCategorie"=>u(u($data->getCategorie()->getNomCategorie())->trim())->title()]);
+        $data=$this->serializer->deserialize($data,Path::class,'json');
         if ($user){
             if($data){
-                    $membre_existe=$this->membreRepository->findOneBy(["NumLicenceFFK"=>$data->getNumLicenceFFK()]);
-                    if(!$categorie){
-                        $categorie=new Categorie();
-                        $categorie->setNomCategorie(u(u($data->getCategorie()->getNomCategorie())->trim())->title());
-                        $this->getDoctrine()->getManager()->persist($categorie);
-                        $this->getDoctrine()->getManager()->flush();
+                try{
+                    if (!file_exists('../../../excel')) {
+                        mkdir('../../../excel', 0777, true);
                     }
-                    if(!$membre_existe){ 
-                        $membre=new Membre();
-                        $membre->setAdresse($data->getAdresse())
-                        ->setNumLicenceFFK($data->getNumLicenceFFK())
-                        ->setCategorie($categorie)
-                        ->setCotisation($data->getCotisation())
-                        ->setDateNaissance($data->getDateNaissance())
-                        ->setEmail($data->getEmail())
-                        ->setGenre($data->getGenre())
-                        ->setGrade($data->getGrade())
-                        ->setMalade(false)
-                        ->setPrenom($data->getPrenom())
-                        ->setNom($data->getNom())
-                        ->setTelephone1($data->getTelephone1())
-                        ->setTelephone2($data->getTelephone2())
-                        ->setDateInscription($data->getDateInscription())
-                        ->setEmailParents($data->getEmailParents())
-                        ->setNomParents($data->getNomParents())
-                        ->setPrenomParents($data->getPrenomParents())
-                        ->setTelephoneParents1($data->getTelephoneParents1())
-                        ->setTelephoneParents2($data->getTelephoneParents2())
-                        ->setObservation($data->getObservation());      
-                        $this->getDoctrine()->getManager()->persist($membre);
-
-                        foreach($data->getGroupesMembre() as $groupe){
-                            $membreActivite= new MembreActivite();
-                            $membreGroupe= new GroupeMembre();
-                            if ($groupe){
-                                $groupe_existe=$this->groupeRepository->findOneBy(["NomGroupe"=>$groupe->getGroupe()->getNomGroupe()]);
-                                if($groupe_existe){
-                                    $membreActivite->setAvtivite($groupe_existe->getActivite())
-                                    ->setCotisation($data->getCotisation())
-                                    ->setMembre($membre)
-                                    ->setDatePremiereInscription($data->getDateInscription());
-                                    $this->getDoctrine()->getManager()->persist($membreActivite);
-            
-                                    $membreGroupe->setGroupe($groupe_existe)
-                                    ->setMembre($membre);
-                                    $this->getDoctrine()->getManager()->persist($membreGroupe);
+                    $reader = Reader::createFromPath('../../../excel/' . $data->getThePath()); 
+                    $results = $reader->fetchAssoc();
+                    foreach ($results as $row){
+                        $categorie=$this->categorieRepository->findOneBy(["nomCategorie"=>u(u($row['categorie'])->trim())->title()]);      
+                      
+                                $membre_existe=$this->membreRepository->findOneBy(["NumLicenceFFK"=>$row['﻿NumLicenceFFK']]);
+                                if(!$categorie){
+                                    $categorie=new Categorie();
+                                    $categorie->setNomCategorie(u(u($row['categorie'])->trim())->title());
+                                    $this->getDoctrine()->getManager()->persist($categorie);
+                                    $this->getDoctrine()->getManager()->flush();
                                 }
-                            }
-                        }
-                        $action=new Actions();
-                        $action->setUser($user)
-                        ->setType("Ajout")
-                        ->setDescription("Vous avez Ajouter le membre \" ". ($membre->getNom()) . " " . ($membre->getPrenom()) ." \"");
-                        $this->getDoctrine()->getManager()->persist($action);
-                        $user->addAction($action);
-                        $this->getDoctrine()->getManager()->flush();                        
+                                if(!$membre_existe){ 
+                                    $membre=new Membre();
+                                    $membre->setAdresse($row['Adresse'])
+                                    ->setNumLicenceFFK($row['﻿NumLicenceFFK'])
+                                    ->setCategorie($categorie)
+                                    ->setCotisation((float)$row['Cotisation'])
+                                    ->setDateNaissance(new \DateTime($row['DateNaissance']))
+                                    ->setEmail($row['Email'])
+                                    ->setGenre($row['Genre'])
+                                    ->setGrade($row['Grade'])
+                                    ->setMalade(false)
+                                    ->setPrenom($row['Prenom'])
+                                    ->setNom($row['Nom'])
+                                    ->setTelephone1($row['Telephone1'])
+                                    ->setTelephone2($row['Telephone2'])
+                                    ->setDateInscription(new \DateTime($row['DateInscription']))
+                                    ->setEmailParents($row['EmailParents'])
+                                    ->setNomParents($row['NomParents'])
+                                    ->setPrenomParents($row['PrenomParents'])
+                                    ->setTelephoneParents1($row['TelephoneParents1'])
+                                    ->setTelephoneParents2($row['TelephoneParents2'])
+                                    ->setObservation($row['Observation']);      
+                                    $this->getDoctrine()->getManager()->persist($membre);
+                                    $groups=u($row['Activite'])->split(',');
+                                    foreach($groups as $groupe){
+                                        $membreActivite= new MembreActivite();
+                                        $membreGroupe= new GroupeMembre();
+                                        if ($groupe){
+                                            $groupe_existe=$this->groupeRepository->findOneBy(["NomGroupe"=>$groupe]);
+                                            if($groupe_existe){
+                                                $membreActivite->setAvtivite($groupe_existe->getActivite())
+                                                ->setCotisation((float)$row['Cotisation'])
+                                                ->setMembre($membre)
+                                                ->setDatePremiereInscription(new \DateTime($row['DateInscription']));
+                                                $this->getDoctrine()->getManager()->persist($membreActivite);
+                        
+                                                $membreGroupe->setGroupe($groupe_existe)
+                                                ->setMembre($membre);
+                                                $this->getDoctrine()->getManager()->persist($membreGroupe);
+                                            }
+                                        }
+                                    }
+                                    $action=new Actions();
+                                    $action->setUser($user)
+                                    ->setType("Ajout")
+                                    ->setDescription("Vous avez Ajouter le membre \" ". ($membre->getNom()) . " " . ($membre->getPrenom()) ." \"");
+                                    $this->getDoctrine()->getManager()->persist($action);
+                                    $user->addAction($action);
+                                    $this->getDoctrine()->getManager()->flush();                        
+                                }
                     }
-                return $this->json(['success'=>true,'message'=>'importation bien faite'], 200, []);
-            }else{
-                return $this->json(['message' => "Oups!...erreur est survenus'!"],400,);
-            }
+                    return $this->json(['success'=>true,'message'=>'importation bien faite'], 200, []);
+
+                }catch(Exception $e){
+                    return $this->json([
+                        'status' => 400,
+                        'message' => $e->getMessage()
+                    ],400);
+                }
+                }else{
+                    return $this->json(['message' => "Oups!...erreur est survenus'!"],400,);
+                }          
         }else{
             return $this->json(['message' => "Oups!...erreur est survenus!"],400,);
-        }    
+        }  
     }
 }
