@@ -344,7 +344,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
   onFileChange(evt: any,label:any){
     label.innerHTML=this.excelFile=evt.target.value.split('\\')[2];
     this.selected=false;
-  }
+  } 
 
   upload(){
     if(this.excelFile){
