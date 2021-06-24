@@ -9,6 +9,7 @@ import { MembresService } from 'src/app/Services/membres.service';
 import * as XLSX from 'xlsx';
 import {MatSort} from '@angular/material/sort';
 import { ActivitesService } from 'src/app/Services/activites.service';
+import { TableUtil } from "../../TableUtil";
 
 
 
@@ -98,18 +99,38 @@ export class MembresComponent implements OnInit,AfterViewInit {
   fileName= 'karte-club.xlsx';
 
 
-  exportexcel(): void
-  {
-    let element = document.getElementById('excel-table');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
-    ws['!cols'] = [];
-    //ws['!cols'][13] = { hidden: true };
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    XLSX.writeFile(wb, this.fileName);
+  
+ exportArray() {
+  const onlyNameAndSymbolArr: Partial<exportp>[] = this.USER_INFO.map((x:any) => ({
+    NumLicenceFFK: x.NumLicenceFFK,
+    Nom: x.Nom,
+    Prenom: x.Prenom,
+    DateNaissance: x.DateNaissance,
+    Genre: x.Genre,
+    categorie: x.categorie,
+    Activite: x.GroupesMembre,
+    Adresse: x.Adresse,
+    Telephone1: x.Telephone1,
+    Telephone2: x.Telephone2,
+    Email: x.Email,
+    Cotisation: x.Cotisation,
+    DateInscription: x.DateInscription,
+    Grade: x.Grade,
+    NomParents: x.NomParents,
+    PrenomParents: x.PrenomParents,
+    TelephoneParents1: x.TelephoneParents1,
+    TelephoneParents2: x.TelephoneParents2,
+    EmailParents: x.EmailParents,
+    Observation: x.Observation,
+  }));
+  TableUtil.exportArrayToExcel(onlyNameAndSymbolArr, "Membres");
+}
 
-  }
+exportexcel(): void
+{
+  this.exportArray()
 
+}
 
 
   //@ts-ignore
@@ -203,4 +224,33 @@ export interface elem {
   Grade: string;
   Observation: string;
   GroupesMembre: any;
+}
+export interface exportp {
+  id: number;
+  NumLicenceFFK: string;
+  Nom: string;
+  Prenom: string;
+  DateNaissance: Date;
+  Genre: string;
+  categorie: string;
+  Groupe: string;
+  Adresse: string;
+  Telephone1: string;
+  Telephone2: string;
+  Email: string;
+  Cotisation: number;
+  NomParents: string;
+  PrenomParents: string;
+  TelephoneParents1: string;
+  TelephoneParents2: string;
+  EmailParents: string;
+  DateInscription: Date;
+  Grade: string;
+  Observation: string;
+  Activite: any;
+}
+interface groupeMembre {
+  Groupe: {
+      nomGroupe:string;
+    }
 }

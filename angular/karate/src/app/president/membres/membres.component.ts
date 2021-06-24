@@ -13,7 +13,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import {MatSort} from '@angular/material/sort';
 import { ActivitesService } from 'src/app/Services/activites.service';
 import { formatDate } from '@angular/common';
-import { TableUtil } from "./TableUtil";
+import { TableUtil } from "../../TableUtil";
 
 
 interface Categorie{

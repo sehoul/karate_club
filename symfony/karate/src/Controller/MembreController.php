@@ -315,7 +315,7 @@ class MembreController extends AbstractController
                                     $this->getDoctrine()->getManager()->flush();                        
                                 }
                     }
-                    return $this->json(['success'=>true,'message'=>'importation bien faite'], 200, []);
+                    return $this->json(['success'=>true,'message'=>'Importation terminée avec succès'], 200, []);
 
                 }catch(Exception $e){
                     return $this->json([

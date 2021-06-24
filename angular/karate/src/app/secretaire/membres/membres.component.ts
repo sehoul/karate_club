@@ -11,7 +11,7 @@ import * as XLSX from 'xlsx';
 import {MatSort} from '@angular/material/sort';
 import { ActivitesService } from 'src/app/Services/activites.service';
 import { DatePipe, formatDate } from '@angular/common';
-import { TableUtil } from "./TableUtil";
+import { TableUtil } from "../../TableUtil";
 
 
 
@@ -206,7 +206,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
       let diff = date2.getTime() - date3.getTime();
       let years = (diff / (1000*3600*24))/365;
       if(years>18){
-        this.service.updateMembre(Number(this.cookie.get('idPres')),data).subscribe((res:any)=>{
+        this.service.updateMembre(Number(this.cookie.get('idSec')),data).subscribe((res:any)=>{
           this._error="";
           this._success=res.message
         },
@@ -224,7 +224,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
           data.TelephoneParents1  &&
           data.EmailParents  
         ){
-          this.service.updateMembre(Number(this.cookie.get('idPres')),data).subscribe((res:any)=>{
+          this.service.updateMembre(Number(this.cookie.get('idSec')),data).subscribe((res:any)=>{
             this._error="";
             this._success=res.message
           },
@@ -301,7 +301,7 @@ export class MembresComponent implements OnInit, AfterViewInit {
   }
   delete(Nom:any,Prenom:any,index:any,id:any){
     if(confirm("Est ce que vous voulez vraiment supprimer le membre \" "+Prenom+" "+Nom+" \"")) {
-      this.service.deleteMembre(Number(id),Number(this.cookie.get('idPres'))).subscribe((res:any)=>{
+      this.service.deleteMembre(Number(id),Number(this.cookie.get('idSec'))).subscribe((res:any)=>{
           if(res.success){
             this.service.getMembres().subscribe((response: any) =>{
               this.USER_INFO=response;
@@ -338,73 +338,27 @@ export class MembresComponent implements OnInit, AfterViewInit {
   successAlert(){
     this._success="";
   }
-  excel!:excelData
   GroupeMembre:Array<groupeMembre>=[]
-  data!: [][];
+  selected:boolean=true
+  excelFile:any;
   onFileChange(evt: any,label:any){
-    label.innerHTML=evt.target.value.split('\\')[2];
-    const target : DataTransfer = <DataTransfer>(evt.target);
+    label.innerHTML=this.excelFile=evt.target.value.split('\\')[2];
+    this.selected=false;
+  } 
 
-    const reader: FileReader = new FileReader();
-
-    reader.onload = (e: any) => {
-      const bstr: string = e.target.result;
-
-      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary'});
-
-      const wsname : string = wb.SheetNames[0];
-
-      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-
-      console.log()
-
-      this.data = (XLSX.utils.sheet_to_json(ws, {header: 1}));
-      let i=0
-      this.data.forEach((element:any) => {
-        if(i && element.length){ 
-          element[6].split(',').forEach((groupe: string ) => {
-            this.GroupeMembre.push({Groupe:{nomGroupe:groupe}});
-          });
-          this.excel=new excelData();
-          this.excel={
-            NumLicenceFFK: element[0]?element[0]+"":"",
-            Nom: element[1]?element[1]+"":"",
-            Prenom: element[2]?element[2]+"":"",
-            DateNaissance:element[3],
-            Genre: element[4]?element[4]+"":"",
-            categorie: {nomCategorie:element[5]?element[5]+"":""},
-            GroupesMembre: this.GroupeMembre?this.GroupeMembre:"",
-            Adresse: element[7]?element[7]+"":"",
-            Telephone1: element[8]?element[8]+"":"",
-            Telephone2: element[9]?element[9]+"":"",
-            Email: element[10]?element[10]+"":"",
-            Cotisation: Number(element[11]),
-            DateInscription:element[12],
-            Grade: element[13]?element[13]+"":"",
-            NomParents: element[14]?element[14]+"":"",
-            PrenomParents: element[15]?element[15]+"":"",
-            TelephoneParents1: element[16]?element[16]+"":"",
-            TelephoneParents2: element[17]?element[17]+"":"",
-            EmailParents: element[18]?element[18]+"":"",
-            Observation: element[19]?element[19]+"":""
-          };
-
-            this.service.MambreExcel(Number(this.cookie.get('idPres')),this.excel).subscribe((res:any)=>{
-            },
-            error=>{
-              this._success=""
-              this._error=error.error.message
-              
-            });
-            console.log(this.excel)
-        }
-        this.GroupeMembre=[];
-        i++;
-      });
-      this._error="";
-      this._success="Cette operation va prendre du temps (ça depend de la taille du fichier) estimation d'une seconde pour un membre !"
-    };
-   reader.readAsBinaryString(target.files[0]);  
+  upload(){
+    if(this.excelFile){
+      this.service.UploadFile(Number(this.cookie.get('idSec')),{thePath:this.excelFile}).subscribe((res:any)=>{
+        this._success=res.message;
+        window.location.reload();
+      },error=>{
+        this._error=error.error.message;
+      }
+      );
+    }
+    else{
+      this._error="Une erreur est survenue";
+    }
   }
 
 }
