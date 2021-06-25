@@ -36,10 +36,6 @@ class ConnexionController extends AbstractController
             ]);
             if($user){
                 if ($this->userPasswordEncoder->isPasswordValid($user,$user_data->getPassword())){
-                    /*switch ($user->getRoles()){
-                        case 'secretaire': 
-                            break;
-                    }*/
                     return $this->json(['result'=>$user,'success'=>true], 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','roles']]);
                 }else{
                     return $this->json([
