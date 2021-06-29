@@ -55,6 +55,15 @@
       <h6>Operations :</h6>
       <button class="btn btn-info ml-3" (click)="exportexcel()"><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
     </div>
+    <div class="shadow-sm p-3 mb-5 mt-2 bg-white rounded operation row w-50">
+      <h6 class="ml-3" style="width: 80px;">Saison :</h6>
+      <select id="saison" class="form-control col-5"   #saison required>
+        <option value="0" selected>Toutes les saisons</option>
+        <option *ngFor="let saison of Saisons" [value]="saison.id">{{saison.NomSaison}}  : [ {{saison.DateSaison | date: 'dd/MM/yyyy'}} - {{saison.DateFinSaison | date: 'dd/MM/yyyy'}}]</option>
+      </select>   
+      <button class="btn btn-success ml-3" type="submit" (click)="BySaison(saison)">valider</button>
+      </div>
+    </div>
     <div *ngIf="_error" class="alertBack">
       <div class="input-group  mb-2 alert-danger rounded py-4 px-3">
         <div class="col-11">

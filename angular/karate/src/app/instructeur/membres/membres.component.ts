@@ -10,6 +10,7 @@ import * as XLSX from 'xlsx';
 import {MatSort} from '@angular/material/sort';
 import { ActivitesService } from 'src/app/Services/activites.service';
 import { TableUtil } from "../../TableUtil";
+import { SaisonService } from 'src/app/Services/saison.service';
 
 
 
@@ -32,6 +33,22 @@ interface Categorie{
   Description:string
 };
 
+const USER_SCHEMA = {
+  "id": "number",
+  "Cotisation": "number",
+  "Nom": "string",
+  "Prenom": "string",
+  "DateNaissance": "date",
+  "Genre": "string",
+  "categorie": "string",
+  "Adresse": "string",
+  "tlphn1": "string",
+  "tlphn2": "string",
+  "Email": "email",
+  "Activites": "string",
+  "DateInscription":"date",
+};
+
 @Component({
   selector: 'app-membres',
   templateUrl: './membres.component.html',
@@ -44,6 +61,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
   dataSource = new MatTableDataSource<elem>(this.USER_INFO);
   Categories: Array<any> = [];
   Activities: Array<any> = [];
+  Saisons: Array<any>=[];
   searchForm: FormGroup ;
   Nom:string = '' ;
   Prenom:string = '';
@@ -51,7 +69,7 @@ export class MembresComponent implements OnInit,AfterViewInit {
   Tout:string = '';
    _success:string="";
   _error:string="";
-  constructor(private service: MembresService , private servicec: CategoriesService , private cookie:CookieService, private activite:ActivitesService){
+  constructor(private saisonService:SaisonService,private service: MembresService , private servicec: CategoriesService , private cookie:CookieService, private activite:ActivitesService){
 
     this.searchForm = new FormGroup({
       Nom: new FormControl('', Validators.pattern('^[a-zA-Z ]+$')),
@@ -89,6 +107,9 @@ export class MembresComponent implements OnInit,AfterViewInit {
 
     this.servicec.getCategories().subscribe((response: any) =>{
       this.Categories=response;
+    })
+    this.saisonService.getSaison().subscribe((response: any) =>{
+      this.Saisons=response[0]; 
     });
   };
 
@@ -198,6 +219,72 @@ exportexcel(): void
     this._success="";
   }
 
+  BySaison(saison:any){
+    if(Number(saison.value)){
+      this.saisonService.getMemberBySaison(Number(saison.value)).subscribe((res:any)=>{
+        this.USER_INFO=[];
+        res[0].saisonMembres.forEach((element:any) => {
+          this.USER_INFO.push(
+            {
+              id: element.Membre.id,
+              NumLicenceFFK: element.Membre.numLicenceFFK,
+              Nom: element.Membre.nom,
+              Prenom: element.Membre.prenom,
+              DateNaissance: element.Membre.dateNaissance,
+              Genre: element.Membre.genre,
+              categorie: element.Membre.categorie,
+              Adresse: element.Membre.adresse,
+              Telephone1: element.Membre.telephone1,
+              Telephone2: element.Membre.telephone2,
+              Email: element.Membre.email,
+              Cotisation: element.Membre.cotisation,
+              NomParents: element.Membre.nomParents,
+              PrenomParents: element.Membre.prenomParents,
+              TelephoneParents1: element.Membre.telephoneParents1,
+              TelephoneParents2: element.Membre.telephoneParents2,
+              EmailParents: element.Membre.emailParents,
+              DateInscription: element.Membre.dateInscription,
+              Grade: element.Membre.grade,
+              Observation: element.Membre.observation,
+              GroupesMembre: element.Membre.groupesMembre,
+            }
+            )
+        });
+        let activitie:string="";
+            this.USER_INFO.forEach((element:any) => {
+              element.GroupesMembre.forEach((groupe:any) => {
+                activitie += groupe.Groupe.nomGroupe+",";
+              });
+              element.GroupesMembre=activitie.slice(0, activitie.length-1);;
+              element.categorie=element.categorie.nomCategorie;
+              activitie="";
+            });
+        this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = this.getFilterPredicate();
+        this.dataSource.sort = this.sort;
+      });
+    }
+    else{
+      this.service.getMembres().subscribe((response: any) =>{
+        this.USER_INFO=response;
+        let activitie:string="";
+            this.USER_INFO.forEach((element:any) => {
+              element.GroupesMembre.forEach((groupe:any) => {
+                activitie += groupe.Groupe.nomGroupe+",";
+              });
+              element.GroupesMembre=activitie.slice(0, activitie.length-1);;
+              element.categorie=element.categorie.nomCategorie;
+              activitie="";
+            });
+        this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = this.getFilterPredicate();
+        this.dataSource.sort = this.sort;
+      });
+    }
+  }
+
 }
 
 
@@ -209,7 +296,6 @@ export interface elem {
   DateNaissance: Date;
   Genre: string;
   categorie: string;
-  Groupe: string;
   Adresse: string;
   Telephone1: string;
   Telephone2: string;
