@@ -4,7 +4,7 @@
   </div>
   <div class="container mw-100 p-5">
     <form [formGroup]="form" (submit)="submit()">
-      <div *ngIf="_error" class="alertBack">
+      <div *ngIf="_error" class="alertBack"  (click)="errorAlert()">
         <div class="input-group  mb-2 alert-danger rounded py-4 px-3">
           <div class="col-11 h5">
             {{_error}}
@@ -14,8 +14,8 @@
           </div>
         </div>
       </div>
-        <div *ngIf="_success" class="alertBack">
-        <div  class="row mb-2 alert-info rounded py-4 px-3">
+        <div *ngIf="_success" class="alertBack" (click)="successAlert()">
+        <div  class="row mb-2 alert-info rounded py-4 px-3" >
           <div class="col-11 h5">
             {{_success}}
           </div>

@@ -34,7 +34,7 @@ class SaisonController extends AbstractController
      */
     public function getValidSaison(): Response
     {
-        return $this->json([$this->saisonRepository->ValidSaison(new \DateTime())], 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','NomSaison','DateSaison','DateFinSaison']]);
+        return $this->json([$this->saisonRepository->SaisonValideForm(new \DateTime())], 200, [],[AbstractNormalizer::ATTRIBUTES => ['id','NomSaison','DateSaison','DateFinSaison']]);
     }
      /**
      * @Route("/saison/{id}", name="Membre_saison")
@@ -119,13 +119,56 @@ class SaisonController extends AbstractController
                      $this->getDoctrine()->getManager()->persist($action);
                      $user->addAction($action);
                      $this->getDoctrine()->getManager()->flush();
-                     return $this->json(['success'=>true,'message'=>'saison a été bien supprimée'], 200, []);
+                     return $this->json(['success'=>true,'message'=>'saison a été bien Modifiée'], 200, []);
      
                  }else{
                      return $this->json(['message' => "Oups!...saison n'existe plus!"],404,);
                  }
             }else{
                 return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
+            }
+        }
+        else{
+            return $this->json(['message' => "Oups!...erreur est survenus!"],404,);
+        }    
+    }
+     /**
+     * @Route("/saison/add/{id}", name="saison_add", methods={"POST"})
+     */
+    public function addSaison($id,Request $request)
+    {
+        $user=$this->userRepository->findOneBy(['id' => $id]);
+        $data=$request->getContent();
+        $data=$this->serializer->deserialize($data,Saison::class,'json');
+        $saison_actuelle=$this->saisonRepository->ValidSaison($data->getDateSaison());
+        $saison_nom_existe=$this->saisonRepository->findOneBy(['NomSaison' => $data->getNomSaison()]);
+        $saison=new Saison();
+        if ($user){
+            if($data){
+                if($saison_nom_existe){
+                    return $this->json(['message' => "Nom de saison deja existe!"],404,);
+                }else{
+
+                    if($saison_actuelle){
+                        return $this->json(['message' => "La date de debut de cette saison doit obligatoirement depasser la fin de la saison actuelle!"],404,);
+                    }else{
+                        $saison->setNomSaison($data->getNomSaison())
+                        ->setDateSaison($data->getDateSaison())
+                        ->setDateFinSaison($data->getDateFinSaison());
+                        $this->getDoctrine()->getManager()->persist($saison);
+        
+                         $action=new Actions();
+                         $action->setUser($user)
+                         ->setType("Ajout")
+                         ->setDescription("Vous avez Ajouter la saison \" ". ($saison->getNomSaison()) . " \" ");
+                         $this->getDoctrine()->getManager()->persist($action);
+                         $user->addAction($action);
+                         $this->getDoctrine()->getManager()->flush();
+                         return $this->json(['success'=>true,'message'=>'La saison a été bien Ajoutée'], 200, []);
+                    }
+                }             
+            }else{
+                return $this->json(['message' => "Oups!...erreur est survenus!"],400,);
             }
         }
         else{

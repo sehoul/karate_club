@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -26,7 +27,13 @@ const USER_SCHEMA = {
 export class SaisonsComponent implements AfterViewInit,OnInit {
   USER_INFO: elem[] = [];
   dataSource = new MatTableDataSource<elem>(this.USER_INFO);
-   constructor( private cookie:CookieService, private saisonService:SaisonService){}
+   constructor(private fb: FormBuilder, private cookie:CookieService, private saisonService:SaisonService){
+    this.formAA=this.fb.group({
+      NomSaison:  new FormControl('', [Validators.required]),
+      DateSaison:new FormControl('', [Validators.required]),
+      DateFinSaison:new FormControl('', [Validators.required]),
+    });
+   }
    ngOnInit(){
      this.saisonService.getSaison().subscribe((response: any) =>{
        this.USER_INFO=response[0];
@@ -46,7 +53,7 @@ export class SaisonsComponent implements AfterViewInit,OnInit {
  
    _success:string="";
    _error:string="";
-   
+   formAA: FormGroup;
    dataSchema:any = USER_SCHEMA;
    edit(element:any){
      this.saisonService.UpdateSaison(Number(this.cookie.get('idPres')),{id:element.id,NomSaison:element.NomSaison,DateSaison:element.DateSaison,DateFinSaison:element.DateFinSaison}).subscribe(
@@ -79,9 +86,41 @@ export class SaisonsComponent implements AfterViewInit,OnInit {
        
      }
    }
- 
+   get NomSaison() : any {   return this.formAA.get('NomSaison');}
+   get DateSaison() : any { return this.formAA.get('DateSaison');}
+   get DateFinSaison() : any { return this.formAA.get('DateFinSaison');}
  
   
+   submit() {
+    const data={
+      NomSaison:this.formAA.getRawValue().NomSaison,
+      DateSaison:this.formAA.getRawValue().DateSaison,
+      DateFinSaison:this.formAA.getRawValue().DateSaison,
+    }
+    if(data.NomSaison!="" && data.DateSaison!=""  && data.DateFinSaison!="" ){
+
+      this.saisonService.addSaison(Number(this.cookie.get('idPres')),data).subscribe(
+        (res:any)=>{
+          this.saisonService.getSaison().subscribe((response: any) =>{
+            this.USER_INFO=response[0];
+            this.dataSource=new MatTableDataSource<elem>(this.USER_INFO);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+           });
+          this._success="Saison a été bien ajouté!";
+          this._error="";
+        },
+        error=>{
+          this._success="";
+          this._error=error.error.message;
+        }
+      )
+    }else{
+      this._success="";
+      this._error="Merci de remplir tous les champs";
+    }
+
+  }
  
  
    ngAfterViewInit() {

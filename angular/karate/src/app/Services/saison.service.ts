@@ -24,4 +24,7 @@ export class SaisonService {
   UpdateSaison(idUser:number,data:any){
     return this.http.post(this.url+"/update/"+idUser,data);
   }
+  addSaison(idUser:number,data:any){
+    return this.http.post(this.url+"/add/"+idUser,data);
+  }
 }

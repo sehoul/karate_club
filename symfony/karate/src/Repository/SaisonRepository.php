@@ -32,6 +32,19 @@ class SaisonRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    /**
+     * @return Saison[] Returns an array of Saison objects
+     */
+    public function SaisonValideForm($NOW)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere(':NOW <= s.DateFinSaison')
+            ->setParameter('NOW', $NOW->format('Y-m-d'))
+            ->orderBy('s.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     /*
     public function findOneBySomeField($value): ?Saison

@@ -113,7 +113,7 @@ export class AddFormComponent implements OnInit {
   }
 
   keyPress(element:any,event: KeyboardEvent) {
-    const pattern = /[~`!@#$%\^&*()+=\-\[\]\\';,.¤ç°/{}|\\":<>\?]/;
+    const pattern = /[~`!@#$%\^&*()+=\-\[\]\\';, .¤ç°/{}|\\":<>\?]/;
     const inputChar = event.key;
     element.value.replace(pattern, "");
 }
