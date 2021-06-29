@@ -95,7 +95,7 @@ export class SaisonsComponent implements AfterViewInit,OnInit {
     const data={
       NomSaison:this.formAA.getRawValue().NomSaison,
       DateSaison:this.formAA.getRawValue().DateSaison,
-      DateFinSaison:this.formAA.getRawValue().DateSaison,
+      DateFinSaison:this.formAA.getRawValue().DateFinSaison,
     }
     if(data.NomSaison!="" && data.DateSaison!=""  && data.DateFinSaison!="" ){
 
