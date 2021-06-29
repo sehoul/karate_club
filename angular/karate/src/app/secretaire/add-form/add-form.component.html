@@ -3,8 +3,8 @@
     <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Ajouter un membre</h2>
   </div>
   <div class="container mw-100 p-5">
-    <form  [formGroup]="form" (submit)="submit()">
-      <div *ngIf="_error" class="alertBack">
+    <form [formGroup]="form" (submit)="submit()">
+      <div *ngIf="_error" class="alertBack"  (click)="errorAlert()">
         <div class="input-group  mb-2 alert-danger rounded py-4 px-3">
           <div class="col-11 h5">
             {{_error}}
@@ -14,8 +14,8 @@
           </div>
         </div>
       </div>
-        <div *ngIf="_success" class="alertBack">
-        <div  class="row mb-2 alert-info rounded py-4 px-3">
+        <div *ngIf="_success" class="alertBack" (click)="successAlert()">
+        <div  class="row mb-2 alert-info rounded py-4 px-3" >
           <div class="col-11 h5">
             {{_success}}
           </div>
@@ -31,7 +31,7 @@
       <div class="row w-100">
         <div class="form-group col-12">
           <label for="LicenceFFK">Numero de Licence FFK<b class="text-danger">*</b></label>
-          <input type="text" id="LicenceFFK" pattern="[a-zA-Z0-9]{1,50}" class="form-control py-4" formControlName="licenceFFK" [ngClass]="form.controls['licenceFFK'].invalid && licenceFFK.touched ? 'is-invalid' : form.controls['licenceFFK'].valid? 'is-valid': '' " #ffk >
+          <input type="text" id="LicenceFFK" pattern="[a-zA-Z0-9]{1,50}" class="form-control py-4" formControlName="licenceFFK" #ffk [ngClass]="(form.controls['licenceFFK'].invalid && licenceFFK.touched)  ? 'is-invalid' : form.controls['licenceFFK'].valid? 'is-valid': '' "  (keypress)="keyPress(ffk,$event)">
           <div class="invalid-feedback" *ngIf="licenceFFK.touched">
             Ce champs est obligatoire.
           </div>
@@ -137,9 +137,9 @@
           <label for="groupe">Activite<b class="text-danger">*</b></label>
           <select id="groupe" class="form-control" formControlName="groupe" [ngClass]="form.controls['groupe'].invalid && groupe.touched ? 'is-invalid' : form.controls['groupe'].valid? 'is-valid': '' " style=" height: 50px;" #activitie  (change)="update_cotisation(activitie.value,coti)"  >
             <option value="" selected disabled>Sélectionnez une activite ...</option>
-              <optgroup *ngFor="let activ of Activities" label="{{activ.nomActivite}}" >
-                <option *ngFor="let groupe of activ.Groupe" [value]="groupe.id">{{groupe.NomGroupe}}</option>
-              </optgroup>
+            <optgroup *ngFor="let activ of Activities" label="{{activ.nomActivite}}" >
+              <option *ngFor="let groupe of activ.Groupe" [value]="groupe.id">{{groupe.NomGroupe}}</option>
+            </optgroup>
           </select>
           <div class="invalid-feedback" *ngIf="groupe.touched">
             Ce champs est obligatoire.
@@ -208,6 +208,17 @@
       <div class="row w-100 m-0">
         <div class="row w-50 col-6 p-0">
 
+          <div class="form-group col-12">
+            <label for="saison">Saison<b class="text-danger">*</b></label>
+            <select id="saison" class="form-control" formControlName="saison" [ngClass]="form.controls['saison'].invalid && saison.touched ? 'is-invalid' : form.controls['saison'].valid? 'is-valid': '' " style=" height: 50px;">
+              <option value="" disabled selected>Dans quelle saison voulez vous ajouter ce membre ...</option>
+              <option *ngFor="let saison of Saisons" [value]="saison.id">{{saison.NomSaison}}  : [ {{saison.DateSaison | date: 'dd/MM/yyyy'}} - {{saison.DateFinSaison | date: 'dd/MM/yyyy'}}]</option>
+            </select>            
+            <div class="invalid-feedback" *ngIf="saison.touched">
+              Ce champs est obligatoire.
+            </div>
+          </div>
+
         <div class="form-group col-12">
           <label for="dateI">Date 1ere inscription<b class="text-danger">*</b></label>
           <input type="date" id="dateI" class="form-control py-4" formControlName="dateI" [ngClass]="form.controls['dateI'].invalid && dateI.touched ? 'is-invalid' : form.controls['dateI'].valid? 'is-valid': '' ">
@@ -216,13 +227,13 @@
           </div>
         </div>
 
-        <div class="form-group col-12">
-          <label for="cotisation">Cotisation <b class="text-danger">*</b></label>
-          <input type="number" id="cotisation" class="form-control py-4" formControlName="cotisation" [ngClass]="form.controls['cotisation'].invalid && cotisation.touched && !Covalid ? 'is-invalid' : Covalid? 'is-valid': '' " #coti (keyup)="coti.value?Covalid=true:Covalid=false">
-          <div class="invalid-feedback" *ngIf="cotisation.touched && !Covalid">
-            Ce champs est obligatoire.
+          <div class="form-group col-12">
+            <label for="cotisation">Cotisation <b class="text-danger">*</b></label>
+            <input type="number" id="cotisation" class="form-control py-4" formControlName="cotisation" [ngClass]="form.controls['cotisation'].invalid && cotisation.touched && !Covalid ? 'is-invalid' : Covalid? 'is-valid': '' " #coti (keyup)="coti.value?Covalid=true:Covalid=false">
+            <div class="invalid-feedback" *ngIf="cotisation.touched && !Covalid">
+              Ce champs est obligatoire.
+            </div>
           </div>
-        </div>
 
           <div class="form-group col-12">
             <label for="grade">grade<b class="text-danger">*</b></label>
@@ -256,7 +267,7 @@
           </div>
       </div>
 
-      <button type="submit" class="btn btn-primary" >Ajouter</button>
+      <button type="submit" class="btn btn-primary"  >Ajouter</button>
 
 
     </form>

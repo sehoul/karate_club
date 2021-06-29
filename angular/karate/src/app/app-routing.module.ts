@@ -50,6 +50,7 @@ import { GroupesmembresComponent } from './president/groupesmembres/groupesmembr
 import { ExcelComponent } from './excel/excel.component';
 import { ProfilComponent } from './instructeur/profil/profil.component';
 import { SaisonsComponent } from './president/saisons/saisons.component';
+import { SaisonsComponent as SaisonSec } from './secretaire/saisons/saisons.component';
 
 
 const routes: Routes = [
@@ -105,7 +106,9 @@ const routes: Routes = [
       {path:'comptes',component:adminS},
       {path:'ajouter-compte',component:addAdminS},
       {path:'groupes-membres',component:grpmembreS},
-      {path:'activites-membres',component:AddmembreactivitesComponent}
+      {path:'activites-membres',component:AddmembreactivitesComponent},
+      {path:'saisons',component:SaisonSec}
+
 
     ]
   },
