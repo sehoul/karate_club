@@ -259,6 +259,8 @@ class MembreController extends AbstractController
         $user=$this->userRepository->findOneBy(['id' => $id]);
         $data=$request->getContent();
         $data=$this->serializer->deserialize($data,Path::class,'json');
+        $saison_actuelle=$this->saisonRepository->ValidSaison(new \DateTime());
+        $membreSaison=new SaisonMembre();
         if ($user){
             if($data){
                 try{
@@ -318,6 +320,11 @@ class MembreController extends AbstractController
                                                 $this->getDoctrine()->getManager()->persist($membreGroupe);
                                             }
                                         }
+                                    }
+                                    if($saison_actuelle){
+                                        $membreSaison->setSaison($saison_actuelle[0])
+                                        ->setMembre($membre);
+                                        $this->getDoctrine()->getManager()->persist($membreSaison);
                                     }
                                     $action=new Actions();
                                     $action->setUser($user)
