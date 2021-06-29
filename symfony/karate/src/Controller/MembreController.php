@@ -9,10 +9,12 @@ use App\Entity\Categorie;
 use App\Entity\GroupeMembre;
 use App\Entity\MembreActivite;
 use App\Entity\Path;
+use App\Entity\SaisonMembre;
 use App\Repository\ActiviteRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\MembreRepository;
+use App\Repository\SaisonRepository;
 use App\Repository\UserRepository;
 use Exception;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -28,12 +30,13 @@ use League\Csv\Reader;
 
 class MembreController extends AbstractController
 {
-    public function __construct(MembreRepository $membreRepository,ActiviteRepository $activiteRepository,GroupeRepository $groupeRepository,CategorieRepository $categorieRepository,UserRepository $userRepository,SerializerInterface $serializer){
+    public function __construct(MembreRepository $membreRepository,SaisonRepository $saisonRepository,ActiviteRepository $activiteRepository,GroupeRepository $groupeRepository,CategorieRepository $categorieRepository,UserRepository $userRepository,SerializerInterface $serializer){
         $this->membreRepository=$membreRepository;
         $this->activiteRepository=$activiteRepository;
         $this->userRepository=$userRepository;
         $this->categorieRepository=$categorieRepository;
         $this->groupeRepository=$groupeRepository;
+        $this->saisonRepository=$saisonRepository;
         $this->serializer=$serializer;
     }
 
@@ -56,12 +59,14 @@ class MembreController extends AbstractController
         $activite=$this->activiteRepository->findOneBy(["id"=>$groupe->getActivite()->getId()]);
         $categorie=$this->categorieRepository->findOneBy(["id"=>$data->getCategorie()->getId()]);
         $membre_existe=$this->membreRepository->findOneBy(["NumLicenceFFK"=>$data->getNumLicenceFFK()]);
+        $saison=$this->saisonRepository->findOneBy(["id"=>$data->getSaisonMembres()[0]->getSaison()->getId()]);      
         $membre=new Membre();
         $membreActivite= new MembreActivite();
         $membreGroupe= new GroupeMembre();
+        $membreSaison= new SaisonMembre();
         if ($user){
             if($data){
-                if($groupe && $activite){
+                if($groupe && $activite && $saison){
                     if($membre_existe){
                         return $this->json(['message' => "Oups!...Numéro de licence FFK deja existe!"],400,);
                     }else{
@@ -97,7 +102,12 @@ class MembreController extends AbstractController
                         $membreGroupe->setGroupe($groupe)
                         ->setMembre($membre);
                         $this->getDoctrine()->getManager()->persist($membreGroupe);
-    
+                        
+                        $membreSaison->setSaison($saison)
+                        ->setMembre($membre);
+                        $this->getDoctrine()->getManager()->persist($membreSaison);
+
+
                         $action=new Actions();
                         $action->setUser($user)
                         ->setType("Ajout")
@@ -137,6 +147,9 @@ class MembreController extends AbstractController
                         if($membre->getInformationMedicale()){
 
                             $this->getDoctrine()->getManager()->remove($membre->getInformationMedicale());
+                        }
+                        foreach($membre->getSaisonMembres() as $membreSaison){
+                            $this->getDoctrine()->getManager()->remove($membreSaison);
                         }
                         $action=new Actions();
                         $action->setUser($user)

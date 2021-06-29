@@ -49,6 +49,7 @@ import {AddmembreactivitesComponent} from "./secretaire/addmembreactivites/addme
 import { GroupesmembresComponent } from './president/groupesmembres/groupesmembres.component';
 import { ExcelComponent } from './excel/excel.component';
 import { ProfilComponent } from './instructeur/profil/profil.component';
+import { SaisonsComponent } from './president/saisons/saisons.component';
 
 
 const routes: Routes = [
@@ -85,6 +86,7 @@ const routes: Routes = [
       {path:'emploidutemps',component:EmploidutempsComponent},
       {path:'ajouter-crenau',component:AddemploidutempsComponent},
       {path:'groupes-membres',component:GroupesmembresComponent},
+      {path:'saisons',component:SaisonsComponent}
 
     ]
   },

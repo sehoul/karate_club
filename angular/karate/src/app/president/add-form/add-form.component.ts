@@ -7,11 +7,14 @@ import { CookieService } from 'ngx-cookie-service';
 import {DatePipe} from "@angular/common";
 import {formatDate} from '@angular/common';
 import { ActivitesService } from 'src/app/Services/activites.service';
+import { SaisonService } from 'src/app/Services/saison.service';
+
 interface Categorie{
   id:number,
   nomCategorie:string,
   Description:string
   };
+
 @Component({
   selector: 'app-add-form',
   templateUrl: './add-form.component.html',
@@ -21,7 +24,12 @@ export class AddFormComponent implements OnInit {
   form: FormGroup;
   _success:string="";
   _error:string="";
-  constructor(private fb: FormBuilder,private service:CategoriesService, private activService:ActivitesService,private membreService:MembresService,private cookie:CookieService) {
+  constructor(private fb: FormBuilder,
+              private service:CategoriesService, 
+              private activService:ActivitesService,
+              private membreService:MembresService,
+              private cookie:CookieService,
+              private SaisonsService:SaisonService) {
    
  
     this.form=this.fb.group({
@@ -45,6 +53,7 @@ export class AddFormComponent implements OnInit {
       cotisation:  new FormControl('', [Validators.required]),
       grade:  new FormControl('', [Validators.required]),
       observation:  new FormControl('', [Validators.required]),
+      saison:  new FormControl('', [Validators.required]),
 
 
     });
@@ -70,10 +79,10 @@ export class AddFormComponent implements OnInit {
   get cotisation() : any { return this.form.get('cotisation');}
   get grade() : any { return this.form.get('grade');}
   get observation() : any { return this.form.get('observation');}
+  get saison() : any { return this.form.get('saison');}
 
 
-  Categories : Array<any>=[];
-  Activities : Array<any>=[];
+  
   Covalid:boolean=false
   //@ts-ignore
   cotisation:any;
@@ -109,7 +118,7 @@ export class AddFormComponent implements OnInit {
     element.value.replace(pattern, "");
 }
 isValid(str:string) {
-  return !/[~`!@#$%\^&*()+=\-\[\]\\';,.^ç¤/{}|\\":<>\?]/g.test(str);
+  return !/[~`!@#$%\^&*()+=\-\[\]\\';, .^ç¤/{}|\\":<>\?]/g.test(str);
 }
 
   submit() {
@@ -134,6 +143,7 @@ isValid(str:string) {
       grade:this.form.getRawValue().grade,
       groupesMembre:[{groupe:{id:Number(this.form.getRawValue().groupe)}}],
       cotisation:this.form.getRawValue().cotisation,
+      saisonMembres:[{saison:{id:Number(this.form.getRawValue().saison)}}]
     }
 
     if( this.form.getRawValue().adresse != "" &&
@@ -149,6 +159,7 @@ isValid(str:string) {
         this.form.getRawValue().observation != "" &&
         this.form.getRawValue().grade != "" &&
         this.form.getRawValue().groupe != "" &&
+        this.form.getRawValue().saison != "" &&
         Number(this.form.getRawValue().cotisation).toString()!="")
       {
         if(this.informationParentalRequired){
@@ -160,6 +171,7 @@ isValid(str:string) {
           ){
             this.membreService.addMambre(Number(this.cookie.get('idPres')),data).subscribe(
               (res:any)=>{
+                console.log(res)
                 this._success="Membre a été bien ajouté !";
                 this._error="";
               },
@@ -186,10 +198,12 @@ isValid(str:string) {
         }
       }else{
         this._success="";
-        this._error="Merci de remplir tous les champs";
+        this._error="Merci de remplir tous les champs correctement";
       }
   }
-
+  Categories : Array<any>=[];
+  Activities : Array<any>=[];
+  Saisons: Array<any>=[];
 
   ngOnInit(): void {
     this.service.getCategories().subscribe((response: any) =>{
@@ -197,6 +211,10 @@ isValid(str:string) {
      });
      this.activService.getActivites().subscribe((response: any) =>{
       this.Activities=response;     
+    });
+    this.SaisonsService.getSaisonValid().subscribe((response: any) =>{
+      this.Saisons=response[0];  
+      console.log(response[0])   
     });
     };
 

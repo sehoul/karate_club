@@ -18,6 +18,15 @@
         </li>
     </ul>
     
+    <p class="text-gray font-weight-bold text-uppercase px-3 small pt-2 pb-1 mb-0">Saison</p>
+    <ul class="nav flex-column bg-white mb-0 ">
+        <li class="nav-item" >
+            <a [routerLink]="['saisons']" class="nav-link my-1 ml-2  text-dark">
+                <i class="bi bi-calendar3 mr-2" style="color:#5d6ab8;"></i>
+                    Les Saisons
+            </a>
+        </li> 
+    </ul>
 
     <p class="text-gray font-weight-bold text-uppercase px-3 small pt-2 pb-1 mb-0">Membres</p>
     <ul class="nav flex-column bg-white mb-0 ">
@@ -34,6 +43,8 @@
             </a>
         </li> 
     </ul>
+
+    
 
     <p class="text-gray font-weight-bold text-uppercase px-3 small pt-2 pb-1 mb-0">Activites</p>
     <ul class="nav flex-column bg-white mb-0">
@@ -95,7 +106,7 @@
     <ul class="nav flex-column bg-white mb-0">
         <li class="nav-item" >
             <a [routerLink]="['emploidutemps']" class="nav-link my-1 ml-2 text-dark ">
-                <i class="bi bi-calendar-date mr-2" style="color:#5d6ab8;"></i>                
+                <i class="bi bi-calendar2-week-fill mr-2" style="color:#5d6ab8;"></i>                
                 Emplois du temps
             </a>
         </li>

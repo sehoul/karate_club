@@ -26,6 +26,7 @@ import { CalendrierComponent } from '../instructeur/calendrier/calendrier.compon
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { GroupesmembresComponent } from './groupesmembres/groupesmembres.component';
 import { MatSortModule } from '@angular/material/sort';
+import { SaisonsComponent } from './saisons/saisons.component';
 
 
 
@@ -43,7 +44,8 @@ import { MatSortModule } from '@angular/material/sort';
     AddadminComponent,
     EmploidutempsComponent,
     AddemploidutempsComponent,
-    GroupesmembresComponent
+    GroupesmembresComponent,
+    SaisonsComponent
 
   ],
   imports: [

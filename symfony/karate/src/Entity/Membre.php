@@ -158,10 +158,16 @@ class Membre
      */
     private $GroupesMembre;
 
+    /**
+     * @ORM\OneToMany(targetEntity=SaisonMembre::class, mappedBy="Membre")
+     */
+    private $saisonMembres;
+
     public function __construct()
     {
         $this->membreActivites = new ArrayCollection();
         $this->GroupesMembre = new ArrayCollection();
+        $this->saisonMembres = new ArrayCollection();
     }
 
 
@@ -492,6 +498,36 @@ class Membre
             // set the owning side to null (unless already changed)
             if ($groupesMembre->getMembre() === $this) {
                 $groupesMembre->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SaisonMembre[]
+     */
+    public function getSaisonMembres(): Collection
+    {
+        return $this->saisonMembres;
+    }
+
+    public function addSaisonMembre(SaisonMembre $saisonMembre): self
+    {
+        if (!$this->saisonMembres->contains($saisonMembre)) {
+            $this->saisonMembres[] = $saisonMembre;
+            $saisonMembre->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSaisonMembre(SaisonMembre $saisonMembre): self
+    {
+        if ($this->saisonMembres->removeElement($saisonMembre)) {
+            // set the owning side to null (unless already changed)
+            if ($saisonMembre->getMembre() === $this) {
+                $saisonMembre->setMembre(null);
             }
         }
 

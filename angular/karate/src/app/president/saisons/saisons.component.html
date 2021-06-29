@@ -1,0 +1,77 @@
+
+<div class="conainer-fluid">
+    <div class="w-100 pl-5 text-white top-title">
+      <h2 class="pl-5 ml-3 pt-4 pb-4 text-left">Les Saisons</h2>
+    </div>
+    <div class="recherche">
+      <h5 class="w-100">Barre de recherche :</h5>
+      <input (keyup)="applyFilter($event)" placeholder="Recherchez...." #input>
+    </div>
+  
+      <div *ngIf="_error" class="input-group  mb-2 alert-danger rounded py-4 px-3">
+        {{_error}}
+      </div>
+      <div *ngIf="_success" class="input-group mb-2 alert-info rounded py-4 px-3">
+        {{_success}}
+      </div>
+      <div class="shadow-sm p-3 mb-5 bg-white rounded operation">
+        <h6>Operations :</h6>
+        <button class="btn btn-info ml-3" ><i class="bi bi-file-earmark-spreadsheet-fill mr-2"></i>Exporter en Excel</button>
+      </div>
+      <br>
+    <table id="excel-table" mat-table [dataSource]="dataSource"matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="{{col}}" *ngFor="let col of displayedColumns">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <span *ngIf="col !== '$$edit'">
+            {{col}}
+          </span>
+        </th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <div *ngIf="!element.isEdit">
+            
+            <div class="btn-edit" *ngIf="col === '$$edit'; spanHeader" >
+              <button class="btn btn-link text-info" title="Modifier" (click)="element.isEdit = !element.isEdit"><i class="bi bi-pencil-square"></i></button>
+              <button class="btn btn-link text-danger ml-2" title="Supprimer" (click)="delete(element['NomSaison'],i,element['id'])"><i class="bi bi-trash-fill"></i></button>
+            </div>           
+            <span *ngIf="col === 'DateSaison' || col === 'DateFinSaison'"  #spanHeader>
+                {{element[col] | date: 'dd/MM/yyyy'}}
+            </span>
+            <span *ngIf="col !== 'DateSaison' && col !== 'DateFinSaison'"  #spanHeader>
+              {{element[col]}}
+            </span>
+          </div>
+          <div *ngIf="element.isEdit">
+            <div class="btn-edit" *ngIf="col === '$$edit'; else dateField">
+              <button class="btn btn-success text-white" title="Valider" (click)="element.isEdit = !element.isEdit;edit(element)"><i class="bi bi-check-square-fill"></i> valider</button>
+            </div>
+            <ng-template #dateField>
+                <mat-form-field appearance="fill" #elseDate *ngIf="dataSchema[col] === 'date'; else defaultField">
+                  <mat-label>Selectionner une date</mat-label>
+                  <input matInput [matDatepicker]="picker" [(ngModel)]="element[col]">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </ng-template>
+
+            <ng-template #defaultField>
+              <mat-form-field *ngIf="col === 'NomSaison'; else nonEditedTemplate">
+                <mat-label>{{col}}</mat-label>
+                <input type="{{dataSchema[col]}}" matInput [(ngModel)]="element[col]"> 
+              </mat-form-field>
+            </ng-template>
+  
+            <ng-template #nonEditedTemplate>
+              <span #spanHeader>
+                {{element[col]}} 
+              </span>
+            </ng-template>
+  
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[10, 50, 200]" showFirstLastButtons></mat-paginator>
+    
