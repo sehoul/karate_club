@@ -66,7 +66,7 @@ export class EmploidutempsComponent implements OnInit {
             {
             if(confirm(eventObj.title.split("#", 2)[0] +" de "+ (new DatePipe('fr-FR')).transform(eventObj.start,'M/d/yy hh:mm')  + " à " + (new DatePipe('fr-FR')).transform(eventObj.end,'M/d/yy hh:mm') + "\nSi vous voulez supprimer ce crenau cliquez \"OK\"")){
               if(confirm("Vous voullez supprimer ce crenau")){
-                emp.deleteCrenau(Number(eventObj.title.split("#", 2)[1]),Number(cookie.get('idPres'))).subscribe((res:any)=>{ 
+                emp.deleteCrenau(Number(eventObj.title.split("#", 2)[1]),Number(cookie.get('idSec'))).subscribe((res:any)=>{ 
                   window.location.reload();                
                 },error=>{
                   err(error.error.message);
@@ -77,7 +77,7 @@ export class EmploidutempsComponent implements OnInit {
           else
           if(confirm(eventObj.title.split("#", 2)[0] +" de "+ (new DatePipe('fr-FR')).transform(eventObj.start,'M/d/yy hh:mm')  + " à " + (new DatePipe('fr-FR')).transform(eventObj.start,'M/d/yy hh:mm') + "\nSi vous voulez supprimer ce crenau cliquez \"OK\"")){
             if(confirm("Vous voullez supprimer ce crenau")){
-            emp.deleteCrenau(Number(eventObj.title.split("#", 2)[1]),Number(cookie.get('idPres'))).subscribe((res:any)=>{       
+            emp.deleteCrenau(Number(eventObj.title.split("#", 2)[1]),Number(cookie.get('idSec'))).subscribe((res:any)=>{       
               window.location.reload();
             },error=>{
               err(error.error.message);
